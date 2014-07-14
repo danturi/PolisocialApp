@@ -102,9 +102,9 @@ public class MainActivity extends Activity {
 			Poliuserendpoint endpoint = builder.build();
 			
 			try {
-				System.out.println("pre");
+				
 				endpoint.insertPoliUser(poliUser).execute();
-				System.out.println("post");
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

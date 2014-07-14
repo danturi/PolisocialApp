@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/poliuserendpoint/v1/20140703210645/java/1.18.0-rc/polimi.it-poliuserendpoint-v1-20140703210645-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-poliuserendpoint-v1-20140703210645-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/poliuserendpoint/v1/20140714154141/java/1.18.0-rc/polimi.it-poliuserendpoint-v1-20140714154141-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-poliuserendpoint-v1-20140714154141-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-07-03 21:06"
+      "timestamp": "2014-07-14 15:41"
     }, 
     {
-      "path": "polimi.it-poliuserendpoint-v1-20140703210645-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-poliuserendpoint-v1-20140714154141-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "poliuserendpoint:v1", 
-  "revision": 20140703210645
+  "revision": 20140714154141
 }

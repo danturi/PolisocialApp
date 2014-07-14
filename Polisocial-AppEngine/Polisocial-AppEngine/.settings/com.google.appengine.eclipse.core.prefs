@@ -4,4 +4,4 @@ gaeDatanucleusVersion=v2
 gaeHrdEnabled=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
-ormEnhancementInclusions=src/it/polimi/dima/polisocial/entity/|src/it/polimi/dima/polisocial/foursquare/|src/it/polimi/dima/polisocial/foursquare/constants/
+ormEnhancementInclusions=src/**|lib/
