@@ -1,0 +1,219 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://myapp.appspot.com/_ah/api",
+  "name" : "foursquareendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://myapp.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "polimi.it",
+  "ownerName" : "polimi.it",
+  "packagePath" : "dima.polisocial.foursquare",
+  "methods" : {
+    "foursquareendpoint.searchVenues" : {
+      "path" : "searchVenues/{ll}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.searchVenues",
+      "request" : {
+        "parameters" : {
+          "ll" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "foursquareendpoint.foursquarePolisocialAPI.authenticationRequest" : {
+      "path" : "authenticationRequest",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.authenticationRequest",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "foursquareendpoint.foursquarePolisocialAPI.handleCallback" : {
+      "path" : "handleCallback",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.handleCallback",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "StringCollection" : {
+        "id" : "StringCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "HttpServletResponse" : {
+        "id" : "HttpServletResponse",
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "integer"
+          },
+          "committed" : {
+            "type" : "boolean"
+          },
+          "contentType" : {
+            "type" : "string"
+          },
+          "locale" : {
+            "$ref" : "Locale"
+          },
+          "bufferSize" : {
+            "type" : "integer"
+          },
+          "writer" : {
+            "$ref" : "PrintWriter"
+          },
+          "contentLength" : {
+            "type" : "integer"
+          },
+          "outputStream" : {
+            "$ref" : "ServletOutputStream"
+          },
+          "characterEncoding" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Locale" : {
+        "id" : "Locale",
+        "type" : "object",
+        "properties" : {
+          "language" : {
+            "type" : "string"
+          },
+          "script" : {
+            "type" : "string"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "variant" : {
+            "type" : "string"
+          },
+          "extensionKeys" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "unicodeLocaleAttributes" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "unicodeLocaleKeys" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "iso3Language" : {
+            "type" : "string"
+          },
+          "iso3Country" : {
+            "type" : "string"
+          },
+          "displayLanguage" : {
+            "type" : "string"
+          },
+          "displayScript" : {
+            "type" : "string"
+          },
+          "displayCountry" : {
+            "type" : "string"
+          },
+          "displayVariant" : {
+            "type" : "string"
+          },
+          "displayName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PrintWriter" : {
+        "id" : "PrintWriter",
+        "type" : "object",
+        "properties" : {
+        }
+      },
+      "ServletOutputStream" : {
+        "id" : "ServletOutputStream",
+        "type" : "object",
+        "properties" : {
+        }
+      }
+    },
+    "methods" : {
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.searchVenues" : {
+        "response" : {
+          "$ref" : "StringCollection"
+        }
+      },
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.authenticationRequest" : {
+        "request" : {
+          "$ref" : "HttpServletResponse"
+        }
+      },
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.handleCallback" : {
+        "request" : {
+          "$ref" : "HttpServletResponse"
+        }
+      }
+    }
+  }
+}

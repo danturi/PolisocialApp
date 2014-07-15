@@ -28,7 +28,7 @@ public class FoursquarePolisocialAPI {
 	public ArrayList<String> searchVenues(@Named("ll") String ll) throws FoursquareApiException {
 
 		// Coordinate Politecnico di Milano
-		ll = "45.478178,9.228031";
+		//ll = "45.478178,9.228031";
 
 		// Categorie cibo
 		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"

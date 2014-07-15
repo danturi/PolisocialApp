@@ -13,4 +13,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/results" />
 
+    <Button
+        android:id="@+id/buttonFSQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:text="Foursquare" />
+
 </RelativeLayout>

@@ -1,34 +1,61 @@
 package it.polimi.dima.polisocial;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
+import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringCollection;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class FoursquareActivity extends Activity {
 
-	
-	private TextView resultsList; 
-	
+	String resultVenues="";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foursquare);
+
+		/*if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new SearchFragment()).commit();
+		}*/
 		
+		Button button= (Button)findViewById(R.id.buttonSearch);
+		button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				// non funziona ....
+				try {
+					 resultVenues = new SearchVenuesNearPoliTask().get().toString(); 
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
+				Intent openVenuesPage = new Intent(FoursquareActivity.this, VenuesActivity.class); 
+				openVenuesPage.putExtra("result", resultVenues);
+				startActivity(openVenuesPage);
+			}
+		});
 	}
 
 
@@ -50,58 +77,81 @@ public class FoursquareActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private class SearchVenuesNearPoliTask extends AsyncTask<Void, Void, StringCollection> {
 
+		@Override
+		protected StringCollection doInBackground(Void... params) {
+			Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Foursquareendpoint endpoint = builder.build();
+			
+			StringCollection result;
+			String ll = "45.478178,9.228031"; 
+			try {
+				 result = endpoint.searchVenues(ll).execute();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+				result = null;
+			}
+			return result;
+		}
+		
+		@Override
+	    @SuppressWarnings("null")
+	    protected void onPostExecute(StringCollection result) {
+			
+			
+			
+			
+
+	      if (result == null || result.getItems() == null || result.getItems().size() < 1) {
+	        if (result == null) {
+	        	resultVenues ="Retrieving venues failed.";
+	        	
+	        	
+	        } else {
+	        	resultVenues=  "No venues found.";
+	        }
+	        
+	      }
+
+	      List<String> venuesName = result.getItems();
+	      StringBuffer venuesFound = new StringBuffer();
+	      
+	      for (String venue : venuesName){
+	        venuesFound.append(venue+ "\r\n");
+	      }
+	      
+	      resultVenues = venuesFound.toString();
+	     
+	      
+	    }
+	  }
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment implements android.view.View.OnClickListener {
+	public static class SearchFragment extends Fragment {
 
 		
 		
-		public PlaceholderFragment() {
-		}
+		public SearchFragment() {}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_foursquare,
+			View rootview = inflater.inflate(R.layout.fragment_foursquare,
 					container, false);
-			Button button= (Button) rootView.findViewById(R.id.buttonLogin);
-			button.setOnClickListener(this);
+			
 
-			return rootView;
+			return rootview;
 		}
-
-		@Override
-		public void onClick(View v) {
-
-			new SearchVenuesNearPoliTask().execute();
-		}
-
-		private class SearchVenuesNearPoliTask extends AsyncTask<Void, Void, ArrayList<String>> {
-
-			@Override
-			protected ArrayList<String> doInBackground(Void... params) {
-				Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
-						AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-				builder = CloudEndpointUtils.updateBuilder(builder);
-				Foursquareendpoint endpoint = builder.build();
-				
-				ArrayList<String> results = new ArrayList<String>();
-				String ll = "45.478178,9.228031"; 
-				try {
-					 endpoint.searchVenues(ll);
-				} catch (IOException e) {
-
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-		}
-
 
 	}
 
 
 }
+

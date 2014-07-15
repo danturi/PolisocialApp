@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -58,6 +58,10 @@
         <activity
             android:name=".FoursquareActivity"
             android:label="@string/title_activity_foursquare" >
+        </activity>
+        <activity
+            android:name=".VenuesActivity"
+            android:label="@string/title_activity_venues" >
         </activity>
     </application>
 
