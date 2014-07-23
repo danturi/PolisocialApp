@@ -5,7 +5,6 @@ import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringColle
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,13 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class FoursquareActivity extends Activity {
 
-	String resultVenues="";
+	private TextView resultVenues ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +43,9 @@ public class FoursquareActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				// non funziona ....
-				try {
-					 resultVenues = new SearchVenuesNearPoliTask().get().toString(); 
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				}
-				Intent openVenuesPage = new Intent(FoursquareActivity.this, VenuesActivity.class); 
-				openVenuesPage.putExtra("result", resultVenues);
-				startActivity(openVenuesPage);
+				resultVenues = (TextView) findViewById(R.id.resultVenues);
+				new SearchVenuesNearPoliTask().execute();
+				
 			}
 		});
 	}
@@ -104,16 +96,18 @@ public class FoursquareActivity extends Activity {
 	    protected void onPostExecute(StringCollection result) {
 			
 			
-			
-			
+		Intent i = new Intent(FoursquareActivity.this,VenuesActivity.class);			
 
 	      if (result == null || result.getItems() == null || result.getItems().size() < 1) {
 	        if (result == null) {
-	        	resultVenues ="Retrieving venues failed.";
-	        	
+	        	resultVenues.setText("Retrieving venues failed.");
+	        	//i.putExtra("polisocial.venues.result", "Retrieving venues failed.");
+	        	//startActivity(i);
 	        	
 	        } else {
-	        	resultVenues=  "No venues found.";
+	        	resultVenues.setText("No venues found.");
+	        	//i.putExtra("polisocial.venues.result", "No venues found.");
+	        	//startActivity(i);
 	        }
 	        
 	      }
@@ -125,8 +119,9 @@ public class FoursquareActivity extends Activity {
 	        venuesFound.append(venue+ "\r\n");
 	      }
 	      
-	      resultVenues = venuesFound.toString();
-	     
+	      resultVenues.setText(venuesFound.toString());
+	      //i.putExtra("polisocial.venues.result", venuesFound.toString());
+      	  //startActivity(i);
 	      
 	    }
 	  }
@@ -154,4 +149,3 @@ public class FoursquareActivity extends Activity {
 
 
 }
-

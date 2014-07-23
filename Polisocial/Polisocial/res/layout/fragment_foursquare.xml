@@ -8,11 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="it.polimi.dima.polisocial.FoursquareActivity$SearchFragment" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cerca locali" />
+
+
 
     <Button
         android:id="@+id/buttonSearch"
