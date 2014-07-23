@@ -28,7 +28,7 @@ public class FoursquarePolisocialAPI {
 	public ArrayList<String> searchVenues(@Named("ll") String ll) throws FoursquareApiException {
 
 		// Coordinate Politecnico di Milano
-		//ll = "45.478178,9.228031";
+		// ll = "45.478178,9.228031";
 
 		// Categorie cibo
 		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"
@@ -65,30 +65,6 @@ public class FoursquarePolisocialAPI {
 	
 	
 	
-	//@ApiMethod(name="foursquareAuthenticationRequest")
-	public void authenticationRequest(HttpServletRequest request, HttpServletResponse response) {
-		FoursquareApi foursquareApi = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL);
-		try {
-			// First we need to redirect our user to authentication page.
-		
-			response.sendRedirect(foursquareApi.getAuthenticationUrl());
-		} catch (IOException e) {
-			// TODO: Error handling
-		}
-	}
-	//@ApiMethod(name="handleCallback")
-	public void handleCallback(HttpServletRequest request,HttpServletResponse response) {
-		// After user has logged in and confirmed that our program may access user's Foursquare account
-		// Foursquare redirects user back to callback url.
-		FoursquareApi foursquareApi = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL);
-		// Callback url contains authorization code
-		String code = request.getParameter("code");
-		try {
-			// finally we need to authenticate that authorization code
-			foursquareApi.authenticateCode(code);
-			// ... and voilà we have a authenticated Foursquare client
-		} catch (FoursquareApiException e) {
-			// TODO: Error handling
-		}
-	}
+	
+	
 }

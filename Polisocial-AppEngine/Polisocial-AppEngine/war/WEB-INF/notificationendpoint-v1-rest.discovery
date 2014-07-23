@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"p_qcyFV0KQVqSB1Aq3pqmPu-2MY/B8u8S6lorAi6D_ZCVvkVQswmWFY\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/B8u8S6lorAi6D_ZCVvkVQswmWFY\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",

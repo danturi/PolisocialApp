@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"p_qcyFV0KQVqSB1Aq3pqmPu-2MY/osKSK5-DP3q3vTI4EfYaK_DA6tI\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/osKSK5-DP3q3vTI4EfYaK_DA6tI\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",

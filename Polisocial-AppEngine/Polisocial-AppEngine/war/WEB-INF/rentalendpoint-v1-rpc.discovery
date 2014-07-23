@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"p_qcyFV0KQVqSB1Aq3pqmPu-2MY/n070y07sx75KqsYtXvRfxIH-5KA\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/n070y07sx75KqsYtXvRfxIH-5KA\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",

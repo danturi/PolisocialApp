@@ -64,22 +64,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "poliuserendpoint.updatePoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.updatePoliUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "poliuserendpoint.listPoliUser" : {
       "path" : "poliuser",
       "httpMethod" : "GET",
@@ -100,6 +84,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.updatePoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.updatePoliUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -205,14 +205,14 @@
           "name" : {
             "type" : "string"
           },
+          "parent" : {
+            "$ref" : "Key"
+          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -291,17 +291,17 @@
           "$ref" : "PoliUser"
         }
       },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PoliUser"
+        }
+      },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.updatePoliUser" : {
         "request" : {
           "$ref" : "PoliUser"
         },
         "response" : {
           "$ref" : "PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
-        "response" : {
-          "$ref" : "CollectionResponse_PoliUser"
         }
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser" : {

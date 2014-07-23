@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"p_qcyFV0KQVqSB1Aq3pqmPu-2MY/eYbhT66X6T1YAl7EaMsTa_ZdxdQ\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/eYbhT66X6T1YAl7EaMsTa_ZdxdQ\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",

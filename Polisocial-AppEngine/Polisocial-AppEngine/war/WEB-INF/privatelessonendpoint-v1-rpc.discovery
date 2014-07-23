@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"p_qcyFV0KQVqSB1Aq3pqmPu-2MY/ChndlO2YmpnSPstyWS7yOdp-p8o\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/ChndlO2YmpnSPstyWS7yOdp-p8o\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
