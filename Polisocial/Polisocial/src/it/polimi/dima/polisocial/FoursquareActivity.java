@@ -27,11 +27,12 @@ public class FoursquareActivity extends Activity {
 
 	private TextView resultVenues ;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foursquare);
-
+		
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new SearchFragment()).commit();
@@ -47,6 +48,25 @@ public class FoursquareActivity extends Activity {
 				new SearchVenuesNearPoliTask().execute();
 				
 			}
+		});
+
+		Button launchOauth = (Button) findViewById(R.id.btn_launch_oauth);
+		launchOauth.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				
+				startActivity(new Intent().setClass(v.getContext(),OAuthAccessActivity.class));
+			
+			}
+		});
+	
+		Button clearCredentials = (Button) findViewById(R.id.btn_clear_credentials);
+		clearCredentials.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//clearCredentials();
+				//new PerformApiCallTask().execute();
+			}
+
 		});
 	}
 
@@ -96,7 +116,7 @@ public class FoursquareActivity extends Activity {
 	    protected void onPostExecute(StringCollection result) {
 			
 			
-		Intent i = new Intent(FoursquareActivity.this,VenuesActivity.class);			
+					
 
 	      if (result == null || result.getItems() == null || result.getItems().size() < 1) {
 	        if (result == null) {

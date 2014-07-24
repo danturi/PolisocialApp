@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/osKSK5-DP3q3vTI4EfYaK_DA6tI\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/_QemGUAn5Ca3Jk-yX5pLAOqn8Nc\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -74,107 +74,6 @@
   }
  },
  "schemas": {
-  "HttpServletResponse": {
-   "id": "HttpServletResponse",
-   "type": "object",
-   "properties": {
-    "bufferSize": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "characterEncoding": {
-     "type": "string"
-    },
-    "committed": {
-     "type": "boolean"
-    },
-    "contentLength": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "contentType": {
-     "type": "string"
-    },
-    "locale": {
-     "$ref": "Locale"
-    },
-    "outputStream": {
-     "$ref": "ServletOutputStream"
-    },
-    "status": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "writer": {
-     "$ref": "PrintWriter"
-    }
-   }
-  },
-  "Locale": {
-   "id": "Locale",
-   "type": "object",
-   "properties": {
-    "country": {
-     "type": "string"
-    },
-    "displayCountry": {
-     "type": "string"
-    },
-    "displayLanguage": {
-     "type": "string"
-    },
-    "displayName": {
-     "type": "string"
-    },
-    "displayScript": {
-     "type": "string"
-    },
-    "displayVariant": {
-     "type": "string"
-    },
-    "extensionKeys": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "iso3Country": {
-     "type": "string"
-    },
-    "iso3Language": {
-     "type": "string"
-    },
-    "language": {
-     "type": "string"
-    },
-    "script": {
-     "type": "string"
-    },
-    "unicodeLocaleAttributes": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "unicodeLocaleKeys": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "variant": {
-     "type": "string"
-    }
-   }
-  },
-  "PrintWriter": {
-   "id": "PrintWriter",
-   "type": "object"
-  },
-  "ServletOutputStream": {
-   "id": "ServletOutputStream",
-   "type": "object"
-  },
   "StringCollection": {
    "id": "StringCollection",
    "type": "object",
@@ -189,6 +88,24 @@
   }
  },
  "methods": {
+  "performTokenRequest": {
+   "id": "foursquareendpoint.performTokenRequest",
+   "path": "performTokenRequest/{code}",
+   "httpMethod": "POST",
+   "parameters": {
+    "code": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "code"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "searchVenues": {
    "id": "foursquareendpoint.searchVenues",
    "path": "searchVenues/{ll}",
@@ -209,36 +126,6 @@
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
-  }
- },
- "resources": {
-  "foursquarePolisocialAPI": {
-   "methods": {
-    "authenticationRequest": {
-     "id": "foursquareendpoint.foursquarePolisocialAPI.authenticationRequest",
-     "path": "authenticationRequest",
-     "httpMethod": "POST",
-     "request": {
-      "$ref": "HttpServletResponse",
-      "parameterName": "resource"
-     },
-     "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email"
-     ]
-    },
-    "handleCallback": {
-     "id": "foursquareendpoint.foursquarePolisocialAPI.handleCallback",
-     "path": "handleCallback",
-     "httpMethod": "POST",
-     "request": {
-      "$ref": "HttpServletResponse",
-      "parameterName": "resource"
-     },
-     "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email"
-     ]
-    }
-   }
   }
  }
 }

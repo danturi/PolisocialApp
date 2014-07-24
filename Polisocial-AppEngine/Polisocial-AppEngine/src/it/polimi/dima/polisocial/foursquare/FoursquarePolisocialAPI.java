@@ -1,11 +1,7 @@
 package it.polimi.dima.polisocial.foursquare;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -58,12 +54,12 @@ public class FoursquarePolisocialAPI {
 		}
 	}
 	
+	@ApiMethod(name="performTokenRequest")
+	public void performTokenRequest(@Named("code") String code){
+		System.out.println("richiesta token");
 	
-	
-	
-	
-	
-	
+		
+	}
 	
 	
 	
