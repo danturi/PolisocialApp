@@ -7,5 +7,10 @@
     <string name="title_activity_foursquare">FoursquareActivity</string>
     <string name="title_activity_venues">VenuesActivity</string>
     <string name="title_activity_prova">ProvaActivity</string>
-
+    <string name="clear_credentials">Clear credentials</string>
+    <string name="launch_oauth_flow">Login FSQ</string>
+    <string name="title_activity_oauth_access">OAuthAccessActivity</string>
+    <string name="connected_to_foursquare">Connected_to_foursquare</string>
+	<string name="app_not_installed_message">App not installed</string>
+	
 </resources>
