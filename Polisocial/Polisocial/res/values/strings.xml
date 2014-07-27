@@ -11,6 +11,7 @@
     <string name="launch_oauth_flow">Login FSQ</string>
     <string name="title_activity_oauth_access">OAuthAccessActivity</string>
     <string name="connected_to_foursquare">Connected_to_foursquare</string>
-	<string name="app_not_installed_message">App not installed</string>
-	
+    <string name="app_not_installed_message">App not installed</string>
+    <string name="title_activity_authorized_foursquare">AuthorizedFoursquareActivity</string>
+
 </resources>
