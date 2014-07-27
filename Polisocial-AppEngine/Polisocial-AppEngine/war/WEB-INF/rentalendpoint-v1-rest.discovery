@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/n070y07sx75KqsYtXvRfxIH-5KA\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/SOptAUcPulgyCpchtDVlde2xAt4\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/rentalendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/rentalendpoint/v1/",
  "basePath": "/_ah/api/rentalendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "rentalendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

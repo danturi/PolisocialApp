@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/r9GgrSMJPvrRiX86hE2PlpV5Upk\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/X5jzB1nI6de0kWXRRgSoAt4NJtQ\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/poliuserendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/poliuserendpoint/v1/",
  "basePath": "/_ah/api/poliuserendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "poliuserendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

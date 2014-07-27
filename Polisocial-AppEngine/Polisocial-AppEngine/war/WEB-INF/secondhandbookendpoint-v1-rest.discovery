@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/g26rZAV68R3coniPUjyduVjQHpw\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/2GpSWhpah0_5_Ow21A6JiEv0tOI\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/secondhandbookendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/secondhandbookendpoint/v1/",
  "basePath": "/_ah/api/secondhandbookendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "secondhandbookendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

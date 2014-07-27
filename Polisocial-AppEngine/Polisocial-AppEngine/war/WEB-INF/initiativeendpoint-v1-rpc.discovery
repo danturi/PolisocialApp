@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/KTKSDQg7hdI25RZXsUd7DnS2J-M\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/YPJ376cMN5W30bYPlUwU_d7Tg2k\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -14,8 +14,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
- "rpcUrl": "https://myapp.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
+ "rpcUrl": "https://polimisocial.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {

@@ -1,12 +1,12 @@
 {
   "extends" : "thirdParty.api",
   "abstract" : false,
-  "root" : "https://myapp.appspot.com/_ah/api",
+  "root" : "https://polimisocial.appspot.com/_ah/api",
   "name" : "postspottedendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
-    "bns" : "https://myapp.appspot.com/_ah/spi",
+    "bns" : "https://polimisocial.appspot.com/_ah/spi",
     "deadline" : 65.0,
     "type" : "lily"
   },
@@ -27,22 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "postspottedendpoint.updatePostSpotted" : {
-      "path" : "postspotted",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "postspottedendpoint.insertPostSpotted" : {
       "path" : "postspotted",
       "httpMethod" : "POST",
@@ -51,6 +35,22 @@
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.updatePostSpotted" : {
+      "path" : "postspotted",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -175,14 +175,14 @@
           "name" : {
             "type" : "string"
           },
+          "parent" : {
+            "$ref" : "Key"
+          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -203,7 +203,7 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted" : {
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted" : {
         "request" : {
           "$ref" : "PostSpotted"
         },
@@ -211,7 +211,7 @@
           "$ref" : "PostSpotted"
         }
       },
-      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted" : {
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted" : {
         "request" : {
           "$ref" : "PostSpotted"
         },

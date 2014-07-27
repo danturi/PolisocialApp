@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/B8u8S6lorAi6D_ZCVvkVQswmWFY\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/i3NtQ3nXkXhXUaVaZwwnxxhewtM\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/notificationendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/notificationendpoint/v1/",
  "basePath": "/_ah/api/notificationendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "notificationendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

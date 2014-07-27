@@ -7,12 +7,11 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foursquare.android.nativeoauth.FoursquareCancelException;
@@ -30,8 +29,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 public class OAuthAccessActivity extends FragmentActivity {
 
 	private static final int REQUEST_CODE_FSQ_CONNECT = 200;
-	private static final int REQUEST_CODE_FSQ_TOKEN_EXCHANGE = 201;
-
 	private static final String CLIENT_ID ="C0UAYKHQET5QIKKQY50WOMCR50BESMVBGAN1BR5NSEHJ4NKU";
 
 	private Intent intent;
@@ -46,25 +43,15 @@ public class OAuthAccessActivity extends FragmentActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case REQUEST_CODE_FSQ_CONNECT:
+		if (requestCode == REQUEST_CODE_FSQ_CONNECT){
 			onCompleteConnect(resultCode, data);
-			break;
-
-		case REQUEST_CODE_FSQ_TOKEN_EXCHANGE:
-			onCompleteTokenExchange();
-			break;
-
-		default:
-			super.onActivityResult(requestCode, resultCode, data);
+		} else {
+			toastMessage(this, "Error Code");
 		}
 	}
 
-
+	
 	private void ensureUi() {
-
-		TextView tvMessage = (TextView) findViewById(R.id.tvMessage);
-		tvMessage.setVisibility(View.VISIBLE);
 
 		intent = FoursquareOAuth.getConnectIntent(OAuthAccessActivity.this, CLIENT_ID);
 
@@ -79,24 +66,15 @@ public class OAuthAccessActivity extends FragmentActivity {
 		}
 	}
 	
-	private void onCompleteConnect(int resultCode, Intent data) {
-        AuthCodeResponse codeResponse = FoursquareOAuth.getAuthCodeFromResult(resultCode, data);
-        Exception exception = codeResponse.getException();
+    private void onCompleteConnect(int resultCode, Intent data){
+    	
+    	AuthCodeResponse codeResponse = FoursquareOAuth.getAuthCodeFromResult(resultCode, data);
+		Exception exception = codeResponse.getException();
         
         if (exception == null) {
             // Success.
             String code = codeResponse.getCode();
-            Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-			builder = CloudEndpointUtils.updateBuilder(builder);
-			Foursquareendpoint endpoint = builder.build();
-            
-            try {
-				endpoint.performTokenRequest(code);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            onTokenExchange(code);
 
         } else {
             if (exception instanceof FoursquareCancelException) {
@@ -127,7 +105,11 @@ public class OAuthAccessActivity extends FragmentActivity {
             }
         }
     }
-    private void onCompleteTokenExchange() {
+    
+    private void onTokenExchange(String code) {
+    	System.out.println(code);
+    	new TokenFoursquareRequestTask().execute(code);
+    	
     }
     
  
@@ -156,5 +138,40 @@ public class OAuthAccessActivity extends FragmentActivity {
 		
 		public static void toastError(Context context, Throwable t) {
 			Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+		}
+		
+		private void finishAfterAsyncTask() {
+			this.finish();
+		}
+		
+		
+		private class TokenFoursquareRequestTask extends AsyncTask <String,Void,String> {
+
+			@Override
+			protected String doInBackground(String... params) {
+				String result= "";
+				Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				Foursquareendpoint endpoint = builder.build();
+				
+	            
+	            try {
+					endpoint.performTokenRequest(params[0]);
+				} catch (IOException e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					toastMessage(getBaseContext(), "errore perform token req");
+				}
+				return result;
+			}
+			
+			protected void onPostExecute(String result){
+				Intent in = new Intent (OAuthAccessActivity.this,AuthorizedFoursquareActivity.class);
+		    	startActivity(in);
+				finishAfterAsyncTask();
+				
+			}
+
 		}
 }

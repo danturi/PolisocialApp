@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/5j2X9MqBqT7BX92-TwoJTXzE10s\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/zpVcbz9ZhTMmIhQLrNRVoCXN-0U\"",
  "discoveryVersion": "v1",
  "id": "interestnotificationendpoint:v1",
  "name": "interestnotificationendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/interestnotificationendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/interestnotificationendpoint/v1/",
  "basePath": "/_ah/api/interestnotificationendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "interestnotificationendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

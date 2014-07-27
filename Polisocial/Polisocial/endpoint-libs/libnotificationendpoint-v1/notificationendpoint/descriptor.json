@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/notificationendpoint/v1/20140724131242/java/1.18.0-rc/polimi.it-notificationendpoint-v1-20140724131242-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-notificationendpoint-v1-20140724131242-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/notificationendpoint/v1/20140727022016/java/1.18.0-rc/polimi.it-notificationendpoint-v1-20140727022016-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-notificationendpoint-v1-20140727022016-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-07-24 13:12"
+      "timestamp": "2014-07-27 02:20"
     }, 
     {
-      "path": "polimi.it-notificationendpoint-v1-20140724131242-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-notificationendpoint-v1-20140727022016-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "notificationendpoint:v1", 
-  "revision": 20140724131242
+  "revision": 20140727022016
 }

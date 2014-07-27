@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/n070y07sx75KqsYtXvRfxIH-5KA\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/SOptAUcPulgyCpchtDVlde2xAt4\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -14,8 +14,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
- "rpcUrl": "https://myapp.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
+ "rpcUrl": "https://polimisocial.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {

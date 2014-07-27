@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/vZW6LSbbLVUFXJw5PI7aMay20ng\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/xpwyexaqXOOgc99OJ7rksoYbmvs\"",
  "discoveryVersion": "v1",
  "id": "commentendpoint:v1",
  "name": "commentendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/commentendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/commentendpoint/v1/",
  "basePath": "/_ah/api/commentendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "commentendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

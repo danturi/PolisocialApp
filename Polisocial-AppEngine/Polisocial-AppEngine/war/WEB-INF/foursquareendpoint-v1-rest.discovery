@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/_QemGUAn5Ca3Jk-yX5pLAOqn8Nc\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/MXMYYExY-PNZU8tC7F4Y5vqo7yA\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/foursquareendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/foursquareendpoint/v1/",
  "basePath": "/_ah/api/foursquareendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "foursquareendpoint/v1/",
  "batchPath": "batch",
  "parameters": {

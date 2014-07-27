@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/g26rZAV68R3coniPUjyduVjQHpw\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/2GpSWhpah0_5_Ow21A6JiEv0tOI\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -14,8 +14,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
- "rpcUrl": "https://myapp.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
+ "rpcUrl": "https://polimisocial.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {

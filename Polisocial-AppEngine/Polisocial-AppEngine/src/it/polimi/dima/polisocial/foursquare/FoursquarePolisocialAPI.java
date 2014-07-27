@@ -2,6 +2,7 @@ package it.polimi.dima.polisocial.foursquare;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -19,12 +20,13 @@ import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 public class FoursquarePolisocialAPI {
 
 	
+	private static final Logger log = Logger.getLogger(FoursquarePolisocialAPI.class.getName());
 	
 	@ApiMethod(name = "searchVenues")
 	public ArrayList<String> searchVenues(@Named("ll") String ll) throws FoursquareApiException {
 
 		// Coordinate Politecnico di Milano
-		// ll = "45.478178,9.228031";
+		 ll = "45.478178,9.228031";
 
 		// Categorie cibo
 		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"
@@ -46,18 +48,26 @@ public class FoursquarePolisocialAPI {
 		return venuesName;
 		} else {
 
-			System.out.println("Error occured: ");
-			System.out.println("  code: " + result.getMeta().getCode());
-			System.out.println("  type: " + result.getMeta().getErrorType());
-			System.out.println("  detail: " + result.getMeta().getErrorDetail()); 
+			log.warning("Error occured: ");
+			log.warning("  code: " + result.getMeta().getCode());
+			log.warning("  type: " + result.getMeta().getErrorType());
+			log.warning("  detail: " + result.getMeta().getErrorDetail()); 
 			return venuesName;
 		}
 	}
 	
 	@ApiMethod(name="performTokenRequest")
 	public void performTokenRequest(@Named("code") String code){
-		System.out.println("richiesta token");
-	
+		log.info("richiesta token");
+		FoursquareApi foursquareApi = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, null);
+		try {
+			foursquareApi.authenticateCode(code);
+			String token = foursquareApi.getOAuthToken();
+			log.info(token);
+		} catch (FoursquareApiException e) {
+			e.printStackTrace();
+			log.warning(e.getMessage());
+		}
 		
 	}
 	

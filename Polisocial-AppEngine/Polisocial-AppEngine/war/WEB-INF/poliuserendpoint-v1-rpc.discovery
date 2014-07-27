@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/r9GgrSMJPvrRiX86hE2PlpV5Upk\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/X5jzB1nI6de0kWXRRgSoAt4NJtQ\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -14,8 +14,8 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rpc",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
- "rpcUrl": "https://myapp.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
+ "rpcUrl": "https://polimisocial.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {

@@ -112,7 +112,6 @@ public class FoursquareActivity extends Activity {
 		}
 		
 		@Override
-	    @SuppressWarnings("null")
 	    protected void onPostExecute(StringCollection result) {
 			
 			

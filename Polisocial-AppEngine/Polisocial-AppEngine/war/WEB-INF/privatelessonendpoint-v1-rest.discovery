@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/ChndlO2YmpnSPstyWS7yOdp-p8o\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/HTyKZd2VKlWsEMbn8vdXP9KoTec\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -14,9 +14,9 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://myapp.appspot.com/_ah/api/privatelessonendpoint/v1/",
+ "baseUrl": "https://polimisocial.appspot.com/_ah/api/privatelessonendpoint/v1/",
  "basePath": "/_ah/api/privatelessonendpoint/v1/",
- "rootUrl": "https://myapp.appspot.com/_ah/api/",
+ "rootUrl": "https://polimisocial.appspot.com/_ah/api/",
  "servicePath": "privatelessonendpoint/v1/",
  "batchPath": "batch",
  "parameters": {
