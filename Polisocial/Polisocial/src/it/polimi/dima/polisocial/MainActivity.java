@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
 			
-			Poliuserendpoint endpoint = builder.build();
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			try {
 				
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
 
 	      CollectionResponsePoliUser result;
 
-	      Poliuserendpoint endpoint = endpointBuilder.build();
+	      Poliuserendpoint endpoint = endpointBuilder.setApplicationName("polimisocial").build();
 
 	      try {
 	        result = endpoint.listPoliUser().execute();
@@ -176,7 +176,7 @@ public class MainActivity extends Activity {
 	      }
 	      
 	      resultsList.setText(poliUsersFound.toString());
-	     
+	     return;
 	    }
 	  }
 	

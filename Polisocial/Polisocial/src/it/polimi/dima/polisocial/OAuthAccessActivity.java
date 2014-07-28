@@ -1,15 +1,10 @@
 package it.polimi.dima.polisocial;
 
 
-import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
-
-import java.io.IOException;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,14 +16,13 @@ import com.foursquare.android.nativeoauth.FoursquareOAuth;
 import com.foursquare.android.nativeoauth.FoursquareOAuthException;
 import com.foursquare.android.nativeoauth.FoursquareUnsupportedVersionException;
 import com.foursquare.android.nativeoauth.model.AuthCodeResponse;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
 
 
 
-public class OAuthAccessActivity extends FragmentActivity {
+public class OAuthAccessActivity extends Activity {
 
 	private static final int REQUEST_CODE_FSQ_CONNECT = 200;
+	private static final int REQUEST_CODE_FSQ_TOKEN_EXCHANGE = 201;
 	private static final String CLIENT_ID ="C0UAYKHQET5QIKKQY50WOMCR50BESMVBGAN1BR5NSEHJ4NKU";
 
 	private Intent intent;
@@ -42,15 +36,22 @@ public class OAuthAccessActivity extends FragmentActivity {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_CODE_FSQ_CONNECT){
-			onCompleteConnect(resultCode, data);
-		} else {
-			toastMessage(this, "Error Code");
-		}
-	}
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CODE_FSQ_CONNECT:
+                onCompleteConnect(resultCode, data);
+                break;
+                
+            case REQUEST_CODE_FSQ_TOKEN_EXCHANGE:
+                onCompleteTokenExchange(resultCode, data);
+                break;
 
-	
+            default: toastMessage(this, "Error activity result");
+        }
+    }
+
+
+
 	private void ensureUi() {
 
 		intent = FoursquareOAuth.getConnectIntent(OAuthAccessActivity.this, CLIENT_ID);
@@ -107,11 +108,26 @@ public class OAuthAccessActivity extends FragmentActivity {
     }
     
     private void onTokenExchange(String code) {
-    	System.out.println(code);
-    	new TokenFoursquareRequestTask().execute(code);
+    	Intent intent = new Intent();
+    	intent.setClass(this, AuthorizedFoursquareActivity.class);
+    	intent.putExtra("code",code);
+    	startActivityForResult(intent, REQUEST_CODE_FSQ_TOKEN_EXCHANGE);
     	
     }
     
+	
+	private void onCompleteTokenExchange(int resultCode, Intent data) {
+		
+		if(resultCode == RESULT_OK){
+            String result=data.getStringExtra("result");
+            toastMessage(this, result);
+        }
+        if (resultCode == RESULT_CANCELED) {
+        	String result=data.getStringExtra("result");
+        	toastMessage(this, result);
+        }
+		
+	}
  
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,38 +156,8 @@ public class OAuthAccessActivity extends FragmentActivity {
 			Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 		
-		private void finishAfterAsyncTask() {
-			this.finish();
-		}
+
 		
 		
-		private class TokenFoursquareRequestTask extends AsyncTask <String,Void,String> {
 
-			@Override
-			protected String doInBackground(String... params) {
-				String result= "";
-				Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
-						AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-				builder = CloudEndpointUtils.updateBuilder(builder);
-				Foursquareendpoint endpoint = builder.build();
-				
-	            
-	            try {
-					endpoint.performTokenRequest(params[0]);
-				} catch (IOException e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-					toastMessage(getBaseContext(), "errore perform token req");
-				}
-				return result;
-			}
-			
-			protected void onPostExecute(String result){
-				Intent in = new Intent (OAuthAccessActivity.this,AuthorizedFoursquareActivity.class);
-		    	startActivity(in);
-				finishAfterAsyncTask();
-				
-			}
-
-		}
 }

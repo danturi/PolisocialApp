@@ -1,10 +1,10 @@
 package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
-import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringCollection;
+import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringObjectCollection;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -90,34 +90,35 @@ public class FoursquareActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private class SearchVenuesNearPoliTask extends AsyncTask<Void, Void, StringCollection> {
+	private class SearchVenuesNearPoliTask extends AsyncTask<Void, Void, StringObjectCollection> {
 
 		@Override
-		protected StringCollection doInBackground(Void... params) {
+		protected StringObjectCollection doInBackground(Void... params) {
 			Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			Foursquareendpoint endpoint = builder.build();
+			Foursquareendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
-			StringCollection result;
+			
+			StringObjectCollection result = new StringObjectCollection();
+			
 			String ll = "45.478178,9.228031"; 
+			
 			try {
 				 result = endpoint.searchVenues(ll).execute();
 			} catch (IOException e) {
-
-				e.printStackTrace();
+				
+				System.out.println(e.getMessage());
 				result = null;
 			}
 			return result;
 		}
 		
 		@Override
-	    protected void onPostExecute(StringCollection result) {
+	    protected void onPostExecute(StringObjectCollection result) {
 			
-			
-					
-
-	      if (result == null || result.getItems() == null || result.getItems().size() < 1) {
+		
+		if (result == null || result.isEmpty() || result.size() < 1) {
 	        if (result == null) {
 	        	resultVenues.setText("Retrieving venues failed.");
 	        	//i.putExtra("polisocial.venues.result", "Retrieving venues failed.");
@@ -129,12 +130,12 @@ public class FoursquareActivity extends Activity {
 	        	//startActivity(i);
 	        }
 	        
-	      }
+	      } else {
 
-	      List<String> venuesName = result.getItems();
+	      Collection<String> res = result.getStringList();
 	      StringBuffer venuesFound = new StringBuffer();
 	      
-	      for (String venue : venuesName){
+	      for (String venue : res){
 	        venuesFound.append(venue+ "\r\n");
 	      }
 	      
@@ -142,7 +143,9 @@ public class FoursquareActivity extends Activity {
 	      //i.putExtra("polisocial.venues.result", venuesFound.toString());
       	  //startActivity(i);
 	      
+	      }
 	    }
+		
 	  }
 	
 	/**

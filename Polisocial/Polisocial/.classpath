@@ -30,6 +30,5 @@
 	<classpathentry kind="lib" path="libs/google-http-client-jdo-1.18.0-rc.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="/home/danturi/backup polisocialApp/Polisocial/Polisocial/libs/google-http-client-jdo-1.18.0-rc.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/appcompat_v7"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
