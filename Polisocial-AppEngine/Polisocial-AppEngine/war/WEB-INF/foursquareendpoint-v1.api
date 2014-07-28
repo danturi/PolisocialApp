@@ -27,6 +27,21 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.foursquare",
   "methods" : {
+    "foursquareendpoint.provaToken" : {
+      "path" : "provaToken",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.provaToken",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "foursquareendpoint.searchVenues" : {
       "path" : "searchVenues/{ll}",
       "httpMethod" : "POST",
@@ -50,7 +65,7 @@
     },
     "foursquareendpoint.performTokenRequest" : {
       "path" : "performTokenRequest/{code}",
-      "httpMethod" : "POST",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
@@ -72,11 +87,11 @@
   },
   "descriptor" : {
     "schemas" : {
-      "StringCollection" : {
-        "id" : "StringCollection",
+      "StringObjectCollection" : {
+        "id" : "StringObjectCollection",
         "type" : "object",
         "properties" : {
-          "items" : {
+          "stringList" : {
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -86,9 +101,11 @@
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.provaToken" : {
+      },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.searchVenues" : {
         "response" : {
-          "$ref" : "StringCollection"
+          "$ref" : "StringObjectCollection"
         }
       },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.performTokenRequest" : {

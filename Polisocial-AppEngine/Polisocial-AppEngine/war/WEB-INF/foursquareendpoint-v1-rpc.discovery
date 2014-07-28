@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/MXMYYExY-PNZU8tC7F4Y5vqo7yA\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/1qzzLQ0EDG2DHAhDNct22KuMlF8\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -72,11 +72,11 @@
   }
  },
  "schemas": {
-  "StringCollection": {
-   "id": "StringCollection",
+  "StringObjectCollection": {
+   "id": "StringObjectCollection",
    "type": "object",
    "properties": {
-    "items": {
+    "stringList": {
      "type": "array",
      "items": {
       "type": "string"
@@ -88,6 +88,7 @@
  "methods": {
   "foursquareendpoint.performTokenRequest": {
    "id": "foursquareendpoint.performTokenRequest",
+   "allowGet": true,
    "parameters": {
     "code": {
      "type": "string",
@@ -97,6 +98,12 @@
    "parameterOrder": [
     "code"
    ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "foursquareendpoint.provaToken": {
+   "id": "foursquareendpoint.provaToken",
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
@@ -113,7 +120,7 @@
     "ll"
    ],
    "returns": {
-    "$ref": "StringCollection"
+    "$ref": "StringObjectCollection"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
