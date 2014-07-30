@@ -109,7 +109,7 @@ public class OAuthAccessActivity extends Activity {
     
     private void onTokenExchange(String code) {
     	Intent intent = new Intent();
-    	intent.setClass(this, AuthorizedFoursquareActivity.class);
+    	intent.setClass(this, AuthorizationFoursquareActivity.class);
     	intent.putExtra("code",code);
     	startActivityForResult(intent, REQUEST_CODE_FSQ_TOKEN_EXCHANGE);
     	

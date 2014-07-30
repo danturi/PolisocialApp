@@ -10,8 +10,8 @@
     <string name="clear_credentials">Clear credentials</string>
     <string name="launch_oauth_flow">Login FSQ</string>
     <string name="title_activity_oauth_access">OAuthAccessActivity</string>
-    <string name="connected_to_foursquare">Connected_to_foursquare</string>
+    <string name="connected_to_foursquare">Connecting to Foursquare</string>
     <string name="app_not_installed_message">App not installed</string>
-    <string name="title_activity_authorized_foursquare">AuthorizedFoursquareActivity</string>
+    <string name="title_activity_authorization_foursquare">AuthorizationFoursquareActivity</string>
 
 </resources>

@@ -29,10 +29,6 @@
             android:label="@string/title_activity_foursquare" >
         </activity>
         <activity
-            android:name=".VenuesActivity"
-            android:label="@string/title_activity_venues" >
-        </activity>
-        <activity
             android:name=".OAuthAccessActivity"
             android:label="@string/title_activity_oauth_access" >
             <intent-filter>
@@ -42,8 +38,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AuthorizedFoursquareActivity"
-            android:label="@string/title_activity_authorized_foursquare" >
+            android:name=".AuthorizationFoursquareActivity"
+            android:label="@string/title_activity_authorization_foursquare" >
         </activity>
     </application>
 

@@ -15,14 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AuthorizedFoursquareActivity extends Activity {
+public class AuthorizationFoursquareActivity extends Activity {
 
 	private TokenFoursquareRequestTask tokenTask;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_authorized_foursquare);
+		setContentView(R.layout.activity_authorization_foursquare);
 		String code= getIntent().getStringExtra("code");
 		tokenTask= new TokenFoursquareRequestTask(this);
 		tokenTask.execute(code);
@@ -60,10 +60,10 @@ public class AuthorizedFoursquareActivity extends Activity {
 	
 	private class TokenFoursquareRequestTask extends AsyncTask <String,Void,Void> {
 
-		private AuthorizedFoursquareActivity mActivity;
+		private AuthorizationFoursquareActivity mActivity;
 		
 		public TokenFoursquareRequestTask(
-				AuthorizedFoursquareActivity activity) {
+				AuthorizationFoursquareActivity activity) {
 			mActivity=activity;
 		}
 
@@ -80,7 +80,6 @@ public class AuthorizedFoursquareActivity extends Activity {
             try {
 				endpoint.performTokenRequest(params[0]).execute();
             	result="OK";
-				Log.e(result, "nessuna eccezione");
 				
 			} catch (IOException ex) {
 				Log.e("TokenFoursquareRequestTask",ex.getMessage());
