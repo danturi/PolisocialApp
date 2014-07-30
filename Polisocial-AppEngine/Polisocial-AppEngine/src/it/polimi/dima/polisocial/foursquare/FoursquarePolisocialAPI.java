@@ -1,25 +1,20 @@
 package it.polimi.dima.polisocial.foursquare;
-import it.polimi.dima.polisocial.entity.StringObjectCollection;
+import it.polimi.dima.polisocial.entity.ResponseObject;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
-
-import javax.xml.ws.http.HTTPException;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.appengine.labs.repackaged.org.json.JSONTokener;
@@ -36,42 +31,45 @@ public class FoursquarePolisocialAPI {
 
 	
 	private static final Logger log = Logger.getLogger(FoursquarePolisocialAPI.class.getName());
-	private List<String> venuesName = new ArrayList<String>();
+	//private List<String> venuesName = new ArrayList<String>();
+	private FoursquareApi foursquareApiNoAuth = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
 	
 	@ApiMethod(name = "searchVenues")
-	public StringObjectCollection searchVenues(@Named("ll")String ll) throws FoursquareApiException  {
+	public ResponseObject searchVenues(@Named("ll")String ll) {
 
-		// Coordinate Politecnico di Milano
-		 //ll = "45.478178,9.228031";
-
-		// Categorie cibo
-		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"
-				+ "4bf58dd8d48988d16d941735,4bf58dd8d48988d16d941735,4bf58dd8d48988d1cb941735,4bf58dd8d48988d1ca941735,4bf58dd8d48988d1ca941735,"
-				+ "4bf58dd8d48988d1bd941735";
-		String coordinates = ll;
-		
-		
-		// First we need a initialize FoursquareApi. 
-		FoursquareApi foursquareApi = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
-		Result<VenuesSearchResult> result;
-
-			result = foursquareApi.venuesSearch(coordinates, null, null, null, null, null, "browse",categoryIds, null, null, null,800 , null);
-			StringObjectCollection venuesListObj = new StringObjectCollection();
-
-			if (result.getMeta().getCode() == 200) {
-
-				// if query was ok we can finally we do something with the data
-
+		Result<VenuesSearchResult> result = null;
+		String exception= null;
+		ResponseObject response = new ResponseObject();
+		try {
+			result = searchVenuesRequest(ll);
+		} catch (FoursquareApiException e) {
+			//warning Eccezione...
+			log.warning(e.getCause()+" "+e.getMessage());
+		}
+		if (result != null){
+			int codeResponse = result.getMeta().getCode();
+			//tutto ok
+			if (codeResponse == 200) {
+				ArrayList<String> venuesName = new ArrayList<String>();
 				for (CompactVenue venue : result.getResult().getVenues())
 					venuesName.add(venue.getName());
-			venuesListObj.setStringList(venuesName);
-			return venuesListObj;
-			} else {
-				return venuesListObj;
+				response.setException(exception);
+				response.setObject(venuesName);
 			}
-		
-
+			//problemi
+			if (codeResponse == 400) response.setException("Bad Request");
+			if (codeResponse == 401) response.setException("Unauthorized");
+			if (codeResponse == 403) response.setException("Forbidden"); 
+			if (codeResponse == 404) response.setException("Not Found"); 
+			if (codeResponse == 405) response.setException("Method Not Allowed"); 
+			if (codeResponse == 500) response.setException("Internal Server Error"); 
+			return response;
+		}else {
+			response.setException("Problem");
+			return response;
+		}
 	}
+
 	
 	@ApiMethod(name= "performTokenRequest", httpMethod = HttpMethod.GET)
 	public void performTokenRequest(@Named("code") String code){
@@ -105,9 +103,20 @@ public class FoursquarePolisocialAPI {
 		
 	}
 	
-	@ApiMethod(name = "provaToken")
-	public void provaToken() {
-		log.info("prova");
+	
+	private Result<VenuesSearchResult> searchVenuesRequest(String coordinates) throws FoursquareApiException {
+
+		// Coordinate Politecnico di Milano
+		//ll = "45.478178,9.228031";
+
+		// Categorie cibo
+		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"
+				+ "4bf58dd8d48988d16d941735,4bf58dd8d48988d16d941735,4bf58dd8d48988d1cb941735,4bf58dd8d48988d1ca941735,4bf58dd8d48988d1ca941735,"
+				+ "4bf58dd8d48988d1bd941735";
+		Result<VenuesSearchResult> result;
+		result = foursquareApiNoAuth.venuesSearch(coordinates, null, null, null, null, null, "browse",categoryIds, null, null, null,800 , null);
+		return result;
+
 	}
 	
 }

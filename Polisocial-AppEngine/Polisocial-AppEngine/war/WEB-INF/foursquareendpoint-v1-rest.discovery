@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/1qzzLQ0EDG2DHAhDNct22KuMlF8\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/bxm-nDLnHIl0wUpgsEG0NfZeJo0\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -74,17 +74,21 @@
   }
  },
  "schemas": {
-  "StringObjectCollection": {
-   "id": "StringObjectCollection",
+  "ResponseObject": {
+   "id": "ResponseObject",
    "type": "object",
    "properties": {
-    "stringList": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
+    "exception": {
+     "type": "string"
+    },
+    "object": {
+     "$ref": "_any"
     }
    }
+  },
+  "_any": {
+   "id": "_any",
+   "type": "any"
   }
  },
  "methods": {
@@ -106,14 +110,6 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
-  "provaToken": {
-   "id": "foursquareendpoint.provaToken",
-   "path": "provaToken",
-   "httpMethod": "POST",
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "searchVenues": {
    "id": "foursquareendpoint.searchVenues",
    "path": "searchVenues/{ll}",
@@ -129,7 +125,7 @@
     "ll"
    ],
    "response": {
-    "$ref": "StringObjectCollection"
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
