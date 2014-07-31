@@ -19,10 +19,11 @@
 		            android:layout_height="wrap_content"
 		            android:text="@string/launch_oauth_flow"/>
 	
-		<Button android:id="@+id/btn_clear_credentials"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="@string/clear_credentials" />	
+		<Button
+		    android:id="@+id/btn_Map"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Prova Map" />
 	            
 	</LinearLayout> 
 	     
