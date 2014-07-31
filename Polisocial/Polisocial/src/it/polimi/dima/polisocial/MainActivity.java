@@ -40,12 +40,12 @@ public class MainActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 		
-		
-		new InsertPoliUserTask().execute();
+		//Funziona
+		//new InsertPoliUserTask().execute();
 		
 		resultsList = (TextView) findViewById(R.id.results);
 		
-		new ListOfPoliUserAsync().execute();
+		new ListOfPoliUserAsync().execute(); 
 		
 		Button button = (Button) findViewById(R.id.buttonFSQ);
 		button.setOnClickListener(new OnClickListener() {

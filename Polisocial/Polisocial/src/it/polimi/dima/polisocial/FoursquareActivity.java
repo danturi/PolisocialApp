@@ -62,11 +62,11 @@ public class FoursquareActivity extends Activity {
 			}
 		});
 	
-		Button clearCredentials = (Button) findViewById(R.id.btn_clear_credentials);
+		Button clearCredentials = (Button) findViewById(R.id.btn_Map);
 		clearCredentials.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				//clearCredentials();
-				//new PerformApiCallTask().execute();
+				Intent intentMap = new Intent(FoursquareActivity.this,MapActivity.class);
+				startActivity(intentMap);
 			}
 
 		});

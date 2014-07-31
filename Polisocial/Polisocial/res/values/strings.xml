@@ -13,5 +13,7 @@
     <string name="connected_to_foursquare">Connecting to Foursquare</string>
     <string name="app_not_installed_message">App not installed</string>
     <string name="title_activity_authorization_foursquare">AuthorizationFoursquareActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_map2">Map2Activity</string>
 
 </resources>
