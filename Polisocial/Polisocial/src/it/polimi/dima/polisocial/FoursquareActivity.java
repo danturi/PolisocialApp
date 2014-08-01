@@ -4,10 +4,15 @@ import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoin
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +34,7 @@ public class FoursquareActivity extends Activity {
 	
 	ListView listVenues;
 	ArrayAdapter<String> adapter = null;
-	ArrayList<String> list = new ArrayList<String>();
+	ArrayList<String> listVenuesName = new ArrayList<String>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +132,37 @@ public class FoursquareActivity extends Activity {
 			} else if ( result.getObject()== null){
 					resultVenues.setText(result.getException());
 					} else {
-				             list = ((ArrayList<String>) result.getObject());
-				             if ( (list.size() < 1)   ||   (list.isEmpty()) ) { 
+				             final ArrayList<ArrayList<String>> venues = ((ArrayList<ArrayList<String>>) result.getObject());
+				             if ( (venues.size() < 1)   ||   (venues.isEmpty()) ) { 
 				            	 resultVenues.setText("No venues found");
 				             } else {
+				            	 int name = 1;
+				            	 Iterator<ArrayList<String>> iterator = venues.iterator();
+				            	while (iterator.hasNext())
+				            	 listVenuesName.add(iterator.next().get(name));  // prendo il nome di ogni venue 
 				            	 
-				            	 adapter= new ArrayAdapter<String>(FoursquareActivity.this, android.R.layout.simple_list_item_1, list);
-				            	 listVenues.setAdapter(adapter);
+				            	adapter= new ArrayAdapter<String>(FoursquareActivity.this, android.R.layout.simple_list_item_1,listVenuesName );
+				            	listVenues.setAdapter(adapter);
+				            	
+				                listVenues.setOnItemClickListener(new AdapterView.OnItemClickListener() {  
+				                    @Override  
+				                    public void onItemClick(AdapterView<?> adapt, final View componente, int pos, long id){    
+				                    	String idVenueFsq = venues.get(pos).get(0);
+				                    	String baseUrl = "http://foursquare.com/venue/";
+				                    	StringBuilder urlBuilder = new StringBuilder(baseUrl);
+				                    	urlBuilder.append(idVenueFsq);
+				                    	String url = urlBuilder.toString();
+				                    	try {
+											URL venueUrl = new URL (url);
+							                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+							                startActivity(intent);
+
+										} catch (MalformedURLException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+				                    }         
+				             });  
 				            
 				             }
 					}

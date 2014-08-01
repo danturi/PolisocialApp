@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/privatelessonendpoint/v1/20140731154849/java/1.18.0-rc/polimi.it-privatelessonendpoint-v1-20140731154849-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-privatelessonendpoint-v1-20140731154849-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/privatelessonendpoint/v1/20140731231252/java/1.18.0-rc/polimi.it-privatelessonendpoint-v1-20140731231252-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-privatelessonendpoint-v1-20140731231252-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-07-31 15:48"
+      "timestamp": "2014-07-31 23:12"
     }, 
     {
-      "path": "polimi.it-privatelessonendpoint-v1-20140731154849-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-privatelessonendpoint-v1-20140731231252-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "privatelessonendpoint:v1", 
-  "revision": 20140731154849
+  "revision": 20140731231252
 }
