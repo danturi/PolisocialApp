@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import com.google.api.server.spi.config.Api;
@@ -32,7 +33,7 @@ public class FoursquarePolisocialAPI {
 	
 	private static final Logger log = Logger.getLogger(FoursquarePolisocialAPI.class.getName());
 	//private List<String> venuesName = new ArrayList<String>();
-	private FoursquareApi foursquareApiNoAuth = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
+	
 	
 	@ApiMethod(name = "searchVenues")
 	public ResponseObject searchVenues(@Named("ll")String ll) {
@@ -40,6 +41,7 @@ public class FoursquarePolisocialAPI {
 		Result<VenuesSearchResult> result = null;
 		String exception= null;
 		ResponseObject response = new ResponseObject();
+		ArrayList<ArrayList<String>> venues = new ArrayList<ArrayList<String>>();
 		try {
 			result = searchVenuesRequest(ll);
 		} catch (FoursquareApiException e) {
@@ -50,11 +52,19 @@ public class FoursquarePolisocialAPI {
 			int codeResponse = result.getMeta().getCode();
 			//tutto ok
 			if (codeResponse == 200) {
-				ArrayList<String> venuesName = new ArrayList<String>();
+				
 				for (CompactVenue venue : result.getResult().getVenues())
-					venuesName.add(venue.getName());
+				{
+					ArrayList<String> venueDetails= new ArrayList<String>();
+					venueDetails.add(venue.getId());
+					venueDetails.add(venue.getName());
+					venueDetails.add(venue.getLocation().getLat()+","+venue.getLocation().getLng());
+					venues.add(venueDetails);
+
+				}
+					
 				response.setException(exception);
-				response.setObject(venuesName);
+				response.setObject(venues);
 			}
 			//problemi
 			if (codeResponse == 400) response.setException("Bad Request");
@@ -108,13 +118,13 @@ public class FoursquarePolisocialAPI {
 
 		// Coordinate Politecnico di Milano
 		//ll = "45.478178,9.228031";
-
+		FoursquareApi foursquareApiNoAuth = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
 		// Categorie cibo
 		String categoryIds = "4bf58dd8d48988d143941735,52e81612bcbc57f1066b79f4,4bf58dd8d48988d16c941735,"
 				+ "4bf58dd8d48988d16d941735,4bf58dd8d48988d16d941735,4bf58dd8d48988d1cb941735,4bf58dd8d48988d1ca941735,4bf58dd8d48988d1ca941735,"
 				+ "4bf58dd8d48988d1bd941735";
 		Result<VenuesSearchResult> result;
-		result = foursquareApiNoAuth.venuesSearch(coordinates, null, null, null, null, null, "browse",categoryIds, null, null, null,800 , null);
+		result = foursquareApiNoAuth.venuesSearch(coordinates, null, null, null, null, null, "browse", categoryIds, null, null, null, 800, null);
 		return result;
 
 	}
