@@ -22,6 +22,28 @@ import com.google.appengine.api.datastore.Cursor;
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
 
+	
+
+	/**
+	 * @author buzz
+	 * 
+	 * This method check user credentials. It uses HTTP GET method.
+	 *
+	 * @param id the primary key of the java bean.
+	 * @return The entity with primary key id.
+	 */
+	@ApiMethod(name = "checkCredentials")
+	public PoliUser checkCredentials(@Named("nickname") String nickname, @Named("password") String password) {
+		EntityManager mgr = getEntityManager();
+		PoliUser poliuser = null;
+		try {
+			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser where user.nickname= :nickname and user.password= :password").setParameter("nickname", nickname).setParameter("password", password).getSingleResult();
+		} finally {
+			mgr.close();
+		}
+		return poliuser;
+	}
+	
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.

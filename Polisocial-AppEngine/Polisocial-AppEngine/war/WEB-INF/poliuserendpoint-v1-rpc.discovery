@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/X5jzB1nI6de0kWXRRgSoAt4NJtQ\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/ltvTTBPrl2zdGjGyrJE1_dVc1qU\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -227,6 +227,29 @@
   }
  },
  "methods": {
+  "poliuserendpoint.checkCredentials": {
+   "id": "poliuserendpoint.checkCredentials",
+   "parameters": {
+    "nickname": {
+     "type": "string",
+     "required": true
+    },
+    "password": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "nickname",
+    "password"
+   ],
+   "returns": {
+    "$ref": "PoliUser"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "poliuserendpoint.getPoliUser": {
    "id": "poliuserendpoint.getPoliUser",
    "allowGet": true,

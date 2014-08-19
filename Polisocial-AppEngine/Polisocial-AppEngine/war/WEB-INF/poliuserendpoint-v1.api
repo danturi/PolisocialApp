@@ -27,6 +27,77 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
+    "poliuserendpoint.listPoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.checkCredentials" : {
+      "path" : "checkCredentials/{nickname}/{password}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials",
+      "request" : {
+        "parameters" : {
+          "nickname" : {
+            "type" : "string",
+            "required" : true
+          },
+          "password" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.getPoliUser" : {
+      "path" : "poliuser/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "poliuserendpoint.removePoliUser" : {
       "path" : "poliuser/{id}",
       "httpMethod" : "DELETE",
@@ -79,56 +150,25 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "poliuserendpoint.listPoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "poliuserendpoint.getPoliUser" : {
-      "path" : "poliuser/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_PoliUser" : {
+        "id" : "CollectionResponse_PoliUser",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PoliUser"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "PoliUser" : {
         "id" : "PoliUser",
         "type" : "object",
@@ -205,14 +245,14 @@
           "name" : {
             "type" : "string"
           },
+          "parent" : {
+            "$ref" : "Key"
+          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -263,24 +303,24 @@
             "type" : "string"
           }
         }
-      },
-      "CollectionResponse_PoliUser" : {
-        "id" : "CollectionResponse_PoliUser",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "PoliUser"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials" : {
+        "response" : {
+          "$ref" : "PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser" : {
+        "response" : {
+          "$ref" : "PoliUser"
+        }
+      },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.insertPoliUser" : {
@@ -295,16 +335,6 @@
         "request" : {
           "$ref" : "PoliUser"
         },
-        "response" : {
-          "$ref" : "PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
-        "response" : {
-          "$ref" : "CollectionResponse_PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser" : {
         "response" : {
           "$ref" : "PoliUser"
         }
