@@ -26,8 +26,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class MainActivity extends Activity {
-	
-	
+		
 	private TextView resultsList;
 
 	@Override

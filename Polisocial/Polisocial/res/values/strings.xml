@@ -15,5 +15,17 @@
     <string name="title_activity_authorization_foursquare">AuthorizationFoursquareActivity</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_map2">Map2Activity</string>
+    <string name="title_activity_tab">TabActivity</string>
 
+    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
+    <string name="demo_external_activity">Demo External Activity</string>
+    <string name="demo_collection">Demo Collection</string>
+    <string name="first_tab_title">Spotted</string>
+    <string name="second_tab_title">Events</string>
+    <string name="third_tab_title">Announcements</string>
+    <string name="fourth_tab_title">Restaurants</string>
+    <string name="fifth_tab_title">Notifications</string>
+    <string name="title_activity_registration">Registration</string>
+    
+    
 </resources>
