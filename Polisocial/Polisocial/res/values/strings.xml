@@ -26,6 +26,11 @@
     <string name="fourth_tab_title">Restaurants</string>
     <string name="fifth_tab_title">Notifications</string>
     <string name="title_activity_registration">Registration</string>
+    <string name="foodTab_message">Fame? Ecco dove puoi mangiare qualcosa!</string>
+    <string name="changeViewVenues">Elenco locali</string>
+    <color name="Green">#45a700</color>
+    <string name="addVenue">Nuovo locale</string>
+    <string name="change_to_map">Torna alla mappa</string>
     
     
 </resources>

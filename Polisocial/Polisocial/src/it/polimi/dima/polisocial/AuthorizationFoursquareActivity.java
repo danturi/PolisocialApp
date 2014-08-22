@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial;
 
 import java.io.IOException;
 
-
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
