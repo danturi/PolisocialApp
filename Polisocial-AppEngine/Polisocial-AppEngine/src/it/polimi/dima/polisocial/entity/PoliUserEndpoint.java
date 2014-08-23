@@ -39,7 +39,11 @@ public class PoliUserEndpoint {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.email= :email and user.password= :password").setParameter("email", email).setParameter("password", password).getSingleResult();
+			Query query = mgr.createQuery("select user from PoliUser user where user.email= :email and user.password= :password").setParameter("email", email).setParameter("password", password);
+			if (query.getResultList().isEmpty()){
+				poliuser=null;
+			}
+			poliuser = (PoliUser) query.getSingleResult();
 		} finally {
 			mgr.close();
 		}
@@ -59,7 +63,11 @@ public class PoliUserEndpoint {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.email= :email").setParameter("email", email).getSingleResult();
+			Query query = mgr.createQuery("select user from PoliUser user where user.email= :email").setParameter("email", email);
+			if (query.getResultList().isEmpty()){
+				poliuser=null;
+			}
+			poliuser = (PoliUser) query.getSingleResult();
 		} finally {
 			mgr.close();
 		}
@@ -79,7 +87,11 @@ public class PoliUserEndpoint {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.nickname= :nickname").setParameter("nickname", nickname).getSingleResult();
+			Query query = mgr.createQuery("select user from PoliUser user where user.nickname= :nickname").setParameter("nickname", nickname);
+			if (query.getResultList().isEmpty()){
+				poliuser=null;
+			}
+			poliuser = (PoliUser) query.getSingleResult();
 		} finally {
 			mgr.close();
 		}
