@@ -21,6 +21,8 @@ import com.google.appengine.datanucleus.query.JPACursorHelper;
 @Api(name = "commentendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class CommentEndpoint {
 
+	@ApiMethod(name="prova")
+	public void prova (){}
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.

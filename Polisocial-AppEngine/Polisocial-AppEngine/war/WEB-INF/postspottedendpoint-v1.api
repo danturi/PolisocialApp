@@ -1,0 +1,236 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://polimisocial.appspot.com/_ah/api",
+  "name" : "postspottedendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://polimisocial.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "polimi.it",
+  "ownerName" : "polimi.it",
+  "packagePath" : "dima.polisocial.entity",
+  "methods" : {
+    "postspottedendpoint.updatePostSpotted" : {
+      "path" : "postspotted",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.insertPostSpotted" : {
+      "path" : "postspotted",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.getPostSpotted" : {
+      "path" : "postspotted/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.getPostSpotted",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.removePostSpotted" : {
+      "path" : "postspotted/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "postspottedendpoint.listPostSpotted" : {
+      "path" : "postspotted",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.listPostSpotted",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "PostSpotted" : {
+        "id" : "PostSpotted",
+        "type" : "object",
+        "properties" : {
+          "userId" : {
+            "type" : "integer"
+          },
+          "text" : {
+            "type" : "string"
+          },
+          "photo" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "key" : {
+            "$ref" : "Key"
+          },
+          "flagAnonimity" : {
+            "type" : "boolean"
+          },
+          "anonimous" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "complete" : {
+            "type" : "boolean"
+          },
+          "namespace" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CollectionResponse_PostSpotted" : {
+        "id" : "CollectionResponse_PostSpotted",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PostSpotted"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted" : {
+        "request" : {
+          "$ref" : "PostSpotted"
+        },
+        "response" : {
+          "$ref" : "PostSpotted"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted" : {
+        "request" : {
+          "$ref" : "PostSpotted"
+        },
+        "response" : {
+          "$ref" : "PostSpotted"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.getPostSpotted" : {
+        "response" : {
+          "$ref" : "PostSpotted"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted" : {
+      },
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.listPostSpotted" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PostSpotted"
+        }
+      }
+    }
+  }
+}
