@@ -475,7 +475,6 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		ArrayAdapter<String> adapter = null;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
 		static RestaurantsFragmentListener listener;
-		ProgressBar progress;
 
 		public ListVenuesFragment() {
 		}

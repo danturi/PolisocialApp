@@ -24,13 +24,4 @@
     android:layout_alignParentTop="true"
     android:text="@string/change_to_map" />
 
-<ProgressBar
-    android:id="@+id/progressBar1"
-    style="?android:attr/progressBarStyleLarge"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="26dp" />
-
 </RelativeLayout>
