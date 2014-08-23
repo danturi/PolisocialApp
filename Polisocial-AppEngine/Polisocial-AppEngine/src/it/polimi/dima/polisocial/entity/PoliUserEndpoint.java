@@ -21,7 +21,7 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.Email;
 
-@Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
+@Api(name = "poliuserendpoint", version = "v2", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
 
 	
@@ -215,6 +215,12 @@ public class PoliUserEndpoint {
 			mgr.close();
 		}
 	}
+	
+	@ApiMethod(name="prova")
+	public void prova(){
+		
+	}
+	
 
 	private boolean containsPoliUser(PoliUser poliuser) {
 		EntityManager mgr = getEntityManager();

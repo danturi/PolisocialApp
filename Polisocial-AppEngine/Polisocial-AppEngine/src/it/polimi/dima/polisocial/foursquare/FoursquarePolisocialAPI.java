@@ -112,7 +112,7 @@ public class FoursquarePolisocialAPI {
 		
 		
 	}
-	
+
 	
 	private Result<VenuesSearchResult> searchVenuesRequest(String coordinates) throws FoursquareApiException {
 

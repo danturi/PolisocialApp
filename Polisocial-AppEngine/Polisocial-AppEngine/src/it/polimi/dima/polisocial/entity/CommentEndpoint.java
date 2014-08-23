@@ -146,6 +146,7 @@ public class CommentEndpoint {
 			mgr.close();
 		}
 	}
+	
 
 	private boolean containsComment(Comment comment) {
 		EntityManager mgr = getEntityManager();
