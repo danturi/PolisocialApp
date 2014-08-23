@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.CollectionResponsePoliUser;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.model.Email;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 
 import java.io.IOException;
@@ -100,10 +99,9 @@ public class MainActivity extends Activity {
 		protected Void doInBackground(Void... params) {
 			
 			PoliUser poliUser= new PoliUser();
-			Email userEmail = new Email();
-			userEmail.setEmail("email@gmail.com");
-			poliUser.setNickname("Buzz culo");
-			poliUser.setEmail(userEmail);
+			poliUser.setNickname("andre");
+			poliUser.setEmail("email@gmail.com");
+			poliUser.setPassword("password");
 			
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
