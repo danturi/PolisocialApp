@@ -79,8 +79,7 @@
 
         <activity
             android:name=".MapActivity"
-            android:label="@string/title_activity_map"
-            android:theme="@style/Theme.AppCompat" />
+            android:label="@string/title_activity_map"/>
         <activity
             android:name=".Map2Activity"
             android:label="@string/title_activity_map2" >

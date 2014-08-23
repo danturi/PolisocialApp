@@ -71,8 +71,8 @@ public class FoursquareActivity extends Activity {
 		Button clearCredentials = (Button) findViewById(R.id.btn_Map);
 		clearCredentials.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intentMap = new Intent(FoursquareActivity.this,MapActivity.class);
-				startActivity(intentMap);
+				//Intent intentMap = new Intent(FoursquareActivity.this,MapActivity.class);
+				//startActivity(intentMap);
 			}
 
 		});

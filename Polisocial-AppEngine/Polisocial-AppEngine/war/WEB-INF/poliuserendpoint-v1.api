@@ -52,9 +52,51 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "poliuserendpoint.checkForDuplicateEmail" : {
+      "path" : "checkForDuplicateEmail/{email}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.checkForDuplicateUsername" : {
+      "path" : "checkForDuplicateUsername/{nickname}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername",
+      "request" : {
+        "parameters" : {
+          "nickname" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "poliuserendpoint.checkCredentials" : {
-      "path" : "checkCredentials/{nickname}/{password}",
-      "httpMethod" : "POST",
+      "path" : "checkCredentials/{email}/{password}",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
@@ -62,7 +104,7 @@
       "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials",
       "request" : {
         "parameters" : {
-          "nickname" : {
+          "email" : {
             "type" : "string",
             "required" : true
           },
@@ -180,7 +222,7 @@
             "type" : "string"
           },
           "email" : {
-            "$ref" : "Email"
+            "type" : "string"
           },
           "password" : {
             "type" : "string"
@@ -256,15 +298,6 @@
           }
         }
       },
-      "Email" : {
-        "id" : "Email",
-        "type" : "object",
-        "properties" : {
-          "email" : {
-            "type" : "string"
-          }
-        }
-      },
       "PhoneNumber" : {
         "id" : "PhoneNumber",
         "type" : "object",
@@ -309,6 +342,16 @@
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
         "response" : {
           "$ref" : "CollectionResponse_PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail" : {
+        "response" : {
+          "$ref" : "PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername" : {
+        "response" : {
+          "$ref" : "PoliUser"
         }
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials" : {

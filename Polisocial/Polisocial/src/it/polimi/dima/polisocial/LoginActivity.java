@@ -11,7 +11,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build.VERSION;
@@ -28,8 +27,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 /**
  * @author buzz 
@@ -42,7 +50,7 @@ import java.util.List;
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+			"foo@example.com:hello", "ex@ex.com:hello" };
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -70,7 +78,15 @@ import java.util.List;
 					public boolean onEditorAction(TextView textView, int id,
 							KeyEvent keyEvent) {
 						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
+							try {
+								attemptLogin();
+							} catch (NoSuchAlgorithmException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (UnsupportedEncodingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							return true;
 						}
 						return false;
@@ -81,7 +97,15 @@ import java.util.List;
 		mEmailSignInButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				attemptLogin();
+				try {
+					attemptLogin();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -109,8 +133,10 @@ import java.util.List;
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
+	 * @throws UnsupportedEncodingException 
+	 * @throws NoSuchAlgorithmException 
 	 */
-	public void attemptLogin() {
+	public void attemptLogin() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		if (mAuthTask != null) {
 			return;
 		}
@@ -305,33 +331,43 @@ import java.util.List;
 		private final String mEmail;
 		private final String mPassword;
 
-		UserLoginTask(String email, String password) {
+		UserLoginTask(String email, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mEmail = email;
-			mPassword = password;
+			mPassword = AeSimpleSHA1.SHA1(password);
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-
-			try {				
-				// Simulate network access.
-				
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			PoliUser poliuser = null;
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			// Simulate network access.
+			try {
+				poliuser=endpoint.checkCredentials(mEmail, mPassword).execute();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
+			//Thread.sleep(2000);
+/**
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mEmail)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword); 
 				}
-			}
+			}**/
 
 			// TODO: register the new account here.
-			return false;
+			if(poliuser!=null)
+				return true;
+			else 
+				return false;
+
 		}
 		
 		@Override
