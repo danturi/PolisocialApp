@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.api.datastore.Email;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PhoneNumber;
 import com.google.appengine.api.users.User;
@@ -25,7 +24,7 @@ public class PoliUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key userKey;
 	private String nickname;
-	private Email email;
+	private String email;
 	private String password;
 	private PhoneNumber phoneNumber;
 	private User userGoogleAccount;
@@ -54,10 +53,10 @@ public class PoliUser {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public Email getEmail() {
+	public String getEmail() {
 		return email;
 	}
-	public void setEmail(Email email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	public String getPassword() {

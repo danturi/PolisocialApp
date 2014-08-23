@@ -15,9 +15,11 @@ import com.google.appengine.datanucleus.query.JPACursorHelper;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.Email;
 
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
@@ -25,24 +27,68 @@ public class PoliUserEndpoint {
 	
 
 	/**
-	 * @author buzz
 	 * 
 	 * This method check user credentials. It uses HTTP GET method.
 	 *
-	 * @param id the primary key of the java bean.
-	 * @return The entity with primary key id.
+	 * @param nickname 
+	 * @param password 
+	 * @return poliuser, if not null the credentials exists and user can log in
 	 */
-	@ApiMethod(name = "checkCredentials")
-	public PoliUser checkCredentials(@Named("nickname") String nickname, @Named("password") String password) {
+	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
+	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser where user.nickname= :nickname and user.password= :password").setParameter("nickname", nickname).setParameter("password", password).getSingleResult();
+			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.email= :email and user.password= :password").setParameter("email", email).setParameter("password", password).getSingleResult();
 		} finally {
 			mgr.close();
 		}
 		return poliuser;
 	}
+
+	/**
+	 * 
+	 * This method check if the email address passed as parameter already exists in db.
+	 *  It uses HTTP GET method.
+	 *
+	 * @param email.
+	 * @return poliuser, if not null the email already exists in db
+	 */
+	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
+	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+		EntityManager mgr = getEntityManager();
+		PoliUser poliuser = null;
+		try {
+			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.email= :email").setParameter("email", email).getSingleResult();
+		} finally {
+			mgr.close();
+		}
+		return poliuser;
+	}
+	
+	/**
+	 * 
+	 * This method check if the username passed as parameter already exists in db.
+	 *  It uses HTTP GET method.
+	 *
+	 * @param nickname.
+	 * @return poliuser, if not null the nickname already exists in db
+	 */
+	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
+	public PoliUser checkForDuplicateUsername(@Named("nickname") String nickname) {
+		EntityManager mgr = getEntityManager();
+		PoliUser poliuser = null;
+		try {
+			poliuser= (PoliUser)mgr.createQuery("select user from PoliUser user where user.nickname= :nickname").setParameter("nickname", nickname).getSingleResult();
+		} finally {
+			mgr.close();
+		}
+		return poliuser;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * This method lists all the entities inserted in datastore.
