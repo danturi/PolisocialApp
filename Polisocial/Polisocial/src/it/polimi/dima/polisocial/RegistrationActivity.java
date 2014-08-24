@@ -6,8 +6,10 @@ import java.security.NoSuchAlgorithmException;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import it.polimi.dima.polisocial.AeSimpleSHA1;
 
 
@@ -29,8 +32,8 @@ public class RegistrationActivity extends Activity  {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
+	//private static final String[] DUMMY_CREDENTIALS = new String[] {
+		//	"foo@example.com:hello", "bar@example.com:world" };
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -134,8 +137,9 @@ public class RegistrationActivity extends Activity  {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mRegTask = new UserRegisterTask(email,username, password);
-			mRegTask.execute((Void) null);
+			new UserRegisterTask(email, username, confirmPassword).execute();
+			//mRegTask = new UserRegisterTask(email,username, password);
+			//mRegTask.execute();
 		}
 	}
 
@@ -225,28 +229,28 @@ public class RegistrationActivity extends Activity  {
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			Boolean emailAlreadyExists=true;
 			Boolean userNameAlreadyExists=true;
+			ResponseObject response = null;
 			//check if email is available 
 			try {
-				if(endpoint.checkForDuplicateEmail(mEmail)==null){
-					emailAlreadyExists = false;
-					}else{
-					emailAlreadyExists = true;
-					}
+				response=endpoint.checkForDuplicateEmail(mEmail).execute();
+					
 			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+				
 			}
+			if(response.getObject()==null)
+				emailAlreadyExists = false;
+			else emailAlreadyExists = true;
+			
 			//check if username is available
 			try {
-				if(endpoint.checkForDuplicateUsername(mUsername)==null){
-					userNameAlreadyExists=false; 
-				}else{
-					userNameAlreadyExists=true;
-				}
+				response=endpoint.checkForDuplicateEmail(mUsername).execute();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			e1.printStackTrace();
 			}
+			
+			if(response.getObject()==null)
+				userNameAlreadyExists = false;
+			else userNameAlreadyExists = true;
 			
 			if(userNameAlreadyExists || emailAlreadyExists){
 				if(emailAlreadyExists)
@@ -263,8 +267,8 @@ public class RegistrationActivity extends Activity  {
 				}
 
 			// TODO: register the new account here.
-			return 0;
-		}
+				return 0;
+			}
 		}
 		@Override
 		protected void onPostExecute(final Integer result) {
@@ -272,8 +276,9 @@ public class RegistrationActivity extends Activity  {
 			showProgress(false);
 
 			if (result==0) {
-				mAuthTask = new UserLoginTask(mEmail,mPassword);
-				mAuthTask.execute((Void) null);
+				new UserLoginTask(mEmail,mPassword).execute();
+				//mAuthTask = new UserLoginTask(mEmail,mPassword);
+				//mAuthTask.execute();
 				Intent registrationFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
 				RegistrationActivity.this.startActivity(registrationFinishedIntent);
 				finish();
@@ -313,21 +318,22 @@ public class RegistrationActivity extends Activity  {
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			
+			PoliUser poliuser = null;
+			ResponseObject response;
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			// Simulate network access.
 			try {
-				endpoint.checkCredentials(mEmail, mPassword);
+				response = endpoint.checkCredentials(mEmail, mPassword).execute();
+				poliuser=(PoliUser) response.getObject();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				poliuser = null;
 			}
-			//Thread.sleep(2000);
-
-
-			// TODO: register the new account here.
-			return false;
+			
+			if(poliuser!=null)
+				return true;
+			else 
+				return false;
 		}
 		
 		@Override
@@ -336,9 +342,11 @@ public class RegistrationActivity extends Activity  {
 			showProgress(false);
 
 			if (success) {
+				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
+				startActivity(loginFinishedIntent);
 				finish();
 			} else {
-				
+				Toast.makeText(RegistrationActivity.this, "Login error",Toast.LENGTH_SHORT).show();
 			}
 		}
 

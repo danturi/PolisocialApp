@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -49,8 +50,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "ex@ex.com:hello" };
+	//private static final String[] DUMMY_CREDENTIALS = new String[] {
+		//	"foo@example.com:hello", "ex@ex.com:hello" };
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -178,8 +179,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mAuthTask = new UserLoginTask(email, password);
-			mAuthTask.execute((Void) null);
+			new UserLoginTask(email, password).execute();
+			//mAuthTask = (UserLoginTask) new UserLoginTask(email, password);
+			//mAuthTask.execute();
 		}
 	}
 
@@ -342,25 +344,18 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			PoliUser poliuser = null;
+			ResponseObject response;
+			PoliUser poliuser=null;
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			// Simulate network access.
 			try {
-				poliuser=endpoint.checkCredentials(mEmail, mPassword).execute();
+				response=endpoint.checkCredentials(mEmail, mPassword).execute();
+				poliuser=(PoliUser) response.getObject();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getCause()+"\n"+e.getMessage());
 			}
-			//Thread.sleep(2000);
-/**
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword); 
-				}
-			}**/
+			
 
 			// TODO: register the new account here.
 			if(poliuser!=null)

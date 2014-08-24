@@ -2,6 +2,7 @@ package it.polimi.dima.polisocial.entity;
 
 import it.polimi.dima.polisocial.EMF;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -12,14 +13,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 
 import com.google.appengine.datanucleus.query.JPACursorHelper;
-
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.datastore.Email;
 
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
@@ -32,22 +31,25 @@ public class PoliUserEndpoint {
 	 *
 	 * @param nickname 
 	 * @param password 
-	 * @return poliuser, if not null the credentials exists and user can log in
+	 * @return poliuser in ResponseObject, if not null the credentials exists and user can log in
 	 */
 	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
-	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
+	public ResponseObject checkCredentials(@Named("email") String email, @Named("password") String password) {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			Query query = mgr.createQuery("select user from PoliUser user where user.email= :email and user.password= :password").setParameter("email", email).setParameter("password", password);
-			if (query.getResultList().isEmpty()){
-				poliuser=null;
-			}
-			poliuser = (PoliUser) query.getSingleResult();
+				CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
+				Iterator<PoliUser> iter = poliuserList.getItems().iterator();
+				while (iter.hasNext()){
+					poliuser=iter.next();
+					if(poliuser.getEmail().equals(email) && poliuser.getPassword().equals(password))
+						break;
+					poliuser=null;
+				}
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		return new ResponseObject(null,poliuser);
 	}
 
 	/**
@@ -59,19 +61,23 @@ public class PoliUserEndpoint {
 	 * @return poliuser, if not null the email already exists in db
 	 */
 	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
-	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+	public ResponseObject checkForDuplicateEmail(@Named("email") String email) {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			Query query = mgr.createQuery("select user from PoliUser user where user.email= :email").setParameter("email", email);
-			if (query.getResultList().isEmpty()){
+			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
+			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
+			while (iter.hasNext()){
+				poliuser=iter.next();
+				if(poliuser.getEmail().equals(email))
+					break;
 				poliuser=null;
 			}
-			poliuser = (PoliUser) query.getSingleResult();
+				
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		return new ResponseObject(null, poliuser);
 	}
 	
 	/**
@@ -80,22 +86,26 @@ public class PoliUserEndpoint {
 	 *  It uses HTTP GET method.
 	 *
 	 * @param nickname.
-	 * @return poliuser, if not null the nickname already exists in db
+	 * @return poliuser in ResponseObject, if not null the nickname already exists in db
 	 */
 	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
-	public PoliUser checkForDuplicateUsername(@Named("nickname") String nickname) {
+	public ResponseObject checkForDuplicateUsername(@Named("nickname") String nickname) {
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser = null;
 		try {
-			Query query = mgr.createQuery("select user from PoliUser user where user.nickname= :nickname").setParameter("nickname", nickname);
-			if (query.getResultList().isEmpty()){
+			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
+			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
+			while (iter.hasNext()){
+				poliuser=iter.next();
+				if(poliuser.getNickname().equals(nickname))
+					break;
 				poliuser=null;
 			}
-			poliuser = (PoliUser) query.getSingleResult();
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		
+		return new ResponseObject(null, poliuser);
 	}
 	
 	

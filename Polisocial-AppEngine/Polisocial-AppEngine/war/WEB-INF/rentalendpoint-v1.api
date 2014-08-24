@@ -84,27 +84,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "rentalendpoint.getRental" : {
-      "path" : "rental/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "rentalendpoint.removeRental" : {
       "path" : "rental/{id}",
       "httpMethod" : "DELETE",
@@ -124,6 +103,27 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "rentalendpoint.getRental" : {
+      "path" : "rental/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -169,14 +169,14 @@
           "name" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
-          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
           }
         }
       },
@@ -218,12 +218,12 @@
           "$ref" : "Rental"
         }
       },
+      "it.polimi.dima.polisocial.entity.RentalEndpoint.removeRental" : {
+      },
       "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental" : {
         "response" : {
           "$ref" : "Rental"
         }
-      },
-      "it.polimi.dima.polisocial.entity.RentalEndpoint.removeRental" : {
       }
     }
   }

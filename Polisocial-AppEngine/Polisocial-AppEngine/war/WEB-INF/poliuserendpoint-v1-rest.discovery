@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/EP_C9-797UpH7foFZ4R3-hjw6Gs\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/zAV9-f6apbWsYgqIImWn432yIOg\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -188,6 +188,18 @@
     }
    }
   },
+  "ResponseObject": {
+   "id": "ResponseObject",
+   "type": "object",
+   "properties": {
+    "exception": {
+     "type": "string"
+    },
+    "object": {
+     "$ref": "_any"
+    }
+   }
+  },
   "Text": {
    "id": "Text",
    "type": "object",
@@ -217,6 +229,10 @@
      "type": "string"
     }
    }
+  },
+  "_any": {
+   "id": "_any",
+   "type": "any"
   }
  },
  "methods": {
@@ -241,7 +257,7 @@
     "password"
    ],
    "response": {
-    "$ref": "PoliUser"
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -262,7 +278,7 @@
     "email"
    ],
    "response": {
-    "$ref": "PoliUser"
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -283,7 +299,7 @@
     "nickname"
    ],
    "response": {
-    "$ref": "PoliUser"
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
