@@ -89,7 +89,8 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-
+		Toast.makeText(this,"Ciao "+getIntent().getStringExtra("name")+"!",Toast.LENGTH_LONG).show();
+		
 		// Create the adapter that will return a fragment for each of the three primary sections
 		// of the app.
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());

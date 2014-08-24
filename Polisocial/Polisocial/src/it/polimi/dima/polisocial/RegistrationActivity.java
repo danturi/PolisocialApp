@@ -9,7 +9,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -229,26 +228,26 @@ public class RegistrationActivity extends Activity  {
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			Boolean emailAlreadyExists=true;
 			Boolean userNameAlreadyExists=true;
-			ResponseObject response = null;
+			PoliUser poliuser = null;
 			//check if email is available 
 			try {
-				response=endpoint.checkForDuplicateEmail(mEmail).execute();
+				poliUser=endpoint.checkForDuplicateEmail(mEmail).execute();
 					
 			} catch (IOException e2) {
 				
 			}
-			if(response.getObject()==null)
+			if(poliuser.getEmail()==null)
 				emailAlreadyExists = false;
 			else emailAlreadyExists = true;
 			
 			//check if username is available
 			try {
-				response=endpoint.checkForDuplicateEmail(mUsername).execute();
+				poliuser=endpoint.checkForDuplicateUsername(mUsername).execute();
 			} catch (IOException e1) {
 			e1.printStackTrace();
 			}
 			
-			if(response.getObject()==null)
+			if(poliuser.getNickname()==null)
 				userNameAlreadyExists = false;
 			else userNameAlreadyExists = true;
 			
@@ -279,9 +278,6 @@ public class RegistrationActivity extends Activity  {
 				new UserLoginTask(mEmail,mPassword).execute();
 				//mAuthTask = new UserLoginTask(mEmail,mPassword);
 				//mAuthTask.execute();
-				Intent registrationFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
-				RegistrationActivity.this.startActivity(registrationFinishedIntent);
-				finish();
 			} else if(result==1){
 				mEmailView.setError(getString(R.string.error_duplicate_email));
 				mPasswordView.requestFocus();
@@ -318,22 +314,20 @@ public class RegistrationActivity extends Activity  {
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			PoliUser poliuser = null;
-			ResponseObject response;
+			PoliUser poliuser;
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			// Simulate network access.
 			try {
-				response = endpoint.checkCredentials(mEmail, mPassword).execute();
-				poliuser=(PoliUser) response.getObject();
+				poliuser = endpoint.checkCredentials(mEmail, mPassword).execute();
+				if(poliuser.getEmail()!=null)
+					return true;	
 			} catch (IOException e) {
-				poliuser = null;
+	
 			}
 			
-			if(poliuser!=null)
-				return true;
-			else 
-				return false;
+			return false;
+			
 		}
 		
 		@Override

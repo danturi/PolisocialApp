@@ -29,8 +29,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -332,6 +330,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 		private final String mEmail;
 		private final String mPassword;
+		private String nickname="";
+
 
 		UserLoginTask(String email, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mEmail = email;
@@ -344,24 +344,21 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			ResponseObject response;
-			PoliUser poliuser=null;
+			PoliUser poliuser;
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			// Simulate network access.
 			try {
-				response=endpoint.checkCredentials(mEmail, mPassword).execute();
-				poliuser=(PoliUser) response.getObject();
+				poliuser=endpoint.checkCredentials(mEmail, mPassword).execute();
+				if(poliuser.getEmail()!=null){
+					nickname=poliuser.getNickname();
+					return true;
+				}
 			} catch (IOException e) {
 				System.out.println(e.getCause()+"\n"+e.getMessage());
 			}
-			
-
-			// TODO: register the new account here.
-			if(poliuser!=null)
-				return true;
-			else 
-				return false;
+	
+			return false;
 
 		}
 		
@@ -372,6 +369,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
+				loginFinishedIntent.putExtra("name", nickname);
 				LoginActivity.this.startActivity(loginFinishedIntent);
 				finish();
 			} else {
