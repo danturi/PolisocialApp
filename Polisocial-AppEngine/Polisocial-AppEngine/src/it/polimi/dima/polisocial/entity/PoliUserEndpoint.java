@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial.entity;
 
 import it.polimi.dima.polisocial.EMF;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -33,23 +32,30 @@ public class PoliUserEndpoint {
 	 * @param password 
 	 * @return poliuser in ResponseObject, if not null the credentials exists and user can log in
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
-	public ResponseObject checkCredentials(@Named("email") String email, @Named("password") String password) {
-		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
+		
+		EntityManager mgr = null;
+		List<PoliUser> execute = null;
+		PoliUser poliuser=new PoliUser();
+
 		try {
-				CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-				Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-				while (iter.hasNext()){
-					poliuser=iter.next();
-					if(poliuser.getEmail().equals(email) && poliuser.getPassword().equals(password))
-						break;
-					poliuser=null;
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select from PoliUser as PoliUser");
+
+			execute = (List<PoliUser>) query.getResultList();
+			
+			for (PoliUser obj : execute)
+				if(obj.getEmail().equals(email) && obj.getPassword().equals(password)){
+					poliuser=obj;
+					break;
 				}
+			
 		} finally {
 			mgr.close();
 		}
-		return new ResponseObject(null,poliuser);
+		return poliuser;
 	}
 
 	/**
@@ -59,56 +65,68 @@ public class PoliUserEndpoint {
 	 *
 	 * @param email.
 	 * @return poliuser, if not null the email already exists in db
+	 * TODO da sistemare...
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
-	public ResponseObject checkForDuplicateEmail(@Named("email") String email) {
-		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+		EntityManager mgr = null;
+		List<PoliUser> execute = null;
+		PoliUser poliuser=new PoliUser();
+
 		try {
-			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-			while (iter.hasNext()){
-				poliuser=iter.next();
-				if(poliuser.getEmail().equals(email))
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select from PoliUser as PoliUser");
+
+			execute = (List<PoliUser>) query.getResultList();
+			
+			for (PoliUser obj : execute)
+				if(obj.getEmail().equals(email)){
+					poliuser=obj;
 					break;
-				poliuser=null;
-			}
-				
+				}
+			
 		} finally {
 			mgr.close();
 		}
-		return new ResponseObject(null, poliuser);
+		return poliuser;
+	
 	}
 	
 	/**
 	 * 
-	 * This method check if the username passed as parameter already exists in db.
+	 * This method check if the email address passed as parameter already exists in db.
 	 *  It uses HTTP GET method.
 	 *
-	 * @param nickname.
-	 * @return poliuser in ResponseObject, if not null the nickname already exists in db
+	 * @param email.
+	 * @return poliuser, if not null the email already exists in db
+	 * TODO da sistemare...
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
-	public ResponseObject checkForDuplicateUsername(@Named("nickname") String nickname) {
-		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+	public PoliUser checkForDuplicateUsername(@Named("username") String username) {
+		EntityManager mgr = null;
+		List<PoliUser> execute = null;
+		PoliUser poliuser=new PoliUser();
+
 		try {
-			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-			while (iter.hasNext()){
-				poliuser=iter.next();
-				if(poliuser.getNickname().equals(nickname))
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select from PoliUser as PoliUser");
+
+			execute = (List<PoliUser>) query.getResultList();
+			
+			for (PoliUser obj : execute)
+				if(obj.getNickname().equals(username)){
+					poliuser=obj;
 					break;
-				poliuser=null;
-			}
+				}
+			
 		} finally {
 			mgr.close();
 		}
-		
-		return new ResponseObject(null, poliuser);
+		return poliuser;
+	
 	}
-	
-	
 	
 	
 	
