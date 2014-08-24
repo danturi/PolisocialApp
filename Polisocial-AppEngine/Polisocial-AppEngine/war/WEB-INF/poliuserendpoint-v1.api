@@ -173,7 +173,7 @@
       }
     },
     "poliuserendpoint.checkForDuplicateUsername" : {
-      "path" : "checkForDuplicateUsername/{nickname}",
+      "path" : "checkForDuplicateUsername/{username}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -182,7 +182,7 @@
       "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername",
       "request" : {
         "parameters" : {
-          "nickname" : {
+          "username" : {
             "type" : "string",
             "required" : true
           }
@@ -211,22 +211,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "ResponseObject" : {
-        "id" : "ResponseObject",
-        "type" : "object",
-        "properties" : {
-          "exception" : {
-            "type" : "string"
-          },
-          "object" : {
-            "$ref" : "_any"
-          }
-        }
-      },
-      "_any" : {
-        "id" : "_any",
-        "type" : "any"
-      },
       "PoliUser" : {
         "id" : "PoliUser",
         "type" : "object",
@@ -372,12 +356,12 @@
     "methods" : {
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail" : {
         "response" : {
-          "$ref" : "ResponseObject"
+          "$ref" : "PoliUser"
         }
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials" : {
         "response" : {
-          "$ref" : "ResponseObject"
+          "$ref" : "PoliUser"
         }
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
@@ -410,7 +394,7 @@
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername" : {
         "response" : {
-          "$ref" : "ResponseObject"
+          "$ref" : "PoliUser"
         }
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.prova" : {

@@ -29,7 +29,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -301,7 +300,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		MapView mapView;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
 		static RestaurantsFragmentListener listener;
-		ProgressBar progress;
+		VenuesNearPoliAndPlotMapTask task;
 
 
 		public GoogleMapFragment() {
@@ -319,12 +318,14 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			mapView = (MapView) v.findViewById(R.id.map);
 			mapView.onCreate(savedInstanceState);
 			map = mapView.getMap();
-			new VenuesNearPoliAndPlotMapTask(this,map).execute();
+			task = new VenuesNearPoliAndPlotMapTask(this,map);
+			task.execute();
 			Button buttonView= (Button) v.findViewById(R.id.button_view);
 			buttonView.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
+					task.cancel(true);
 					listener.onSwitchFragment();
 
 				}
@@ -379,7 +380,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				ResponseObject result = new ResponseObject();
 
 				String ll = "45.478178,9.228031"; 
-
+				if(task.isCancelled())return null;
 				try {
 					result = endpoint.searchVenues(ll).execute();
 				} catch (IOException e) {
@@ -392,7 +393,6 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			@SuppressWarnings("unchecked")
 			@Override
 			protected void onPostExecute(ResponseObject result) {
-
 
 
 				if (result == null) {

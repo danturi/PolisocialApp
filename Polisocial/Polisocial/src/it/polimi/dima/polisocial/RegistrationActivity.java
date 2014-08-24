@@ -136,9 +136,8 @@ public class RegistrationActivity extends Activity  {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			new UserRegisterTask(email, username, confirmPassword).execute();
-			//mRegTask = new UserRegisterTask(email,username, password);
-			//mRegTask.execute();
+			mRegTask = new UserRegisterTask(email,username, password);
+			mRegTask.execute();
 		}
 	}
 
@@ -204,21 +203,23 @@ public class RegistrationActivity extends Activity  {
 		private final String mEmail;
 		private final String mPassword;
 		private final String mUsername;
+		private PoliUser newPoliUser = new PoliUser();
 
 		UserRegisterTask(String email,String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mEmail=email;
 			mUsername = username;
 			mPassword = AeSimpleSHA1.SHA1(password);
+			
+			newPoliUser.setNickname(mUsername);
+			newPoliUser.setEmail(mEmail);
+			newPoliUser.setPassword(mPassword);
 		}
 
 		@Override
 		protected Integer doInBackground(Void... params) {
 			
 			
-			PoliUser poliUser = new PoliUser();
-			poliUser.setNickname(mUsername);
-			poliUser.setEmail(mEmail);
-			poliUser.setPassword(mPassword);
+
 			
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
@@ -228,26 +229,26 @@ public class RegistrationActivity extends Activity  {
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			Boolean emailAlreadyExists=true;
 			Boolean userNameAlreadyExists=true;
-			PoliUser poliuser = null;
+			PoliUser poliUser = new PoliUser();
 			//check if email is available 
 			try {
 				poliUser=endpoint.checkForDuplicateEmail(mEmail).execute();
 					
 			} catch (IOException e2) {
-				
+				e2.printStackTrace();
 			}
-			if(poliuser.getEmail()==null)
+			if(poliUser.getEmail()==null)
 				emailAlreadyExists = false;
 			else emailAlreadyExists = true;
 			
 			//check if username is available
 			try {
-				poliuser=endpoint.checkForDuplicateUsername(mUsername).execute();
+				poliUser=endpoint.checkForDuplicateUsername(mUsername).execute();
 			} catch (IOException e1) {
 			e1.printStackTrace();
 			}
 			
-			if(poliuser.getNickname()==null)
+			if(poliUser.getNickname()==null)
 				userNameAlreadyExists = false;
 			else userNameAlreadyExists = true;
 			
@@ -258,8 +259,7 @@ public class RegistrationActivity extends Activity  {
 					return 2;
 			}else{
 				try {				
-					endpoint.insertPoliUser(poliUser).execute();
-					//Thread.sleep(2000);
+					endpoint.insertPoliUser(newPoliUser).execute();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -302,6 +302,7 @@ public class RegistrationActivity extends Activity  {
 
 		private final String mEmail;
 		private final String mPassword;
+		private String nickname="";
 
 		UserLoginTask(String email, String password) {
 			mEmail = email;
@@ -314,14 +315,15 @@ public class RegistrationActivity extends Activity  {
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			PoliUser poliuser;
+			PoliUser poliuser = new PoliUser();
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-			
-			// Simulate network access.
+		
 			try {
 				poliuser = endpoint.checkCredentials(mEmail, mPassword).execute();
-				if(poliuser.getEmail()!=null)
-					return true;	
+				if(poliuser.getEmail()!=null){
+					nickname=poliuser.getNickname();
+					return true;
+				}
 			} catch (IOException e) {
 	
 			}
@@ -337,7 +339,8 @@ public class RegistrationActivity extends Activity  {
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
-				startActivity(loginFinishedIntent);
+				loginFinishedIntent.putExtra("name", nickname);
+				RegistrationActivity.this.startActivity(loginFinishedIntent);
 				finish();
 			} else {
 				Toast.makeText(RegistrationActivity.this, "Login error",Toast.LENGTH_SHORT).show();

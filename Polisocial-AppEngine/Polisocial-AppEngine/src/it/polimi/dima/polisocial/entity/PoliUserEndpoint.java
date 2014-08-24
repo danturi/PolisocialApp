@@ -1,9 +1,10 @@
 package it.polimi.dima.polisocial.entity;
 
 import it.polimi.dima.polisocial.EMF;
+import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -23,7 +24,7 @@ import com.google.appengine.api.datastore.Cursor;
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
 
-	
+	private static final Logger log = Logger.getLogger(FoursquarePolisocialAPI.class.getName());
 
 	/**
 	 * 
@@ -31,25 +32,27 @@ public class PoliUserEndpoint {
 	 *
 	 * @param nickname 
 	 * @param password 
-	 * @return poliuser in ResponseObject, if not null the credentials exists and user can log in
+	 * @return poliuser, if not null the credentials exists and user can log in
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
-	public ResponseObject checkCredentials(@Named("email") String email, @Named("password") String password) {
+	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
+		
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+		PoliUser poliuser=new PoliUser();
 		try {
-				CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-				Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-				while (iter.hasNext()){
-					poliuser=iter.next();
-					if(poliuser.getEmail().equals(email) && poliuser.getPassword().equals(password))
-						break;
-					poliuser=null;
-				}
+
+			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1 and x.password = ?2");
+			q.setParameter (1, email).setParameter (2, password);
+			List<PoliUser> results = q.getResultList ();
+			if(!results.isEmpty() && results.size()==1){
+				poliuser= results.get(0);
+			}
+			
 		} finally {
 			mgr.close();
 		}
-		return new ResponseObject(null,poliuser);
+		return poliuser;
 	}
 
 	/**
@@ -59,58 +62,60 @@ public class PoliUserEndpoint {
 	 *
 	 * @param email.
 	 * @return poliuser, if not null the email already exists in db
+	 * TODO da sistemare...
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
-	public ResponseObject checkForDuplicateEmail(@Named("email") String email) {
+	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+		
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+		PoliUser poliuser=new PoliUser();
 		try {
-			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-			while (iter.hasNext()){
-				poliuser=iter.next();
-				if(poliuser.getEmail().equals(email))
-					break;
-				poliuser=null;
+
+			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1");
+			q.setParameter (1, email);
+			List<PoliUser> results = q.getResultList ();
+			if(!results.isEmpty() && results.size()==1){
+				poliuser= results.get(0);
 			}
-				
+			
 		} finally {
 			mgr.close();
 		}
-		return new ResponseObject(null, poliuser);
+		return poliuser;
 	}
 	
 	/**
 	 * 
-	 * This method check if the username passed as parameter already exists in db.
+	 * This method check if the email address passed as parameter already exists in db.
 	 *  It uses HTTP GET method.
 	 *
-	 * @param nickname.
-	 * @return poliuser in ResponseObject, if not null the nickname already exists in db
+	 * @param email.
+	 * @return poliuser, if not null the email already exists in db
+	 * TODO da sistemare...
 	 */
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
-	public ResponseObject checkForDuplicateUsername(@Named("nickname") String nickname) {
+	public PoliUser checkForDuplicateUsername(@Named("username") String username) {
+		
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser = null;
+		PoliUser poliuser=new PoliUser();
 		try {
-			CollectionResponse<PoliUser> poliuserList = listPoliUser(null,null);
-			Iterator<PoliUser> iter = poliuserList.getItems().iterator();
-			while (iter.hasNext()){
-				poliuser=iter.next();
-				if(poliuser.getNickname().equals(nickname))
-					break;
-				poliuser=null;
+
+			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.nickname = ?1");
+			q.setParameter (1, username);
+			List<PoliUser> results = q.getResultList ();
+			if(!results.isEmpty() && results.size()==1){
+				poliuser= results.get(0);
 			}
+			
 		} finally {
 			mgr.close();
 		}
-		
-		return new ResponseObject(null, poliuser);
+		return poliuser;
 	}
-	
-	
-	
-	
+
+
 	
 	/**
 	 * This method lists all the entities inserted in datastore.

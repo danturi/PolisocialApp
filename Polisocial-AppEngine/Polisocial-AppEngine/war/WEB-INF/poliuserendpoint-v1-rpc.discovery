@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/zAV9-f6apbWsYgqIImWn432yIOg\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/_neHrfA9sXhqsj-Uc0U4HOSNMcU\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -186,18 +186,6 @@
     }
    }
   },
-  "ResponseObject": {
-   "id": "ResponseObject",
-   "type": "object",
-   "properties": {
-    "exception": {
-     "type": "string"
-    },
-    "object": {
-     "$ref": "_any"
-    }
-   }
-  },
   "Text": {
    "id": "Text",
    "type": "object",
@@ -227,10 +215,6 @@
      "type": "string"
     }
    }
-  },
-  "_any": {
-   "id": "_any",
-   "type": "any"
   }
  },
  "methods": {
@@ -252,7 +236,7 @@
     "password"
    ],
    "returns": {
-    "$ref": "ResponseObject"
+    "$ref": "PoliUser"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -271,7 +255,7 @@
     "email"
    ],
    "returns": {
-    "$ref": "ResponseObject"
+    "$ref": "PoliUser"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -281,16 +265,16 @@
    "id": "poliuserendpoint.checkForDuplicateUsername",
    "allowGet": true,
    "parameters": {
-    "nickname": {
+    "username": {
      "type": "string",
      "required": true
     }
    },
    "parameterOrder": [
-    "nickname"
+    "username"
    ],
    "returns": {
-    "$ref": "ResponseObject"
+    "$ref": "PoliUser"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
