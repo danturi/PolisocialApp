@@ -38,9 +38,12 @@ public class PoliUserEndpoint {
 	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
 	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
 		
+
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser=new PoliUser();
+
 		try {
+
 
 			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1 and x.password = ?2");
 			q.setParameter (1, email).setParameter (2, password);
@@ -48,6 +51,8 @@ public class PoliUserEndpoint {
 			if(!results.isEmpty() && results.size()==1){
 				poliuser= results.get(0);
 			}
+
+
 			
 		} finally {
 			mgr.close();
@@ -67,10 +72,14 @@ public class PoliUserEndpoint {
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
 	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+
 		
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser=new PoliUser();
+
+
 		try {
+
 
 			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1");
 			q.setParameter (1, email);
@@ -78,11 +87,16 @@ public class PoliUserEndpoint {
 			if(!results.isEmpty() && results.size()==1){
 				poliuser= results.get(0);
 			}
+
 			
 		} finally {
 			mgr.close();
 		}
 		return poliuser;
+
+
+	
+
 	}
 	
 	/**
@@ -97,10 +111,12 @@ public class PoliUserEndpoint {
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
 	public PoliUser checkForDuplicateUsername(@Named("username") String username) {
+
 		
 		EntityManager mgr = getEntityManager();
 		PoliUser poliuser=new PoliUser();
-		try {
+
+		try{
 
 			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.nickname = ?1");
 			q.setParameter (1, username);
@@ -108,12 +124,15 @@ public class PoliUserEndpoint {
 			if(!results.isEmpty() && results.size()==1){
 				poliuser= results.get(0);
 			}
+
 			
 		} finally {
 			mgr.close();
 		}
 		return poliuser;
-	}
+		}
+
+
 
 
 	
