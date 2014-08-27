@@ -32,7 +32,7 @@ public class PoliUser {
 	private int push_notification_id;
 	private Blob profilePicture1;
 	private Blob profilePicture2;
-	private Text selfSummary;
+	private String selfSummary;
 	private int height;
 	private int age;
 	private String whatImDoingWithMyLife;
@@ -89,10 +89,10 @@ public class PoliUser {
 	public void setPush_notification_id(int push_notification_id) {
 		this.push_notification_id = push_notification_id;
 	}
-	public Text getSelfSummary() {
+	public String getSelfSummary() {
 		return selfSummary;
 	}
-	public void setSelfSummary(Text selfSummary) {
+	public void setSelfSummary(String selfSummary) {
 		this.selfSummary = selfSummary;
 	}
 	public int getHeight() {

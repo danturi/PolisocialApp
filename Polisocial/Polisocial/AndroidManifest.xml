@@ -76,18 +76,22 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyB6L9xLqWJLF6fvT2Vf7CE9pDyY9rxfsEM" />
-
+		<meta-data 
+		    android:name="com.facebook.sdk.ApplicationId" 
+		    android:value="@string/app_id" />
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"/>
-        <activity
-            android:name=".Map2Activity"
-            android:label="@string/title_activity_map2" >
-        </activity>
         
         <activity
             android:name=".CollectionDemoActivity"
             android:label="@string/demo_collection" />
+        
+        <activity 
+            android:name="com.facebook.LoginActivity" 
+            android:label="@string/app_name">
+            
+        </activity>
         
     </application>
 

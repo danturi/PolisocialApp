@@ -1,9 +1,20 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
@@ -13,8 +24,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build.VERSION;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -27,14 +38,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
+import com.facebook.Request;
+import com.facebook.Request.GraphUserCallback;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
@@ -48,8 +60,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	//private static final String[] DUMMY_CREDENTIALS = new String[] {
-		//	"foo@example.com:hello", "ex@ex.com:hello" };
+
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
@@ -60,6 +71,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
+	private UiLifecycleHelper uiHelper;
+	private boolean isResumed = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +123,177 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mProgressView = findViewById(R.id.login_progress);
+		
+
+		//Login con Facebook
+
+
+		uiHelper = new UiLifecycleHelper(this,callback);
+		uiHelper.onCreate(savedInstanceState);
+
+		
+		Session session = Session.getActiveSession();
+		if (session != null && session.isOpened()) {
+			startActivity(new Intent(LoginActivity.this, TabActivity.class));
+		}
+
+		LoginButton authButton = (LoginButton) findViewById(R.id.facebook_login);
+		authButton.setReadPermissions(Arrays.asList("user_status","email"));
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		// For scenarios where the main activity is launched and user
+		// session is not null, the session state change notification
+		// may not be triggered. Trigger it if it's open/closed.
+		/*Session session = Session.getActiveSession();
+		if (session != null &&
+				(session.isOpened() || session.isClosed()) ) {
+			onSessionStateChange(session, session.getState(), null);
+		}*/
+
+		uiHelper.onResume();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		//super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+
+	private Session.StatusCallback callback = new Session.StatusCallback() {
+		@Override
+		public void call(Session session, SessionState state, Exception exception) {
+			onSessionStateChange(session, state, exception);
+		}
+	};
+
+
+	String nickname;
+	String email;
+	PoliUser poliuser= new PoliUser();
+
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+		if (state.isOpened()) {
+
+			Request meRequest=Request.newMeRequest(session, new GraphUserCallback()
+			{
+
+				@Override
+				public void onCompleted(GraphUser user, Response response)
+				{
+					if(response.getError()==null)
+					{	
+						nickname=user.getFirstName()+user.getLastName();
+						email = (String) user.getProperty("email");
+						poliuser.setEmail(email);
+						poliuser.setNickname(nickname);
+						poliuser.setFbaccount(user.getLink());
+						poliuser.setSelfSummary((String) user.getProperty("bio"));
+						new searchEmailForLoginFBTask().execute();
+					}
+				}
+			});
+			meRequest.executeAsync();
+			
+
+		} else if (state.isClosed()) {
+
+		}
+	}
+
+
+	public class searchEmailForLoginFBTask extends AsyncTask<Void, Void, Boolean>{
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+
+
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			PoliUser poliUserCheck = new PoliUser();
+
+			//cerco se l'email è già nel database
+			try {
+				poliUserCheck=endpoint.checkForDuplicateEmail(email).execute();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			if (poliUserCheck.getEmail()==null){
+				return false;
+			}
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			//super.onPostExecute(result);
+			if (!result){
+				//registro utente
+				new InsertPoliUserFBTask().execute();
+			}else {
+				Intent i= new Intent(LoginActivity.this,TabActivity.class);
+				i.putExtra("name", nickname);
+				startActivity(i);
+			}
+		}
+
+
+	}
+
+
+	public class InsertPoliUserFBTask extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+
+			try {
+				endpoint.insertPoliUser(poliuser).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			Intent i= new Intent(LoginActivity.this,TabActivity.class);
+			i.putExtra("name", nickname);
+			startActivity(i);
+		}
+
+
+	}
+        
+        
 	public void goToRegistrationScreen(View clickedText){
 		Intent goToRegistrationIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
 		LoginActivity.this.startActivity(goToRegistrationIntent);
@@ -384,5 +566,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			mAuthTask = null;
 			showProgress(false);
 		}
+		
+
 	}
 }

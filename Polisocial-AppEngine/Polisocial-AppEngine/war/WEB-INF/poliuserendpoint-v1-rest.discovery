@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/_neHrfA9sXhqsj-Uc0U4HOSNMcU\"",
+ "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/T48NghjTgl8PpCWQR9BUkXxadew\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -172,7 +172,7 @@
      "format": "int32"
     },
     "selfSummary": {
-     "$ref": "Text"
+     "type": "string"
     },
     "sixThingsWithout": {
      "type": "string"

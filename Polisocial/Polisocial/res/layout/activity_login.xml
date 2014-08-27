@@ -130,7 +130,7 @@
                 android:textSize="20sp"
                 android:textColor="#0b84aa"/>
           
-          <Button 
+          <com.facebook.widget.LoginButton
           		android:background="@drawable/fb_login_button"
         		android:id="@+id/facebook_login"
         		android:layout_width="fill_parent"

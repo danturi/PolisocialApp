@@ -31,6 +31,7 @@
     <color name="Green">#45a700</color>
     <string name="addVenue">Nuovo locale</string>
     <string name="change_to_map">Torna alla mappa</string>
+    <string name="app_id">856286317717902</string>
     
     
 </resources>
