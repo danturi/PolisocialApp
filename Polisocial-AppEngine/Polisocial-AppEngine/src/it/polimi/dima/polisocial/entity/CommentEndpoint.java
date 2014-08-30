@@ -107,6 +107,10 @@ public class CommentEndpoint {
 		} finally {
 			mgr.close();
 		}
+		
+		//mando notifica all'autore del post
+		/*TODO*/
+		
 		return comment;
 	}
 
