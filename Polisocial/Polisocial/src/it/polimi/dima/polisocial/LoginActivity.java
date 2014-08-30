@@ -257,6 +257,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 				Intent i= new Intent(LoginActivity.this,TabActivity.class);
 				i.putExtra("name", nickname);
 				startActivity(i);
+				finish();
 			}
 		}
 
@@ -288,6 +289,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			Intent i= new Intent(LoginActivity.this,TabActivity.class);
 			i.putExtra("name", nickname);
 			startActivity(i);
+			finish();
 		}
 
 

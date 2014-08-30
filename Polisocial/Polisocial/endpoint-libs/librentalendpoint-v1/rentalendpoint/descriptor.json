@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/rentalendpoint/v1/20140826140259/java/1.18.0-rc/polimi.it-rentalendpoint-v1-20140826140259-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-rentalendpoint-v1-20140826140259-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/rentalendpoint/v1/20140829205207/java/1.18.0-rc/polimi.it-rentalendpoint-v1-20140829205207-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-rentalendpoint-v1-20140829205207-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-08-26 14:02"
+      "timestamp": "2014-08-29 20:52"
     }, 
     {
-      "path": "polimi.it-rentalendpoint-v1-20140826140259-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-rentalendpoint-v1-20140829205207-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "rentalendpoint:v1", 
-  "revision": 20140826140259
+  "revision": 20140829205207
 }
