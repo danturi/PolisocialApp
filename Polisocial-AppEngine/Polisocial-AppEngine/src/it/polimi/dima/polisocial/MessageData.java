@@ -39,6 +39,7 @@ public class MessageData {
    */
   private long timestamp;
   
+  
   public Key getKey() {
     return key;
   }
@@ -58,4 +59,5 @@ public class MessageData {
   public void setTimestamp(long timestamp) {
     this.timestamp = timestamp;
   }
+
 }

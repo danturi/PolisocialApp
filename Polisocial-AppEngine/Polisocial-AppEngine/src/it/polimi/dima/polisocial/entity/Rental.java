@@ -10,15 +10,5 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class Rental extends Post {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
 
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
-	}
 }

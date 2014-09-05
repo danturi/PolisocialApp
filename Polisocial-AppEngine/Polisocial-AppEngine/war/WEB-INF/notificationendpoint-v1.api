@@ -133,17 +133,17 @@
         "id" : "Notification",
         "type" : "object",
         "properties" : {
-          "key" : {
-            "$ref" : "Key"
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "userId" : {
-            "type" : "integer"
+            "type" : "string",
+            "format" : "int64"
           },
           "postId" : {
-            "type" : "integer"
-          },
-          "typePost" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "int64"
           },
           "readFlag" : {
             "type" : "boolean"
@@ -151,34 +151,9 @@
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
+          },
+          "typePost" : {
             "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },

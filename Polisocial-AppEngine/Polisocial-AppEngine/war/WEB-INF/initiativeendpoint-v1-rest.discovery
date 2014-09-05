@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/YPJ376cMN5W30bYPlUwU_d7Tg2k\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/CettqN-ntiaF_70LeXA6B2UXf8Q\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -93,6 +93,10 @@
    "id": "Initiative",
    "type": "object",
    "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
     "key": {
      "$ref": "Key"
     },
@@ -114,8 +118,8 @@
      "type": "string"
     },
     "userId": {
-     "type": "integer",
-     "format": "int32"
+     "type": "string",
+     "format": "int64"
     }
    }
   },

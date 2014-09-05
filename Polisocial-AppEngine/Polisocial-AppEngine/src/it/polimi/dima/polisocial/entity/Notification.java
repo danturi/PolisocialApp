@@ -21,16 +21,16 @@ public class Notification {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+	private Long id;
 	
 	// Id user that has the notification
-	private Integer userId;
+	private Long userId;
 	
 	//Id of the post
-	private Integer postId;
+	private Long postId;
 	
-	//type of Post : Spotted,Notice board, Initiative
-	private String typePost;
+	//type of Post : Spotted,Rental...
+	private String postType;
 
 	// Notification read or not
 	private Boolean readFlag;
@@ -38,21 +38,21 @@ public class Notification {
 	private Date timestamp;
 
 	
-	
-	public Key getKey() {
-		return key;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void clearKey() {
-		this.key = null;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTypePost() {
-		return typePost;
+		return postType;
 	}
 
 	public void setTypePost(String typePost) {
-		this.typePost = typePost;
+		this.postType = typePost;
 	}
 
 	public Boolean getReadFlag() {
@@ -63,20 +63,20 @@ public class Notification {
 		this.readFlag = readFlag;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public Integer getPostId() {
+	public Long getPostId() {
 		return postId;
 	}
 
-	public void setPostId(Integer postId) {
-		this.postId = postId;
+	public void setPostId(Long postId2) {
+		this.postId = postId2;
 	}
 
 	public Date getTimestamp() {

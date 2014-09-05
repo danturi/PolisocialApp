@@ -5,18 +5,28 @@ package it.polimi.dima.polisocial.entity;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.datastore.Key;
 
 /**
  * @author danturi
  *
  */
+@MappedSuperclass
 public abstract class Post {
 
 
-		
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Key key;
+	
 		// Id user that write the post
-		private Integer userId;
+		private Long userId;
 		
 		private String text;
 		
@@ -24,12 +34,23 @@ public abstract class Post {
 		
 		private Date timestamp;
 		
+		public Long getId(){
+			return key.getId();
+		}
 		
-		public Integer getUserId() {
+		public Key getKey() {
+			return key;
+		}
+
+		public void clearKey() {
+			this.key = null;
+		}
+		
+		public Long getUserId() {
 			return userId;
 		}
 
-		public void setUserId(Integer userId) {
+		public void setUserId(Long userId) {
 			this.userId = userId;
 		}
 

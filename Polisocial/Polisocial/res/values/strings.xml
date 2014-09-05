@@ -6,7 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_foursquare">FoursquareActivity</string>
     <string name="title_activity_venues">VenuesActivity</string>
-    <string name="title_activity_prova">ProvaActivity</string>
     <string name="clear_credentials">Clear credentials</string>
     <string name="launch_oauth_flow">Login FSQ</string>
     <string name="title_activity_oauth_access">OAuthAccessActivity</string>
@@ -16,6 +15,9 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_map2">Map2Activity</string>
     <string name="title_activity_tab">TabActivity</string>
+    <string name="title_activity_preferences">Preferences</string>
+    <string name="desc_profile_pic">Profile picture</string>
+    <string name="desc_post_image">Post image picture</string>
     <string name="dummy_section_text">Section %1d is just a dummy section.</string>
     <string name="demo_external_activity">Demo External Activity</string>
     <string name="demo_collection">Demo Collection</string>
@@ -28,7 +30,7 @@
     <string name="foodTab_message">Fame? Ecco dove puoi mangiare qualcosa!</string>
     <string name="changeViewVenues">Elenco locali</string>
 
-    <color name="Green">#45a700</color>
+
 
     <string name="addVenue">Nuovo locale</string>
     <string name="change_to_map">Torna alla mappa</string>
@@ -36,5 +38,26 @@
     <string name="title_activity_gcm">GCMActivity</string>
     <string name="register">Register</string>
     <string name="unregister">Unregister</string>
+	    <string name="title_activity_show_related_comments">ShowRelatedCommentsActivity</string>
+    <string name="type_comment">Type your comment&#8230;</string>
+    
+    <string name="notification_subtitle">Notifications</string>
+    
+        <!-- Action bar actions and filter -->
+    <string name="action_write_spotted_post">New post</string>
+    <string name="action_show_profile">Profile</string>
+    <string name="action_show_preferences">Preferences</string>
+    <string name="action_add_restaurant">Add restaurant</string>
+    <string name="action_create_event">Create event</string>
+    <string name="action_write_announcement">New announcement</string>
+    <string name="menu_filter_events">Event filter</string>
+    <string name="menu_filter_events_culture">Culture</string>
+    <string name="menu_filter_events_fun">Fun</string>
+    <string name="menu_filter_events_various">Various</string>
+    <string name="menu_filter_spotted">Spotted filter</string>
+    <string name="menu_filter_spotted_love">Love</string>
+    <string name="menu_filter_spotted_hate">Complaint</string>
+    <string name="menu_filter_spotted_advice">Advice</string>
+    <string name="title_activity_show_relative_comments">ShowRelativeCommentsActivity</string>
 
 </resources>

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/ZmVxEX3XCp_e77ZEDfCvYnhDqmA\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/lR8cPhl9r0i9uyWHQXYe8xMICHE\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",
@@ -127,6 +127,10 @@
     "flagAnonimity": {
      "type": "boolean"
     },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
     "key": {
      "$ref": "Key"
     },
@@ -142,8 +146,8 @@
      "format": "date-time"
     },
     "userId": {
-     "type": "integer",
-     "format": "int32"
+     "type": "string",
+     "format": "int64"
     }
    }
   }

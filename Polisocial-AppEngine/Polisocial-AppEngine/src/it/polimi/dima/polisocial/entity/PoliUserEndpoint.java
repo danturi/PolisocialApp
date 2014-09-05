@@ -1,6 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
-import it.polimi.dima.polisocial.EMF;
+import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
+import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Cursor;
 
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
@@ -33,31 +34,26 @@ public class PoliUserEndpoint {
 	 * @param nickname 
 	 * @param password 
 	 * @return poliuser, if not null the credentials exists and user can log in
+	 * @throws NotFoundException 
 	 */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkCredentials", httpMethod = HttpMethod.GET)
-	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) {
+	public PoliUser checkCredentials(@Named("email") String email, @Named("password") String password) throws NotFoundException {
 		
 
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser=new PoliUser();
-
+		List<PoliUser> results;
 		try {
-
 
 			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1 and x.password = ?2");
 			q.setParameter (1, email).setParameter (2, password);
-			List<PoliUser> results = q.getResultList ();
-			if(!results.isEmpty() && results.size()==1){
-				poliuser= results.get(0);
-			}
+			results = q.getResultList ();
+			if(results.isEmpty()) throw new NotFoundException("Not Found Entity");
 
-
-			
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		return results.get(0);
 	}
 
 	/**
@@ -67,32 +63,28 @@ public class PoliUserEndpoint {
 	 *
 	 * @param email.
 	 * @return poliuser, if not null the email already exists in db
-	 * TODO da sistemare...
+	 * @throws NotFoundException 
 	 */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateEmail", httpMethod = HttpMethod.GET)
-	public PoliUser checkForDuplicateEmail(@Named("email") String email) {
+	public PoliUser checkForDuplicateEmail(@Named("email") String email) throws NotFoundException {
 
 		
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser=new PoliUser();
-
+		List<PoliUser> results;
 
 		try {
 
-
-			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.email = ?1");
-			q.setParameter (1, email);
-			List<PoliUser> results = q.getResultList ();
-			if(!results.isEmpty() && results.size()==1){
-				poliuser= results.get(0);
-			}
-
+			Query q = mgr.createQuery("SELECT x FROM PoliUser x WHERE x.email = ?1");
+			q.setParameter(1, email);
+			results = q.getResultList();
+			if(results.isEmpty()) throw new NotFoundException("Not Found Entity");
 			
+
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		return results.get(0);
 
 
 	
@@ -106,30 +98,28 @@ public class PoliUserEndpoint {
 	 *
 	 * @param email.
 	 * @return poliuser, if not null the email already exists in db
-	 * TODO da sistemare...
+	 * @throws NotFoundException 
 	 */
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name = "checkForDuplicateUsername", httpMethod = HttpMethod.GET)
-	public PoliUser checkForDuplicateUsername(@Named("username") String username) {
+	public PoliUser checkForDuplicateUsername(@Named("username") String username) throws NotFoundException {
 
 		
 		EntityManager mgr = getEntityManager();
-		PoliUser poliuser=new PoliUser();
+		List<PoliUser> results;
 
 		try{
 
 			Query q = mgr.createQuery ("SELECT x FROM PoliUser x WHERE x.nickname = ?1");
 			q.setParameter (1, username);
-			List<PoliUser> results = q.getResultList ();
-			if(!results.isEmpty() && results.size()==1){
-				poliuser= results.get(0);
-			}
+			results = q.getResultList ();
+			if(results.isEmpty()) throw new NotFoundException("Not Found Entity");
 
 			
 		} finally {
 			mgr.close();
 		}
-		return poliuser;
+		return results.get(0);
 		}
 
 
@@ -201,6 +191,7 @@ public class PoliUserEndpoint {
 		return poliuser;
 	}
 
+	
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
 	 * exists in the datastore, an exception is thrown.
@@ -272,9 +263,9 @@ public class PoliUserEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			if (poliuser.getUserKey() == null)
+			if (poliuser.getUserId() == null)
 				return false;
-			PoliUser item = mgr.find(PoliUser.class, poliuser.getUserKey());
+			PoliUser item = mgr.find(PoliUser.class, poliuser.getUserId());
 			if (item == null) {
 				contains = false;
 			}

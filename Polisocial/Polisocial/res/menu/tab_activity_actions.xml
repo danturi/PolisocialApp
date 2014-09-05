@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+ 
+<!--     <item
+          android:id="@+id/menu_filter_spotted"
+           android:icon="@drawable/ic_action_filter"
+          android:title="@string/menu_filter_spotted"
+          android:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                      android:id="@+id/menu_filter_spotted_love"
+                      android:title="@string/menu_filter_spotted_love" />
+
+                <item
+                      android:id="@+id/menu_filter_spotted_hate"
+                      android:title="@string/menu_filter_spotted_hate" />
+
+                <item
+                      android:id="@+id/menu_filter_spotted_advice"
+                      android:title="@string/menu_filter_spotted_advice" />
+
+            </group>
+        </menu>
+    </item>   
+        -->
+    <item
+          android:id="@+id/menu_filter_events"
+           android:icon="@drawable/ic_action_filter"
+          android:title="@string/menu_filter_events"
+          android:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                      android:id="@+id/menu_filter_events_culture"
+                      android:title="@string/menu_filter_events_culture" />
+
+                <item
+                      android:id="@+id/menu_filter_events_fun"
+                      android:title="@string/menu_filter_events_fun" />
+
+                <item
+                      android:id="@+id/menu_filter_events_various"
+                      android:title="@string/menu_filter_events_various" />
+
+            </group>
+        </menu>
+    </item>   
+                       
+    
+    <item android:id="@+id/action_write_spotted_post"
+       	  android:icon="@drawable/ic_action_write_post"
+          android:title="@string/action_write_spotted_post"
+          android:showAsAction="always" />
+    
+        <item android:id="@+id/action_add_restaurant"
+       	  android:icon="@drawable/ic_action_add_restaurant"
+          android:title="@string/action_add_restaurant"
+          android:showAsAction="always" />
+        
+        <item android:id="@+id/action_create_event"
+       	  android:icon="@drawable/ic_action_write_post"
+          android:title="@string/action_create_event"
+          android:showAsAction="always" />
+            
+        <item android:id="@+id/action_write_announcement"
+       	  android:icon="@drawable/ic_action_write_post"
+          android:title="@string/action_write_announcement"
+          android:showAsAction="always" />
+    
+	<item android:id="@+id/action_show_profile"
+          android:icon="@drawable/ic_action_show_profile"
+          android:title="@string/action_show_profile"
+          android:showAsAction="always" />
+	
+	<item android:id="@+id/action_show_preferences"
+          android:icon="@drawable/ic_action_show_profile"
+          android:title="@string/action_show_preferences"
+          android:showAsAction="never" />
+</menu>

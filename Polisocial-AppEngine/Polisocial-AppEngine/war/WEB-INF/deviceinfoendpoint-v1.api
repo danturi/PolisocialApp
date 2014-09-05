@@ -110,6 +110,35 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "deviceinfoendpoint.sendToUser" : {
+      "path" : "sendToUser/{userId}/{postId}/{postType}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUser",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postType" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "deviceinfoendpoint.insertDeviceInfo" : {
       "path" : "deviceinfo",
       "httpMethod" : "POST",
@@ -157,6 +186,10 @@
           "timestamp" : {
             "type" : "string",
             "format" : "int64"
+          },
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       }
@@ -181,6 +214,8 @@
         "response" : {
           "$ref" : "DeviceInfo"
         }
+      },
+      "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUser" : {
       },
       "it.polimi.dima.polisocial.DeviceInfoEndpoint.insertDeviceInfo" : {
         "request" : {

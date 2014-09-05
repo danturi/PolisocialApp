@@ -1,6 +1,15 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.EMF;
+import it.polimi.dima.polisocial.entity.EMF;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.inject.Named;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -9,18 +18,11 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-import javax.inject.Named;
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 @Api(name = "deviceinfoendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial"))
 public class DeviceInfoEndpoint {
 
+	
+	private MessageEndpoint messageEndpoint = new MessageEndpoint();
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -162,6 +164,50 @@ public class DeviceInfoEndpoint {
 		}
 		return contains;
 	}
+
+	
+
+	@ApiMethod(name="sendToUser")
+	public void sendToUser(@Named("userId") Long userId, @Named("postId") Long postId, @Named("postType") String postType){
+		
+		DeviceInfo device = null;
+		try {
+			device = getDeviceInfoByUserId(userId);
+		} catch (EntityNotFoundException e) {
+			//l'utente non è registrato,esci
+			return;
+		}
+
+		messageEndpoint.sendMessageToDevice("notification",userId, device, postId, postType);
+	}
+
+
+	@SuppressWarnings( "unchecked")
+	private DeviceInfo getDeviceInfoByUserId(Long userId) throws EntityNotFoundException{
+
+		EntityManager mgr = null;
+		DeviceInfo device = null;
+		List<DeviceInfo> execute = null;
+
+		try {
+			mgr = getEntityManager();
+			Query query = mgr
+					.createQuery("select x from DeviceInfo x where x.userId=?1");
+			query.setParameter(1, userId);
+
+			execute = (List<DeviceInfo>) query.getResultList();
+			if(execute.isEmpty()) throw new EntityNotFoundException("Device does not exist");
+			
+			device = execute.get(0);
+			
+		} finally {
+			mgr.close();
+		}
+
+		return device; 
+	}
+	
+	
 
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();

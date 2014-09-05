@@ -43,6 +43,8 @@ public class DeviceInfo {
    * Timestamp indicating when this device registered with the application.
    */
   private long timestamp;
+  
+  private long userId;
 
   public String getDeviceRegistrationID() {
     return deviceRegistrationID;
@@ -67,4 +69,12 @@ public class DeviceInfo {
   public void setTimestamp(long timestamp) {
     this.timestamp = timestamp;
   }
+
+public long getUserId() {
+	return userId;
+}
+
+public void setUserId(long userId) {
+	this.userId = userId;
+}
 }

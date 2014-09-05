@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/SOptAUcPulgyCpchtDVlde2xAt4\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/js0gKGUHoKB4iDYtja32avYvvqI\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -119,6 +119,10 @@
    "id": "Rental",
    "type": "object",
    "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
     "key": {
      "$ref": "Key"
     },
@@ -134,8 +138,8 @@
      "format": "date-time"
     },
     "userId": {
-     "type": "integer",
-     "format": "int32"
+     "type": "string",
+     "format": "int64"
     }
    }
   }

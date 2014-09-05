@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="post_bg">#d3d6db</color>
+    <color name="post_item_bg">#ffffff</color>
+    <color name="post_item_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#a0a3a7</color>
+    <color name="black_overlay">#66000000</color>
+        <color name="Green">#45a700</color>
+     <color name="unselected_text_numbofcomments_color">#a0a3a7</color>
+     <color name="selected_text_numbofcomments_color">#000000</color>
+
+     <color name="unselected_text_gotoregistration_color">#0b84aa</color>
+     <color name="selected_text_gotoregistration_color">#000000</color>
+</resources>

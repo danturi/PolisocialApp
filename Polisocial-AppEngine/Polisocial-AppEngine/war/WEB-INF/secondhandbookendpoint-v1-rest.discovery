@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/2GpSWhpah0_5_Ow21A6JiEv0tOI\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/CLxN-3fO8mADpwYro3EjtYDAYxg\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -89,10 +89,6 @@
     }
    }
   },
-  "Faculty": {
-   "id": "Faculty",
-   "type": "string"
-  },
   "Key": {
    "id": "Key",
    "type": "object",
@@ -126,7 +122,11 @@
    "type": "object",
    "properties": {
     "faculty": {
-     "$ref": "Faculty"
+     "type": "string"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
     },
     "key": {
      "$ref": "Key"
@@ -143,8 +143,8 @@
      "format": "date-time"
     },
     "userId": {
-     "type": "integer",
-     "format": "int32"
+     "type": "string",
+     "format": "int64"
     }
    }
   }

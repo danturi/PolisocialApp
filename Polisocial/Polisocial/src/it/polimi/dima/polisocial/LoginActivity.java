@@ -9,24 +9,31 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -50,11 +57,12 @@ import com.facebook.widget.LoginButton;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+
 /**
- * @author buzz 
+ * 
  * A login screen that offers login via email/password and via facebook.
  */
-@SuppressLint("NewApi") public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+@SuppressLint("NewApi") public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
 	/**
 	 * A dummy authentication store containing known user names and passwords.
@@ -72,13 +80,19 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private View mProgressView;
 	private View mLoginFormView;
 	private UiLifecycleHelper uiHelper;
-	private boolean isResumed = false;
+	private SessionManager sessionManager; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
+		
+		sessionManager = new SessionManager(getApplicationContext());
+		
+		//controllo se già loggato
+		if(sessionManager.isLoggedIn())
+			startActivity(new Intent(LoginActivity.this, TabActivity.class));	
+		
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 		populateAutoComplete();
@@ -131,11 +145,11 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		uiHelper = new UiLifecycleHelper(this,callback);
 		uiHelper.onCreate(savedInstanceState);
 
-		
+		/*
 		Session session = Session.getActiveSession();
 		if (session != null && session.isOpened()) {
 			startActivity(new Intent(LoginActivity.this, TabActivity.class));
-		}
+		}*/
 
 		LoginButton authButton = (LoginButton) findViewById(R.id.facebook_login);
 		authButton.setReadPermissions(Arrays.asList("user_status","email"));
@@ -160,6 +174,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//super.onActivityResult(requestCode, resultCode, data);
 		uiHelper.onActivityResult(requestCode, resultCode, data);
+		
 	}
 
 	@Override
@@ -183,11 +198,12 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private Session.StatusCallback callback = new Session.StatusCallback() {
 		@Override
 		public void call(Session session, SessionState state, Exception exception) {
+			showProgress(true);
 			onSessionStateChange(session, state, exception);
 		}
 	};
 
-
+	//dati da inserire per il nuovo utente
 	String nickname;
 	String email;
 	PoliUser poliuser= new PoliUser();
@@ -224,6 +240,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 	public class searchEmailForLoginFBTask extends AsyncTask<Void, Void, Boolean>{
 
+		PoliUser poliUserCheck;
 		@Override
 		protected Boolean doInBackground(Void... params) {
 
@@ -233,16 +250,14 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 			builder = CloudEndpointUtils.updateBuilder(builder);
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-			PoliUser poliUserCheck = new PoliUser();
+			
 
 			//cerco se l'email è già nel database
 			try {
 				poliUserCheck=endpoint.checkForDuplicateEmail(email).execute();
 			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			if (poliUserCheck.getEmail()==null){
-				return false;
+					if( new StringTokenizer(e1.getMessage().toString()).nextToken().equals("404"))
+						return false;	
 			}
 			return true;
 		}
@@ -251,11 +266,10 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		protected void onPostExecute(Boolean result) {
 			//super.onPostExecute(result);
 			if (!result){
-				//registro utente
 				new InsertPoliUserFBTask().execute();
+				
 			}else {
 				Intent i= new Intent(LoginActivity.this,TabActivity.class);
-				i.putExtra("name", nickname);
 				startActivity(i);
 				finish();
 			}
@@ -275,6 +289,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			builder = CloudEndpointUtils.updateBuilder(builder);
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 
+		
 			try {
 				endpoint.insertPoliUser(poliuser).execute();
 			} catch (IOException e) {
@@ -287,7 +302,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			Intent i= new Intent(LoginActivity.this,TabActivity.class);
-			i.putExtra("name", nickname);
+			i.putExtra("firstLogin", true);
+			sessionManager.createLoginSession(nickname, email);
+			showProgress(false);
 			startActivity(i);
 			finish();
 		}
@@ -362,8 +379,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			// perform the user login attempt.
 			showProgress(true);
 			new UserLoginTask(email, password).execute();
-			//mAuthTask = (UserLoginTask) new UserLoginTask(email, password);
-			//mAuthTask.execute();
+
 		}
 	}
 
@@ -534,15 +550,15 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			// Simulate network access.
 			try {
 				poliuser=endpoint.checkCredentials(mEmail, mPassword).execute();
-				if(poliuser.getEmail()!=null){
-					nickname=poliuser.getNickname();
-					return true;
-				}
+				nickname=poliuser.getNickname();
+				return true;
+				
 			} catch (IOException e) {
-				System.out.println(e.getCause()+"\n"+e.getMessage());
+				if( new StringTokenizer(e.getMessage().toString()).nextToken().equals("404"))
+					return false;
 			}
-	
 			return false;
+	
 
 		}
 		
@@ -553,7 +569,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
-				loginFinishedIntent.putExtra("name", nickname);
 				LoginActivity.this.startActivity(loginFinishedIntent);
 				finish();
 			} else {
@@ -571,4 +586,5 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		
 
 	}
+
 }

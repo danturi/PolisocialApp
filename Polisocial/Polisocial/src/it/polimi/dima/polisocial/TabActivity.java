@@ -2,6 +2,9 @@ package it.polimi.dima.polisocial;
 
 
 
+import it.polimi.dima.polisocial.SingleChoiceDialogFragm.NoticeDialogListener;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
 
@@ -11,20 +14,27 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,7 +54,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-public class TabActivity extends FragmentActivity implements ActionBar.TabListener {
+public class TabActivity extends FragmentActivity implements ActionBar.TabListener,NoticeDialogListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -53,17 +63,19 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	 * intensive, it may be best to switch to a {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-
-	/**
-	 * The {@link ViewPager} that will display the three primary sections of the app, one at a
-	 * time.
-	 */
 	ViewPager mViewPager;
+	PoliUser userSession;
+	private String email;
+	private String faculty = "";
+	SessionManager sessionManager; 
+	
 
+	@Override
+	public void onBackPressed() {
+		//non fa niente
+	}
 
-
-
-	public String actionBarTitle(int position){
+	public String setActionBarTitle(int position){
 		String title=null;
 		switch(position){
 		case 0:
@@ -88,20 +100,29 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-		if (getIntent().getStringExtra("name")!= null)
-		Toast.makeText(this,"Ciao "+getIntent().getStringExtra("name")+"!",Toast.LENGTH_LONG).show();
+		sessionManager = new SessionManager(getApplicationContext());
+		email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
+		boolean firstLogin = getIntent().getBooleanExtra("firstLogin",false);
+		//email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
 		
+		//controllo primo login dell'utente caso facebook
+		if(firstLogin){
+		//lancio dialog facoltà
+			//showNoticeDialog();
+			
+		}
+
 		// Create the adapter that will return a fragment for each of the three primary sections
 		// of the app.
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 
 		// Specify that the Home/Up button should not be enabled, since there is no hierarchical
 		// parent.
 		actionBar.setHomeButtonEnabled(false);
-
+		actionBar.setIcon(R.drawable.logo_action_bar);
 		// Specify that we will be displaying tabs in the action bar.
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -109,6 +130,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		// user swipes between sections.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
+		mViewPager.setOffscreenPageLimit(5);  	//mantiene memoria delle tab
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
@@ -116,7 +138,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				// We can also use ActionBar.Tab#select() to do this if we have a reference to the
 				// Tab.
 				actionBar.setSelectedNavigationItem(position);
-				actionBar.setTitle(actionBarTitle(position));
+				actionBar.setTitle(setActionBarTitle(position));
 			}
 		});
 
@@ -146,7 +168,53 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				//.setText(mAppSectionsPagerAdapter.getPageTitle(i))
 				.setTabListener(this));
 	}
-	//}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.tab_activity_actions, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_write_spotted_post:
+	        	//create new post();
+	        	return true;
+	        case R.id.action_write_announcement:
+	            //showProfile();
+	            return true;
+	        case R.id.action_add_restaurant:
+	            //showProfile();
+	            return true;
+	        case R.id.action_create_event:
+	            //showProfile();
+	            return true;
+	        case R.id.action_show_profile:
+	            //showProfile();
+	            return true;
+	        case R.id.action_show_preferences:
+	        	Intent preferencesIntent = new Intent(this, PreferencesActivity.class);
+				startActivity(preferencesIntent);
+	            return true;
+	      
+	        case R.id.menu_filter_events_culture:
+	        	 item.setChecked(true);
+	        	 //showProfile();
+	        case R.id.menu_filter_events_fun:
+	        	 item.setChecked(true);
+	        	 //showProfile();
+	        case R.id.menu_filter_events_various:
+	        	 item.setChecked(true);
+	        	 //showProfile();
+	            return true;
+	           
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -171,17 +239,47 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		static final int NUM_ITEMS = 5;
 		private final FragmentManager mFragmentManager;
 		private Fragment mFragmentAtPos3;
+		private Fragment mFragmentAtPos0;
+		private SavedState mFragmentAtpos3Map=null;
+		private SavedState mFragmentAtpos3List=null;
+		private Boolean update = false;
 
 
 		private final class RestaurantsListener implements RestaurantsFragmentListener{
 
 			public void onSwitchFragment(){
-				mFragmentManager.beginTransaction().remove(mFragmentAtPos3).commit();
+				
+				
 				if (mFragmentAtPos3 instanceof GoogleMapFragment){
-					mFragmentAtPos3=ListVenuesFragment.newInstance(listener);
+	
+					if ( mFragmentAtpos3List == null || update == true){   //TODO controllare che non si sia aggiunto un nuovo locale,in quel caso ricreare fragment
+						mFragmentManager.beginTransaction().remove(mFragmentAtPos3).commit();
+						mFragmentAtPos3 = ListVenuesFragment.newInstance(listener);
+
+					}else{
+						mFragmentAtpos3Map= mFragmentManager.saveFragmentInstanceState(mFragmentAtPos3);
+						mFragmentAtPos3 = new ListVenuesFragment();
+						mFragmentAtPos3.setInitialSavedState(mFragmentAtpos3List);
+				
+					}
+					
 				}else {
-					mFragmentAtPos3=GoogleMapFragment.newInstance(listener);
+					
+					if ( mFragmentAtpos3Map == null || update == true){
+						mFragmentManager.beginTransaction().remove(mFragmentAtPos3).commit();
+						mFragmentAtPos3 = GoogleMapFragment.newInstance(listener);
+						
+					}else {
+						mFragmentAtpos3List= mFragmentManager.saveFragmentInstanceState(mFragmentAtPos3);
+						mFragmentAtPos3 = new GoogleMapFragment();
+						mFragmentAtPos3.setInitialSavedState(mFragmentAtpos3Map);
+					
+
+					}
+					
 				}
+				
+				
 				notifyDataSetChanged();
 			}
 		}
@@ -196,7 +294,10 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-				return new LaunchpadSectionFragment();
+				if (mFragmentAtPos0 == null){
+					mFragmentAtPos0 = new SpottedPostListFragment();
+					}
+					return mFragmentAtPos0;
 			case 3:
 				if (mFragmentAtPos3 == null){
 					mFragmentAtPos3= GoogleMapFragment.newInstance(listener);
@@ -231,12 +332,14 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			if (object instanceof ListVenuesFragment && mFragmentAtPos3 instanceof GoogleMapFragment)
 				return POSITION_NONE;
 			return POSITION_UNCHANGED;
+			
 		}
 
 	}
 	public interface RestaurantsFragmentListener {
 		void onSwitchFragment();
 	}
+	
 
 	/**
 	 * A fragment that launches other parts of the demo application.
@@ -312,12 +415,10 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
+			super.onCreateView(inflater, container, savedInstanceState);
 			View v = inflater.inflate(R.layout.fragment_map, container, false);
-
-
-
 			// Gets the MapView from the XML layout and creates it
+			
 			mapView = (MapView) v.findViewById(R.id.map);
 			mapView.onCreate(savedInstanceState);
 			map = mapView.getMap();
@@ -330,7 +431,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				public void onClick(View v) {
 					task.cancel(true);
 					listener.onSwitchFragment();
-
+					
 				}
 			});
 			return v;
@@ -383,7 +484,6 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				ResponseObject result = new ResponseObject();
 
 				String ll = "45.478178,9.228031"; 
-				if(task.isCancelled())return null;
 				try {
 					result = endpoint.searchVenues(ll).execute();
 				} catch (IOException e) {
@@ -397,7 +497,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			@Override
 			protected void onPostExecute(ResponseObject result) {
 
-
+				if(task.isCancelled())return;
 				if (result == null) {
 					Toast.makeText(getActivity(), "Retrieving venues failed.Connection error.",Toast.LENGTH_SHORT).show();
 				} else if ( result.getObject()== null){
@@ -408,6 +508,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 						Toast.makeText(getActivity(), "No venues found",Toast.LENGTH_SHORT).show();
 					} else {
 
+						if(task.isCancelled())return;
 						MapsInitializer.initialize(mapFrag.getActivity());
 						LatLng poli = new LatLng(45.478178,9.228031);
 						CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(poli, 14);
@@ -478,6 +579,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		ListView listVenues;
 		ArrayAdapter<String> adapter = null;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
+		VenuesNearPoliTask task;
 		static RestaurantsFragmentListener listener;
 
 		public ListVenuesFragment() {
@@ -497,7 +599,8 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			View v = inflater.inflate(R.layout.fragment_listvenues, container, false);
 
 			listVenues = (ListView) v.findViewById(R.id.listViewVenues);
-			new VenuesNearPoliTask().execute();
+			task = new VenuesNearPoliTask();
+			task.execute();
 			
 
 			Button buttonView= (Button) v.findViewById(R.id.button_changeToMap);
@@ -505,6 +608,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 
 				@Override
 				public void onClick(View v) {
+					task.cancel(true);
 					listener.onSwitchFragment();
 
 				}
@@ -540,6 +644,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			@Override
 			protected void onPostExecute(ResponseObject result) {
 
+				if(task.isCancelled())return;
 				if (result == null) {
 					Toast.makeText(getActivity(), "Retrieving venues failed.Connection error.",Toast.LENGTH_SHORT).show();
 				} else if ( result.getObject()== null){
@@ -550,7 +655,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 						Toast.makeText(getActivity(), "No venues found",Toast.LENGTH_SHORT).show();
 					} else {
 
-
+						if(task.isCancelled())return;
 						int name = 1;
 						Iterator<ArrayList<String>> iterator = venues.iterator();
 						while (iterator.hasNext())
@@ -580,5 +685,43 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		}
 	}
 
+	@Override
+	public void onDialogPositiveClick(String faculty) {
+		
+		this.faculty = faculty;
+		new updateUserTask().execute(this.faculty);
+		
+	}
+		
+	private class updateUserTask extends AsyncTask<String, Void, Void>  {
+
+
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			try {
+
+				userSession = endpoint.checkForDuplicateEmail(email).execute();
+				userSession.setFaculty(params[0]);
+				endpoint.updatePoliUser(userSession).execute();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+
+	 public void showNoticeDialog() {
+	        // Create an instance of the dialog fragment and show it
+	        DialogFragment dialog = new SingleChoiceDialogFragm();
+	        dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
+	    }
 
 }

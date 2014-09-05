@@ -27,27 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "poliuserendpoint.checkForDuplicateEmail" : {
-      "path" : "checkForDuplicateEmail/{email}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail",
-      "request" : {
-        "parameters" : {
-          "email" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "poliuserendpoint.removePoliUser" : {
       "path" : "poliuser/{id}",
       "httpMethod" : "DELETE",
@@ -67,6 +46,27 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "poliuserendpoint.checkForDuplicateEmail" : {
+      "path" : "checkForDuplicateEmail/{email}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "poliuserendpoint.checkCredentials" : {
@@ -215,8 +215,9 @@
         "id" : "PoliUser",
         "type" : "object",
         "properties" : {
-          "userKey" : {
-            "$ref" : "Key"
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "nickname" : {
             "type" : "string"
@@ -232,9 +233,6 @@
           },
           "userGoogleAccount" : {
             "$ref" : "User"
-          },
-          "push_notification_id" : {
-            "type" : "integer"
           },
           "profilePicture1" : {
             "type" : "string",
@@ -265,36 +263,29 @@
           "sixThingsWithout" : {
             "type" : "string"
           },
-          "fbaccount" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
+          "faculty" : {
             "type" : "string"
           },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "complete" : {
+          "notifySpotted" : {
             "type" : "boolean"
           },
-          "namespace" : {
+          "notifyAnnouncement" : {
+            "type" : "boolean"
+          },
+          "notifiedSpotted" : {
+            "type" : "boolean"
+          },
+          "notifiedAnnouncement" : {
+            "type" : "boolean"
+          },
+          "notifiedEvent" : {
+            "type" : "boolean"
+          },
+          "fbaccount" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
+          "notifyRental" : {
+            "type" : "boolean"
           }
         }
       },
@@ -354,12 +345,12 @@
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
+      },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail" : {
         "response" : {
           "$ref" : "PoliUser"
         }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials" : {
         "response" : {

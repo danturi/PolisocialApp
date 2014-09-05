@@ -10,19 +10,11 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class PostSpotted extends Post {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
+
 	
 	private Boolean flagAnonimity;
 	
-	public Key getKey() {
-		return key;
-	}
-
-	public void clearKey() {
-		this.key = null;
-	}
+	
 
 	public Boolean isAnonimous() {
 		return flagAnonimity;

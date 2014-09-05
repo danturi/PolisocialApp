@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/title_activity_preferences">
+
+  <PreferenceCategory
+     android:title="@string/notification_subtitle">
+
+     <CheckBoxPreference
+       android:key="spotted"
+       android:title="Spotted"
+       android:summary="Enable/disable notification for your spotted post"
+       android:defaultValue="true"
+       />
+    <CheckBoxPreference
+       android:key="announcements"
+       android:title="Announcements"
+       android:summary="Enable/disable notification for your announcements"
+       android:defaultValue="true"
+       />
+  </PreferenceCategory>
+  
+  </PreferenceScreen>

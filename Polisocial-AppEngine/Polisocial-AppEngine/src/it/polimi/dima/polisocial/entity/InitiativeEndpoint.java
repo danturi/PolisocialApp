@@ -1,6 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
-import it.polimi.dima.polisocial.EMF;
+import it.polimi.dima.polisocial.entity.EMF;
 
 import java.util.List;
 

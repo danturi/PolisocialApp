@@ -1,6 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
-import it.polimi.dima.polisocial.EMF;
+import it.polimi.dima.polisocial.entity.EMF;
 
 import java.util.List;
 
@@ -154,7 +154,7 @@ public class NotificationEndpoint {
 		boolean contains = true;
 		try {
 			Notification item = mgr.find(Notification.class,
-					notification.getKey());
+					notification.getId());
 			if (item == null) {
 				contains = false;
 			}

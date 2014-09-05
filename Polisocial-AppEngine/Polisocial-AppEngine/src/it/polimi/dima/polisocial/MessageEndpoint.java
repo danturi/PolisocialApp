@@ -1,6 +1,12 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.Notification;
+import it.polimi.dima.polisocial.entity.PoliUser;
+import it.polimi.dima.polisocial.entity.PoliUserEndpoint;
+
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -9,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.google.appengine.datanucleus.query.JPACursorHelper;
-
 import com.google.android.gcm.server.Constants;
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Result;
@@ -57,7 +62,7 @@ public class MessageEndpoint {
   private static final String API_KEY = "AIzaSyB9RTmSC7-i3bc2fmRSfs1qNit-1gBFaIs";
 
   private static final DeviceInfoEndpoint endpoint = new DeviceInfoEndpoint();
-  
+  private static final PoliUserEndpoint endpointUser = new PoliUserEndpoint();
   /**
    * This function returns a list of messages starting with the newest message
    * first and in descending order from there
@@ -139,14 +144,65 @@ public class MessageEndpoint {
     } finally {
       mgr.close();
     }
+  
+    
     // ping a max of 10 registered devices
     CollectionResponse<DeviceInfo> response = endpoint.listDeviceInfo(null,
         10);
     for (DeviceInfo deviceInfo : response.getItems()) {
       doSendViaGcm(message, sender, deviceInfo);
     }
+    
   }
 
+  @ApiMethod(name = "sendMessageToDevice", path="sendMessageToDevice")
+  public void sendMessageToDevice(@Named("message") String message, 
+		  @Named("user") Long user, DeviceInfo device ,
+		  @Named("postId") Long postId ,
+		  @Named("postType") String postType){
+
+	  Sender sender = new Sender(API_KEY);
+
+	  if (!postType.equals("Spotted")) {
+		  // create a Notification entity
+		  Notification notification = new Notification();
+		  notification.setUserId(user);
+		  notification.setPostId(postId);
+		  notification.setTypePost(postType);
+		  notification.setReadFlag(false);
+		  notification.setTimestamp(new Date(System.currentTimeMillis()));
+
+		  EntityManager mgr = getEntityManager();
+		  try {
+			  mgr.persist(notification);
+		  } finally {
+			  mgr.close();
+		  }
+
+	  }else {
+		  /*TODO crea InterestNotification */
+	  }
+	  /*
+	  try {
+	  PoliUser userNotifing = endpointUser.getPoliUser(user);
+	  if (!userNotifing.getNotified()){
+		  if (postType.equals("Spotted") && userNotifing.getNotifySpotted()) 
+			  doSendViaGcm(message, sender, device);
+		  else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement())
+			  doSendViaGcm(message, sender, device);
+		  
+		  userNotifing.setNotified(true);
+		  endpointUser.updatePoliUser(userNotifing);
+	  }
+	  
+	  
+		  
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }*/
+  }
+    
+ 
   /**
    * Sends the message using the Sender object to the registered device.
    * 

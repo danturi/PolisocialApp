@@ -3,6 +3,7 @@ package it.polimi.dima.polisocial;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.StringTokenizer;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -13,7 +14,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.sip.SipRegistrationListener;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,37 +28,50 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import it.polimi.dima.polisocial.AeSimpleSHA1;
+import it.polimi.dima.polisocial.SingleChoiceDialogFragm.NoticeDialogListener;
 
 
-public class RegistrationActivity extends Activity  {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	//private static final String[] DUMMY_CREDENTIALS = new String[] {
-		//	"foo@example.com:hello", "bar@example.com:world" };
+public class RegistrationActivity extends Activity implements NoticeDialogListener {
+	
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserRegisterTask mRegTask = null;
 	private UserLoginTask mAuthTask = null;
+	private SessionManager sessionManager;
 	// UI references.
 	private EditText mEmailView;
 	private EditText mUsernameView;
+	private EditText mFacultyView;
 	private EditText mPasswordView;
 	private EditText mConfirmPasswordView;
 	private View mProgressView;
 	private View mRegistrationFormView;
 
+
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
+		sessionManager = new SessionManager(getApplicationContext());
+		
 		// Set up the registration form.
 		mEmailView = (EditText) findViewById(R.id.email);
 		mUsernameView = (EditText) findViewById(R.id.username);
+		mFacultyView =  (EditText) findViewById(R.id.faculty);
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mConfirmPasswordView = (EditText) findViewById(R.id.confirm_password);
+		
+		mFacultyView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showNoticeDialog();
+				
+			}
+		});
 
 		Button mRegistrationButton = (Button) findViewById(R.id.registration_button);
 		mRegistrationButton.setOnClickListener(new OnClickListener() {
@@ -91,10 +108,12 @@ public class RegistrationActivity extends Activity  {
 		// Reset errors.
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
+		mFacultyView.setError(null);
 
 		 //Store values at the time of the registration attempt.
 		String email = mEmailView.getText().toString();
 		String username = mUsernameView.getText().toString();
+		String faculty = mFacultyView.getText().toString();
 		String password = mPasswordView.getText().toString();
 		String confirmPassword = mConfirmPasswordView.getText().toString();
 
@@ -127,7 +146,23 @@ public class RegistrationActivity extends Activity  {
 			focusView = mEmailView;
 			cancel = true;
 		}
+		
+		//nessun username
+		if (TextUtils.isEmpty(username)) {
+			mUsernameView.setError(getString(R.string.error_field_required));
+			focusView = mUsernameView;
+			cancel = true;
+		}
 
+		//nessuna facoltà
+		if (TextUtils.isEmpty(faculty)){
+			mFacultyView.setError(getString(R.string.error_field_required));
+			focusView = mFacultyView;
+			cancel=true;
+		}
+
+		
+		
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
@@ -136,10 +171,11 @@ public class RegistrationActivity extends Activity  {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mRegTask = new UserRegisterTask(email,username, password);
+			mRegTask = new UserRegisterTask(email,username, password,faculty);
 			mRegTask.execute();
 		}
 	}
+	
 
 	private boolean isEmailValid(String email) {
 		String emailRegex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; 
@@ -204,8 +240,9 @@ public class RegistrationActivity extends Activity  {
 		private final String mPassword;
 		private final String mUsername;
 		private PoliUser newPoliUser = new PoliUser();
+		PoliUser poliUser;
 
-		UserRegisterTask(String email,String username, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		UserRegisterTask(String email,String username, String password,String faculty) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mEmail=email;
 			mUsername = username;
 			mPassword = AeSimpleSHA1.SHA1(password);
@@ -213,6 +250,7 @@ public class RegistrationActivity extends Activity  {
 			newPoliUser.setNickname(mUsername);
 			newPoliUser.setEmail(mEmail);
 			newPoliUser.setPassword(mPassword);
+			newPoliUser.setFaculty(faculty);
 		}
 
 		@Override
@@ -229,28 +267,23 @@ public class RegistrationActivity extends Activity  {
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			Boolean emailAlreadyExists=true;
 			Boolean userNameAlreadyExists=true;
-			PoliUser poliUser = new PoliUser();
+			
 			//check if email is available 
 			try {
 				poliUser=endpoint.checkForDuplicateEmail(mEmail).execute();
 					
 			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
-			if(poliUser.getEmail()==null)
+				if( new StringTokenizer(e2.getMessage().toString()).nextToken().equals("404"))
 				emailAlreadyExists = false;
-			else emailAlreadyExists = true;
-			
+			}
+
 			//check if username is available
 			try {
 				poliUser=endpoint.checkForDuplicateUsername(mUsername).execute();
 			} catch (IOException e1) {
-			e1.printStackTrace();
+				if( new StringTokenizer(e1.getMessage().toString()).nextToken().equals("404"))
+					userNameAlreadyExists = false;	
 			}
-			
-			if(poliUser.getNickname()==null)
-				userNameAlreadyExists = false;
-			else userNameAlreadyExists = true;
 			
 			if(userNameAlreadyExists || emailAlreadyExists){
 				if(emailAlreadyExists)
@@ -303,6 +336,7 @@ public class RegistrationActivity extends Activity  {
 		private final String mEmail;
 		private final String mPassword;
 		private String nickname="";
+		PoliUser poliuser;
 
 		UserLoginTask(String email, String password) {
 			mEmail = email;
@@ -315,19 +349,15 @@ public class RegistrationActivity extends Activity  {
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			PoliUser poliuser = new PoliUser();
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 		
 			try {
 				poliuser = endpoint.checkCredentials(mEmail, mPassword).execute();
-				if(poliuser.getEmail()!=null){
-					nickname=poliuser.getNickname();
-					return true;
-				}
+				nickname=poliuser.getNickname();
+				return true;
 			} catch (IOException e) {
 	
 			}
-			
 			return false;
 			
 		}
@@ -339,7 +369,8 @@ public class RegistrationActivity extends Activity  {
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
-				loginFinishedIntent.putExtra("name", nickname);
+				loginFinishedIntent.putExtra("firstLoginFromRegistration", true);
+				sessionManager.createLoginSession(nickname, mEmail);
 				RegistrationActivity.this.startActivity(loginFinishedIntent);
 				finish();
 			} else {
@@ -353,4 +384,19 @@ public class RegistrationActivity extends Activity  {
 			showProgress(false);
 		}
 	}
+
+	@Override
+	public void onDialogPositiveClick(String faculty) {
+		// TODO Auto-generated method stub
+		mFacultyView.setText(faculty);
+
+	}
+
+	
+    public void showNoticeDialog() {
+        // Create an instance of the dialog fragment and show it
+        DialogFragment dialog = new SingleChoiceDialogFragm();
+        dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
+    }
+
 }

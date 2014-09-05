@@ -22,14 +22,13 @@ public class PoliUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key userKey;
+	private Long userId;
 	private String nickname;
 	private String email;
 	private String password;
 	private PhoneNumber phoneNumber;
 	private User userGoogleAccount;
 	private String FBaccount;
-	private int push_notification_id;
 	private Blob profilePicture1;
 	private Blob profilePicture2;
 	private String selfSummary;
@@ -39,13 +38,21 @@ public class PoliUser {
 	private String imReallyGoodAt;
 	private Text favoriteBooksMoviesShowsMusic;
 	private String sixThingsWithout;
+	private String faculty;
 	
+	//flags per notifiche
+	private Boolean notifySpotted;
+	private Boolean notifyAnnouncement;
+	private Boolean notifyEvent;	
+	private Boolean notifiedSpotted;
+	private Boolean notifiedAnnouncement;
+	private Boolean notifiedEvent;
 	
-	public Key getUserKey() {
-		return userKey;
+	public Long getUserId() {
+		return userId;
 	}
-	public void setUserKey(Key userKey) {
-		this.userKey = userKey;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	public String getNickname() {
 		return nickname;
@@ -83,12 +90,7 @@ public class PoliUser {
 	public void setFBaccount(String fBaccount) {
 		FBaccount = fBaccount;
 	}
-	public int getPush_notification_id() {
-		return push_notification_id;
-	}
-	public void setPush_notification_id(int push_notification_id) {
-		this.push_notification_id = push_notification_id;
-	}
+	
 	public String getSelfSummary() {
 		return selfSummary;
 	}
@@ -142,6 +144,48 @@ public class PoliUser {
 	}
 	public void setProfilePicture2(Blob profilePicture2) {
 		this.profilePicture2 = profilePicture2;
+	}
+	public Boolean getNotifySpotted() {
+		return notifySpotted;
+	}
+	public void setNotifySpotted(Boolean notifySpotted) {
+		this.notifySpotted = notifySpotted;
+	}
+	public Boolean getNotifyAnnouncement() {
+		return notifyAnnouncement;
+	}
+	public void setNotifyAnnouncement(Boolean notifyAnnouncement) {
+		this.notifyAnnouncement = notifyAnnouncement;
+	}
+	public Boolean getNotifyRental() {
+		return notifyEvent;
+	}
+	public void setNotifyRental(Boolean notifyRental) {
+		this.notifyEvent = notifyRental;
+	}
+	public String getFaculty() {
+		return faculty;
+	}
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
+	public Boolean getNotifiedSpotted() {
+		return notifiedSpotted;
+	}
+	public void setNotifiedSpotted(Boolean notifyed) {
+		this.notifiedSpotted = notifyed;
+	}
+	public Boolean getNotifiedAnnouncement() {
+		return notifiedAnnouncement;
+	}
+	public void setNotifiedAnnouncement(Boolean notifiedAnnouncement) {
+		this.notifiedAnnouncement = notifiedAnnouncement;
+	}
+	public Boolean getNotifiedEvent() {
+		return notifiedEvent;
+	}
+	public void setNotifiedEvent(Boolean notifiedEvent) {
+		this.notifiedEvent = notifiedEvent;
 	}
 	
 }

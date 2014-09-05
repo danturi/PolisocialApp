@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/bJR-G2E-5Ue_EbJb3REcOYmsXh8\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/yE5jVx9-0ihVlnYhg_nRKF1hvwQ\"",
  "discoveryVersion": "v1",
  "id": "commentendpoint:v1",
  "name": "commentendpoint",
@@ -109,6 +109,9 @@
     },
     "text": {
      "type": "string"
+    },
+    "type": {
+     "type": "string"
     }
    }
   },
@@ -139,6 +142,34 @@
      "$ref": "Key"
     }
    }
+  },
+  "Post": {
+   "id": "Post",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "key": {
+     "$ref": "Key"
+    },
+    "photo": {
+     "type": "string",
+     "format": "byte"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "userId": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
   }
  },
  "methods": {
@@ -157,6 +188,24 @@
    ],
    "returns": {
     "$ref": "Comment"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "commentendpoint.getPostComments": {
+   "id": "commentendpoint.getPostComments",
+   "allowGet": true,
+   "parameters": {
+    "resource": {
+     "$ref": "Post"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "CollectionResponse_Comment"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -194,12 +243,6 @@
    "returns": {
     "$ref": "CollectionResponse_Comment"
    },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "commentendpoint.prova": {
-   "id": "commentendpoint.prova",
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

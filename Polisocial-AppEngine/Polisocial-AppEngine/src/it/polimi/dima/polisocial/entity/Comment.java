@@ -26,6 +26,7 @@ public class Comment {
 	private String text;
 	private String authorName;
 	private Date commentTimestamp;
+	private String type;  // serve sapere a che tipo di post corrisponde il commento
 	
 	public Key getCommentKey() {
 		return commentKey;
@@ -62,6 +63,12 @@ public class Comment {
 	}
 	public void setCommentTimestamp(Date commentTimestamp) {
 		this.commentTimestamp = commentTimestamp;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	

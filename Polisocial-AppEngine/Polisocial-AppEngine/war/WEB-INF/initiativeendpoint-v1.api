@@ -133,8 +133,12 @@
         "id" : "Initiative",
         "type" : "object",
         "properties" : {
+          "key" : {
+            "$ref" : "Key"
+          },
           "userId" : {
-            "type" : "integer"
+            "type" : "string",
+            "format" : "int64"
           },
           "text" : {
             "type" : "string"
@@ -147,14 +151,15 @@
             "type" : "string",
             "format" : "date-time"
           },
-          "key" : {
-            "$ref" : "Key"
-          },
           "title" : {
             "type" : "string"
           },
           "typeOfInitiative" : {
             "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       },

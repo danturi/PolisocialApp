@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/T48NghjTgl8PpCWQR9BUkXxadew\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/IPwOv4b04JdUD3jgquyogyrxGxw\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -89,34 +89,6 @@
     }
    }
   },
-  "Key": {
-   "id": "Key",
-   "type": "object",
-   "properties": {
-    "appId": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "kind": {
-     "type": "string"
-    },
-    "name": {
-     "type": "string"
-    },
-    "namespace": {
-     "type": "string"
-    },
-    "parent": {
-     "$ref": "Key"
-    }
-   }
-  },
   "PhoneNumber": {
    "id": "PhoneNumber",
    "type": "object",
@@ -137,6 +109,9 @@
     "email": {
      "type": "string"
     },
+    "faculty": {
+     "type": "string"
+    },
     "favoriteBooksMoviesShowsMusic": {
      "$ref": "Text"
     },
@@ -153,6 +128,24 @@
     "nickname": {
      "type": "string"
     },
+    "notifiedAnnouncement": {
+     "type": "boolean"
+    },
+    "notifiedEvent": {
+     "type": "boolean"
+    },
+    "notifiedSpotted": {
+     "type": "boolean"
+    },
+    "notifyAnnouncement": {
+     "type": "boolean"
+    },
+    "notifyRental": {
+     "type": "boolean"
+    },
+    "notifySpotted": {
+     "type": "boolean"
+    },
     "password": {
      "type": "string"
     },
@@ -167,10 +160,6 @@
      "type": "string",
      "format": "byte"
     },
-    "push_notification_id": {
-     "type": "integer",
-     "format": "int32"
-    },
     "selfSummary": {
      "type": "string"
     },
@@ -180,8 +169,9 @@
     "userGoogleAccount": {
      "$ref": "User"
     },
-    "userKey": {
-     "$ref": "Key"
+    "userId": {
+     "type": "string",
+     "format": "int64"
     },
     "whatImDoingWithMyLife": {
      "type": "string"

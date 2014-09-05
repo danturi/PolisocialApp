@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/9pXhrpaGH8Z7afbFxz50-9H6e9g\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/MokwUdZUkVEECcaC-sUpE8ednBE\"",
  "discoveryVersion": "v1",
  "id": "messageEndpoint:v1",
  "name": "messageEndpoint",
@@ -89,6 +89,26 @@
     }
    }
   },
+  "DeviceInfo": {
+   "id": "DeviceInfo",
+   "type": "object",
+   "properties": {
+    "deviceInformation": {
+     "type": "string"
+    },
+    "deviceRegistrationID": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "string",
+     "format": "int64"
+    },
+    "userId": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  },
   "Key": {
    "id": "Key",
    "type": "object",
@@ -171,6 +191,48 @@
    "parameterOrder": [
     "message"
    ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendMessageToDevice": {
+   "id": "messageEndpoint.sendMessageToDevice",
+   "path": "sendMessageToDevice",
+   "httpMethod": "POST",
+   "parameters": {
+    "message": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    },
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    },
+    "postType": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    },
+    "user": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "message",
+    "postId",
+    "postType",
+    "user"
+   ],
+   "request": {
+    "$ref": "DeviceInfo",
+    "parameterName": "resource"
+   },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

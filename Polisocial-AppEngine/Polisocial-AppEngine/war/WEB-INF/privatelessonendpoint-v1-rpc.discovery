@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"MKGA2miAJpVGF7yQTQhsoDXpye8/HTyKZd2VKlWsEMbn8vdXP9KoTec\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/DoKj6pHvOO4TNKy88zIiygWBp5k\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -119,6 +119,10 @@
    "id": "PrivateLesson",
    "type": "object",
    "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
     "key": {
      "$ref": "Key"
     },
@@ -134,8 +138,8 @@
      "format": "date-time"
     },
     "userId": {
-     "type": "integer",
-     "format": "int32"
+     "type": "string",
+     "format": "int64"
     }
    }
   }
