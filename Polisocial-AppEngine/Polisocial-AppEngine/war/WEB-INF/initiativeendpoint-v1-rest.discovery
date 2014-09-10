@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/CettqN-ntiaF_70LeXA6B2UXf8Q\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/3y1CELkU36Z9TS6Yo4lOzzhfwBs\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -100,7 +100,7 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
     },

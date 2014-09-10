@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/MokwUdZUkVEECcaC-sUpE8ednBE\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/ZU7SXiGSmt4KVG9YCZzQKF0xC0Y\"",
  "discoveryVersion": "v1",
  "id": "messageEndpoint:v1",
  "name": "messageEndpoint",
@@ -190,10 +190,6 @@
   "messageEndpoint.sendMessageToDevice": {
    "id": "messageEndpoint.sendMessageToDevice",
    "parameters": {
-    "message": {
-     "type": "string",
-     "required": true
-    },
     "postId": {
      "type": "string",
      "required": true,
@@ -214,7 +210,6 @@
    },
    "parameterOrder": [
     "resource",
-    "message",
     "postId",
     "postType",
     "user"

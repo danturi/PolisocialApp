@@ -178,7 +178,7 @@ public class DeviceInfoEndpoint {
 			return;
 		}
 
-		messageEndpoint.sendMessageToDevice("notification",userId, device, postId, postType);
+		messageEndpoint.sendMessageToDevice(userId, device, postId, postType);
 	}
 
 

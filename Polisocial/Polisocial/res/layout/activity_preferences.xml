@@ -9,13 +9,19 @@
        android:key="spotted"
        android:title="Spotted"
        android:summary="Enable/disable notification for your spotted post"
-       android:defaultValue="true"
+       android:defaultValue="false"
        />
     <CheckBoxPreference
        android:key="announcements"
        android:title="Announcements"
        android:summary="Enable/disable notification for your announcements"
-       android:defaultValue="true"
+       android:defaultValue="false"
+       />
+        <CheckBoxPreference
+       android:key="events"
+       android:title="Events"
+       android:summary="Enable/disable notification for your Events"
+       android:defaultValue="false"
        />
   </PreferenceCategory>
   

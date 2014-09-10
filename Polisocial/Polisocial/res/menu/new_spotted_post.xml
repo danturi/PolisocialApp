@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="it.polimi.dima.polisocial.NewSpottedPostActivity" >
+
+    <item
+        android:id="@+id/action_take_picture"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_photo"
+        android:title="@string/take_picture"/>   
+    <item
+        android:id="@+id/action_post_post"
+        android:showAsAction="always"
+        android:title="@string/post_post"/>
+
+
+</menu>

@@ -76,8 +76,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 
 	    sendNotificationIntent(
 	        context,
-	        "Registration with Google Cloud Messaging...FAILED!\n\n"
-	            + "A Google Cloud Messaging registration error occurred (errorid: "
+	        "Registration for notification...FAILED!\n\n"
+	            + "A registration error occurred (errorid: "
 	            + errorId
 	            + "). "
 	            + "Do you have your project number ("
@@ -90,10 +90,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	   
 	  @Override
 	  public void onMessage(Context context, Intent intent) {
-	    sendNotificationIntent(
-	        context,
-	        "Message received via Google Cloud Messaging:\n\n"
-	            + intent.getStringExtra("message"), true, false);
+	    //sendNotificationIntent(context,intent.getStringExtra("message"), false, false);
 	    generateNotification(context, intent.getStringExtra("message"));
 	  }
 	 
@@ -190,7 +187,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	   */
 	  private void sendNotificationIntent(Context context, String message,
 			  boolean isError, boolean isRegistrationMessage) {
-		  Intent notificationIntent = new Intent(context, GCMActivity.class);
+		  Intent notificationIntent = new Intent(context, PreferencesActivity.class);
 		  notificationIntent.putExtra("gcmIntentServiceMessage", true);
 		  notificationIntent.putExtra("registrationMessage",
 				  isRegistrationMessage);

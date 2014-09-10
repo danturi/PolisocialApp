@@ -27,64 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "commentendpoint.getComment" : {
-      "path" : "comment/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.getComment",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "commentendpoint.removeComment" : {
-      "path" : "comment/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.removeComment",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "commentendpoint.insertComment" : {
-      "path" : "comment",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.insertComment",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "commentendpoint.listComment" : {
       "path" : "comment",
       "httpMethod" : "GET",
@@ -110,17 +52,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "commentendpoint.getPostComments" : {
-      "path" : "collectionresponse_comment",
+    "commentendpoint.getComment" : {
+      "path" : "comment/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.getPostComments",
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.getComment",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -141,10 +88,78 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
+    },
+    "commentendpoint.insertComment" : {
+      "path" : "comment",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.insertComment",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "commentendpoint.getPostComments" : {
+      "path" : "collectionresponse_comment",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.getPostComments",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "commentendpoint.removeComment" : {
+      "path" : "comment/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.CommentEndpoint.removeComment",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
     }
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_Comment" : {
+        "id" : "CollectionResponse_Comment",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Comment"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "Comment" : {
         "id" : "Comment",
         "type" : "object",
@@ -190,29 +205,14 @@
           "name" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
-          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
-          }
-        }
-      },
-      "CollectionResponse_Comment" : {
-        "id" : "CollectionResponse_Comment",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Comment"
-            }
           },
-          "nextPageToken" : {
-            "type" : "string"
+          "parent" : {
+            "$ref" : "Key"
           }
         }
       },
@@ -230,7 +230,7 @@
           "text" : {
             "type" : "string"
           },
-          "photo" : {
+          "picture" : {
             "type" : "string",
             "format" : "byte"
           },
@@ -246,14 +246,17 @@
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.entity.CommentEndpoint.listComment" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Comment"
+        }
+      },
       "it.polimi.dima.polisocial.entity.CommentEndpoint.getComment" : {
         "response" : {
           "$ref" : "Comment"
         }
       },
-      "it.polimi.dima.polisocial.entity.CommentEndpoint.removeComment" : {
-      },
-      "it.polimi.dima.polisocial.entity.CommentEndpoint.insertComment" : {
+      "it.polimi.dima.polisocial.entity.CommentEndpoint.updateComment" : {
         "request" : {
           "$ref" : "Comment"
         },
@@ -261,9 +264,12 @@
           "$ref" : "Comment"
         }
       },
-      "it.polimi.dima.polisocial.entity.CommentEndpoint.listComment" : {
+      "it.polimi.dima.polisocial.entity.CommentEndpoint.insertComment" : {
+        "request" : {
+          "$ref" : "Comment"
+        },
         "response" : {
-          "$ref" : "CollectionResponse_Comment"
+          "$ref" : "Comment"
         }
       },
       "it.polimi.dima.polisocial.entity.CommentEndpoint.getPostComments" : {
@@ -274,13 +280,7 @@
           "$ref" : "CollectionResponse_Comment"
         }
       },
-      "it.polimi.dima.polisocial.entity.CommentEndpoint.updateComment" : {
-        "request" : {
-          "$ref" : "Comment"
-        },
-        "response" : {
-          "$ref" : "Comment"
-        }
+      "it.polimi.dima.polisocial.entity.CommentEndpoint.removeComment" : {
       }
     }
   }

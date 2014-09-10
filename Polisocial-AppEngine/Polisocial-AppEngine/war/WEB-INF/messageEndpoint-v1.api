@@ -27,40 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial",
   "methods" : {
-    "messageEndpoint.sendMessageToDevice" : {
-      "path" : "sendMessageToDevice",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice",
-      "request" : {
-        "parameters" : {
-          "message" : {
-            "type" : "string",
-            "required" : true
-          },
-          "user" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "postId" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "postType" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "messageEndpoint.listMessages" : {
       "path" : "messagedata",
       "httpMethod" : "GET",
@@ -84,6 +50,36 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "messageEndpoint.sendMessageToDevice" : {
+      "path" : "sendMessageToDevice",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice",
+      "request" : {
+        "parameters" : {
+          "user" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postType" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "messageEndpoint.sendMessage" : {
@@ -110,26 +106,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "DeviceInfo" : {
-        "id" : "DeviceInfo",
-        "type" : "object",
-        "properties" : {
-          "deviceRegistrationID" : {
-            "type" : "string"
-          },
-          "deviceInformation" : {
-            "type" : "string"
-          },
-          "timestamp" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "userId" : {
-            "type" : "string",
-            "format" : "int64"
-          }
-        }
-      },
       "CollectionResponse_MessageData" : {
         "id" : "CollectionResponse_MessageData",
         "type" : "object",
@@ -178,27 +154,47 @@
           "name" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
-          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          }
+        }
+      },
+      "DeviceInfo" : {
+        "id" : "DeviceInfo",
+        "type" : "object",
+        "properties" : {
+          "deviceRegistrationID" : {
+            "type" : "string"
+          },
+          "deviceInformation" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice" : {
-        "request" : {
-          "$ref" : "DeviceInfo"
-        }
-      },
       "it.polimi.dima.polisocial.MessageEndpoint.listMessages" : {
         "response" : {
           "$ref" : "CollectionResponse_MessageData"
+        }
+      },
+      "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice" : {
+        "request" : {
+          "$ref" : "DeviceInfo"
         }
       },
       "it.polimi.dima.polisocial.MessageEndpoint.sendMessage" : {

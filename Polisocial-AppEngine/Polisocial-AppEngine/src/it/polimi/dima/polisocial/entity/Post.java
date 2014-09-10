@@ -30,7 +30,7 @@ public abstract class Post {
 		
 		private String text;
 		
-		private Blob photo;
+		private Blob picture;
 		
 		private Date timestamp;
 		
@@ -62,13 +62,6 @@ public abstract class Post {
 			this.text = text;
 		}
 
-		public Blob getPhoto() {
-			return photo;
-		}
-
-		public void setPhoto(Blob photo) {
-			this.photo = photo;
-		}
 
 		public Date getTimestamp() {
 			return timestamp;
@@ -77,6 +70,15 @@ public abstract class Post {
 		public void setTimestamp(Date timestamp) {
 			this.timestamp = timestamp;
 		}
+
+		public Blob getPicture() {
+			return picture;
+		}
+
+		public void setPicture(Blob picture) {
+			this.picture = picture;
+		}
+
 
 		
 }

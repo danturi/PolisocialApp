@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/js0gKGUHoKB4iDYtja32avYvvqI\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/QKKMUO14bJUZv6Ur58lvfjFMsP8\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -128,7 +128,7 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
     },

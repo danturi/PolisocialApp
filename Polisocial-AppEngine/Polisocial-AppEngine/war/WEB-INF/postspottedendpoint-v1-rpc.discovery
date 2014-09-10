@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/lR8cPhl9r0i9uyWHQXYe8xMICHE\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/GTM-26xMR3cIhKjfuwRhGbjaIeY\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",
@@ -119,12 +119,6 @@
    "id": "PostSpotted",
    "type": "object",
    "properties": {
-    "anonimous": {
-     "type": "boolean"
-    },
-    "flagAnonimity": {
-     "type": "boolean"
-    },
     "id": {
      "type": "string",
      "format": "int64"
@@ -132,9 +126,15 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
+    },
+    "postCategory": {
+     "type": "string"
+    },
+    "postTitleAndLocation": {
+     "type": "string"
     },
     "text": {
      "type": "string"

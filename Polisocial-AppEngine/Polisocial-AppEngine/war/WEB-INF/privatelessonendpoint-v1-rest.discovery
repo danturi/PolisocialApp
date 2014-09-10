@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/DoKj6pHvOO4TNKy88zIiygWBp5k\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/ZeaYerj7wITchGy2aD-NTI6X3zU\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -128,7 +128,7 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
     },

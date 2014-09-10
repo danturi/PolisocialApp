@@ -156,7 +156,7 @@ public class MessageEndpoint {
   }
 
   @ApiMethod(name = "sendMessageToDevice", path="sendMessageToDevice")
-  public void sendMessageToDevice(@Named("message") String message, 
+  public void sendMessageToDevice(
 		  @Named("user") Long user, DeviceInfo device ,
 		  @Named("postId") Long postId ,
 		  @Named("postType") String postType){
@@ -182,24 +182,25 @@ public class MessageEndpoint {
 	  }else {
 		  /*TODO crea InterestNotification */
 	  }
-	  /*
+	  
 	  try {
-	  PoliUser userNotifing = endpointUser.getPoliUser(user);
-	  if (!userNotifing.getNotified()){
-		  if (postType.equals("Spotted") && userNotifing.getNotifySpotted()) 
-			  doSendViaGcm(message, sender, device);
-		  else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement())
-			  doSendViaGcm(message, sender, device);
-		  
-		  userNotifing.setNotified(true);
+		  PoliUser userNotifing = endpointUser.getPoliUser(user);
+		  if (postType.equals("Spotted") && userNotifing.getNotifySpotted() && !userNotifing.getNotifiedSpotted()) {
+			  doSendViaGcm("Spotted", sender, device);
+			  userNotifing.setNotifiedSpotted(true);
+		  } else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement() && !userNotifing.getNotifiedAnnouncement()){
+			  doSendViaGcm("Announcement", sender, device);
+			  userNotifing.setNotifiedAnnouncement(true);
+		  } else if ((postType.equals("Event")) && !userNotifing.getNotifiedEvent()){
+			  doSendViaGcm("Event", sender, device);
+			  userNotifing.setNotifiedEvent(true);
+		  }
+
 		  endpointUser.updatePoliUser(userNotifing);
-	  }
-	  
-	  
-		  
+
 	  } catch (IOException e) {
 		  e.printStackTrace();
-	  }*/
+	  }
   }
     
  

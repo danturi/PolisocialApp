@@ -27,22 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "rentalendpoint.updateRental" : {
-      "path" : "rental",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.updateRental",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "rentalendpoint.insertRental" : {
       "path" : "rental",
       "httpMethod" : "POST",
@@ -84,22 +68,17 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "rentalendpoint.getRental" : {
-      "path" : "rental/{id}",
-      "httpMethod" : "GET",
+    "rentalendpoint.updateRental" : {
+      "path" : "rental",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental",
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.updateRental",
       "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -125,6 +104,27 @@
       "response" : {
         "body" : "empty"
       }
+    },
+    "rentalendpoint.getRental" : {
+      "path" : "rental/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
@@ -143,7 +143,7 @@
           "text" : {
             "type" : "string"
           },
-          "photo" : {
+          "picture" : {
             "type" : "string",
             "format" : "byte"
           },
@@ -174,14 +174,14 @@
           "name" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
-          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
           }
         }
       },
@@ -202,14 +202,6 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.RentalEndpoint.updateRental" : {
-        "request" : {
-          "$ref" : "Rental"
-        },
-        "response" : {
-          "$ref" : "Rental"
-        }
-      },
       "it.polimi.dima.polisocial.entity.RentalEndpoint.insertRental" : {
         "request" : {
           "$ref" : "Rental"
@@ -223,12 +215,20 @@
           "$ref" : "CollectionResponse_Rental"
         }
       },
-      "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental" : {
+      "it.polimi.dima.polisocial.entity.RentalEndpoint.updateRental" : {
+        "request" : {
+          "$ref" : "Rental"
+        },
         "response" : {
           "$ref" : "Rental"
         }
       },
       "it.polimi.dima.polisocial.entity.RentalEndpoint.removeRental" : {
+      },
+      "it.polimi.dima.polisocial.entity.RentalEndpoint.getRental" : {
+        "response" : {
+          "$ref" : "Rental"
+        }
       }
     }
   }

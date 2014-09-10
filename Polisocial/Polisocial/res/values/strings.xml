@@ -29,21 +29,17 @@
     <string name="title_activity_registration">Registration</string>
     <string name="foodTab_message">Fame? Ecco dove puoi mangiare qualcosa!</string>
     <string name="changeViewVenues">Elenco locali</string>
-
-
-
     <string name="addVenue">Nuovo locale</string>
     <string name="change_to_map">Torna alla mappa</string>
     <string name="app_id">856286317717902</string>
     <string name="title_activity_gcm">GCMActivity</string>
     <string name="register">Register</string>
     <string name="unregister">Unregister</string>
-	    <string name="title_activity_show_related_comments">ShowRelatedCommentsActivity</string>
+    <string name="title_activity_show_related_comments">ShowRelatedCommentsActivity</string>
     <string name="type_comment">Type your comment&#8230;</string>
-    
     <string name="notification_subtitle">Notifications</string>
-    
-        <!-- Action bar actions and filter -->
+
+    <!-- Action bar actions and filter -->
     <string name="action_write_spotted_post">New post</string>
     <string name="action_show_profile">Profile</string>
     <string name="action_show_preferences">Preferences</string>
@@ -60,5 +56,21 @@
     <string name="menu_filter_spotted_hate">Complaint</string>
     <string name="menu_filter_spotted_advice">Advice</string>
     <string name="title_activity_show_relative_comments">ShowRelativeCommentsActivity</string>
+    <string name="title_activity_new_spotted_post">Write post</string>
 
+    <!-- New post creation -->
+    <string name="location_and_title">Location / title</string>
+    <string name="post_text">Text</string>
+    <string name="post_post">Post</string>
+    <string name="post_category">Category</string>
+    <string name="take_picture">Take picture</string>
+    <string name="location_and_title_example">ex. #library redhead girl</string>
+    <string name="post_content_hint">Type here the content of your post</string>
+     <string-array name="category_arrays">
+        <item>Fun</item>
+        <item>Love</item>
+        <item>Complaint</item>
+        <item>Advice</item>
+    </string-array>
+    
 </resources>

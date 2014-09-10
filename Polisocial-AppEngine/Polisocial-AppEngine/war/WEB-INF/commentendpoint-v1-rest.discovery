@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/yE5jVx9-0ihVlnYhg_nRKF1hvwQ\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/xmw3lpULANumYE0Wg56fH34pavo\"",
  "discoveryVersion": "v1",
  "id": "commentendpoint:v1",
  "name": "commentendpoint",
@@ -156,7 +156,7 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
     },

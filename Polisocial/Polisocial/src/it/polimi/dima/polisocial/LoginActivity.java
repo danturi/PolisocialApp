@@ -62,10 +62,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
  */
 @SuppressLint("NewApi") public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -151,6 +147,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 		LoginButton authButton = (LoginButton) findViewById(R.id.facebook_login);
 		authButton.setReadPermissions(Arrays.asList("user_status","email"));
+
 	}
 
 	@Override
@@ -231,7 +228,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			
 
 		} else if (state.isClosed()) {
-
+			showProgress(false);
 		}
 	}
 

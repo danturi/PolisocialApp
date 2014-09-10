@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/MokwUdZUkVEECcaC-sUpE8ednBE\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/ZU7SXiGSmt4KVG9YCZzQKF0xC0Y\"",
  "discoveryVersion": "v1",
  "id": "messageEndpoint:v1",
  "name": "messageEndpoint",
@@ -200,11 +200,6 @@
    "path": "sendMessageToDevice",
    "httpMethod": "POST",
    "parameters": {
-    "message": {
-     "type": "string",
-     "required": true,
-     "location": "query"
-    },
     "postId": {
      "type": "string",
      "required": true,
@@ -224,7 +219,6 @@
     }
    },
    "parameterOrder": [
-    "message",
     "postId",
     "postType",
     "user"

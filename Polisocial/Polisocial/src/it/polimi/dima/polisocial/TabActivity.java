@@ -42,6 +42,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Session;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -72,7 +73,8 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 
 	@Override
 	public void onBackPressed() {
-		//non fa niente
+		//minimize
+		moveTaskToBack(true);
 	}
 
 	public String setActionBarTitle(int position){
@@ -167,6 +169,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				actionBar.newTab().setIcon(R.drawable.notifications_icon)
 				//.setText(mAppSectionsPagerAdapter.getPageTitle(i))
 				.setTabListener(this));
+		//TODO da fare controllo per icona notifiche...
 	}
 	
 	@Override
@@ -181,7 +184,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
 	        case R.id.action_write_spotted_post:
-	        	//create new post();
+	        	startActivity(new Intent(TabActivity.this, NewSpottedPostActivity.class));
 	        	return true;
 	        case R.id.action_write_announcement:
 	            //showProfile();
@@ -201,7 +204,11 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	            return true;
 	      
 	        case R.id.action_logout:
-	        	//call here logout() method
+	        	Session session = Session.getActiveSession();
+	    		if (session != null && session.isOpened()) {
+	    			session.close();
+	    		}
+	        	sessionManager.logoutUser();
 	            
 	        case R.id.menu_filter_events_culture:
 	        	 item.setChecked(true);

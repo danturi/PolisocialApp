@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/IPwOv4b04JdUD3jgquyogyrxGxw\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/eYzBWg2LdK18eEkdpEp8KZQaa98\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -138,7 +138,7 @@
     "notifyAnnouncement": {
      "type": "boolean"
     },
-    "notifyRental": {
+    "notifyEvent": {
      "type": "boolean"
     },
     "notifySpotted": {

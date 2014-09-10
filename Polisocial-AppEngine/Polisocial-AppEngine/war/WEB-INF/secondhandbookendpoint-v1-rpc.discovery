@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/CLxN-3fO8mADpwYro3EjtYDAYxg\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/YF_Cmc3-Ri4n5VbxWau1A-puV0c\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -129,7 +129,7 @@
     "key": {
      "$ref": "Key"
     },
-    "photo": {
+    "picture": {
      "type": "string",
      "format": "byte"
     },

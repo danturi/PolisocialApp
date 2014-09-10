@@ -27,20 +27,25 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial",
   "methods" : {
-    "deviceinfoendpoint.updateDeviceInfo" : {
-      "path" : "deviceinfo",
-      "httpMethod" : "PUT",
+    "deviceinfoendpoint.removeDeviceInfo" : {
+      "path" : "deviceinfo/{id}",
+      "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.updateDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
-        "body" : "autoTemplate(backendResponse)"
+        "body" : "empty"
       }
     },
     "deviceinfoendpoint.listDeviceInfo" : {
@@ -68,25 +73,20 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "deviceinfoendpoint.removeDeviceInfo" : {
-      "path" : "deviceinfo/{id}",
-      "httpMethod" : "DELETE",
+    "deviceinfoendpoint.updateDeviceInfo" : {
+      "path" : "deviceinfo",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.updateDeviceInfo",
       "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
-        "body" : "empty"
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "deviceinfoendpoint.getDeviceInfo" : {
@@ -158,6 +158,21 @@
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_DeviceInfo" : {
+        "id" : "CollectionResponse_DeviceInfo",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "DeviceInfo"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "DeviceInfo" : {
         "id" : "DeviceInfo",
         "type" : "object",
@@ -177,24 +192,16 @@
             "format" : "int64"
           }
         }
-      },
-      "CollectionResponse_DeviceInfo" : {
-        "id" : "CollectionResponse_DeviceInfo",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "DeviceInfo"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo" : {
+      },
+      "it.polimi.dima.polisocial.DeviceInfoEndpoint.listDeviceInfo" : {
+        "response" : {
+          "$ref" : "CollectionResponse_DeviceInfo"
+        }
+      },
       "it.polimi.dima.polisocial.DeviceInfoEndpoint.updateDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
@@ -202,13 +209,6 @@
         "response" : {
           "$ref" : "DeviceInfo"
         }
-      },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.listDeviceInfo" : {
-        "response" : {
-          "$ref" : "CollectionResponse_DeviceInfo"
-        }
-      },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo" : {
       },
       "it.polimi.dima.polisocial.DeviceInfoEndpoint.getDeviceInfo" : {
         "response" : {

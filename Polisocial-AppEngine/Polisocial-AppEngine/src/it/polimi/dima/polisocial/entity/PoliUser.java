@@ -40,10 +40,11 @@ public class PoliUser {
 	private String sixThingsWithout;
 	private String faculty;
 	
-	//flags per notifiche
+	//flags per notifiche che si vuole ricevere
 	private Boolean notifySpotted;
 	private Boolean notifyAnnouncement;
 	private Boolean notifyEvent;	
+	//flag per le notifiche già ricevute
 	private Boolean notifiedSpotted;
 	private Boolean notifiedAnnouncement;
 	private Boolean notifiedEvent;
@@ -157,11 +158,11 @@ public class PoliUser {
 	public void setNotifyAnnouncement(Boolean notifyAnnouncement) {
 		this.notifyAnnouncement = notifyAnnouncement;
 	}
-	public Boolean getNotifyRental() {
+	public Boolean getNotifyEvent() {
 		return notifyEvent;
 	}
-	public void setNotifyRental(Boolean notifyRental) {
-		this.notifyEvent = notifyRental;
+	public void setNotifyEvent(Boolean notifyEvent) {
+		this.notifyEvent = notifyEvent;
 	}
 	public String getFaculty() {
 		return faculty;
