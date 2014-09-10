@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -17,17 +21,26 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements LoaderManager.LoaderCallbacks<List<CommentItem>> {
+import me.imid.swipebacklayout.lib.app.*;
+import me.imid.swipebacklayout.lib.*;
 
+public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements LoaderManager.LoaderCallbacks<List<CommentItem>> {
+
+	SwipeBackLayout mSwipeBackLayout;
 	CommentAdapter mAdapter;	
 	long postId;
+	private ListView mList;
+	private View mProgressView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_related_comments);
-		
-		ListView list = (ListView) findViewById(R.id.comment_list);
+
+		mSwipeBackLayout = getSwipeBackLayout();
+		mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_ALL);
+		mList = (ListView) findViewById(R.id.comment_list);
 		postId=getIntent().getLongExtra("postId", 0);
+		mProgressView = findViewById(R.id.comments_progress);
 		
 		TextView commentText = (TextView) findViewById(R.id.comment);
 		ImageButton sendComment = (ImageButton)findViewById(R.id.send_comment_button);
@@ -46,7 +59,7 @@ public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements 
 		
         // Create an empty adapter we will use to display the loaded data.
         mAdapter = new CommentAdapter(this);
-        list.setAdapter(mAdapter);
+        mList.setAdapter(mAdapter);
 	
         //show a progress bar instead of list
         
@@ -55,14 +68,60 @@ public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements 
         getSupportLoaderManager().initLoader(0, null,this);
 	}
 
+	/**
+	 * Shows the progress UI and hides the comment list.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+	public void showProgress(final boolean show) {
+		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+		// for very easy animations. If available, use these APIs to fade-in
+		// the progress spinner.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			int shortAnimTime = getResources().getInteger(
+					android.R.integer.config_shortAnimTime);
+
+			mList.setVisibility(show ? View.GONE : View.VISIBLE);
+			mList.animate().setDuration(shortAnimTime)
+					.alpha(show ? 0 : 1)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							mList.setVisibility(show ? View.GONE
+									: View.VISIBLE);
+						}
+					});
+
+			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+			mProgressView.animate().setDuration(shortAnimTime)
+					.alpha(show ? 1 : 0)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							mProgressView.setVisibility(show ? View.VISIBLE
+									: View.GONE);
+						}
+					});
+		} else {
+			// The ViewPropertyAnimator APIs are not available, so simply show
+			// and hide the relevant UI components.
+			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+			mList.setVisibility(show ? View.GONE : View.VISIBLE);
+		}
+	}
+	
+	
+	
 	@Override
 	public Loader<List<CommentItem>> onCreateLoader(int arg0, Bundle arg1) {
-        return new CommentListLoader(this);
+		showProgress(true);
+		return new CommentListLoader(this);
+        
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<CommentItem>> arg0,
 			List<CommentItem> data) {
+		showProgress(false);
 		mAdapter.setData(data);
         // The list should now be shown.
 	}
@@ -71,6 +130,11 @@ public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements 
 	public void onLoaderReset(Loader<List<CommentItem>> arg0) {
 		 mAdapter.setData(null);
 	}
+	
+	
+	
+	
+	
 	
 	public static class CommentListLoader extends AsyncTaskLoader<List<CommentItem>> {
         
@@ -82,7 +146,12 @@ public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements 
  
         @Override
         public List<CommentItem> loadInBackground() {
-             
+        	try {
+    			Thread.sleep(2000);
+    		} catch (InterruptedException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} 
              // You should perform the heavy task of getting data from 
              // Internet or database or other source 
              // Here, we are generating some Sample data
@@ -104,6 +173,8 @@ public class ShowRelatedCommentsActivity<D> extends FragmentActivity implements 
             List<CommentItem> entries = new ArrayList<CommentItem>(5);
             entries.add(new CommentItem(10, "Giulio Cesare", null, "Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur. Hi omnes lingua institutis legibus inter se differunt.", null, currentTimestamp.toString(),10));
             entries.add(new CommentItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),3));
+            entries.add(new CommentItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),2));
+            entries.add(new CommentItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
             entries.add(new CommentItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),2));
             entries.add(new CommentItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
  

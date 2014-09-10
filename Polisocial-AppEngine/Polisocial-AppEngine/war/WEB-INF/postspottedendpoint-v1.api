@@ -27,20 +27,25 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "postspottedendpoint.insertPostSpotted" : {
-      "path" : "postspotted",
-      "httpMethod" : "POST",
+    "postspottedendpoint.removePostSpotted" : {
+      "path" : "postspotted/{id}",
+      "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted",
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
-        "body" : "autoTemplate(backendResponse)"
+        "body" : "empty"
       }
     },
     "postspottedendpoint.updatePostSpotted" : {
@@ -80,27 +85,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "postspottedendpoint.removePostSpotted" : {
-      "path" : "postspotted/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "postspottedendpoint.listPostSpotted" : {
       "path" : "postspotted",
       "httpMethod" : "GET",
@@ -121,6 +105,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.insertPostSpotted" : {
+      "path" : "postspotted",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -180,14 +180,14 @@
           "name" : {
             "type" : "string"
           },
+          "parent" : {
+            "$ref" : "Key"
+          },
           "complete" : {
             "type" : "boolean"
           },
           "namespace" : {
             "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -208,13 +208,7 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted" : {
-        "request" : {
-          "$ref" : "PostSpotted"
-        },
-        "response" : {
-          "$ref" : "PostSpotted"
-        }
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted" : {
       },
       "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.updatePostSpotted" : {
         "request" : {
@@ -229,11 +223,17 @@
           "$ref" : "PostSpotted"
         }
       },
-      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.removePostSpotted" : {
-      },
       "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.listPostSpotted" : {
         "response" : {
           "$ref" : "CollectionResponse_PostSpotted"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostSpottedEndpoint.insertPostSpotted" : {
+        "request" : {
+          "$ref" : "PostSpotted"
+        },
+        "response" : {
+          "$ref" : "PostSpotted"
         }
       }
     }

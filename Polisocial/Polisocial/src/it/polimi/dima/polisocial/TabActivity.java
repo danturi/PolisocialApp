@@ -122,7 +122,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		// Specify that the Home/Up button should not be enabled, since there is no hierarchical
 		// parent.
 		actionBar.setHomeButtonEnabled(false);
-		actionBar.setIcon(R.drawable.logo_action_bar);
+		actionBar.setIcon(R.drawable.logo_login);
 		// Specify that we will be displaying tabs in the action bar.
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -200,6 +200,9 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				startActivity(preferencesIntent);
 	            return true;
 	      
+	        case R.id.action_logout:
+	        	//call here logout() method
+	            
 	        case R.id.menu_filter_events_culture:
 	        	 item.setChecked(true);
 	        	 //showProfile();

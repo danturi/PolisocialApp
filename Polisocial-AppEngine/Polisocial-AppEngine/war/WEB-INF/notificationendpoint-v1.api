@@ -27,43 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "notificationendpoint.removeNotification" : {
-      "path" : "notification/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.removeNotification",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "notificationendpoint.insertNotification" : {
-      "path" : "notification",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.insertNotification",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "notificationendpoint.getNotification" : {
       "path" : "notification/{id}",
       "httpMethod" : "GET",
@@ -80,22 +43,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "notificationendpoint.updateNotification" : {
-      "path" : "notification",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.updateNotification",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -124,6 +71,59 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "notificationendpoint.insertNotification" : {
+      "path" : "notification",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.insertNotification",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "notificationendpoint.updateNotification" : {
+      "path" : "notification",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.updateNotification",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "notificationendpoint.removeNotification" : {
+      "path" : "notification/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.removeNotification",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     }
   },
@@ -174,17 +174,20 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.NotificationEndpoint.removeNotification" : {
+      "it.polimi.dima.polisocial.entity.NotificationEndpoint.getNotification" : {
+        "response" : {
+          "$ref" : "Notification"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.NotificationEndpoint.listNotification" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Notification"
+        }
       },
       "it.polimi.dima.polisocial.entity.NotificationEndpoint.insertNotification" : {
         "request" : {
           "$ref" : "Notification"
         },
-        "response" : {
-          "$ref" : "Notification"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.NotificationEndpoint.getNotification" : {
         "response" : {
           "$ref" : "Notification"
         }
@@ -197,10 +200,7 @@
           "$ref" : "Notification"
         }
       },
-      "it.polimi.dima.polisocial.entity.NotificationEndpoint.listNotification" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Notification"
-        }
+      "it.polimi.dima.polisocial.entity.NotificationEndpoint.removeNotification" : {
       }
     }
   }

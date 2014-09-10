@@ -56,8 +56,6 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
-
 /**
  * 
  * A login screen that offers login via email/password and via facebook.
@@ -86,7 +84,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+		getActionBar().setIcon(R.drawable.logo_login);
 		sessionManager = new SessionManager(getApplicationContext());
 		
 		//controllo se già loggato

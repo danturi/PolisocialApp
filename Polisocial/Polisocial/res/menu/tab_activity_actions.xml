@@ -79,4 +79,8 @@
           android:icon="@drawable/ic_action_show_profile"
           android:title="@string/action_show_preferences"
           android:showAsAction="never" />
+	
+	<item android:id="@+id/action_logout"
+          android:title="@string/action_logout"
+          android:showAsAction="never" />
 </menu>

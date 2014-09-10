@@ -47,6 +47,7 @@
     <string name="action_write_spotted_post">New post</string>
     <string name="action_show_profile">Profile</string>
     <string name="action_show_preferences">Preferences</string>
+    <string name="action_logout">Logout</string>
     <string name="action_add_restaurant">Add restaurant</string>
     <string name="action_create_event">Create event</string>
     <string name="action_write_announcement">New announcement</string>

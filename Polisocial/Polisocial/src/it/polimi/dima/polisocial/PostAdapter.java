@@ -127,13 +127,14 @@ public class PostAdapter extends ArrayAdapter<PostItem> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			postImage.setImageBitmap(BitmapFactory.decodeByteArray(byteArrayImage, 0 ,byteArrayImage.length));
+			//postImage.setImageBitmap(BitmapFactory.decodeByteArray(byteArrayImage, 0 ,byteArrayImage.length));
 			postImage.setVisibility(View.VISIBLE);
+			//da cancellare
+			postImage.setImageResource(R.drawable.imageprova);
 		} else {
-			//postImage.setVisibility(View.GONE);
+			postImage.setVisibility(View.GONE);
 		}
-		//da cancellare
-		postImage.setImageResource(R.drawable.imageprova);
+
         
 		numbOfComments.setText(item.getNumbOfComments()+" comments");
 		

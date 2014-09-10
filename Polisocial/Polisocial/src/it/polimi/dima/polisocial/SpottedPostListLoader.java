@@ -17,7 +17,12 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
 
     @Override
     public List<PostItem> loadInBackground() {
-         
+        try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
          // You should perform the heavy task of getting data from 
          // Internet or database or other source 
          // Here, we are generating some Sample data
@@ -41,7 +46,8 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
         entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),3));
         entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),2));
         entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
-
+        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
+        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
         return entries;
     }
      
