@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 

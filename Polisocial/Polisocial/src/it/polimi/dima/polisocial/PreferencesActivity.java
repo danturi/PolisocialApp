@@ -20,19 +20,19 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class PreferencesActivity extends PreferenceActivity {
     
-	SessionManager session;
+	
 	private PoliUser user;
 	private Boolean spotted;
 	private Boolean announc;
 	private Boolean events;
-
+	SessionManager session;
 	
 	@SuppressWarnings("deprecation")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.activity_preferences);
-        
+        session = new SessionManager(getApplicationContext());
     	
         
     }   
@@ -57,95 +57,57 @@ public class PreferencesActivity extends PreferenceActivity {
     	spotted = ReadBoolean(this, "spotted", false);
     	announc = ReadBoolean(this, "announcements", false);
     	events = ReadBoolean(this, "events", false);
-    	new SetNotificationUser().execute();
-
-    	//attivo o disattivo la registrazione a gcm
-    	if (!spotted && !announc && !events)
-    		GCMIntentService.unregister(getApplicationContext());
     	
-    	if (spotted || announc || events)
-    		GCMIntentService.register(getApplicationContext());
+    	//update user only when there is at least a different option
+    	if(!(spotted == (ReadBoolean(this, "spotted", true)) && announc == (ReadBoolean(this, "announcements", true)) && 
+    			events == (ReadBoolean(this, "events", true))))
+    	new UpdateNotifyUser().execute();
 
     }
     
-
-
-
-	public class CheckNotificationUser extends AsyncTask<Void, Void, PoliUser>{
-    	
-		SessionManager s;
-    	Context c ;
-    	
-    	public CheckNotificationUser(SessionManager session,Context context){
-    		s = session;
-    		c=context;
-    	}
-
-		@Override
-		protected PoliUser doInBackground(Void... params) {
-			 
-			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-		    			AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-
-		    	builder = CloudEndpointUtils.updateBuilder(builder);
-		    	Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-		    	try {
-					user = endpoint.checkForDuplicateEmail(s.getUserDetails().get(SessionManager.KEY_EMAIL)).execute();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		    	
-			return user;
-		}
-
-		@Override
-		protected void onPostExecute(PoliUser user) {
-			
-			super.onPostExecute(user);
-			
-			if (user.getNotifyAnnouncement() || user.getNotifyAnnouncement()==null) 
-				WriteBoolean(c, "announcements", true); 
-			else WriteBoolean(c, "announcements", false);
-			
-			if (user.getNotifyEvent() || user.getNotifyEvent()==null)
-				WriteBoolean(c, "events", true); 
-			else WriteBoolean(c, "events", false);
-			
-			if (user.getNotifySpotted() || user.getNotifySpotted()==null)
-				WriteBoolean(c, "spotted", true); 
-			else WriteBoolean(c, "spotted", false);	
-				
-		}
-    	
-    }
     
-    public class SetNotificationUser extends AsyncTask<Void, Void, Void>{
-    	
-
-    	Context c ;
-
+    public class UpdateNotifyUser extends AsyncTask<Void, Void, Void>{
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			 
+			
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-		    			AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 
-		    	builder = CloudEndpointUtils.updateBuilder(builder);
-		    	Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-		    	
-		    	user.setNotifyAnnouncement(announc);
-		    	user.setNotifySpotted(spotted);
-		    	user.setNotifyEvent(events);
-		    	
-		    	try {
-				endpoint.updatePoliUser(user).execute();	
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		    	
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			
+			try {
+				user=endpoint.getPoliUser(Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID))).execute();
+				user.setNotifyAnnouncement(announc);
+				user.setNotifyEvent(events);
+				user.setNotifySpotted(spotted);
+				endpoint.updatePoliUser(user).execute();
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			return null;
 		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			//attivo o disattivo la registrazione a gcm
+	    	if (!spotted && !announc && !events)
+	    		GCMIntentService.unregister(getApplicationContext());
+	    	
+	    	if (spotted || announc || events)
+	    		GCMIntentService.register(getApplicationContext());
+		}
+		
+		
+    	
     }
     
     

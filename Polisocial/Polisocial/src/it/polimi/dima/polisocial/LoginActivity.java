@@ -168,7 +168,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//super.onActivityResult(requestCode, resultCode, data);
 		uiHelper.onActivityResult(requestCode, resultCode, data);
-		
+		showProgress(true);
 	}
 
 	@Override
@@ -205,6 +205,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 		if (state.isOpened()) {
 
+
 			
 			if(sessionManager.isLoggedIn())
 				startActivity(new Intent(LoginActivity.this, TabActivity.class));	
@@ -222,7 +223,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 						poliuser.setNickname(nickname);
 						poliuser.setFbaccount(user.getLink());
 						poliuser.setSelfSummary((String) user.getProperty("bio"));
-						showProgress(true);
+						poliuser.setNotifyAnnouncement(true);
+						poliuser.setNotifyEvent(true);
+						poliuser.setNotifySpotted(true);
 						new searchEmailForLoginFBTask().execute();
 					}
 				}
@@ -303,8 +306,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			Intent i= new Intent(LoginActivity.this,TabActivity.class);
 			i.putExtra("firstLogin", true);
 			sessionManager.createLoginSession(nickname, email);
-			showProgress(false);
 			startActivity(i);
+			showProgress(false);
 			finish();
 		}
 

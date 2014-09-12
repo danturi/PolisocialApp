@@ -163,7 +163,6 @@ public class MessageEndpoint {
 
 	  Sender sender = new Sender(API_KEY);
 
-	  if (!postType.equals("Spotted")) {
 		  // create a Notification entity
 		  Notification notification = new Notification();
 		  notification.setUserId(user);
@@ -178,10 +177,6 @@ public class MessageEndpoint {
 		  } finally {
 			  mgr.close();
 		  }
-
-	  }else {
-		  /*TODO crea InterestNotification */
-	  }
 	  
 	  try {
 		  PoliUser userNotifing = endpointUser.getPoliUser(user);

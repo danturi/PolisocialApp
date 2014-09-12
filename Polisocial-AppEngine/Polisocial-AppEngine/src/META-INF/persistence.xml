@@ -4,8 +4,8 @@
     <persistence-unit name="transactions-optional">
         <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
         <class>it.polimi.dima.polisocial.entity.Comment</class>
+        <class>it.polimi.dima.polisocial.entity.HitOn</class>
        	<class>it.polimi.dima.polisocial.entity.Initiative</class>
-        <class>it.polimi.dima.polisocial.entity.InterestNotification</class>
         <class>it.polimi.dima.polisocial.entity.Notification</class>
         <class>it.polimi.dima.polisocial.entity.PoliUser</class>
         <class>it.polimi.dima.polisocial.entity.Post</class>
@@ -13,7 +13,7 @@
         <class>it.polimi.dima.polisocial.entity.PrivateLesson</class>
        	<class>it.polimi.dima.polisocial.entity.Rental</class>
        	<class>it.polimi.dima.polisocial.entity.SecondHandBook</class>
-       	<exclude-unlisted-classes>true</exclude-unlisted-classes>
+       	<!--  <exclude-unlisted-classes>true</exclude-unlisted-classes>-->
        	<properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>

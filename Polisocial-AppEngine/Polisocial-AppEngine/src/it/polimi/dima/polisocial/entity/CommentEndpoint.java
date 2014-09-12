@@ -32,6 +32,7 @@ public class CommentEndpoint {
 	private RentalEndpoint rentalEndpoint = new RentalEndpoint();
 	private SecondHandBookEndpoint secondHandEndpoint = new SecondHandBookEndpoint();
 	private PrivateLessonEndpoint privateLessonEndpoint = new PrivateLessonEndpoint();
+	private InitiativeEndpoint initiativeEndpoint = new InitiativeEndpoint();
 	
 	/**
 	 * This method lists all the entities inserted in datastore.
@@ -216,6 +217,8 @@ public class CommentEndpoint {
 			post = secondHandEndpoint.getSecondHandBook(postKey.getId());
 		if (type == "PrivateLesson")
 			post = privateLessonEndpoint.getPrivateLesson(postKey.getId());
+		if (type == "Initiative")
+			post = initiativeEndpoint.getInitiative(postKey.getId());
 		
 		//id autore del post commentato
 		Long idAuthorPost = post.getUserId();

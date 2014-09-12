@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial;
 
 
 
-import it.polimi.dima.polisocial.SingleChoiceDialogFragm.NoticeDialogListener;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
@@ -13,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,14 +31,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.webkit.WebView.FindListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.Session;
@@ -55,7 +52,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-public class TabActivity extends FragmentActivity implements ActionBar.TabListener,NoticeDialogListener {
+public class TabActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -67,7 +64,6 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	ViewPager mViewPager;
 	PoliUser userSession;
 	private String email;
-	private String faculty = "";
 	SessionManager sessionManager; 
 	
 
@@ -110,9 +106,12 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		
 		//controllo primo login dell'utente caso facebook
 		if(firstLogin){
-		//lancio dialog facoltà
+		
+			//lancio dialog facoltà
 			//showNoticeDialog();
-			GCMIntentService.register(getApplicationContext());
+			
+			//setto id nel sessionManager e attivo notifiche
+			new setUserIdAndRegisterTask().execute();
 			
 		}
 
@@ -662,19 +661,22 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		}
 	}
 
+	/*
 	@Override
 	public void onDialogPositiveClick(String faculty) {
 		
 		this.faculty = faculty;
-		new updateUserTask().execute(this.faculty);
+		//new updateUserTask().execute();
 		
-	}
+	}*/
 		
-	private class updateUserTask extends AsyncTask<String, Void, Void>  {
+	private class setUserIdAndRegisterTask extends AsyncTask<Void, Void, Long>  {
 
 
+		Long id;
+		
 		@Override
-		protected Void doInBackground(String... params) {
+		protected Long doInBackground(Void... params) {
 			
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
@@ -685,14 +687,25 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			try {
 
 				userSession = endpoint.checkForDuplicateEmail(email).execute();
-				userSession.setFaculty(params[0]);
-				endpoint.updatePoliUser(userSession).execute();
+				id = userSession.getUserId();
+				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return null;
+			return id;
 		}
+
+		@SuppressLint("NewApi")
+		@Override
+		protected void onPostExecute(Long result) {
+			super.onPostExecute(result);
+			String s = Long.toString(result);
+			sessionManager.setId(s);
+			GCMIntentService.register(getApplicationContext());
+		}
+		
+		
 	}
 
 	 public void showNoticeDialog() {

@@ -28,8 +28,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -125,7 +123,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 				   */
 				 /* SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				    userId=prefs.getLong("userId", 0);*/
-				  userId= (long) 100000000;
+				  SessionManager session = new SessionManager(getApplicationContext());
+				  userId=Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID));
+				  
+				  
 				  
 				  DeviceInfo deviceInfo = new DeviceInfo();
 				  endpoint.insertDeviceInfo(
@@ -156,7 +157,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 							  true, true);
 			  return;
 		  }
-		  sendNotificationIntent(
+		  /*sendNotificationIntent(
 				  context,
 				  "1) Registration with Google Cloud Messaging...SUCCEEDED!\n\n"
 						  + "2) Registration with Endpoints Server...SUCCEEDED!\n\n"
@@ -165,7 +166,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 						  + " succeeded!\n\n"
 						  + "To send a message to this device, "
 						  + "open your browser and navigate to the sample application at "
-						  + getWebSampleUrl(endpoint.getRootUrl()), false, true);  
+						  + getWebSampleUrl(endpoint.getRootUrl()), false, true);  */
 	  }
 
 	  /**
@@ -235,12 +236,13 @@ public class GCMIntentService extends GCMBaseIntentService {
 				  return;
 			  }
 		  }
-		  sendNotificationIntent(
+		  
+		  /*sendNotificationIntent(
 				  context,
 				  "1) De-registration with Google Cloud Messaging....SUCCEEDED!\n\n"
 						  + "2) De-registration with Endpoints Server...SUCCEEDED!\n\n"
 						  + "Device de-registration with Cloud Endpoints server running at "
-						  + endpoint.getRootUrl() + " succeeded!", false, true);
+						  + endpoint.getRootUrl() + " succeeded!", false, true); */
 	  }
 	  
 	  /**
@@ -256,7 +258,16 @@ public class GCMIntentService extends GCMBaseIntentService {
 	        
 	         
 	        String title = context.getString(R.string.app_name);
-	         
+	        String textNotif = "";
+	        if (message.equals("Spotted"))
+				textNotif="New Spotted message";
+	        if (message.equals("Rental")|| message.equals("SecondHandBoook") || message.equals("PrivateLesson"))
+				textNotif="New Announcement message";
+	        if (message.equals("Initiative"))
+				textNotif="New Initiative message";
+	     
+	        
+	        
 	        Intent notificationIntent = new Intent(context, TabActivity.class);
 	        // set intent so it does not start a new activity
 	        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
@@ -267,7 +278,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	        Notification notification = new Notification.Builder(context)
 	        .setContentIntent(intent)
 	        .setContentTitle(title)
-	        .setContentText(message)
+	        .setContentText(textNotif)
 	        .setSmallIcon(icon)
 	        .setWhen(when)
 	        .build();
