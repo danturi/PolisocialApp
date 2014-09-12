@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/xmw3lpULANumYE0Wg56fH34pavo\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/JYF7Y1T6V9b2E3PJ8BAYJZu_NqM\"",
  "discoveryVersion": "v1",
  "id": "commentendpoint:v1",
  "name": "commentendpoint",
@@ -166,6 +166,9 @@
     "timestamp": {
      "type": "string",
      "format": "date-time"
+    },
+    "title": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

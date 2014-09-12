@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/YF_Cmc3-Ri4n5VbxWau1A-puV0c\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/X4DjjBHJVxGbUEzbOOir7wtdGEg\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -121,6 +121,9 @@
    "id": "SecondHandBook",
    "type": "object",
    "properties": {
+    "bookTitle": {
+     "type": "string"
+    },
     "faculty": {
      "type": "string"
     },
@@ -141,6 +144,9 @@
     "timestamp": {
      "type": "string",
      "format": "date-time"
+    },
+    "title": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

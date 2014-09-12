@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/GTM-26xMR3cIhKjfuwRhGbjaIeY\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/9Y8VGaLxLzJT7MnKIBJaP-nt_Es\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",
@@ -133,15 +133,15 @@
     "postCategory": {
      "type": "string"
     },
-    "postTitleAndLocation": {
-     "type": "string"
-    },
     "text": {
      "type": "string"
     },
     "timestamp": {
      "type": "string",
      "format": "date-time"
+    },
+    "title": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

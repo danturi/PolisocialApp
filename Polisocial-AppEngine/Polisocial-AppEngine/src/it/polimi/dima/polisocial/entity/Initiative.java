@@ -1,46 +1,32 @@
 package it.polimi.dima.polisocial.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
 
-import com.google.appengine.api.datastore.Key;
+import javax.persistence.Entity;
+
 
 @Entity
 public class Initiative extends Post {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
-	
-	private String typeOf;
-	
-	private String title;
-	
-	public Key getKey() {
-		return key;
-	}
 
-	public void clearKey() {
-		this.key = null;
-	}
+private String category;
 
-	public String getTypeOfInitiative() {
-		return typeOf;
-	}
+private Date beginningDate;
 
-	public void setTypeOfInitiative(String typeOfInitiative) {
-		this.typeOf = typeOfInitiative;
-	}
+public String getCategory() {
+	return category;
+}
 
-	public String getTitle() {
-		return title;
-	}
+public void setCategory(String category) {
+	this.category = category;
+}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
+public Date getBeginningDate() {
+	return beginningDate;
+}
+
+public void setBeginningDate(Date beginningDate) {
+	this.beginningDate = beginningDate;
+}
+
 
 }

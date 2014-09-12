@@ -5,10 +5,14 @@ import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.StringTokenizer;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -34,9 +38,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class NewSpottedPostActivity extends Activity {
 
@@ -197,11 +198,11 @@ public class NewSpottedPostActivity extends Activity {
 	
 			if(mPicture!=null)
 				newSpottedPost.setPicture(mPicture);
-			newSpottedPost.setPostTitleAndLocation(mLocationAndTitle);
+			newSpottedPost.setTitle(mLocationAndTitle);
 			newSpottedPost.setText(mText);
 			newSpottedPost.setPostCategory(mCategory);
-			SessionManager sessionManager = new SessionManager(getApplicationContext());
-			mUserId=100;//Long.valueOf(sessionManager.getUserDetails().get(SessionManager.KEY_USERID)).longValue();
+			//SessionManager sessionManager = new SessionManager(getApplicationContext());
+			mUserId=(long)100;//Long.valueOf(sessionManager.getUserDetails().get(SessionManager.KEY_USERID)).longValue();
 			newSpottedPost.setUserId(mUserId);
 			
 			Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(
@@ -211,10 +212,10 @@ public class NewSpottedPostActivity extends Activity {
 			
 			Postspottedendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
-			//check if email is available 
 			try {
 				endpoint.insertPostSpotted(newSpottedPost).execute();			
 			} catch (IOException e2) {
+				 System.out.println(e2.getMessage());
 				return 0;
 			}
 				return 1;

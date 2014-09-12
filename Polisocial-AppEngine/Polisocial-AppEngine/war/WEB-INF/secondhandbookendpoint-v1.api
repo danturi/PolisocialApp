@@ -162,11 +162,17 @@
             "type" : "string",
             "format" : "byte"
           },
+          "title" : {
+            "type" : "string"
+          },
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
           },
           "faculty" : {
+            "type" : "string"
+          },
+          "bookTitle" : {
             "type" : "string"
           },
           "id" : {

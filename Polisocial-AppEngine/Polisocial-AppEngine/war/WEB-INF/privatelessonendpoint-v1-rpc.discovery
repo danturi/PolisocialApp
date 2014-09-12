@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/ZeaYerj7wITchGy2aD-NTI6X3zU\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/TKE63RZS8uvB7nTSip42svbvXlg\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -136,6 +136,9 @@
     "timestamp": {
      "type": "string",
      "format": "date-time"
+    },
+    "title": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

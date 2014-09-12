@@ -1,24 +1,15 @@
 package it.polimi.dima.polisocial;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 //class representing the fragment at position 0 (spotted section)
@@ -74,7 +65,6 @@ import android.widget.ListView;
           super.onPrepareOptionsMenu(menu);
           menu.findItem(R.id.action_create_event).setVisible(false);
           menu.findItem(R.id.action_add_restaurant).setVisible(false);
-          menu.findItem(R.id.action_write_announcement).setVisible(false);
           menu.findItem(R.id.menu_filter_events).setVisible(false);
       }
 

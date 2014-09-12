@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/3y1CELkU36Z9TS6Yo4lOzzhfwBs\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/dao0u3ZBwep9hMdyNxu3lTUyoe8\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -91,6 +91,13 @@
    "id": "Initiative",
    "type": "object",
    "properties": {
+    "beginningDate": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "category": {
+     "type": "string"
+    },
     "id": {
      "type": "string",
      "format": "int64"
@@ -110,9 +117,6 @@
      "format": "date-time"
     },
     "title": {
-     "type": "string"
-    },
-    "typeOfInitiative": {
      "type": "string"
     },
     "userId": {

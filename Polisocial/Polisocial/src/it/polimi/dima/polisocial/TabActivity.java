@@ -102,15 +102,17 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
+		
 		sessionManager = new SessionManager(getApplicationContext());
 		email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
 		boolean firstLogin = getIntent().getBooleanExtra("firstLogin",false);
-		//email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
+		
 		
 		//controllo primo login dell'utente caso facebook
 		if(firstLogin){
 		//lancio dialog facoltà
 			//showNoticeDialog();
+			GCMIntentService.register(getApplicationContext());
 			
 		}
 
@@ -186,9 +188,6 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	        case R.id.action_write_spotted_post:
 	        	startActivity(new Intent(TabActivity.this, NewSpottedPostActivity.class));
 	        	return true;
-	        case R.id.action_write_announcement:
-	            //showProfile();
-	            return true;
 	        case R.id.action_add_restaurant:
 	            //showProfile();
 	            return true;
@@ -207,6 +206,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	        	Session session = Session.getActiveSession();
 	    		if (session != null && session.isOpened()) {
 	    			session.close();
+	    			session.closeAndClearTokenInformation();
 	    		}
 	        	sessionManager.logoutUser();
 	            
@@ -250,6 +250,9 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		private final FragmentManager mFragmentManager;
 		private Fragment mFragmentAtPos3;
 		private Fragment mFragmentAtPos0;
+		private Fragment mFragmentAtPos2;
+		private Fragment mFragmentAtPos4;
+		private Fragment mFragmentAtPos1;
 		private SavedState mFragmentAtpos3Map=null;
 		private SavedState mFragmentAtpos3List=null;
 		private Boolean update = false;
@@ -308,20 +311,27 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 					mFragmentAtPos0 = new SpottedPostListFragment();
 					}
 					return mFragmentAtPos0;
+			case 1:
+				if (mFragmentAtPos1 == null){
+					mFragmentAtPos1 = new EventsFragment();
+					}
+					return mFragmentAtPos1;
+			case 2:
+				if (mFragmentAtPos2 == null){
+					mFragmentAtPos2 = new AnnouncementsFragment();
+					}
+					return mFragmentAtPos2;
 			case 3:
 				if (mFragmentAtPos3 == null){
 					mFragmentAtPos3= GoogleMapFragment.newInstance(listener);
 				}
 				return mFragmentAtPos3;
 			case 4:
-				return new NotificationFragment();
-			default:
-				// The other sections of the app are dummy placeholders.
-				Fragment fragment = new DummySectionFragment();
-				Bundle args = new Bundle();
-				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-				fragment.setArguments(args);
-				return fragment;
+				if (mFragmentAtPos4 == null){
+					mFragmentAtPos4 = new NotificationFragment();
+					}
+					return mFragmentAtPos4;
+			default: return null;
 			}
 		}
 
@@ -349,66 +359,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	public interface RestaurantsFragmentListener {
 		void onSwitchFragment();
 	}
-	
 
-	/**
-	 * A fragment that launches other parts of the demo application.
-	 */
-	public static class LaunchpadSectionFragment extends Fragment {
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_section_launchpad, container, false);
-
-			// Demonstration of a collection-browsing activity.
-			rootView.findViewById(R.id.demo_collection_button)
-			.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Intent intent = new Intent(getActivity(), CollectionDemoActivity.class);
-					startActivity(intent);
-				}
-			});
-
-			// Demonstration of navigating to external activities.
-			rootView.findViewById(R.id.demo_external_activity)
-			.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					// Create an intent that asks the user to pick a photo, but using
-					// FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET, ensures that relaunching
-					// the application from the device home screen does not return
-					// to the external activity.
-					Intent externalActivityIntent = new Intent(Intent.ACTION_PICK);
-					externalActivityIntent.setType("image/*");
-					externalActivityIntent.addFlags(
-							Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-					startActivity(externalActivityIntent);
-				}
-			});
-
-			return rootView;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_section_dummy, container, false);
-			Bundle args = getArguments();
-			((TextView) rootView.findViewById(android.R.id.text1)).setText(
-					getString(R.string.dummy_section_text, args.getInt(ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}
 
 	public static class GoogleMapFragment extends Fragment {
 
@@ -422,6 +373,14 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		public GoogleMapFragment() {
 		}
 
+	    @Override
+	    public void onActivityCreated(Bundle savedInstanceState) {
+	        super.onActivityCreated(savedInstanceState);
+
+	        setHasOptionsMenu(true);
+	    }
+		
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -447,6 +406,14 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			return v;
 		}
 
+	    @Override
+	    public void onPrepareOptionsMenu(Menu menu) {
+	        super.onPrepareOptionsMenu(menu);
+	        menu.findItem(R.id.action_create_event).setVisible(false);
+	        menu.findItem(R.id.menu_filter_events).setVisible(false);
+	        menu.findItem(R.id.action_write_spotted_post).setVisible(false);
+	    }
+		
 		public static GoogleMapFragment newInstance(RestaurantsFragmentListener googleMapFragmentListener) {
 			GoogleMapFragment googleMapFrgm = new GoogleMapFragment();
 			listener=googleMapFragmentListener;

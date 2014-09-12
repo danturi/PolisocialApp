@@ -234,6 +234,9 @@
             "type" : "string",
             "format" : "byte"
           },
+          "title" : {
+            "type" : "string"
+          },
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"

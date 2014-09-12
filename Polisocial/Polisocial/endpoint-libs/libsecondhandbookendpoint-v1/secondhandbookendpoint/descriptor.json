@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/secondhandbookendpoint/v1/20140911172538/java/1.18.0-rc/polimi.it-secondhandbookendpoint-v1-20140911172538-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-secondhandbookendpoint-v1-20140911172538-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/secondhandbookendpoint/v1/20140912134205/java/1.18.0-rc/polimi.it-secondhandbookendpoint-v1-20140912134205-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-secondhandbookendpoint-v1-20140912134205-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-09-11 17:25"
+      "timestamp": "2014-09-12 13:42"
     }, 
     {
-      "path": "polimi.it-secondhandbookendpoint-v1-20140911172538-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-secondhandbookendpoint-v1-20140912134205-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "secondhandbookendpoint:v1", 
-  "revision": 20140911172538
+  "revision": 20140912134205
 }

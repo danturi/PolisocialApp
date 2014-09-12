@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/QKKMUO14bJUZv6Ur58lvfjFMsP8\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/cYmEs-cTuFUVS_N7TCMDXcwBhFs\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -132,12 +132,18 @@
      "type": "string",
      "format": "byte"
     },
+    "position": {
+     "type": "string"
+    },
     "text": {
      "type": "string"
     },
     "timestamp": {
      "type": "string",
      "format": "date-time"
+    },
+    "title": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

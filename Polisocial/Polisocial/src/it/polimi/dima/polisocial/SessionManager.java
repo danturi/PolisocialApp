@@ -55,12 +55,15 @@ public class SessionManager {
          
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
-         
-      //editor.putString(KEY_USERID, userId);
         
         // commit changes
         editor.commit();
     }  
+    
+    public void setId(String id){
+    	editor.putString(KEY_USERID, id);
+    	editor.commit();
+    }
      
     /**
      * Check login method wil check user login status

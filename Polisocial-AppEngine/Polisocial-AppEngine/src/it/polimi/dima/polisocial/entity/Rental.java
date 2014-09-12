@@ -10,5 +10,13 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class Rental extends Post {
 	
+	private String position;
 
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
 }

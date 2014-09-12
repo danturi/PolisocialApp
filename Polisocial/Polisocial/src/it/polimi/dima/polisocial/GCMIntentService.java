@@ -123,8 +123,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 				   * product information over to the backend. Then, we'll be
 				   * registered.
 				   */
-				  SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				    userId=prefs.getLong("userId", 0);
+				 /* SharedPreferences prefs =PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				    userId=prefs.getLong("userId", 0);*/
+				  userId= (long) 100000000;
 				  
 				  DeviceInfo deviceInfo = new DeviceInfo();
 				  endpoint.insertDeviceInfo(
@@ -164,7 +165,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 						  + " succeeded!\n\n"
 						  + "To send a message to this device, "
 						  + "open your browser and navigate to the sample application at "
-						  + getWebSampleUrl(endpoint.getRootUrl()), false, true);
+						  + getWebSampleUrl(endpoint.getRootUrl()), false, true);  
 	  }
 
 	  /**
@@ -187,7 +188,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	   */
 	  private void sendNotificationIntent(Context context, String message,
 			  boolean isError, boolean isRegistrationMessage) {
-		  Intent notificationIntent = new Intent(context, PreferencesActivity.class);
+		  Intent notificationIntent = new Intent(context, ErrorGcmActivity.class);
 		  notificationIntent.putExtra("gcmIntentServiceMessage", true);
 		  notificationIntent.putExtra("registrationMessage",
 				  isRegistrationMessage);

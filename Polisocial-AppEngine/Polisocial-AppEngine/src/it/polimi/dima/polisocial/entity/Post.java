@@ -32,6 +32,8 @@ public abstract class Post {
 		
 		private Blob picture;
 		
+		private String title;
+		
 		private Date timestamp;
 		
 		public Long getId(){
@@ -77,6 +79,14 @@ public abstract class Post {
 
 		public void setPicture(Blob picture) {
 			this.picture = picture;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
 		}
 
 

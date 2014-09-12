@@ -147,14 +147,14 @@
             "type" : "string",
             "format" : "byte"
           },
+          "title" : {
+            "type" : "string"
+          },
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
           },
           "postCategory" : {
-            "type" : "string"
-          },
-          "postTitleAndLocation" : {
             "type" : "string"
           },
           "id" : {
