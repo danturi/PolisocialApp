@@ -308,13 +308,14 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		@Override
 		protected void onPostExecute(final Integer result) {
 			mRegTask = null;
-			showProgress(false);
+			
 
 			if (result==0) {
 				new UserLoginTask(mEmail,mPassword).execute();
 				//mAuthTask = new UserLoginTask(mEmail,mPassword);
 				//mAuthTask.execute();
 			} else if(result==1){
+				showProgress(false);
 				mEmailView.setError(getString(R.string.error_duplicate_email));
 				mPasswordView.requestFocus();
 			}else{
@@ -372,7 +373,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
-				loginFinishedIntent.putExtra("firstLoginFromRegistration", true);
+				loginFinishedIntent.putExtra("firstLogin", true);
 				sessionManager.createLoginSession(nickname, mEmail);
 				RegistrationActivity.this.startActivity(loginFinishedIntent);
 				finish();

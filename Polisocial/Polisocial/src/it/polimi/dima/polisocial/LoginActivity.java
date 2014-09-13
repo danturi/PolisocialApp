@@ -84,12 +84,13 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		setContentView(R.layout.activity_login);
 		getActionBar().setIcon(R.drawable.logo_login);
 		sessionManager = new SessionManager(getApplicationContext());
-		PreferenceManager.setDefaultValues(this, R.layout.activity_preferences, false);
+		
 		
 		
 		//controllo se già loggato
 		if(sessionManager.isLoggedIn())
 			startActivity(new Intent(LoginActivity.this, TabActivity.class));	
+		PreferenceManager.setDefaultValues(this, R.layout.activity_preferences, false);
 		
 		// Set up the login form.
 		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -270,6 +271,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 				new InsertPoliUserFBTask().execute();
 				
 			}else {
+				sessionManager.createLoginSession(poliUserCheck.getNickname(), poliUserCheck.getEmail());
+				sessionManager.setId(Long.toString(poliUserCheck.getUserId()));
 				Intent i= new Intent(LoginActivity.this,TabActivity.class);
 				startActivity(i);
 				finish();
@@ -532,7 +535,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 		private final String mEmail;
 		private final String mPassword;
-		private String nickname="";
+		private PoliUser poliuser;
 
 
 		UserLoginTask(String email, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -546,13 +549,11 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			PoliUser poliuser;
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
-			// Simulate network access.
+			
 			try {
 				poliuser=endpoint.checkCredentials(mEmail, mPassword).execute();
-				nickname=poliuser.getNickname();
 				return true;
 				
 			} catch (IOException e) {
@@ -570,6 +571,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			showProgress(false);
 
 			if (success) {
+				sessionManager.createLoginSession(poliuser.getNickname(), poliuser.getEmail());
+				sessionManager.setId(Long.toString(poliuser.getUserId()));
 				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
 				LoginActivity.this.startActivity(loginFinishedIntent);
 				finish();

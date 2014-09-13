@@ -98,9 +98,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-		
 		sessionManager = new SessionManager(getApplicationContext());
-		email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
 		boolean firstLogin = getIntent().getBooleanExtra("firstLogin",false);
 		
 		

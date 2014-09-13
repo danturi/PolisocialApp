@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -20,9 +21,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import me.imid.swipebacklayout.lib.app.*;
-import me.imid.swipebacklayout.lib.*;
 
 public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements LoaderManager.LoaderCallbacks<List<CommentItem>> {
 
