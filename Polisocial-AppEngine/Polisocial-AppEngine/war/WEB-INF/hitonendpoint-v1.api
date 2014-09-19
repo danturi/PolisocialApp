@@ -43,27 +43,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "hitonendpoint.getHitOn" : {
-      "path" : "hiton/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "hitonendpoint.listHitOn" : {
       "path" : "hiton",
       "httpMethod" : "GET",
@@ -81,6 +60,27 @@
           "limit" : {
             "type" : "int32",
             "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "hitonendpoint.getHitOn" : {
+      "path" : "hiton/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
           }
         },
         "body" : "empty"
@@ -207,14 +207,14 @@
           "$ref" : "HitOn"
         }
       },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn" : {
-        "response" : {
-          "$ref" : "HitOn"
-        }
-      },
       "it.polimi.dima.polisocial.entity.HitOnEndpoint.listHitOn" : {
         "response" : {
           "$ref" : "CollectionResponse_HitOn"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn" : {
+        "response" : {
+          "$ref" : "HitOn"
         }
       },
       "it.polimi.dima.polisocial.entity.HitOnEndpoint.removeHitOn" : {

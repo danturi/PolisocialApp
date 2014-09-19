@@ -13,7 +13,8 @@
         <class>it.polimi.dima.polisocial.entity.PrivateLesson</class>
        	<class>it.polimi.dima.polisocial.entity.Rental</class>
        	<class>it.polimi.dima.polisocial.entity.SecondHandBook</class>
-       	<!--  <exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+       	<class>it.polimi.dima.polisocial.DeviceInfo</class>
+       	<exclude-unlisted-classes>true</exclude-unlisted-classes>
        	<properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>

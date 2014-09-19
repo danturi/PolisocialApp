@@ -27,6 +27,43 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.foursquare",
   "methods" : {
+    "foursquareendpoint.addVenueGPSInfo" : {
+      "path" : "addVenueGPSInfo/{userId}/{name}/{coordinates}/{categoryId}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.addVenueGPSInfo",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "name" : {
+            "type" : "string",
+            "required" : true
+          },
+          "phone" : {
+            "type" : "string",
+            "required" : false
+          },
+          "coordinates" : {
+            "type" : "string",
+            "required" : true
+          },
+          "categoryId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "foursquareendpoint.searchVenues" : {
       "path" : "searchVenues/{ll}",
       "httpMethod" : "POST",
@@ -48,8 +85,23 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "foursquareendpoint.findVenuesCategories" : {
+      "path" : "findVenuesCategories",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findVenuesCategories",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "foursquareendpoint.performTokenRequest" : {
-      "path" : "performTokenRequest/{code}",
+      "path" : "performTokenRequest/{code}/{userId}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -61,12 +113,37 @@
           "code" : {
             "type" : "string",
             "required" : true
+          },
+          "userId" : {
+            "type" : "int64",
+            "required" : true
           }
         },
         "body" : "empty"
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "foursquareendpoint.findInfoAddress" : {
+      "path" : "findInfoAddress/{coordinates}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findInfoAddress",
+      "request" : {
+        "parameters" : {
+          "coordinates" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -87,15 +164,43 @@
       "_any" : {
         "id" : "_any",
         "type" : "any"
+      },
+      "JsonMap" : {
+        "id" : "JsonMap",
+        "type" : "object"
+      },
+      "StringCollection" : {
+        "id" : "StringCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.addVenueGPSInfo" : {
+      },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.searchVenues" : {
         "response" : {
           "$ref" : "ResponseObject"
         }
       },
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findVenuesCategories" : {
+        "response" : {
+          "$ref" : "JsonMap"
+        }
+      },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.performTokenRequest" : {
+      },
+      "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findInfoAddress" : {
+        "response" : {
+          "$ref" : "StringCollection"
+        }
       }
     }
   }

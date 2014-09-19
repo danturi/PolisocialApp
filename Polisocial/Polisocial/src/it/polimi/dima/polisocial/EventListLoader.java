@@ -36,11 +36,11 @@ public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
       
         // Create corresponding array of entries and load with data.
         List<EventItem> entries = new ArrayList<EventItem>(5);
-        entries.add(new EventItem(10, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport"));
-        entries.add(new EventItem(10, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport"));
-        entries.add(new EventItem(10, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport"));
-        entries.add(new EventItem(10, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport"));
-        entries.add(new EventItem(10, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport"));
+        entries.add(new EventItem(10,null, "Maratona del Buthan in 50 giorni e mezzo", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno. ", now, 4,"sport",now.toString()));
+        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
+        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
+        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
+        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
         return entries;
     }
      

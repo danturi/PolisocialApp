@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/eYzBWg2LdK18eEkdpEp8KZQaa98\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/Bo5iA4vpwiaAsrpGW192JOOPzU8\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -164,6 +164,9 @@
      "type": "string"
     },
     "sixThingsWithout": {
+     "type": "string"
+    },
+    "tokenFsq": {
      "type": "string"
     },
     "userGoogleAccount": {
@@ -334,14 +337,6 @@
    "response": {
     "$ref": "CollectionResponse_PoliUser"
    },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "prova": {
-   "id": "poliuserendpoint.prova",
-   "path": "prova",
-   "httpMethod": "POST",
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dip"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/comment_item_padding_left_right"
+        android:paddingRight="@dimen/comment_item_padding_left_right" >
+
+        <ImageView
+            android:id="@+id/notification_type_icon"
+            android:layout_width="@dimen/notification_item_icon"
+            android:layout_height="@dimen/notification_item_icon"
+            android:contentDescription="@string/desc_notification_category_pic"
+            android:scaleType="fitCenter" >
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/comment_item_profile_info_padd" >
+
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/comment_item_timestamp_pad_left"
+        android:textColor="@color/timestamp"
+        android:textSize="@dimen/comment_item_timestamp" />
+
+</LinearLayout>

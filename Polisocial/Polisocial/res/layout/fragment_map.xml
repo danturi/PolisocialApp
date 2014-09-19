@@ -17,30 +17,12 @@
 
 </com.google.android.gms.maps.MapView>
 
-<TextView
-    android:id="@+id/textView1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/map"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="18dp"
-    android:text="@string/foodTab_message"
-    android:textColor="@color/Green" />
-
 <Button
     android:id="@+id/button_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/map"
     android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
     android:text="@string/changeViewVenues" />
-
-<Button
-    android:id="@+id/button_addVenue"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignRight="@+id/map"
-    android:text="@string/addVenue" />
 
 </RelativeLayout>

@@ -1,53 +1,59 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
+import it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+public class SpottedPostListLoader extends AsyncTaskLoader<List<PostSpotted>> {
     
-    List<PostItem> mPostItems;
+    List<PostSpotted> mPostItems;
+    
 
     public SpottedPostListLoader(Context context) {
         super(context);
     }
 
     @Override
-    public List<PostItem> loadInBackground() {
-        try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-         // You should perform the heavy task of getting data from 
-         // Internet or database or other source 
-         // Here, we are generating some Sample data
-
-        
+    public List<PostSpotted> loadInBackground() {
+  
         //GET DEI POST DA APP ENGINE
-        //GET PROFILE PIC DA APP ENGINE
-        
-     // 1) create a java calendar instance
-        Calendar calendar = Calendar.getInstance();
-         
-        // 2) get a java.util.Date from the calendar instance.
-//            this date will represent the current instant, or "now".
-        java.util.Date now = calendar.getTime();
-         
-        // 3) a java current time (now) instance
-        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-        // Create corresponding array of entries and load with data.
-        List<PostItem> entries = new ArrayList<PostItem>(5);
-        entries.add(new PostItem(10, "Giulio Cesare", null, "Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur. Hi omnes lingua institutis legibus inter se differunt.", null, currentTimestamp.toString(),10));
-        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),3));
-        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),2));
-        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
-        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
-        entries.add(new PostItem(10, "Giulio Cesare", null, "these issues we need to compress the image and give proper rotation before loading it to memory. The following method compresses image", null, currentTimestamp.toString(),11));
+        Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+        builder = CloudEndpointUtils.updateBuilder(builder);
+		Postspottedendpoint endpoint = builder.setApplicationName("polimisocial").build();
+		
+		Commentendpoint.Builder build = new Commentendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+		build= CloudEndpointUtils.updateBuilder(build);
+		Commentendpoint commEndpoint = build.setApplicationName("polimisocial").build();
+		
+		List<PostSpotted> entries = new ArrayList<PostSpotted>();
+		try {
+			CollectionResponsePostSpotted list = endpoint.listPostSpotted().setLimit(10).execute();
+
+			if(list.getItems()!=null){
+				for(PostSpotted post : list.getItems()){	
+					ResponseObject count = commEndpoint.getNumbPostComments(post.getId()).execute();
+					post.setNumOfComments(Long.valueOf((String) count.getObject()));
+					entries.add(post);
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return entries;
     }
      
@@ -56,7 +62,7 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
      * super class will take care of delivering it; the implementation
      * here just adds a little more logic.
      */
-    @Override public void deliverResult(List<PostItem> listOfData) {
+    @Override public void deliverResult(List<PostSpotted> listOfData) {
         if (isReset()) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.
@@ -64,7 +70,7 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
                 onReleaseResources(listOfData);
             }
         }
-        List<PostItem> oldApps = listOfData;
+        List<PostSpotted> oldApps = listOfData;
         mPostItems = listOfData;
 
         if (isStarted()) {
@@ -110,7 +116,7 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
     /**
      * Handles a request to cancel a load.
      */
-    @Override public void onCanceled(List<PostItem> apps) {
+    @Override public void onCanceled(List<PostSpotted> apps) {
         super.onCanceled(apps);
 
         // At this point we can release the resources associated with 'apps'
@@ -139,6 +145,6 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostItem>> {
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(List<PostItem> apps) {}
+    protected void onReleaseResources(List<PostSpotted> listOfData) {}
      
 }

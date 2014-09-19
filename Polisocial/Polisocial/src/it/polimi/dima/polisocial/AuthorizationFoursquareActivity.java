@@ -17,14 +17,16 @@ import android.view.MenuItem;
 public class AuthorizationFoursquareActivity extends Activity {
 
 	private TokenFoursquareRequestTask tokenTask;
+	private SessionManager sessionManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authorization_foursquare);
 		String code= getIntent().getStringExtra("code");
+		String id = sessionManager.getUserDetails().get(SessionManager.KEY_USERID);
 		tokenTask= new TokenFoursquareRequestTask(this);
-		tokenTask.execute(code);
+		tokenTask.execute(code,id);
 			
 	}
 	@Override
@@ -75,9 +77,10 @@ public class AuthorizationFoursquareActivity extends Activity {
 			Foursquareendpoint endpoint = builder.build();
 			
 			System.out.println(params[0]);
+			System.out.println(params[1]);
             
             try {
-				endpoint.performTokenRequest(params[0]).execute();
+				endpoint.performTokenRequest(params[0],Long.valueOf(params[1])).execute();
             	result="OK";
 				
 			} catch (IOException ex) {

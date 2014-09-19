@@ -7,19 +7,23 @@ public class EventItem {
 	private String category;
 	private Date beginningDate;
 	private String title;
-	private String shortDescription;
+	private String description;
+	private byte[] eventPicture;
 	private int numbOfComments;
+	private String timestamp;
 
 	public EventItem() {
 	}
 
-	public EventItem(int id, String title, String shortDescription, Date beginningDate, int numbOfComments, String category) {
+	public EventItem(int id, byte[] eventPicture, String title, String description, Date beginningDate, int numbOfComments, String category, String timestamp) {
 		super();
 		this.id = id;
+		this.eventPicture=eventPicture;
 		this.title = title;
 		this.category=category;
-		this.shortDescription = shortDescription;
+		this.description = description;
 		this.beginningDate = beginningDate;
+		this.setTimestamp(timestamp);
 		this.numbOfComments = numbOfComments;
 	}
 
@@ -56,11 +60,11 @@ public class EventItem {
 	}
 
 	public String getShortDescription() {
-		return shortDescription;
+		return description;
 	}
 
 	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+		this.description = shortDescription;
 	}
 
 	public int getNumbOfComments() {
@@ -69,6 +73,22 @@ public class EventItem {
 
 	public void setNumbOfComments(int numbOfComments) {
 		this.numbOfComments = numbOfComments;
+	}
+
+	public byte[] getEventPicture() {
+		return eventPicture;
+	}
+
+	public void setEventPicture(byte[] eventPicture) {
+		this.eventPicture = eventPicture;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

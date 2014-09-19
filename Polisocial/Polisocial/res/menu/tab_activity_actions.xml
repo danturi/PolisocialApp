@@ -24,7 +24,7 @@
             </group>
         </menu>
     </item>   
-        -->
+       -->
     <item
           android:id="@+id/menu_filter_events"
            android:icon="@drawable/ic_action_filter"
@@ -64,7 +64,7 @@
        	  android:icon="@drawable/ic_action_add_event"
           android:title="@string/action_create_event"
           android:showAsAction="always" />
-    
+
 	<item android:id="@+id/action_show_profile"
           android:icon="@drawable/ic_action_show_profile"
           android:title="@string/action_show_profile"

@@ -65,6 +65,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	PoliUser userSession;
 	private String email;
 	SessionManager sessionManager; 
+	private it.polimi.dima.polisocial.TabActivity.GoogleMapFragment.VenuesNearPoliAndPlotMapTask task;
 	
 
 	@Override
@@ -186,7 +187,8 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	        	startActivity(new Intent(TabActivity.this, NewSpottedPostActivity.class));
 	        	return true;
 	        case R.id.action_add_restaurant:
-	            //showProfile();
+				task.cancel(true);
+				startActivity(new Intent(this,OAuthAccessActivity.class));
 	            return true;
 	        case R.id.action_create_event:
 	            //showProfile();
@@ -683,7 +685,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			try {
-
+				email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
 				userSession = endpoint.checkForDuplicateEmail(email).execute();
 				id = userSession.getUserId();
 				

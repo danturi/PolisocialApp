@@ -3,6 +3,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    
 
     <dimen name="post_item_margin">10dp</dimen>
     <dimen name="post_item_padding_top_bottom">20dp</dimen>
@@ -30,4 +32,8 @@
     <dimen name="comment_item_corner_radius">3dp</dimen>
     <dimen name="comment_item_border_width">1dp</dimen>
     
+    <dimen name="event_item_width">150dp</dimen>
+    <dimen name="event_item_height">150dp</dimen>
+    
+    <dimen name="notification_item_icon">60dp</dimen>
 </resources>

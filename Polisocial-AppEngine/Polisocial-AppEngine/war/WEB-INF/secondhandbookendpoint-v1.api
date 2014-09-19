@@ -148,8 +148,9 @@
         "id" : "SecondHandBook",
         "type" : "object",
         "properties" : {
-          "key" : {
-            "$ref" : "Key"
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "userId" : {
             "type" : "string",
@@ -174,38 +175,6 @@
           },
           "bookTitle" : {
             "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       }

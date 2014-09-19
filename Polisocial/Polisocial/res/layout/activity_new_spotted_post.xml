@@ -89,7 +89,8 @@
                 android:hint="@string/post_content_hint"
                 android:inputType="textMultiLine"
                 android:maxLines="20"
-                android:padding="5dip"/>
+                android:padding="5dip"
+                android:gravity="top"/>
         </LinearLayout>
    
 </RelativeLayout>

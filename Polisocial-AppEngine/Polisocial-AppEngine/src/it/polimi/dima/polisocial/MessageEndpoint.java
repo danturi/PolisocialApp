@@ -161,7 +161,8 @@ public class MessageEndpoint {
 		  @Named("postId") Long postId ,
 		  @Named("postType") String postType){
 
-	  Sender sender = new Sender(API_KEY);
+	  	  Sender sender = new Sender(API_KEY);
+	  	  
 
 		  // create a Notification entity
 		  Notification notification = new Notification();
@@ -177,26 +178,26 @@ public class MessageEndpoint {
 		  } finally {
 			  mgr.close();
 		  }
-	  
-	  try {
-		  PoliUser userNotifing = endpointUser.getPoliUser(user);
-		  if (postType.equals("Spotted") && userNotifing.getNotifySpotted() && !userNotifing.getNotifiedSpotted()) {
-			  doSendViaGcm("Spotted", sender, device);
-			  userNotifing.setNotifiedSpotted(true);
-		  } else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement() && !userNotifing.getNotifiedAnnouncement()){
-			  doSendViaGcm("Announcement", sender, device);
-			  userNotifing.setNotifiedAnnouncement(true);
-		  } else if ((postType.equals("Event")) && !userNotifing.getNotifiedEvent()){
-			  doSendViaGcm("Event", sender, device);
-			  userNotifing.setNotifiedEvent(true);
+		  try{
+			  PoliUser userNotifing = new PoliUser();
+			  userNotifing = endpointUser.getPoliUser(user);
+			  if (postType.equals("Spotted") && userNotifing.getNotifySpotted() && !userNotifing.getNotifiedSpotted()) {
+				  doSendViaGcm("Spotted", sender, device);
+				  userNotifing.setNotifiedSpotted(true);
+			  } else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement() && !userNotifing.getNotifiedAnnouncement()){
+				  doSendViaGcm("Announcement", sender, device);
+				  userNotifing.setNotifiedAnnouncement(true);
+			  } else if ((postType.equals("Event")) && !userNotifing.getNotifiedEvent()){
+				  doSendViaGcm("Event", sender, device);
+				  userNotifing.setNotifiedEvent(true);
+			  }
+			  //TODO entity persistence exception...
+			  // endpointUser.updatePoliUser(userNotifing);
+		  } catch (IOException e) {
+			e.printStackTrace();
 		  }
-
-		  endpointUser.updatePoliUser(userNotifing);
-
-	  } catch (IOException e) {
-		  e.printStackTrace();
-	  }
   }
+		 
     
  
   /**

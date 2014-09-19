@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/dao0u3ZBwep9hMdyNxu3lTUyoe8\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/XkNMWYoY13ULlr1iuV97izWbRHM\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -102,9 +102,6 @@
      "type": "string",
      "format": "int64"
     },
-    "key": {
-     "$ref": "Key"
-    },
     "picture": {
      "type": "string",
      "format": "byte"
@@ -122,34 +119,6 @@
     "userId": {
      "type": "string",
      "format": "int64"
-    }
-   }
-  },
-  "Key": {
-   "id": "Key",
-   "type": "object",
-   "properties": {
-    "appId": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "kind": {
-     "type": "string"
-    },
-    "name": {
-     "type": "string"
-    },
-    "namespace": {
-     "type": "string"
-    },
-    "parent": {
-     "$ref": "Key"
     }
    }
   }

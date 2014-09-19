@@ -5,14 +5,18 @@ import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.StringTokenizer;
 
+import com.facebook.Session.NewPermissionsRequest;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -50,12 +54,14 @@ public class NewSpottedPostActivity extends Activity {
 	private Spinner mSpinnerView;
 	private View mProgressView;
 	private View mPostCreationForm;
+	private SessionManager sessionManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_spotted_post);
 		getActionBar().setIcon(R.drawable.logo_login);
+		sessionManager = new SessionManager(getApplicationContext());
 		
 		mLocationAndTitleView = (EditText) findViewById(R.id.location_and_title);
 		mPostTextView = (EditText) findViewById(R.id.post_text);
@@ -168,20 +174,23 @@ public class NewSpottedPostActivity extends Activity {
 	 * Represents an asynchronous task used to create a new post and send it to the server
 	 */
 
-	public class CreateNewPostTask extends AsyncTask<Void, Void, Integer> {
+	public class CreateNewPostTask extends AsyncTask<Void, Void, Boolean> {
 
 		private long mUserId;
 		private final String mLocationAndTitle;
 		private final String mCategory;
 		private final String mText;
-		private String mPicture;
-		private PostSpotted newSpottedPost = new PostSpotted();
+		private byte[] mPicture;
+		private String pic;
+		PostSpotted newSpottedPost;
+		
 
 		CreateNewPostTask(String locationAndTitle,String category, String text,byte[] picture) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mLocationAndTitle=locationAndTitle;
 			mCategory = category;
 			mText = text;
-			mPicture = Base64.encodeToString(picture, Base64.DEFAULT);
+			pic = Base64.encodeToString(picture, Base64.DEFAULT);
+
 			
 		}
 		
@@ -193,18 +202,24 @@ public class NewSpottedPostActivity extends Activity {
 		}
 
 		@Override
-		protected Integer doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			
 	
-			if(mPicture!=null)
-				newSpottedPost.setPicture(mPicture);
+			newSpottedPost = new PostSpotted();
+			if(pic!=null)
+			//newSpottedPost.encodePicture(mPicture);
+			newSpottedPost.setPicture(pic);
 			newSpottedPost.setTitle(mLocationAndTitle);
 			newSpottedPost.setText(mText);
 			newSpottedPost.setPostCategory(mCategory);
-			//SessionManager sessionManager = new SessionManager(getApplicationContext());
-			mUserId=(long)100;//Long.valueOf(sessionManager.getUserDetails().get(SessionManager.KEY_USERID)).longValue();
+			String id = sessionManager.getUserDetails().get(SessionManager.KEY_USERID);
+			mUserId=Long.valueOf(id);
 			newSpottedPost.setUserId(mUserId);
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
 			
+			//Timestamp currentTimestamp = new Timestamp(now.getTime());
+			newSpottedPost.setTimestamp(new DateTime(now));
 			Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 			
@@ -216,15 +231,17 @@ public class NewSpottedPostActivity extends Activity {
 				endpoint.insertPostSpotted(newSpottedPost).execute();			
 			} catch (IOException e2) {
 				 System.out.println(e2.getMessage());
-				return 0;
+				return false;
 			}
-				return 1;
+				return true;
 			}
 
 		@Override
-		protected void onPostExecute(final Integer result) {
+		protected void onPostExecute(Boolean result) {
 			showProgress(false);
-			if(result==1){
+			if(result){
+				Toast toast = Toast.makeText(getApplicationContext(), "DONE! You have just insterted a new post", Toast.LENGTH_SHORT);
+				toast.show();
 				finish();
 			}else{
 				Toast toast = Toast.makeText(getApplicationContext(), "Can't perform operation. Please retry", Toast.LENGTH_SHORT);

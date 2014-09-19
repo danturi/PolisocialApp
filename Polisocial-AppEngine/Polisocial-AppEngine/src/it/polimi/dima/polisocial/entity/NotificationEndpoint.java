@@ -151,6 +151,8 @@ public class NotificationEndpoint {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if(notification.getId()==null)
+    		return false;
       Notification item = mgr.find(Notification.class, notification.getId());
       if(item == null) {
         contains = false;

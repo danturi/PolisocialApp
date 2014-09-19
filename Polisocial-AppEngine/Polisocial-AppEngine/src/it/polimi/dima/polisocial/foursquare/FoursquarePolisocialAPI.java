@@ -1,4 +1,12 @@
 package it.polimi.dima.polisocial.foursquare;
+import fi.foyt.foursquare.api.FoursquareApi;
+import fi.foyt.foursquare.api.FoursquareApiException;
+import fi.foyt.foursquare.api.Result;
+import fi.foyt.foursquare.api.entities.Category;
+import fi.foyt.foursquare.api.entities.CompactVenue;
+import fi.foyt.foursquare.api.entities.VenuesSearchResult;
+import it.polimi.dima.polisocial.entity.PoliUser;
+import it.polimi.dima.polisocial.entity.PoliUserEndpoint;
 import it.polimi.dima.polisocial.entity.ResponseObject;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
@@ -8,23 +16,23 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.logging.Logger;
+
+import javax.annotation.Nullable;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.response.BadRequestException;
+import com.google.api.server.spi.response.NotFoundException;
+import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.appengine.labs.repackaged.org.json.JSONTokener;
-
-import fi.foyt.foursquare.api.FoursquareApi;
-import fi.foyt.foursquare.api.FoursquareApiException;
-import fi.foyt.foursquare.api.Result;
-import fi.foyt.foursquare.api.entities.CompactVenue;
-import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
 
 @Api(name= "foursquareendpoint", version = "v1", namespace = @ApiNamespace(ownerDomain= "polimi.it", ownerName= "polimi.it", packagePath="dima.polisocial.foursquare"))
@@ -32,7 +40,8 @@ public class FoursquarePolisocialAPI {
 
 	
 	private static final Logger log = Logger.getLogger(FoursquarePolisocialAPI.class.getName());
-	//private List<String> venuesName = new ArrayList<String>();
+	private PoliUserEndpoint endpointUser = new PoliUserEndpoint();
+	
 	
 	
 	@ApiMethod(name = "searchVenues")
@@ -80,9 +89,14 @@ public class FoursquarePolisocialAPI {
 		}
 	}
 
-	
+	/** 
+	 * Riceve dal client il code inviato da Foursquare,crea la richiesta del token aggiungendo il ClientSecret
+	 * parsa il Json di risposta, salvando il token nel database per poter essere riutilizzato.
+	 * @throws BadRequestException 
+	 * 
+	 * **/
 	@ApiMethod(name= "performTokenRequest", httpMethod = HttpMethod.GET)
-	public void performTokenRequest(@Named("code") String code){
+	public void performTokenRequest(@Named("code") String code, @Named ("userId") Long userId) throws BadRequestException{
 		log.info("richiesta token");
 		try {
 			String baseUrl= "https://foursquare.com/oauth2/access_token?client_id=";
@@ -91,15 +105,22 @@ public class FoursquarePolisocialAPI {
 			urlBuilder.append("&client_secret="+Constants.CLIENT_SECRET);
 			urlBuilder.append("&grant_type=authorization_code&code="+code);
 			String url = urlBuilder.toString();
-			log.info(url);
+			//log.info(url);
+			PoliUser user = null;
 			
 			URL tokenUrl = new URL(url);
 			//https://foursquare.com/oauth2/access_token?client_id=C0UAYKHQET5QIKKQY50WOMCR50BESMVBGAN1BR5NSEHJ4NKU&client_secret=2RYQF34SHI2IGOETK1RS4PYTCMBHXODSZXJMD1SH4WRKQGCD&grant_type=authorization_code&code=
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(tokenUrl.openStream()));
 			JSONObject object = (JSONObject) new JSONTokener(reader.readLine()).nextValue();
+			if (!object.has("access_token"))
+				throw new BadRequestException("client code error");
 			String token = object.getString("access_token");
-			log.info(token);
+			user = endpointUser.getPoliUser(userId);
+			if (user !=null){
+			user.setTokenFsq(token);
+			endpointUser.updatePoliUser(user);
+			}
 			
 		} catch (MalformedURLException e) {
 			log.warning(e.getMessage());
@@ -112,7 +133,129 @@ public class FoursquarePolisocialAPI {
 		
 		
 	}
+	
+	//aggiunge una venue a Foursquare utilizzando il token dell'utente
+	@ApiMethod(name="addVenueGPSInfo")
+	public void addVenueGPSInfo(@Named("userId") Long userId,@Named("name")String name,@Nullable@Named("phone")String phone,@Named("coordinates")String coordinates,@Named("categoryId")String categoryId) throws UnauthorizedException {
+		
+		FoursquareApi foursquareApiWithAuth = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
+		PoliUser user = endpointUser.getPoliUser(userId);
+		if(user.getTokenFsq()==null) throw new UnauthorizedException("Token error");   //http code == 401
+		foursquareApiWithAuth.setoAuthToken(user.getTokenFsq());
+		Boolean addressFound = true;
+		ArrayList<String>  arrayAddressInfo = new ArrayList<String>();
+		
+		try {
+			arrayAddressInfo= findInfoAddress(coordinates);
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			addressFound=false;
+		}
+		if(addressFound)
+			try {
+				foursquareApiWithAuth.venuesAdd(name, arrayAddressInfo.get(0), null, arrayAddressInfo.get(1), arrayAddressInfo.get(2), arrayAddressInfo.get(3), phone, coordinates, categoryId);
+			} catch (FoursquareApiException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	/*
+	 *
+	 * @param coordinates from gps
+	 * @return address,city,state,zip of the coordinates in that order
+	 * @throws NotFoundException 
+	 */
+	@ApiMethod(name="findInfoAddress", httpMethod = HttpMethod.GET)
+	public ArrayList<String> findInfoAddress(@Named("coordinates")String coordinates) throws NotFoundException{
+		
+		
+				String coordinate = "45.478178,9.228031";
+				String address=null;
+				String city=null;
+				String state = null;
+				String zip=null;
+				ArrayList<String>  arrayAddressInfo = new ArrayList<String>();
+				
+				//find address from coordinates via Google Web service
+				String baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+				StringBuilder urlBuilder = new StringBuilder(baseUrl);
+				urlBuilder.append(coordinate);
+				urlBuilder.append("&location_type=ROOFTOP&result_type=street_address");
+				urlBuilder.append("&key="+Constants.GOOGLE_API_SERVER_KEY);
+				String url = urlBuilder.toString();
+				URL addressUrl;
+				JSONObject obj = null;
+				
+				try {
+					addressUrl = new URL(url);
+					BufferedReader reader = new BufferedReader(new InputStreamReader(addressUrl.openStream()));
+					StringBuilder content = new StringBuilder();
+					String line;
+					while (null != (line = reader.readLine())) {
+					    content.append(line);
+					}
+					obj = (JSONObject) new JSONTokener(content.toString()).nextValue();
+					JSONArray results=null;
+					if(obj.get("status").equals("OK")){
+						results = (JSONArray) obj.get("results");
+						obj=(JSONObject) results.get(0);
+						results = (JSONArray) obj.get("address_components");
+						System.out.println(results);
+						for (int i = 0; i < results.length(); i++) {
+							obj= (JSONObject) results.get(i);
+							if (obj.get("types").toString().contains("route")) 
+								address =(String) obj.get("short_name");
+							if (obj.get("types").toString().contains("administrative_area_level_2")) 
+								city =(String) obj.get("short_name");
+							if (obj.get("types").toString().contains("country")) 
+								state =(String) obj.get("short_name");
+							if (obj.get("types").toString().contains("postal_code")) 
+								zip =(String) obj.get("short_name");
+							}
+						
+						arrayAddressInfo.add(address);
+						arrayAddressInfo.add(city);
+						arrayAddressInfo.add(state);
+						arrayAddressInfo.add(zip);
+					}
+						
+					else throw new NotFoundException("errore");
+					
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				return arrayAddressInfo;
+				
+	}
 
+	//ritorna Map di categorie venues Foursquare con coppia Nome/Id ordinate per nome
+	@ApiMethod(name="findVenuesCategories")
+	public TreeMap<String, String> findVenuesCategories() throws NotFoundException{
+		
+		Result<Category[]> result;
+		TreeMap<String, String> category = new TreeMap<String, String>();
+		FoursquareApi foursquareApiNoAuth = new FoursquareApi(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.CALLBACK_URL2);
+		try {
+			result = foursquareApiNoAuth.venuesCategories();
+			for (Category categ : result.getResult()){
+				if(categ.getName().equals("Food")){
+				category.put(categ.getName(),categ.getId());
+				for (Category c : categ.getCategories())
+					category.put( c.getName(),c.getId());
+				}
+			}
+		
+		} catch (FoursquareApiException e) {
+			throw new NotFoundException("Not found venues");
+		}
+		
+		return category;
+	}
+	
 	
 	private Result<VenuesSearchResult> searchVenuesRequest(String coordinates) throws FoursquareApiException {
 
@@ -128,5 +271,6 @@ public class FoursquarePolisocialAPI {
 		return result;
 
 	}
+	
 	
 }

@@ -152,6 +152,12 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 	@Override
 	public void onResume() {
+		if(sessionManager.isLoggedIn()){
+			startActivity(new Intent(LoginActivity.this, TabActivity.class));
+			finish();
+		}
+				
+		
 		super.onResume();
 		// For scenarios where the main activity is launched and user
 		// session is not null, the session state change notification
@@ -208,30 +214,33 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 
 			
-			if(sessionManager.isLoggedIn())
-				startActivity(new Intent(LoginActivity.this, TabActivity.class));	
-			Request meRequest=Request.newMeRequest(session, new GraphUserCallback()
-			{
-
-				@Override
-				public void onCompleted(GraphUser user, Response response)
+			if(!sessionManager.isLoggedIn()){	
+				Request meRequest=Request.newMeRequest(session, new GraphUserCallback()
 				{
-					if(response.getError()==null)
-					{	
-						nickname=user.getFirstName()+user.getLastName();
-						email = (String) user.getProperty("email");
-						poliuser.setEmail(email);
-						poliuser.setNickname(nickname);
-						poliuser.setFbaccount(user.getLink());
-						poliuser.setSelfSummary((String) user.getProperty("bio"));
-						poliuser.setNotifyAnnouncement(true);
-						poliuser.setNotifyEvent(true);
-						poliuser.setNotifySpotted(true);
-						new searchEmailForLoginFBTask().execute();
+
+					@Override
+					public void onCompleted(GraphUser user, Response response)
+					{
+						if(response.getError()==null)
+						{	
+							nickname=user.getFirstName()+user.getLastName();
+							email = (String) user.getProperty("email");
+							poliuser.setEmail(email);
+							poliuser.setNickname(nickname);
+							poliuser.setFbaccount(user.getLink());
+							poliuser.setSelfSummary((String) user.getProperty("bio"));
+							poliuser.setNotifyAnnouncement(true);
+							poliuser.setNotifyEvent(true);
+							poliuser.setNotifySpotted(true);
+							poliuser.setNotifiedAnnouncement(false);
+							poliuser.setNotifiedEvent(false);
+							poliuser.setNotifiedSpotted(false);
+							new searchEmailForLoginFBTask().execute();
+						}
 					}
-				}
-			});
-			meRequest.executeAsync();
+				});
+				meRequest.executeAsync();
+			}
 			
 
 		} else if (state.isClosed()) {

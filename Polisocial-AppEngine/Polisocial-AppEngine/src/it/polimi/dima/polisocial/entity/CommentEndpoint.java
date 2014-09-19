@@ -103,14 +103,15 @@ public class CommentEndpoint {
 	
 	@SuppressWarnings({ "unchecked" })
 	@ApiMethod(name = "getPostComments")
-	public CollectionResponse<Comment> getPostComments(Post post) {
+	public CollectionResponse<Comment> getPostComments(@Named("postId") Long postId) {
 		EntityManager mgr = getEntityManager();
 		
+		//TODO ordine discendente per timeStamp
 		List<Comment> comments = null;
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("SELECT c FROM Comment c WHERE c.postKey =?1");
-			query.setParameter(1, post.getKey());
+			Query query = mgr.createQuery("SELECT c FROM Comment c WHERE c.postId =?1");
+			query.setParameter(1, postId);
 			comments = query.getResultList();
 		} finally {
 			mgr.close();
@@ -118,6 +119,22 @@ public class CommentEndpoint {
 		return CollectionResponse.<Comment> builder().setItems(comments).build();
 	}
 
+	@ApiMethod(name = "getNumbPostComments")
+	public ResponseObject getNumPostComments(@Named("postId") Long postId) {
+		EntityManager mgr = getEntityManager();
+		ResponseObject o = new ResponseObject();
+		try {
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("SELECT COUNT(c.commentId) FROM Comment c WHERE c.postId =?1");
+			query.setParameter(1, postId);
+			long count = (long)query.getSingleResult();
+			o.setObject(count);
+		}finally {
+			mgr.close();
+		}
+		return o;
+	}
+	
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
 	 * exists in the datastore, an exception is thrown.
@@ -133,10 +150,6 @@ public class CommentEndpoint {
 			if (containsComment(comment)) {
 				throw new EntityExistsException("Object already exists");
 			}
-			
-			//mando notifiche
-			sendNotification(comment);
-			
 			mgr.persist(comment);
 		} finally {
 			mgr.close();
@@ -192,7 +205,9 @@ public class CommentEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			Comment item = mgr.find(Comment.class, comment.getCommentKey());
+			if (comment.getCommentId()==null)
+				return false;
+			Comment item = mgr.find(Comment.class, comment.getCommentId());
 			if (item == null) {
 				contains = false;
 			}
@@ -202,31 +217,31 @@ public class CommentEndpoint {
 		return contains;
 	}
 	
-	/*TODO*/
-	private void sendNotification(Comment comment){
+	@ApiMethod(name="sendNotification")
+	public void sendNotification(Comment comment){
 		
 		//Long userId = comment.getAuthorKey().getId();
-		Key postKey = comment.getPostKey();
+		Long postId = comment.getPostId();
 		String type = comment.getType();
 		Post post=null;
-		if (type == "Spotted")
-			post = spottedEndpoint.getPostSpotted(postKey.getId());
-		if (type == "Rental")
-			post = rentalEndpoint.getRental(postKey.getId());
-		if (type == "SecondHandBook")
-			post = secondHandEndpoint.getSecondHandBook(postKey.getId());
-		if (type == "PrivateLesson")
-			post = privateLessonEndpoint.getPrivateLesson(postKey.getId());
-		if (type == "Initiative")
-			post = initiativeEndpoint.getInitiative(postKey.getId());
+		if (type.equals("Spotted"))
+			post = spottedEndpoint.getPostSpotted(postId);
+		if (type.equals("Rental"))
+			post = rentalEndpoint.getRental(postId);
+		if (type.equals("SecondHandBook"))
+			post = secondHandEndpoint.getSecondHandBook(postId);
+		if (type.equals("PrivateLesson"))
+			post = privateLessonEndpoint.getPrivateLesson(postId);
+		if (type.equals("Initiative"))
+			post = initiativeEndpoint.getInitiative(postId);
 		
 		//id autore del post commentato
 		Long idAuthorPost = post.getUserId();
-		CollectionResponse<Comment> postComments = CommentEndpoint.this.getPostComments(post);
+		CollectionResponse<Comment> postComments = CommentEndpoint.this.getPostComments(postId);
 		//ids degli autori dei commenti precedenti
 		ArrayList<Long> authorsCommentIds = new ArrayList<Long>();
 		for (Comment c : postComments.getItems())
-			authorsCommentIds.add(c.getAuthorKey().getId());
+			authorsCommentIds.add(c.getAuthorId());
 		
 		//notifico autore del post
 		deviceInfoEndpoint.sendToUser(idAuthorPost,post.getId(),type);

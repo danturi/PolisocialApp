@@ -134,6 +134,10 @@
             android:name=".ErrorGcmActivity"
             android:label="@string/title_activity_error_gcm" >
         </activity>
+        <activity
+            android:name=".NewSpottedPostActivity"
+            android:label="@string/title_activity_new_spotted_post" >
+        </activity>
     </application>
 
 </manifest>

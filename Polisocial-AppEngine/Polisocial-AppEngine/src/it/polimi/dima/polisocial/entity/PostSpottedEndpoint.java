@@ -151,6 +151,8 @@ public class PostSpottedEndpoint {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if(postspotted.getId()==null)
+    		return false;
       PostSpotted item = mgr.find(PostSpotted.class, postspotted.getId());
       if(item == null) {
         contains = false;

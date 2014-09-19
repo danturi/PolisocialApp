@@ -43,27 +43,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "privatelessonendpoint.getPrivateLesson" : {
-      "path" : "privatelesson/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.getPrivateLesson",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "privatelessonendpoint.removePrivateLesson" : {
       "path" : "privatelesson/{id}",
       "httpMethod" : "DELETE",
@@ -83,6 +62,27 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "privatelessonendpoint.getPrivateLesson" : {
+      "path" : "privatelesson/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.getPrivateLesson",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "privatelessonendpoint.listPrivateLesson" : {
@@ -133,8 +133,9 @@
         "id" : "PrivateLesson",
         "type" : "object",
         "properties" : {
-          "key" : {
-            "$ref" : "Key"
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "userId" : {
             "type" : "string",
@@ -153,38 +154,6 @@
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -213,12 +182,12 @@
           "$ref" : "PrivateLesson"
         }
       },
+      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.removePrivateLesson" : {
+      },
       "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.getPrivateLesson" : {
         "response" : {
           "$ref" : "PrivateLesson"
         }
-      },
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.removePrivateLesson" : {
       },
       "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.listPrivateLesson" : {
         "response" : {

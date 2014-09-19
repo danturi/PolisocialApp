@@ -23,7 +23,7 @@ public abstract class Post {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Key key;
+		private Long id;
 	
 		// Id user that write the post
 		private Long userId;
@@ -36,17 +36,11 @@ public abstract class Post {
 		
 		private Date timestamp;
 		
+		
 		public Long getId(){
-			return key.getId();
+			return id;
 		}
 		
-		public Key getKey() {
-			return key;
-		}
-
-		public void clearKey() {
-			this.key = null;
-		}
 		
 		public Long getUserId() {
 			return userId;
@@ -88,6 +82,9 @@ public abstract class Post {
 		public void setTitle(String title) {
 			this.title = title;
 		}
+
+
+		
 
 
 		

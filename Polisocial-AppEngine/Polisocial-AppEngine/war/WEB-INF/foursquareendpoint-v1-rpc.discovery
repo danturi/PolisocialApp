@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/bxm-nDLnHIl0wUpgsEG0NfZeJo0\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/Uq5oTQNWwrXakiz2Dqali_VGAnQ\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -72,6 +72,10 @@
   }
  },
  "schemas": {
+  "JsonMap": {
+   "id": "JsonMap",
+   "type": "object"
+  },
   "ResponseObject": {
    "id": "ResponseObject",
    "type": "object",
@@ -84,12 +88,86 @@
     }
    }
   },
+  "StringCollection": {
+   "id": "StringCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
   "_any": {
    "id": "_any",
    "type": "any"
   }
  },
  "methods": {
+  "foursquareendpoint.addVenueGPSInfo": {
+   "id": "foursquareendpoint.addVenueGPSInfo",
+   "parameters": {
+    "categoryId": {
+     "type": "string",
+     "required": true
+    },
+    "coordinates": {
+     "type": "string",
+     "required": true
+    },
+    "name": {
+     "type": "string",
+     "required": true
+    },
+    "phone": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "userId",
+    "name",
+    "coordinates",
+    "categoryId"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "foursquareendpoint.findInfoAddress": {
+   "id": "foursquareendpoint.findInfoAddress",
+   "allowGet": true,
+   "parameters": {
+    "coordinates": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "coordinates"
+   ],
+   "returns": {
+    "$ref": "StringCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "foursquareendpoint.findVenuesCategories": {
+   "id": "foursquareendpoint.findVenuesCategories",
+   "returns": {
+    "$ref": "JsonMap"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "foursquareendpoint.performTokenRequest": {
    "id": "foursquareendpoint.performTokenRequest",
    "allowGet": true,
@@ -97,10 +175,16 @@
     "code": {
      "type": "string",
      "required": true
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
     }
    },
    "parameterOrder": [
-    "code"
+    "code",
+    "userId"
    ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

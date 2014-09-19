@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/TKE63RZS8uvB7nTSip42svbvXlg\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/TxMB_WaNjNn-DALlTsF-MxP1Dy8\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -89,34 +89,6 @@
     }
    }
   },
-  "Key": {
-   "id": "Key",
-   "type": "object",
-   "properties": {
-    "appId": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "kind": {
-     "type": "string"
-    },
-    "name": {
-     "type": "string"
-    },
-    "namespace": {
-     "type": "string"
-    },
-    "parent": {
-     "$ref": "Key"
-    }
-   }
-  },
   "PrivateLesson": {
    "id": "PrivateLesson",
    "type": "object",
@@ -124,9 +96,6 @@
     "id": {
      "type": "string",
      "format": "int64"
-    },
-    "key": {
-     "$ref": "Key"
     },
     "picture": {
      "type": "string",

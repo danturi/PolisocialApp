@@ -2,65 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent" >
 
     <RelativeLayout
-        android:id="@+id/qrCodeContainer"
+        android:id="@+id/container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_corners"
         android:orientation="vertical"
-        android:padding="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp" >
+        android:padding="1dp" >
 
-        <RelativeLayout android:id="@+id/bottom_control_bar"
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true">
-		    
-		    <EditText 
-		        android:id="@+id/comment" 
-              	android:layout_width="fill_parent"
+
+        <!-- START BOTTOM BAR LAYOUT -->
+
+        <RelativeLayout
+            android:id="@+id/bottom_control_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+
+            <EditText
+                android:id="@+id/comment"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/send_comment_button"
                 android:hint="@string/type_comment"
-                android:maxLines="4"
                 android:inputType="textCapSentences|textMultiLine"
-  				android:maxLength="2000"
-                android:padding="5dip"
-                android:layout_toLeftOf="@+id/send_comment_button"/>
-            
-		    <ImageButton
-        		android:id="@+id/send_comment_button"
-        		android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-        		android:src="@drawable/ic_action_send"
-                android:layout_alignParentRight="true"  />
-		</RelativeLayout>
-		
-		<ProgressBar
-        android:id="@+id/comments_progress"
-        style="?android:attr/progressBarStyle"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-		
-		
-		<ListView android:id="@+id/comment_list" 
-		    android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:layout_above="@id/bottom_control_bar"
-			android:divider="@null"
-			android:listSelector="@android:color/transparent"
-			android:dividerHeight="0dp"> 
-		</ListView>
-        
-        
+                android:maxLength="2000"
+                android:maxLines="4"
+                android:padding="5dip" />
+
+            <ImageButton
+                android:id="@+id/send_comment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_send" />
+        </RelativeLayout>
+        <!-- END BOTTOM BAR LAYOUT -->
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/comment_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/bottom_control_bar"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent" >
+        </ListView>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -26,6 +26,7 @@ public class PoliUser {
 	private String nickname;
 	private String email;
 	private String password;
+	private String tokenFsq;
 	private PhoneNumber phoneNumber;
 	private User userGoogleAccount;
 	private String FBaccount;
@@ -187,6 +188,12 @@ public class PoliUser {
 	}
 	public void setNotifiedEvent(Boolean notifiedEvent) {
 		this.notifiedEvent = notifiedEvent;
+	}
+	public String getTokenFsq() {
+		return tokenFsq;
+	}
+	public void setTokenFsq(String tokenFsq) {
+		this.tokenFsq = tokenFsq;
 	}
 	
 }

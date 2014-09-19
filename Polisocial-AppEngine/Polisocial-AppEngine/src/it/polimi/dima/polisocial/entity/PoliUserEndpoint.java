@@ -252,11 +252,7 @@ public class PoliUserEndpoint {
 			mgr.close();
 		}
 	}
-	
-	@ApiMethod(name="prova")
-	public void prova(){
-		
-	}
+
 	
 
 	private boolean containsPoliUser(PoliUser poliuser) {

@@ -167,47 +167,31 @@ public class DeviceInfoEndpoint {
 
 	
 
+	@SuppressWarnings("unchecked")
 	@ApiMethod(name="sendToUser")
 	public void sendToUser(@Named("userId") Long userId, @Named("postId") Long postId, @Named("postType") String postType){
 		
 		DeviceInfo device = null;
-		try {
-			device = getDeviceInfoByUserId(userId);
-		} catch (EntityNotFoundException e) {
-			//l'utente non è registrato,esci
-			return;
-		}
-
-		messageEndpoint.sendMessageToDevice(userId, device, postId, postType);
-	}
-
-
-	@SuppressWarnings( "unchecked")
-	private DeviceInfo getDeviceInfoByUserId(Long userId) throws EntityNotFoundException{
-
-		EntityManager mgr = null;
-		DeviceInfo device = null;
+		EntityManager mgr = getEntityManager();
 		List<DeviceInfo> execute = null;
 
 		try {
-			mgr = getEntityManager();
-			Query query = mgr
-					.createQuery("select x from DeviceInfo x where x.userId=?1");
+			Query query = mgr.createQuery("select x from DeviceInfo x where x.userId=?1");
 			query.setParameter(1, userId);
 
 			execute = (List<DeviceInfo>) query.getResultList();
 			if(execute.isEmpty()) throw new EntityNotFoundException("Device does not exist");
 			
 			device = execute.get(0);
+			messageEndpoint.sendMessageToDevice(userId, device, postId, postType);
 			
 		} finally {
 			mgr.close();
 		}
 
-		return device; 
 	}
-	
-	
+
+
 
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();

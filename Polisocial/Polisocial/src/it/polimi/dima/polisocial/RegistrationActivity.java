@@ -254,6 +254,9 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 			newPoliUser.setNotifyAnnouncement(true);
 			newPoliUser.setNotifyEvent(true);
 			newPoliUser.setNotifySpotted(true);
+			newPoliUser.setNotifiedAnnouncement(false);
+			newPoliUser.setNotifiedEvent(false);
+			newPoliUser.setNotifiedSpotted(false);
 		}
 
 		@Override

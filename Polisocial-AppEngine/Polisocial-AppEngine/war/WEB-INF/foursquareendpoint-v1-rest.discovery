@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/bxm-nDLnHIl0wUpgsEG0NfZeJo0\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/Uq5oTQNWwrXakiz2Dqali_VGAnQ\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
@@ -74,6 +74,10 @@
   }
  },
  "schemas": {
+  "JsonMap": {
+   "id": "JsonMap",
+   "type": "object"
+  },
   "ResponseObject": {
    "id": "ResponseObject",
    "type": "object",
@@ -86,25 +90,117 @@
     }
    }
   },
+  "StringCollection": {
+   "id": "StringCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
   "_any": {
    "id": "_any",
    "type": "any"
   }
  },
  "methods": {
-  "performTokenRequest": {
-   "id": "foursquareendpoint.performTokenRequest",
-   "path": "performTokenRequest/{code}",
+  "addVenueGPSInfo": {
+   "id": "foursquareendpoint.addVenueGPSInfo",
+   "path": "addVenueGPSInfo/{userId}/{name}/{coordinates}/{categoryId}",
+   "httpMethod": "POST",
+   "parameters": {
+    "categoryId": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "coordinates": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "name": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "phone": {
+     "type": "string",
+     "location": "query"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "userId",
+    "name",
+    "coordinates",
+    "categoryId"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findInfoAddress": {
+   "id": "foursquareendpoint.findInfoAddress",
+   "path": "findInfoAddress/{coordinates}",
    "httpMethod": "GET",
    "parameters": {
-    "code": {
+    "coordinates": {
      "type": "string",
      "required": true,
      "location": "path"
     }
    },
    "parameterOrder": [
-    "code"
+    "coordinates"
+   ],
+   "response": {
+    "$ref": "StringCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "findVenuesCategories": {
+   "id": "foursquareendpoint.findVenuesCategories",
+   "path": "findVenuesCategories",
+   "httpMethod": "POST",
+   "response": {
+    "$ref": "JsonMap"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "performTokenRequest": {
+   "id": "foursquareendpoint.performTokenRequest",
+   "path": "performTokenRequest/{code}/{userId}",
+   "httpMethod": "GET",
+   "parameters": {
+    "code": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "code",
+    "userId"
    ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

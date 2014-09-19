@@ -24,10 +24,10 @@
             android:paddingRight="@dimen/post_item_padding_left_right" >
 
             <ImageView
-                android:id="@+id/category_image"
+                android:id="@+id/event_picture"
+                android:layout_width="@dimen/event_item_width"
+                android:layout_height="@dimen/event_item_height"
                 android:contentDescription="@string/desc_profile_pic"
-                android:layout_width="@dimen/post_item_profile_pic"
-                android:layout_height="@dimen/post_item_profile_pic"
                 android:scaleType="fitCenter" >
             </ImageView>
 
@@ -49,12 +49,21 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/timestamp"
-                    android:textSize="@dimen/post_item_timestamp" />
+                    android:textSize="@dimen/post_item_timestamp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/timestamp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/timestamp"
+                    android:textSize="@dimen/post_item_timestamp"
+                    android:paddingTop="@dimen/post_item_status_pad_top" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/short_description"
+            android:id="@+id/description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
@@ -62,24 +71,18 @@
             android:paddingRight="@dimen/post_item_status_pad_left_right"
             android:paddingTop="@dimen/post_item_status_pad_top" />
 
-        
         <TextView
-                    android:id="@+id/numb_of_comments"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    
-                    android:paddingBottom="3dp"
-           			android:paddingLeft="@dimen/post_item_status_pad_left_right"
-            		android:paddingRight="@dimen/post_item_status_pad_left_right"
-            		android:paddingTop="@dimen/post_item_status_pad_top"
-                    android:textSize="@dimen/post_item_numb_of_commments"
-                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                    android:clickable="true" />
-        	
-       		
-        
+            android:id="@+id/numb_of_comments"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingBottom="3dp"
+            android:paddingLeft="@dimen/post_item_status_pad_left_right"
+            android:paddingRight="@dimen/post_item_status_pad_left_right"
+            android:paddingTop="@dimen/post_item_status_pad_top"
+            android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+            android:textSize="@dimen/post_item_numb_of_commments"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
-    
