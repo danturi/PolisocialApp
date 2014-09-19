@@ -1,46 +1,57 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
+import it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
+public class EventListLoader extends AsyncTaskLoader<List<Initiative>> {
 	   
-    List<EventItem> mEventItems;
+    List<Initiative> mEventItems;
 
     public EventListLoader(Context context) {
         super(context);
     }
 
     @Override
-    public List<EventItem> loadInBackground() {
-        try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-         // You should perform the heavy task of getting data from 
-         // Internet or database or other source 
-         // Here, we are generating some Sample data
+    public List<Initiative> loadInBackground() {
+    	//GET DEI POST DA APP ENGINE
+        Initiativeendpoint.Builder builder = new Initiativeendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+        builder = CloudEndpointUtils.updateBuilder(builder);
+		Initiativeendpoint endpoint = builder.setApplicationName("polimisocial").build();
+		
+		Commentendpoint.Builder build = new Commentendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
 
-        
-        //GET DEI POST DA APP ENGINE
-        //GET PROFILE PIC DA APP ENGINE
-        
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date now = calendar.getTime();
-      
-        // Create corresponding array of entries and load with data.
-        List<EventItem> entries = new ArrayList<EventItem>(5);
-        entries.add(new EventItem(10,null, "Maratona del Buthan in 50 giorni e mezzo", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno. ", now, 4,"sport",now.toString()));
-        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
-        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
-        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
-        entries.add(new EventItem(10,null, "Maratona del Buthan", "L’evento inizia Venerdì 29 maggio con l’incontro dei partecipanti nell’hotel di Thimphu, la capital del Bhutan e finirà a Paro Sabato 6 giugno.", now, 4,"sport",now.toString()));
+		build= CloudEndpointUtils.updateBuilder(build);
+		Commentendpoint commEndpoint = build.setApplicationName("polimisocial").build();
+		
+		List<Initiative> entries = new ArrayList<Initiative>();
+		try {
+			CollectionResponseInitiative list = endpoint.listInitiative().setLimit(10).execute();
+
+			if(list.getItems()!=null){
+				for(Initiative eventPost : list.getItems()){	
+					ResponseObject count = commEndpoint.getNumbPostComments(eventPost.getId()).execute();
+					eventPost.setNumOfComments(Long.valueOf((String) count.getObject()));
+					entries.add(eventPost);
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return entries;
     }
      
@@ -49,7 +60,7 @@ public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
      * super class will take care of delivering it; the implementation
      * here just adds a little more logic.
      */
-    @Override public void deliverResult(List<EventItem> listOfData) {
+    @Override public void deliverResult(List<Initiative> listOfData) {
         if (isReset()) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.
@@ -57,7 +68,7 @@ public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
                 onReleaseResources(listOfData);
             }
         }
-        List<EventItem> oldApps = listOfData;
+        List<Initiative> oldApps = listOfData;
         mEventItems = listOfData;
 
         if (isStarted()) {
@@ -103,7 +114,7 @@ public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
     /**
      * Handles a request to cancel a load.
      */
-    @Override public void onCanceled(List<EventItem> apps) {
+    @Override public void onCanceled(List<Initiative> apps) {
         super.onCanceled(apps);
 
         // At this point we can release the resources associated with 'apps'
@@ -132,7 +143,7 @@ public class EventListLoader extends AsyncTaskLoader<List<EventItem>> {
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(List<EventItem> apps) {}
+    protected void onReleaseResources(List<Initiative> apps) {}
      
 
 }

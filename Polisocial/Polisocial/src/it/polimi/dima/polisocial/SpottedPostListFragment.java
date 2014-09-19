@@ -25,14 +25,15 @@ import android.widget.ListView;
 	  private boolean refreshRequest=false;
       private SpottedPostAdapter mAdapter;	
       private SwipeRefreshLayout mSwipeRefreshLayout;
-	private View mProgressView;
+      private View mProgressView;
       @Override
       public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
     	  View v = inflater.inflate(R.layout.fragment_spotted, null);       
     	  return v;       
       }
       
-      @Override
+      @SuppressWarnings("deprecation")
+	@Override
       public void onActivityCreated(Bundle savedInstanceState) {
           super.onActivityCreated(savedInstanceState);
 
@@ -43,12 +44,10 @@ import android.widget.ListView;
           setListAdapter(mAdapter);
 
           // Start out with a progress indicator.
-          //setListShown(false);
+          mProgressView = getView().findViewById(R.id.progress_bar);
+
           mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_container);
-          mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, 
-                  android.R.color.holo_green_light, 
-                  android.R.color.holo_orange_light, 
-                  android.R.color.holo_red_light);
+          mSwipeRefreshLayout.setColorScheme(R.color.color1,R.color.color2,R.color.color3,R.color.color4);
           mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
               @Override
               public void onRefresh() {
@@ -56,8 +55,6 @@ import android.widget.ListView;
             	  initiateRefresh();
               }
           });
-          
-      
           showProgress(true);
           // Prepare the loader.  Either re-connect with an existing one,
           // or start a new one.
@@ -102,11 +99,12 @@ import android.widget.ListView;
           if(refreshRequest){
         	  onRefreshComplete();
           }
-          if (isResumed()) {
+          showProgress(false);
+        /**  if (isResumed()) {
               //setListShown(true);
           } else {
               //setListShownNoAnimation(true);
-          }
+          }**/
       }
 
       @Override
@@ -116,7 +114,7 @@ import android.widget.ListView;
       
       /**
     	 * Shows the progress UI and hides post list.
-    	 */
+ */
     	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     	public void showProgress(final boolean show) {
     		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -154,6 +152,6 @@ import android.widget.ListView;
     			mSwipeRefreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
     		}
     	}
-  }
+ }
    
   

@@ -567,6 +567,12 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			return listVenuesFrgm;
 		}
 
+		@Override
+	    public void onActivityCreated(Bundle savedInstanceState) {
+	        super.onActivityCreated(savedInstanceState);
+
+	        setHasOptionsMenu(true);
+	    }
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -592,6 +598,15 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 			return v;
 		}
 
+	    @Override
+	    public void onPrepareOptionsMenu(Menu menu) {
+	        super.onPrepareOptionsMenu(menu);
+	        menu.findItem(R.id.action_create_event).setVisible(false);
+	        menu.findItem(R.id.menu_filter_events).setVisible(false);
+	        menu.findItem(R.id.action_write_spotted_post).setVisible(false);
+	    }
+		
+		
 		private class VenuesNearPoliTask extends AsyncTask<Void, Void , ResponseObject>{
 			
 			

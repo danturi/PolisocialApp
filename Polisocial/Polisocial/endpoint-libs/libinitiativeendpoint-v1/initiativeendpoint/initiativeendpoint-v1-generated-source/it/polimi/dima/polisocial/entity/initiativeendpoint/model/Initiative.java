@@ -79,6 +79,8 @@ public final class Initiative extends com.google.api.client.json.GenericJson {
   @com.google.api.client.util.Key @com.google.api.client.json.JsonString
   private java.lang.Long userId;
 
+  private Long numOfComments;
+  
   /**
    * @return value or {@code null} for none
    */
@@ -237,4 +239,12 @@ public final class Initiative extends com.google.api.client.json.GenericJson {
     return (Initiative) super.clone();
   }
 
+  public Long getNumOfComments() {
+		return numOfComments;
+	}
+
+	public void setNumOfComments(Long numOfComments) {
+		this.numOfComments = numOfComments;
+	}
+  
 }

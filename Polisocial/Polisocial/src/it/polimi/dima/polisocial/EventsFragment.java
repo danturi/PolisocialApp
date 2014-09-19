@@ -1,5 +1,7 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+
 import java.util.List;
 
 import android.os.Bundle;
@@ -16,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 
-public class EventsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<EventItem>> {
+public class EventsFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<Initiative>> {
     
 	private boolean refreshRequest=false;
 	private EventAdapter mAdapter;	
@@ -28,7 +30,8 @@ public class EventsFragment extends ListFragment implements LoaderManager.Loader
   	  return v;       
     }
     
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
@@ -40,10 +43,7 @@ public class EventsFragment extends ListFragment implements LoaderManager.Loader
         // Start out with a progress indicator.
         //setListShown(false);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, 
-                android.R.color.holo_green_light, 
-                android.R.color.holo_orange_light, 
-                android.R.color.holo_red_light);
+        mSwipeRefreshLayout.setColorScheme(R.color.color1,R.color.color2,R.color.color3,R.color.color4);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -83,12 +83,12 @@ public class EventsFragment extends ListFragment implements LoaderManager.Loader
     }
 
     @Override
-    public Loader<List<EventItem>> onCreateLoader(int arg0, Bundle arg1) {
+    public Loader<List<Initiative>> onCreateLoader(int arg0, Bundle arg1) {
         return new EventListLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<EventItem>> arg0, List<EventItem> data) {
+    public void onLoadFinished(Loader<List<Initiative>> arg0, List<Initiative> data) {
         mAdapter.setData(data);
         // The list should now be shown.
         if(refreshRequest){
@@ -102,7 +102,7 @@ public class EventsFragment extends ListFragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onLoaderReset(Loader<List<EventItem>> arg0) {
+    public void onLoaderReset(Loader<List<Initiative>> arg0) {
         mAdapter.setData(null);
     }
 }

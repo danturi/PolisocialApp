@@ -9,10 +9,16 @@
     <color name="link">#0a80d1</color>
     <color name="timestamp">#a0a3a7</color>
     <color name="black_overlay">#66000000</color>
-        <color name="Green">#45a700</color>
-     <color name="unselected_text_numbofcomments_color">#a0a3a7</color>
-     <color name="selected_text_numbofcomments_color">#000000</color>
+    <color name="Green">#45a700</color>
+    <color name="unselected_text_numbofcomments_color">#a0a3a7</color>
+    <color name="selected_text_numbofcomments_color">#000000</color>
+    <color name="unselected_text_gotoregistration_color">#0b84aa</color>
+    <color name="selected_text_gotoregistration_color">#000000</color>
 
-     <color name="unselected_text_gotoregistration_color">#0b84aa</color>
-     <color name="selected_text_gotoregistration_color">#000000</color>
+    <!-- color scheme refresh -->
+    <color name="color1">#ff8000</color>
+    <color name="color2">#9ee500</color>
+    <color name="color3">#ffc100</color>
+    <color name="color4">#48ba00</color>
+
 </resources>
