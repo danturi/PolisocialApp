@@ -12,6 +12,8 @@ private String category;
 
 private Date beginningDate;
 
+private String location;
+
 public String getCategory() {
 	return category;
 }
@@ -26,6 +28,14 @@ public Date getBeginningDate() {
 
 public void setBeginningDate(Date beginningDate) {
 	this.beginningDate = beginningDate;
+}
+
+public String getLocation() {
+	return location;
+}
+
+public void setLocation(String location) {
+	this.location = location;
 }
 
 

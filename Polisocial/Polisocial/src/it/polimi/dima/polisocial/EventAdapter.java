@@ -3,12 +3,14 @@ package it.polimi.dima.polisocial;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,23 +55,21 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 		} else {
 			view = convertView;
 		}
-
-		ImageView eventPicture = (ImageView) view
-				.findViewById(R.id.event_picture);
 		Initiative item = getItem(position);
+
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView beginningDate = (TextView) view
 				.findViewById(R.id.beginning_date);
+		TextView location = (TextView) view.findViewById(R.id.location);
+		ImageView eventPicture = (ImageView) view
+				.findViewById(R.id.event_picture);
 		TextView description = (TextView) view.findViewById(R.id.description);
-
 		TextView creationDate = (TextView) view.findViewById(R.id.timestamp);
-
 		TextView numbOfComments = (TextView) view
 				.findViewById(R.id.numb_of_comments);
 
 		numbOfComments.setOnClickListener(new IdParameterOnClickListener(item
 				.getId()) {
-
 			@Override
 			public void onClick(View v) {
 				Intent showRelativeCommentsIntent = new Intent(context,
@@ -77,25 +77,36 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 				showRelativeCommentsIntent.putExtra("postId", id);
 				showRelativeCommentsIntent.putExtra("notificationCategory",
 						NotificationCategory.NOT_FROM_NOTIFICATION.toString());
+				showRelativeCommentsIntent.putExtra("type", NotificationCategory.EVENT.toString());
 				context.startActivity(showRelativeCommentsIntent);
 			}
 		});
 
 		eventPicture.setImageResource(R.drawable.imageprova);
 
+		// Feed image
+		if (item.getPicture() != null) {
+			byte[] byteArrayImage = Base64.decode(item.getPicture(),
+					Base64.DEFAULT);
+			eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
+					byteArrayImage, 0, byteArrayImage.length));
+		} else {
+			eventPicture.setImageResource(R.drawable.imageprova);
+		}
+
 		title.setText(item.getTitle());
+		location.setText("WHERE: " + item.getLocation());
+		
+		beginningDate.setText("START: " + item.getBeginningDate().toString());
+		description.setText(item.getText());
 
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 				.getTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-
-		beginningDate.setText("BEGINS: " + item.getBeginningDate().toString());
-		creationDate.setText("created" + timeAgo);
-		description.setText(item.getText());
+		creationDate.setText("created " + timeAgo);
 
 		makeTextViewResizable(description, 3, "View More", true);
-
 		numbOfComments.setText(item.getNumOfComments() + " comments");
 
 		return view;

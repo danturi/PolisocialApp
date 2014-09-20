@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/XkNMWYoY13ULlr1iuV97izWbRHM\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/R3HB1FM8MVxS9ylUl615-MxUGHs\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -101,6 +101,9 @@
     "id": {
      "type": "string",
      "format": "int64"
+    },
+    "location": {
+     "type": "string"
     },
     "picture": {
      "type": "string",

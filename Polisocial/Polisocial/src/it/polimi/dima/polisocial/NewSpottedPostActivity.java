@@ -207,7 +207,6 @@ public class NewSpottedPostActivity extends Activity {
 	
 			newSpottedPost = new PostSpotted();
 			if(pic!=null)
-			//newSpottedPost.encodePicture(mPicture);
 			newSpottedPost.setPicture(pic);
 			newSpottedPost.setTitle(mLocationAndTitle);
 			newSpottedPost.setText(mText);

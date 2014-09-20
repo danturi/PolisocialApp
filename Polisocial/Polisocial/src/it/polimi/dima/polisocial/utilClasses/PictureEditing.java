@@ -109,7 +109,7 @@ public class PictureEditing {
 	        ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	 
 //	          write the compressed bitmap at the destination specified by filename.
-	            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+	            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);
 	            
 	        return bos.toByteArray();
 	 

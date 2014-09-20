@@ -111,7 +111,7 @@
       }
     },
     "deviceinfoendpoint.sendToUser" : {
-      "path" : "sendToUser/{userId}/{postId}/{postType}",
+      "path" : "sendToUser/{userId}/{postId}/{postType}/{postTitle}",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -129,6 +129,10 @@
             "required" : true
           },
           "postType" : {
+            "type" : "string",
+            "required" : true
+          },
+          "postTitle" : {
             "type" : "string",
             "required" : true
           }

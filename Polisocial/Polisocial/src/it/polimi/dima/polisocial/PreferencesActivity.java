@@ -58,9 +58,6 @@ public class PreferencesActivity extends PreferenceActivity {
     	announc = ReadBoolean(this, "announcements", false);
     	events = ReadBoolean(this, "events", false);
     	
-    	//update user only when there is at least a different option
-    	if(!(spotted == (ReadBoolean(this, "spotted", true)) && announc == (ReadBoolean(this, "announcements", true)) && 
-    			events == (ReadBoolean(this, "events", true))))
     	new UpdateNotifyUser().execute();
 
     }
@@ -80,10 +77,17 @@ public class PreferencesActivity extends PreferenceActivity {
 			
 			try {
 				user=endpoint.getPoliUser(Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID))).execute();
-				user.setNotifyAnnouncement(announc);
-				user.setNotifyEvent(events);
-				user.setNotifySpotted(spotted);
-				endpoint.updatePoliUser(user).execute();
+				
+				//update user only when there is at least a different option
+				if(!((spotted == user.getNotifySpotted()) && (announc == user.getNotifyAnnouncement()) && 
+		    			(events == user.getNotifyEvent()))) {
+					user.setNotifyAnnouncement(announc);
+					user.setNotifyEvent(events);
+					user.setNotifySpotted(spotted);
+					endpoint.updatePoliUser(user).execute();
+				}
+				
+				
 				
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

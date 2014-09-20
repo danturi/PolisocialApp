@@ -1,9 +1,14 @@
 package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.InitiativeEndpoint;
 import it.polimi.dima.polisocial.entity.Notification;
 import it.polimi.dima.polisocial.entity.PoliUser;
 import it.polimi.dima.polisocial.entity.PoliUserEndpoint;
+import it.polimi.dima.polisocial.entity.PostSpottedEndpoint;
+import it.polimi.dima.polisocial.entity.PrivateLessonEndpoint;
+import it.polimi.dima.polisocial.entity.RentalEndpoint;
+import it.polimi.dima.polisocial.entity.SecondHandBookEndpoint;
 
 import java.io.IOException;
 import java.util.Date;
@@ -63,6 +68,11 @@ public class MessageEndpoint {
 
   private static final DeviceInfoEndpoint endpoint = new DeviceInfoEndpoint();
   private static final PoliUserEndpoint endpointUser = new PoliUserEndpoint();
+  private static final PostSpottedEndpoint spotted = new PostSpottedEndpoint();
+  private static final RentalEndpoint rental = new RentalEndpoint();
+  private static final SecondHandBookEndpoint book = new SecondHandBookEndpoint();
+  private static final InitiativeEndpoint event = new InitiativeEndpoint();
+  private static final PrivateLessonEndpoint privLess = new PrivateLessonEndpoint();
   /**
    * This function returns a list of messages starting with the newest message
    * first and in descending order from there
@@ -159,11 +169,11 @@ public class MessageEndpoint {
   public void sendMessageToDevice(
 		  @Named("user") Long user, DeviceInfo device ,
 		  @Named("postId") Long postId ,
-		  @Named("postType") String postType){
+		  @Named("postType") String postType,@Named("postTitle") String postTitle){
 
 	  	  Sender sender = new Sender(API_KEY);
+	  	 
 	  	  
-
 		  // create a Notification entity
 		  Notification notification = new Notification();
 		  notification.setUserId(user);
@@ -171,6 +181,7 @@ public class MessageEndpoint {
 		  notification.setTypePost(postType);
 		  notification.setReadFlag(false);
 		  notification.setTimestamp(new Date(System.currentTimeMillis()));
+		  notification.setPostTitle(postTitle);
 
 		  EntityManager mgr = getEntityManager();
 		  try {
@@ -181,18 +192,18 @@ public class MessageEndpoint {
 		  try{
 			  PoliUser userNotifing = new PoliUser();
 			  userNotifing = endpointUser.getPoliUser(user);
-			  if (postType.equals("Spotted") && userNotifing.getNotifySpotted() && !userNotifing.getNotifiedSpotted()) {
-				  doSendViaGcm("Spotted", sender, device);
+			  if (postType.equals("spotted") && userNotifing.getNotifySpotted() && !userNotifing.getNotifiedSpotted()) {
+				  doSendViaGcm("spotted", sender, device);
 				  userNotifing.setNotifiedSpotted(true);
-			  } else if ((postType.equals("Rental") || postType.equals("SecondHandBook") || postType.equals("PrivateLesson")) && userNotifing.getNotifyAnnouncement() && !userNotifing.getNotifiedAnnouncement()){
-				  doSendViaGcm("Announcement", sender, device);
+			  } else if ((postType.equals("rental") || postType.equals("secondHandBook") || postType.equals("privateLesson")) && userNotifing.getNotifyAnnouncement() && !userNotifing.getNotifiedAnnouncement()){
+				  doSendViaGcm("announcement", sender, device);
 				  userNotifing.setNotifiedAnnouncement(true);
-			  } else if ((postType.equals("Event")) && !userNotifing.getNotifiedEvent()){
-				  doSendViaGcm("Event", sender, device);
+			  } else if ((postType.equals("event")) && !userNotifing.getNotifiedEvent()){
+				  doSendViaGcm("event", sender, device);
 				  userNotifing.setNotifiedEvent(true);
 			  }
 			  //TODO entity persistence exception...
-			  // endpointUser.updatePoliUser(userNotifing);
+			  endpointUser.updatePoliUser(userNotifing);
 		  } catch (IOException e) {
 			e.printStackTrace();
 		  }

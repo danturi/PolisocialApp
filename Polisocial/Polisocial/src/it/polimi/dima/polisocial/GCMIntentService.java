@@ -36,6 +36,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 @SuppressLint("NewApi")
 public class GCMIntentService extends GCMBaseIntentService {
@@ -111,7 +112,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				  alreadyRegisteredWithEndpointServer = true;
 			  }
 		  } catch (IOException e) {
-			  // Ignore
+			  e.printStackTrace();
 		  }
 		  try {
 			  if (!alreadyRegisteredWithEndpointServer) {
@@ -133,7 +134,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 						  deviceInfo
 						  .setUserId(userId)
 						  .setDeviceRegistrationID(registration)
-						  .setTimestamp(System.currentTimeMillis())
+						  .setTimestamp(new DateTime(System.currentTimeMillis()).getValue())
 						  .setDeviceInformation(
 								  URLEncoder
 								  .encode(android.os.Build.MANUFACTURER
@@ -259,7 +260,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	         
 	        String title = context.getString(R.string.app_name);
 	        String textNotif = "";
-	        if (message.equals("Spotted"))
+	        if (message.equals(NotificationCategory.SIMPLE_SPOTTED.toString()))
 				textNotif="New Spotted message";
 	        if (message.equals("Rental")|| message.equals("SecondHandBoook") || message.equals("PrivateLesson"))
 				textNotif="New Announcement message";
@@ -272,9 +273,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 	        // set intent so it does not start a new activity
 	        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	        notificationIntent.putExtra("gcmNotification", true);
 	        PendingIntent intent =
 	                PendingIntent.getActivity(context, 0, notificationIntent, 0);
-
+	        //notifica di android non la nostra...
 	        Notification notification = new Notification.Builder(context)
 	        .setContentIntent(intent)
 	        .setContentTitle(title)

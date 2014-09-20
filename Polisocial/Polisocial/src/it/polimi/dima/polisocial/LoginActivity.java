@@ -79,6 +79,12 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private SessionManager sessionManager; 
 
 	@Override
+	public void onBackPressed() {
+		//minimize
+		moveTaskToBack(true);
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
@@ -152,6 +158,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 	@Override
 	public void onResume() {
+		
 		if(sessionManager.isLoggedIn()){
 			startActivity(new Intent(LoginActivity.this, TabActivity.class));
 			finish();
@@ -175,7 +182,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//super.onActivityResult(requestCode, resultCode, data);
 		uiHelper.onActivityResult(requestCode, resultCode, data);
-		showProgress(true);
+		
 	}
 
 	@Override
@@ -199,7 +206,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private Session.StatusCallback callback = new Session.StatusCallback() {
 		@Override
 		public void call(Session session, SessionState state, Exception exception) {
-			//showProgress(true);
+			showProgress(true);
 			onSessionStateChange(session, state, exception);
 		}
 	};
@@ -282,6 +289,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			}else {
 				sessionManager.createLoginSession(poliUserCheck.getNickname(), poliUserCheck.getEmail());
 				sessionManager.setId(Long.toString(poliUserCheck.getUserId()));
+				GCMIntentService.register(getApplicationContext());
 				Intent i= new Intent(LoginActivity.this,TabActivity.class);
 				startActivity(i);
 				finish();
@@ -315,12 +323,10 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			Intent i= new Intent(LoginActivity.this,TabActivity.class);
-			i.putExtra("firstLogin", true);
 			sessionManager.createLoginSession(nickname, email);
-			startActivity(i);
-			showProgress(false);
-			finish();
+			//prendo user dal database per settare id nel sessionManager
+			new GetUserTask().execute(email);
+			
 		}
 
 
@@ -582,9 +588,11 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			if (success) {
 				sessionManager.createLoginSession(poliuser.getNickname(), poliuser.getEmail());
 				sessionManager.setId(Long.toString(poliuser.getUserId()));
+				new RegisterUser().execute();
+				/*GCMIntentService.register(getApplicationContext());
 				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
 				LoginActivity.this.startActivity(loginFinishedIntent);
-				finish();
+				finish();*/
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
@@ -624,5 +632,56 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 				}
 			}).show();
 		}
+	 
+	 
+	 public class GetUserTask extends AsyncTask<String, Void, Void> {
+
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			try {
+				PoliUser user = endpoint.checkForDuplicateEmail(params[0]).execute();
+				sessionManager.setId(Long.toString(user.getUserId()));
+				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			new RegisterUser().execute();
+		}
+		 
+	 }
+	 
+	 public class RegisterUser extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			GCMIntentService.register(getApplicationContext());
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			Intent i = new Intent(LoginActivity.this,TabActivity.class);
+			startActivity(i);
+			showProgress(false);
+			finish();
+		}
+		
+		 
+	 }
 
 }

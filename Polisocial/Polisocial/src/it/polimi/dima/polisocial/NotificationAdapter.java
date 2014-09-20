@@ -1,8 +1,12 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
+
 import java.util.List;
+
 import android.content.Context;
 import android.text.Html;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
+public class NotificationAdapter extends ArrayAdapter<Notification> {
 	private final LayoutInflater mInflater;
 	
 	private String notificationTextIntroduction = "The post you are following '"; //context.getString(R.string.notification_text_introduction_part);
@@ -24,10 +28,10 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
  
-    public void setData(List<NotificationItem> data) {
+    public void setData(List<Notification> data) {
         clear();
         if (data != null) {
-            for (NotificationItem appEntry : data) {
+            for (Notification appEntry : data) {
                 add(appEntry);
             }
         }
@@ -45,7 +49,7 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
             view = convertView;
         }
  
-        NotificationItem item = getItem(position);
+        Notification item = getItem(position);
         
         TextView text = (TextView) view.findViewById(R.id.text);
 		TextView timestamp = (TextView) view
@@ -56,22 +60,21 @@ public class NotificationAdapter extends ArrayAdapter<NotificationItem> {
 		
 		
 		//TODO: creare enum per il tipo di notifica?
-		if(item.getCategory()=="HitOn"){
-			text.setText(notificationTextIntroduction+item.getPostTitle()+notificationTextSection+item.getCategory()+notificationTextHit);
+		if(item.getTypePost()=="HitOn"){
+			text.setText(notificationTextIntroduction+item.getPostTitle()+notificationTextSection+item.getTypePost()+notificationTextHit);
 		}else{
-			text.setText(Html.fromHtml(notificationTextIntroduction+"<font color=blue>"+item.getPostTitle()+"</font>"+notificationTextSection+item.getCategory()+notificationTextCommented));
+			text.setText(Html.fromHtml(notificationTextIntroduction+"<font color=blue>"+item.getPostTitle()+"</font>"+notificationTextSection+item.getTypePost()+notificationTextCommented));
 		}	
 		
 		notificationTypeIcon.setImageResource(R.drawable.spotted_icon_normal);
 		
 		//TODO: Converting timestamp into time ago format
-		/**CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
-				Long.parseLong(item.getTimeStamp()),
+		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
+				item.getTimestamp().getValue(),
 				System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
 		
 		timestamp.setText(timeAgo);
-**/
-		timestamp.setText(item.getTimeStamp());
+
 			
 		
 		return view;

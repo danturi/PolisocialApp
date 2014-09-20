@@ -220,34 +220,42 @@ public class CommentEndpoint {
 	@ApiMethod(name="sendNotification")
 	public void sendNotification(Comment comment){
 		
-		//Long userId = comment.getAuthorKey().getId();
+		
 		Long postId = comment.getPostId();
 		String type = comment.getType();
 		Post post=null;
-		if (type.equals("Spotted"))
+		if (type.equals("spotted"))
 			post = spottedEndpoint.getPostSpotted(postId);
-		if (type.equals("Rental"))
+		if (type.equals("rental"))
 			post = rentalEndpoint.getRental(postId);
-		if (type.equals("SecondHandBook"))
+		if (type.equals("secondHandBook"))
 			post = secondHandEndpoint.getSecondHandBook(postId);
-		if (type.equals("PrivateLesson"))
+		if (type.equals("privateLesson"))
 			post = privateLessonEndpoint.getPrivateLesson(postId);
-		if (type.equals("Initiative"))
+		if (type.equals("event"))
 			post = initiativeEndpoint.getInitiative(postId);
 		
 		//id autore del post commentato
 		Long idAuthorPost = post.getUserId();
+		String postTitle = post.getTitle();
 		CollectionResponse<Comment> postComments = CommentEndpoint.this.getPostComments(postId);
 		//ids degli autori dei commenti precedenti
 		ArrayList<Long> authorsCommentIds = new ArrayList<Long>();
-		for (Comment c : postComments.getItems())
-			authorsCommentIds.add(c.getAuthorId());
-		
-		//notifico autore del post
-		deviceInfoEndpoint.sendToUser(idAuthorPost,post.getId(),type);
+		for (Comment c : postComments.getItems()){
+			//elimina doppia notifica all'autore post che si auto-commenta  e  elimina doppioni notifiche a chi ha commentato più volte il post
+			if(c.getAuthorId().compareTo(idAuthorPost)==0 && !authorsCommentIds.contains(c.getAuthorId())){
+					authorsCommentIds.add(c.getAuthorId());
+			}
+			
+		}
+		//notifico autore del post se non è lui che ha commentato
+		if(!(idAuthorPost.compareTo(comment.getAuthorId())==0))
+		    deviceInfoEndpoint.sendToUser(idAuthorPost,post.getId(),type,postTitle);
 		//notifico gli autori dei commenti
+		if(!authorsCommentIds.isEmpty()){
 		for (Long id : authorsCommentIds)
-			deviceInfoEndpoint.sendToUser(id,post.getId(),type);
+			deviceInfoEndpoint.sendToUser(id,post.getId(),type,postTitle);
+		}
 	}
 	
 	

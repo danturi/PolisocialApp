@@ -229,7 +229,7 @@ public class PoliUserEndpoint {
 			if (!containsPoliUser(poliuser)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(poliuser);
+			mgr.merge(poliuser);
 		} finally {
 			mgr.close();
 		}

@@ -29,6 +29,8 @@ public class Notification {
 	//Id of the post
 	private Long postId;
 	
+	private String postTitle;
+	
 	//type of Post : Spotted,Rental...
 	private String postType;
 
@@ -85,6 +87,14 @@ public class Notification {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
 	}
 	
 	

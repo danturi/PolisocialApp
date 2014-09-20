@@ -40,7 +40,8 @@ public class PostSpottedEndpoint {
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from PostSpotted as PostSpotted");
+      Query query = mgr.createQuery("select p from PostSpotted p order by p.timestamp DESC ");
+      
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);

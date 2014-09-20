@@ -137,7 +137,8 @@
         <activity
             android:name=".NewSpottedPostActivity"
             android:label="@string/title_activity_new_spotted_post"
-                       android:parentActivityName=".TabActivity" >
+            android:parentActivityName=".TabActivity"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polimi.dima.polisocial.TabActivity" />
@@ -145,7 +146,8 @@
         <activity
             android:name=".NewEventActivity"
             android:label="@string/title_activity_new_event"
-            android:parentActivityName=".TabActivity" >
+            android:parentActivityName=".TabActivity"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polimi.dima.polisocial.TabActivity" />

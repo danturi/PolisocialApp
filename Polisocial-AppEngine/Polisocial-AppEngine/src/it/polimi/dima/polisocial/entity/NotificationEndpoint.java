@@ -72,7 +72,8 @@ public class NotificationEndpoint {
    * This method gets the entity having primary key id. It uses HTTP GET method.
    *
    * @param id the primary key of the java bean.
-   * @return The entity with primary key id.
+   * @return A CollectionResponse class containing the list of all entities
+   *         persisted and a cursor to the next page.
    */
   @ApiMethod(name = "getNotification")
   public Notification getNotification(@Named("id") Long id) {
@@ -86,6 +87,51 @@ public class NotificationEndpoint {
     return notification;
   }
 
+  /**
+   * This method gets user notifications. It uses HTTP GET method.
+   *
+   * @param userId the primary id of the PoliUser entity.
+   * @return 
+   */
+  @SuppressWarnings("unchecked")
+@ApiMethod(name = "getUserNotification")
+  public CollectionResponse<Notification> getUserNotification(@Named("userId") Long userId,@Nullable @Named("cursor") String cursorString,
+		  @Nullable @Named("limit") Integer limit) {
+	  
+	  EntityManager mgr = null;
+	  Cursor cursor = null;
+	  List<Notification> execute = null;
+
+			  try{
+				  mgr = getEntityManager();
+				  Query query = mgr.createQuery("select n from Notification n where n.userId=?1");
+				  query.setParameter(1, userId);
+				  if (cursorString != null && cursorString != "") {
+					  cursor = Cursor.fromWebSafeString(cursorString);
+					  query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+				  }
+
+				  if (limit != null) {
+					  query.setFirstResult(0);
+					  query.setMaxResults(limit);
+				  }
+
+				  execute = (List<Notification>) query.getResultList();
+				  cursor = JPACursorHelper.getCursor(execute);
+				  if (cursor != null) cursorString = cursor.toWebSafeString();
+
+				  // Tight loop for fetching all entities from datastore and accomodate
+				  // for lazy fetch.
+				  for (Notification obj : execute);
+			  } finally {
+				  mgr.close();
+			  }
+
+	  return CollectionResponse.<Notification>builder()
+			  .setItems(execute)
+			  .setNextPageToken(cursorString)
+			  .build();
+  }
   /**
    * This inserts a new entity into App Engine datastore. If the entity already
    * exists in the datastore, an exception is thrown.

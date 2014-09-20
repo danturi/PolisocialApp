@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/0TbPcD-zvrHTM5S_EcSMBr4rsyA\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/eliCbsBeyu3_QPldO4S6vU9I4FI\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",
@@ -101,6 +101,9 @@
      "type": "string",
      "format": "int64"
     },
+    "postTitle": {
+     "type": "string"
+    },
     "readFlag": {
      "type": "boolean"
     },
@@ -136,6 +139,37 @@
    ],
    "response": {
     "$ref": "Notification"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUserNotification": {
+   "id": "notificationendpoint.getUserNotification",
+   "path": "collectionresponse_notification/{userId}",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "userId"
+   ],
+   "response": {
+    "$ref": "CollectionResponse_Notification"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

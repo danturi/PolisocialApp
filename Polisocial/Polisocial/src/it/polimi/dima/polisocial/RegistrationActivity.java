@@ -49,7 +49,12 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 	private View mRegistrationFormView;
 
 
-
+	@Override
+	public void onBackPressed() {
+		Intent i =new Intent(this,LoginActivity.class);
+		startActivity(i);
+		finish();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -376,8 +381,9 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
-				loginFinishedIntent.putExtra("firstLogin", true);
 				sessionManager.createLoginSession(nickname, mEmail);
+				sessionManager.setId(Long.toString(poliuser.getUserId()));
+				GCMIntentService.register(getApplicationContext());
 				RegistrationActivity.this.startActivity(loginFinishedIntent);
 				finish();
 			} else {

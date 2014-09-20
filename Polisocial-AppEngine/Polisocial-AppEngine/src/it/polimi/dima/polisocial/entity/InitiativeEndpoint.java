@@ -151,6 +151,8 @@ public class InitiativeEndpoint {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if (initiative.getId()==null)
+			return false;
       Initiative item = mgr.find(Initiative.class, initiative.getId());
       if(item == null) {
         contains = false;

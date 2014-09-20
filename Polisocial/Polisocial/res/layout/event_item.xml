@@ -45,20 +45,22 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/beginning_date"
+                    android:id="@+id/location"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/timestamp"
                     android:textSize="@dimen/post_item_timestamp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/timestamp"
+                    android:id="@+id/beginning_date"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/timestamp"
                     android:textSize="@dimen/post_item_timestamp"
-                    android:paddingTop="@dimen/post_item_status_pad_top" />
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -70,6 +72,14 @@
             android:paddingLeft="@dimen/post_item_status_pad_left_right"
             android:paddingRight="@dimen/post_item_status_pad_left_right"
             android:paddingTop="@dimen/post_item_status_pad_top" />
+
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/post_item_status_pad_left_right"
+            android:textColor="@color/timestamp"
+            android:textSize="@dimen/post_item_timestamp" />
 
         <TextView
             android:id="@+id/numb_of_comments"

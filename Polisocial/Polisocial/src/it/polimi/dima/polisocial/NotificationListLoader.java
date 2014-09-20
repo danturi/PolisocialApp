@@ -1,51 +1,63 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint;
+import it.polimi.dima.polisocial.entity.notificationendpoint.model.CollectionResponseNotification;
+import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-public class NotificationListLoader extends AsyncTaskLoader<List<NotificationItem>> {
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
-	List<NotificationItem> mNotificationItems;
+public class NotificationListLoader extends AsyncTaskLoader<List<Notification>> {
 
-    public NotificationListLoader(Context context) {
+	List<Notification> mNotificationItems;
+	long userId;
+
+    public NotificationListLoader(Context context, long userId) {
         super(context);
+        this.userId= userId;
+        
     }
 
     @Override
-    public List<NotificationItem> loadInBackground() {
-        try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+    public List<Notification> loadInBackground() {
+     
+    	//retrive notification of the user from APP ENGINE
+        Notificationendpoint.Builder builder = new Notificationendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+        builder = CloudEndpointUtils.updateBuilder(builder);
+        Notificationendpoint endpointNotif = builder.setApplicationName("polimisocial").build();
+        
+    	List<Notification> entries = new ArrayList<Notification>();
+    	try {
+			CollectionResponseNotification response = endpointNotif.getUserNotification(userId).execute();
+			if(response.getItems()!=null){
+				for (Notification n : response.getItems()){
+					entries.add(n);
+				}
+			}
+		} catch (IOException e) {
+			
 			e.printStackTrace();
-		} 
-         // You should perform the heavy task of getting data from 
-         // Internet or database or other source 
-         // Here, we are generating some Sample data
-        
-        //GET DEI POST DA APP ENGINE
-        //GET PROFILE PIC DA APP ENGINE
-        
-        //fake timestamp creation
-        Calendar calendar = Calendar.getInstance(); 
-        java.util.Date now = calendar.getTime();
-        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-        
+		}
+    	//endpointNotif.
+        /*
         // Create corresponding array of entries and load with data.
-        List<NotificationItem> entries = new ArrayList<NotificationItem>(5);
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.NOT_FROM_NOTIFICATION.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial event example post title", currentTimestamp.toString(),NotificationCategory.EVENT.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
-        entries.add(new NotificationItem(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
         
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.NOT_FROM_NOTIFICATION.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        entries.add(new Notification(10,15, "#polisocial event example post title", currentTimestamp.toString(),NotificationCategory.EVENT.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        entries.add(new Notification(10,15, "#polisocial example post title", currentTimestamp.toString(),NotificationCategory.SIMPLE_SPOTTED.toString()));
+        */
         return entries;
     }
      
@@ -54,7 +66,7 @@ public class NotificationListLoader extends AsyncTaskLoader<List<NotificationIte
      * super class will take care of delivering it; the implementation
      * here just adds a little more logic.
      */
-    @Override public void deliverResult(List<NotificationItem> listOfData) {
+    @Override public void deliverResult(List<Notification> listOfData) {
         if (isReset()) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.
@@ -62,7 +74,7 @@ public class NotificationListLoader extends AsyncTaskLoader<List<NotificationIte
                 onReleaseResources(listOfData);
             }
         }
-        List<NotificationItem> oldApps = listOfData;
+        List<Notification> oldApps = listOfData;
         mNotificationItems = listOfData;
 
         if (isStarted()) {
@@ -108,7 +120,7 @@ public class NotificationListLoader extends AsyncTaskLoader<List<NotificationIte
     /**
      * Handles a request to cancel a load.
      */
-    @Override public void onCanceled(List<NotificationItem> apps) {
+    @Override public void onCanceled(List<Notification> apps) {
         super.onCanceled(apps);
 
         // At this point we can release the resources associated with 'apps'
@@ -137,7 +149,7 @@ public class NotificationListLoader extends AsyncTaskLoader<List<NotificationIte
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(List<NotificationItem> apps) {}
+    protected void onReleaseResources(List<Notification> apps) {}
      
 
 }

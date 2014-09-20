@@ -82,6 +82,22 @@
     <string name="notification_text_section_part"> " in the section </string>
     <string name="notification_text_comment_received_part"> received a comment.</string>
     <string name="notification_text_hit_received_part"> received an hit.</string>
-    <string name="title_activity_new_event">NewEventActivity</string>
+    <string name="title_activity_new_event">Create event</string>
+
+    <!-- New event creation -->
+    <string name="event_title">Title</string>
+    <string name="event_title_example">ex. Erasmus party</string>
+    <string name="event_location">Location</string>
+    <string name="event_location_example">ex. Hollywood</string>
+    <string name="event_date">Event date</string>
+    <string name="event_start_time">Start time</string>
+    <string name="event_description">Description</string>
+    <string name="event_description_hint">type here the description of the event</string>
+
+    <string-array name="event_category_arrays">
+        <item>Culture</item>
+        <item>Fun</item>
+        <item>Various</item>
+    </string-array>
 
 </resources>

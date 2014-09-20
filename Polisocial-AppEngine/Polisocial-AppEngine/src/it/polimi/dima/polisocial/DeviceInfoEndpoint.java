@@ -169,7 +169,7 @@ public class DeviceInfoEndpoint {
 
 	@SuppressWarnings("unchecked")
 	@ApiMethod(name="sendToUser")
-	public void sendToUser(@Named("userId") Long userId, @Named("postId") Long postId, @Named("postType") String postType){
+	public void sendToUser(@Named("userId") Long userId, @Named("postId") Long postId, @Named("postType") String postType,@Named("postTitle") String postTitle){
 		
 		DeviceInfo device = null;
 		EntityManager mgr = getEntityManager();
@@ -183,12 +183,11 @@ public class DeviceInfoEndpoint {
 			if(execute.isEmpty()) throw new EntityNotFoundException("Device does not exist");
 			
 			device = execute.get(0);
-			messageEndpoint.sendMessageToDevice(userId, device, postId, postType);
-			
+	
 		} finally {
 			mgr.close();
 		}
-
+		messageEndpoint.sendMessageToDevice(userId, device, postId, postType,postTitle);
 	}
 
 

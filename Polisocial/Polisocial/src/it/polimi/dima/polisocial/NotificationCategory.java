@@ -2,8 +2,9 @@ package it.polimi.dima.polisocial;
 
 public enum NotificationCategory {
 
-	HIT_ON("hit_on"), EVENT("event"), SIMPLE_SPOTTED("spotted"), ANNOUNCEMENT(
-			"announcement"), NOT_FROM_NOTIFICATION("nfn");
+	HIT_ON("hit_on"), EVENT("event"), SIMPLE_SPOTTED("spotted"),
+	NOT_FROM_NOTIFICATION("nfn"),RENTAL("rental"),SECOND_HAND_BOOK("secondHandBook"),
+	PRIVATE_LESSON("privateLesson");
 
 	private final String category;
 

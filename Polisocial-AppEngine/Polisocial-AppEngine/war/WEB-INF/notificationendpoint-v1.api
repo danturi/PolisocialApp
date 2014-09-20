@@ -125,6 +125,35 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
+    },
+    "notificationendpoint.getUserNotification" : {
+      "path" : "collectionresponse_notification/{userId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.NotificationEndpoint.getUserNotification",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
@@ -144,6 +173,9 @@
           "postId" : {
             "type" : "string",
             "format" : "int64"
+          },
+          "postTitle" : {
+            "type" : "string"
           },
           "readFlag" : {
             "type" : "boolean"
@@ -198,6 +230,11 @@
         }
       },
       "it.polimi.dima.polisocial.entity.NotificationEndpoint.listNotification" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Notification"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.NotificationEndpoint.getUserNotification" : {
         "response" : {
           "$ref" : "CollectionResponse_Notification"
         }

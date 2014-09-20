@@ -7,8 +7,10 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +67,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
             public void onClick(View v) {
             	Intent showRelativeCommentsIntent = new Intent(context, ShowRelatedCommentsActivity.class);
             	showRelativeCommentsIntent.putExtra("postId",id);
+            	showRelativeCommentsIntent.putExtra("type",NotificationCategory.SIMPLE_SPOTTED.toString());
             	showRelativeCommentsIntent.putExtra("notificationCategory", NotificationCategory.NOT_FROM_NOTIFICATION.toString());
             	context.startActivity(showRelativeCommentsIntent);
             }
@@ -94,18 +97,15 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		
 		// Feed image
 		if (item.getPicture() != null) {
-			int blobImageLength = 0;
 			
-				//blobImageLength = (int) item.getImage().length();
+			//blobImageLength = (int) item.getImage().length();
 			
-			byte[] byteArrayImage = null;
-			{
-				//byteArrayImage = item.getImage().getBytes(1, blobImageLength);
-			}
-			//postImage.setImageBitmap(BitmapFactory.decodeByteArray(byteArrayImage, 0 ,byteArrayImage.length));
+			byte[] byteArrayImage = Base64.decode(item.getPicture(), Base64.DEFAULT);
+			
+			postImage.setImageBitmap(BitmapFactory.decodeByteArray(byteArrayImage, 0 ,byteArrayImage.length));
 			postImage.setVisibility(View.VISIBLE);
 			//da cancellare
-			postImage.setImageResource(R.drawable.imageprova);
+			//postImage.setImageResource(R.drawable.imageprova);
 		} else {
 			postImage.setVisibility(View.GONE);
 		}

@@ -1,20 +1,12 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.customOnClickListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import com.google.android.gms.drive.realtime.internal.BeginCompoundOperationRequest;
-import com.google.android.gms.internal.be;
-import com.google.android.gms.internal.ev;
-import com.google.api.client.auth.oauth2.BearerToken;
-
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -119,8 +111,8 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	}
 
 	private void setUpEventHeader(int position, View view) {
-		EventItem eventItem;
-		eventItem = (EventItem) getItem(position);
+		Initiative eventItem;
+		eventItem = (Initiative) getItem(position);
 	       ImageView eventPicture=(ImageView) view
 					.findViewById(R.id.event_picture);
 	        TextView title = (TextView) view.findViewById(R.id.title);
@@ -133,15 +125,15 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			eventPicture.setImageResource(R.drawable.imageprova);
 			title.setText(eventItem.getTitle());
 			// Converting timestamp into time ago format
-			/**CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
-					Long.parseLong(eventItem.getTimeStamp()),
+			/*CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
+					eventItem.getTimestamp().getValue(),
 					System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
 			
-			timestamp.setText(timeAgo);
-	**/
+			timestamp.setText(timeAgo);*/
+	
 			beginningDate.setText("BEGINS: "+ eventItem.getBeginningDate().toString());
 			creationDate.setText("created" + eventItem.getTimestamp().toString());
-			description.setText(eventItem.getShortDescription());
+			description.setText(eventItem.getText());
 			EventAdapter.makeTextViewResizable(description, 3, "View More", true);
 		
 	}

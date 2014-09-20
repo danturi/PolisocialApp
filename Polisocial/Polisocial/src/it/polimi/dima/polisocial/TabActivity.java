@@ -64,7 +64,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	ViewPager mViewPager;
 	PoliUser userSession;
 	private String email;
-	SessionManager sessionManager; 
+	public SessionManager sessionManager; 
 	private it.polimi.dima.polisocial.TabActivity.GoogleMapFragment.VenuesNearPoliAndPlotMapTask task;
 	
 
@@ -100,19 +100,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
 		sessionManager = new SessionManager(getApplicationContext());
-		boolean firstLogin = getIntent().getBooleanExtra("firstLogin",false);
 		
-		
-		//controllo primo login dell'utente caso facebook
-		if(firstLogin){
-		
-			//lancio dialog facoltà
-			//showNoticeDialog();
-			
-			//setto id nel sessionManager e attivo notifiche
-			new setUserIdAndRegisterTask().execute();
-			
-		}
 
 		// Create the adapter that will return a fragment for each of the three primary sections
 		// of the app.
@@ -120,6 +108,9 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
+		
+		
+			
 
 		// Specify that the Home/Up button should not be enabled, since there is no hierarchical
 		// parent.
@@ -127,12 +118,12 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		actionBar.setIcon(R.drawable.logo_login);
 		// Specify that we will be displaying tabs in the action bar.
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+	
 		// Set up the ViewPager, attaching the adapter and setting up a listener for when the
 		// user swipes between sections.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-		mViewPager.setOffscreenPageLimit(5);  	//mantiene memoria delle tab
+		mViewPager.setOffscreenPageLimit(4);  	//mantiene memoria delle tab
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
@@ -169,8 +160,14 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				actionBar.newTab().setIcon(R.drawable.notifications_icon)
 				//.setText(mAppSectionsPagerAdapter.getPageTitle(i))
 				.setTabListener(this));
-		//TODO da fare controllo per icona notifiche...
+		
+		if(getIntent().getBooleanExtra("gcmNotification", false)){
+			actionBar.setSelectedNavigationItem(4);
+		}
+
+		//TODO da fare controllo per icona numero notifiche...
 	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,7 +188,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 				startActivity(new Intent(this,OAuthAccessActivity.class));
 	            return true;
 	        case R.id.action_create_event:
-	            //showProfile();
+	        	startActivity(new Intent(TabActivity.this, NewEventActivity.class));
 	            return true;
 	        case R.id.action_show_profile:
 	            //showProfile();
@@ -208,6 +205,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	    			session.closeAndClearTokenInformation();
 	    		}
 	        	sessionManager.logoutUser();
+	        	GCMIntentService.unregister(this);
 	            
 	        case R.id.menu_filter_events_culture:
 	        	 item.setChecked(true);
@@ -224,6 +222,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
+	
 
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -728,5 +727,15 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	        DialogFragment dialog = new SingleChoiceDialogFragm();
 	        dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
 	    }
+ 
+	@Override
+	protected void onResume() {
+		if(getIntent().getBooleanExtra("gcmNotification", false)){
+			mViewPager.setCurrentItem(1);
+		}
+		super.onResume();
+	}
+	
+	
 
 }

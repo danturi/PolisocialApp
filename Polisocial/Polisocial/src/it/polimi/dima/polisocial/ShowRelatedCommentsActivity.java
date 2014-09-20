@@ -4,6 +4,8 @@ import it.polimi.dima.polisocial.customOnClickListeners.IdTextParametersOnClickL
 import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.CollectionResponseComment;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
@@ -52,10 +54,12 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	private CommentAdapter mAdapter;
 	private long postId;
 	private String notificationCategory;
+	private String type;
 	private ListView mList;
 	private View mProgressView;
 	private SessionManager sessionManager;
 	private Commentendpoint endpoint;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		postId = getIntent().getLongExtra("postId", 0);
 		notificationCategory = getIntent().getStringExtra(
 				"notificationCategory");
+		type = getIntent().getStringExtra("type");
+		
 
 		// if we show comments, set up the bottom bar containing the editext to
 		// write a comment
@@ -92,6 +98,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 				public void onClick(View v) {
 					String text= commentText.getText().toString();
 	            	if(!text.matches("")){
+	            		showProgress(true);
 	            		new InsertCommentTask(postId).execute(text);
 					}
 				}
@@ -110,7 +117,6 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 		// Prepare the loader. Either re-connect with an existing one,
 		// or start a new one.
-		// TODO instead of null, pass an appropriate bundle
 
 		Bundle bundle = new Bundle();
 		bundle.putString("notificationCategory", notificationCategory);
@@ -169,8 +175,14 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	@Override
 	public void onLoadFinished(Loader<List<Object>> arg0, List<Object> data) {
 		showProgress(false);
-		mAdapter.setData(data);
-		// The list should now be shown.
+		if(!data.isEmpty())
+			// The list should now be shown.
+			mAdapter.setData(data);
+		else {
+			TextView t= (TextView) findViewById(R.id.no_comments);
+			t.setText("There are no comments for this post yet");
+		}
+		
 	}
 
 	@Override
@@ -184,6 +196,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		String notificationCategory;
 		long postId;
 		List<Object> entries = new ArrayList<Object>();
+		private Postspottedendpoint spottedEnd;
+		private Initiativeendpoint initiativeEnd;
 
 		public CommentListLoader(Context context, String notificationCategory, long postId) {
 			super(context);
@@ -198,14 +212,35 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 			List<Object> entries = new ArrayList<Object>();
 			//if the notification is about a spotted post, then...
 			if (spottedPostNotification()) {
-				//TODO retrieve from server the spotted post identified by postId
-	
+				//retrieve from server the spotted post identified by postId
+				Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				spottedEnd = builder.setApplicationName("polimisocial").build();
+				try {
+					PostSpotted post = spottedEnd.getPostSpotted(postId).execute();
+					entries.add(post);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else if(eventPostNotification()){
-				//TODO retrieve from server event post identified by postId
-		        
+				//retrieve from server event post identified by postId
+				Initiativeendpoint.Builder builder = new Initiativeendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				initiativeEnd = builder.setApplicationName("polimisocial").build();
+				try {
+					Initiative post = initiativeEnd.getInitiative(postId).execute();
+					entries.add(post);
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 			}
-			//TODO announcements case
+			//announcements case
 			if(notHitOn()){
 				//retrieve comments related to the post
 	        	
@@ -230,7 +265,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 				}
 			//case hit_on
 			}else{
-				//retrieve hit_on related to the post
+				//TODO retrieve hit_on related to the post
 			}
 				
 			return entries;
@@ -369,10 +404,11 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
     		comment.setCommentTimestamp(new DateTime(now));
     		comment.setPostId(postId);
     		comment.setText(params[0]);
-    		comment.setType("Spotted");
+    		comment.setType(type);
     		
     		try {
     			endpoint.insertComment(comment).execute();
+    			endpoint.sendNotification(comment).execute();
     		} catch (IOException e) {
     			e.printStackTrace();
     			return false;
@@ -384,9 +420,14 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if(result){
+				showProgress(false);
+				//new SendNotificationTask().execute(comment);
 				Toast.makeText(getBaseContext(), "Insert comment done!",Toast.LENGTH_LONG).show();
-				new SendNotificationTask().execute(comment);
-			}else Toast.makeText(getBaseContext(), "Insert comment failed.Connection error.",Toast.LENGTH_SHORT).show();
+				
+			}else {
+				showProgress(false);
+				Toast.makeText(getBaseContext(), "Insert comment failed.Connection error.",Toast.LENGTH_SHORT).show();
+			}
 			super.onPostExecute(result);
 		}
 		
@@ -411,7 +452,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 		@Override
 		protected void onPostExecute(Void result) {
-			finish();
+			showProgress(false);
 			super.onPostExecute(result);
 		}
 		

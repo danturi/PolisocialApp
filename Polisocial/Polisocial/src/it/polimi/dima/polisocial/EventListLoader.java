@@ -44,7 +44,7 @@ public class EventListLoader extends AsyncTaskLoader<List<Initiative>> {
 			if(list.getItems()!=null){
 				for(Initiative eventPost : list.getItems()){	
 					ResponseObject count = commEndpoint.getNumbPostComments(eventPost.getId()).execute();
-					eventPost.setNumOfComments(Long.valueOf((String) count.getObject()));
+					eventPost.setNumOfComments(Integer.valueOf((String) count.getObject()));
 					entries.add(eventPost);
 				}
 			}

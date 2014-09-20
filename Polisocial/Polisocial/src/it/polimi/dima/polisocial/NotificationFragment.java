@@ -1,5 +1,7 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
+
 import java.util.List;
 
 import android.animation.Animator;
@@ -18,19 +20,27 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class NotificationFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<NotificationItem>>  {
+public class NotificationFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<Notification>>  {
 
 	private boolean refreshRequest=false;
     private NotificationAdapter mAdapter;	
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private View mProgressView;
+	private SessionManager session;
+	private TextView mTextView ;
     
-    @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-  	  View v = inflater.inflate(R.layout.fragment_notification, null);       
-  	  return v;       
-    }
+	
+
+	@Override
+	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		View v = inflater.inflate(R.layout.fragment_notification, null);
+		session = new SessionManager(getActivity().getApplicationContext());
+		mTextView = (TextView) v.findViewById(R.id.no_notification);
+		mTextView.setVisibility(View.GONE);
+		return v;       
+	}
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -42,6 +52,7 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
         mAdapter = new NotificationAdapter(getActivity());
         setListAdapter(mAdapter);
         
+       
         mProgressView = getView().findViewById(R.id.progress_bar);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_container);
@@ -60,9 +71,10 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
         // Start out with a progress indicator.
         showProgress(true);
         
-        // Prepare the loader.  Either re-connect with an existing one,
-        // or start a new one.
-        getLoaderManager().initLoader(0, null, this);
+        Bundle bundle = new Bundle();
+		bundle.putLong("userId", Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID)));
+        getLoaderManager().initLoader(0, bundle, this);
+
     }
 
     
@@ -121,7 +133,9 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
     
     
     private void initiateRefresh() {
-        getLoaderManager().restartLoader(0, null, this);
+    	  Bundle bundle = new Bundle();
+  		  bundle.putLong("userId", Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID)));
+        getLoaderManager().restartLoader(0, bundle, this);
     }
     
     
@@ -134,24 +148,31 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        NotificationItem notificationClicked = (NotificationItem) getListView().getItemAtPosition(position);
-        long postId = notificationClicked.getId();
-        String notificationCategory = notificationClicked.getCategory();
+        Notification notificationClicked = (Notification) getListView().getItemAtPosition(position);
+        long postId = notificationClicked.getPostId();
+        String notificationCategory = notificationClicked.getTypePost();
         Intent showRelativeCommentsIntent = new Intent(getActivity(), ShowRelatedCommentsActivity.class);
-    	showRelativeCommentsIntent.putExtra("postId",id);
+    	showRelativeCommentsIntent.putExtra("postId",postId);
     	showRelativeCommentsIntent.putExtra("notificationCategory",notificationCategory);
     	startActivity(showRelativeCommentsIntent);
         // Insert desired behaviour here.
     }
 
     @Override
-    public Loader<List<NotificationItem>> onCreateLoader(int arg0, Bundle arg1) {
-        return new NotificationListLoader(getActivity());
+    public Loader<List<Notification>> onCreateLoader(int arg0, Bundle bundle) {
+    	long userId = (Long) bundle.get("userId");
+    	return new NotificationListLoader(getActivity(),userId);
+        
     }
 
     @Override
-    public void onLoadFinished(Loader<List<NotificationItem>> arg0, List<NotificationItem> data) {
-        mAdapter.setData(data);
+    public void onLoadFinished(Loader<List<Notification>> arg0, List<Notification> data) {
+        if (data!=null)
+    	mAdapter.setData(data);
+        else {
+        	mTextView.setVisibility(View.VISIBLE);
+        	mTextView.setText("There is no notification");
+        }
         // The list should now be shown.
         if(refreshRequest){
       	  onRefreshComplete();
@@ -165,28 +186,11 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
     }
 
     @Override
-    public void onLoaderReset(Loader<List<NotificationItem>> arg0) {
+    public void onLoaderReset(Loader<List<Notification>> arg0) {
         mAdapter.setData(null);
     }
 }
  
 
 	
-	
-	/**
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_notification, container, false);
-		
-		rootView.findViewById(R.id.gcmButton)
-		.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(getActivity(), GCMActivity.class);
-				startActivity(intent);
-			}
-		});
-		return rootView;
-	}
-**/
+

@@ -73,6 +73,10 @@
           "postType" : {
             "type" : "string",
             "required" : true
+          },
+          "postTitle" : {
+            "type" : "string",
+            "required" : true
           }
         },
         "body" : "autoTemplate(backendRequest)",

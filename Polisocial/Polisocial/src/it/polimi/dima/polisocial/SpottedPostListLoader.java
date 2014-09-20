@@ -46,7 +46,7 @@ public class SpottedPostListLoader extends AsyncTaskLoader<List<PostSpotted>> {
 			if(list.getItems()!=null){
 				for(PostSpotted post : list.getItems()){	
 					ResponseObject count = commEndpoint.getNumbPostComments(post.getId()).execute();
-					post.setNumOfComments(Long.valueOf((String) count.getObject()));
+					post.setNumOfComments(Integer.valueOf((String) count.getObject()));
 					entries.add(post);
 				}
 			}
