@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/eliCbsBeyu3_QPldO4S6vU9I4FI\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/LTOHrjDwlYk8fWM8s3udfqyFxtk\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",
@@ -119,6 +119,22 @@
      "format": "int64"
     }
    }
+  },
+  "ResponseObject": {
+   "id": "ResponseObject",
+   "type": "object",
+   "properties": {
+    "exception": {
+     "type": "string"
+    },
+    "object": {
+     "$ref": "_any"
+    }
+   }
+  },
+  "_any": {
+   "id": "_any",
+   "type": "any"
   }
  },
  "methods": {
@@ -170,6 +186,35 @@
    ],
    "response": {
     "$ref": "CollectionResponse_Notification"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "haveNotificationForPost": {
+   "id": "notificationendpoint.haveNotificationForPost",
+   "path": "haveNotificationForPost/{postId}/{userId}",
+   "httpMethod": "POST",
+   "parameters": {
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "postId",
+    "userId"
+   ],
+   "response": {
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/ZU7SXiGSmt4KVG9YCZzQKF0xC0Y\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/uqZ0Soi_-sSlSJrNVa2jEW-caIE\"",
  "discoveryVersion": "v1",
  "id": "messageEndpoint:v1",
  "name": "messageEndpoint",
@@ -195,6 +195,10 @@
      "required": true,
      "format": "int64"
     },
+    "postTitle": {
+     "type": "string",
+     "required": true
+    },
     "postType": {
      "type": "string",
      "required": true
@@ -211,6 +215,7 @@
    "parameterOrder": [
     "resource",
     "postId",
+    "postTitle",
     "postType",
     "user"
    ],

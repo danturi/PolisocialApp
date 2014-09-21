@@ -154,6 +154,8 @@ public class DeviceInfoEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
+			if(deviceinfo.getDeviceRegistrationID()==null)
+				return false;
 			DeviceInfo item = mgr.find(DeviceInfo.class,
 					deviceinfo.getDeviceRegistrationID());
 			if (item == null) {

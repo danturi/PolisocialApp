@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -219,7 +220,6 @@ public class NewEventActivity extends Activity {
 				cancel = true;
 			}
 
-
 			String description = mEventDescriptionView.getText().toString();
 			if (TextUtils.isEmpty(title)) {
 				mEventDescriptionView
@@ -230,19 +230,21 @@ public class NewEventActivity extends Activity {
 
 			String category = mSpinnerView.getSelectedItem().toString();
 			@SuppressWarnings("deprecation")
-			DateTime dateAndTime = new DateTime(new Date(year, month, day, hour, minute));
+			DateTime dateAndTime = new DateTime(new Date(year, month, day,
+					hour, minute));
 			if (cancel) {
 				focusView.requestFocus();
 			} else {
 				// Show a progress spinner, and kick off a background task
 				showProgress(true);
 				try {
-					if(pictureInBytes==null){
-						mCreateEventTask = new CreateNewEventTask(title, location,
-								category, dateAndTime, description);
-				}else{
-					mCreateEventTask = new CreateNewEventTask(title, location,
-							category, dateAndTime, description, pictureInBytes);
+					if (pictureInBytes == null) {
+						mCreateEventTask = new CreateNewEventTask(title,
+								location, category, dateAndTime, description);
+					} else {
+						mCreateEventTask = new CreateNewEventTask(title,
+								location, category, dateAndTime, description,
+								pictureInBytes);
 					}
 				} catch (NoSuchAlgorithmException e) {
 					// TODO Auto-generated catch block
@@ -325,9 +327,8 @@ public class NewEventActivity extends Activity {
 		Initiative newEventPost;
 
 		CreateNewEventTask(String title, String location, String category,
-				DateTime dateAndTime, String description,
-				byte[] picture) throws NoSuchAlgorithmException,
-				UnsupportedEncodingException {
+				DateTime dateAndTime, String description, byte[] picture)
+				throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mTitle = title;
 			mLocation = location;
 			mCategory = category;
@@ -337,15 +338,14 @@ public class NewEventActivity extends Activity {
 		}
 
 		CreateNewEventTask(String title, String location, String category,
-				DateTime dateAndTime, String description) throws NoSuchAlgorithmException,
-				UnsupportedEncodingException {
+				DateTime dateAndTime, String description)
+				throws NoSuchAlgorithmException, UnsupportedEncodingException {
 			mTitle = title;
 			mLocation = location;
 			mCategory = category;
 			mDescription = description;
 			mDateAndTime = dateAndTime;
 		}
-		
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -391,12 +391,16 @@ public class NewEventActivity extends Activity {
 			if (result) {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"DONE! New event created", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
 				finish();
 			} else {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"Can't perform operation. Please retry",
 						Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
 			}
 

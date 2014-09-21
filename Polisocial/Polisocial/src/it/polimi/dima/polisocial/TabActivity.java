@@ -2,6 +2,9 @@ package it.polimi.dima.polisocial;
 
 
 
+import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
+import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
+import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
@@ -9,6 +12,8 @@ import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObj
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -26,6 +31,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,8 +57,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
-public class TabActivity extends FragmentActivity implements ActionBar.TabListener {
+public class TabActivity extends FragmentActivity implements ActionBar.TabListener,HitOnDialogListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -66,6 +73,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	private String email;
 	public SessionManager sessionManager; 
 	private it.polimi.dima.polisocial.TabActivity.GoogleMapFragment.VenuesNearPoliAndPlotMapTask task;
+
 	
 
 	@Override
@@ -684,43 +692,7 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 		
 	}*/
 		
-	private class setUserIdAndRegisterTask extends AsyncTask<Void, Void, Long>  {
 
-
-		Long id;
-		
-		@Override
-		protected Long doInBackground(Void... params) {
-			
-			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-
-			builder = CloudEndpointUtils.updateBuilder(builder);
-			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-			
-			try {
-				email=sessionManager.getUserDetails().get(SessionManager.KEY_EMAIL);
-				userSession = endpoint.checkForDuplicateEmail(email).execute();
-				id = userSession.getUserId();
-				
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return id;
-		}
-
-		@SuppressLint("NewApi")
-		@Override
-		protected void onPostExecute(Long result) {
-			super.onPostExecute(result);
-			String s = Long.toString(result);
-			sessionManager.setId(s);
-			GCMIntentService.register(getApplicationContext());
-		}
-		
-		
-	}
 
 	 public void showNoticeDialog() {
 	        // Create an instance of the dialog fragment and show it
@@ -731,11 +703,75 @@ public class TabActivity extends FragmentActivity implements ActionBar.TabListen
 	@Override
 	protected void onResume() {
 		if(getIntent().getBooleanExtra("gcmNotification", false)){
-			mViewPager.setCurrentItem(1);
-		}
+				mViewPager.setCurrentItem(4);
+				
+			}
+			
 		super.onResume();
 	}
+
+	@Override
+	public void onDialogPositiveClick(String message, Bundle bundle) {
+		long userId= bundle.getLong("userId");
+		long postId = bundle.getLong("postId");
+		String name = bundle.getString("name");
+		new InsertHitOn(name,message).execute(userId,postId);
+		
+	}
 	
+	
+	public class InsertHitOn extends AsyncTask<Long, Void, Boolean>{
+
+		
+		private Hitonendpoint end;
+		private String seducerName;
+		private String message;
+		
+		public InsertHitOn(String name, String message) {
+			seducerName=name;
+			this.message=message;
+		}
+		@Override
+		protected Boolean doInBackground(Long... params) {
+			
+			Hitonendpoint.Builder builder = new Hitonendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+	        builder = CloudEndpointUtils.updateBuilder(builder);
+	        end  = builder.setApplicationName("polimisocial").build();
+			HitOn hitOn = new HitOn();
+			hitOn.setSeducerId(params[0]);
+			hitOn.setPostId(params[1]);
+			hitOn.setAuthorName(seducerName);
+			Calendar calendar = Calendar.getInstance();
+			Date now = calendar.getTime();
+			hitOn.setTimestamp(new DateTime(now));
+			hitOn.setContact(message);
+			Boolean response=true;
+	        try {
+				end.insertHitOn(hitOn).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+				response=false;
+			}
+	        return response;
+		}
+		
+		//TODO on post execute Toast ok message
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (result){
+				Toast toast = Toast.makeText(getApplicationContext(), "DONE! You have sent a message", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+			}else {
+				Toast toast = Toast.makeText(getApplicationContext(), "FAILED! Error connection", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+			}
+			
+			super.onPostExecute(result);
+			
+		}
+	}
 	
 
 }

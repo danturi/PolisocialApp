@@ -14,6 +14,6 @@ public final class R {
 		public static final int loading = 0x7f030043;
 	}
 	public static final class string {
-		public static final int loading = 0x7f0a0027;
+		public static final int loading = 0x7f070020;
 	}
 }

@@ -146,12 +146,54 @@ public class HitOnEndpoint {
       mgr.close();
     }
   }
+  
+  @SuppressWarnings("unchecked")
+  @ApiMethod(name = "getUserHitOn")
+    public CollectionResponse<HitOn> getUserHitOn(@Named("userId") Long userId,@Nullable @Named("cursor") String cursorString,
+  		  @Nullable @Named("limit") Integer limit) {
+  	  
+  	  EntityManager mgr = null;
+  	  Cursor cursor = null;
+  	  List<HitOn> execute = null;
+
+  			  try{
+  				  mgr = getEntityManager();
+  				  Query query = mgr.createQuery("select h from HitOn h where h.userId=?1");
+  				  query.setParameter(1, userId);
+  				  if (cursorString != null && cursorString != "") {
+  					  cursor = Cursor.fromWebSafeString(cursorString);
+  					  query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+  				  }
+
+  				  if (limit != null) {
+  					  query.setFirstResult(0);
+  					  query.setMaxResults(limit);
+  				  }
+
+  				  execute = (List<HitOn>) query.getResultList();
+  				  cursor = JPACursorHelper.getCursor(execute);
+  				  if (cursor != null) cursorString = cursor.toWebSafeString();
+
+  				  // Tight loop for fetching all entities from datastore and accomodate
+  				  // for lazy fetch.
+  				  for (HitOn obj : execute);
+  			  } finally {
+  				  mgr.close();
+  			  }
+
+  	  return CollectionResponse.<HitOn>builder()
+  			  .setItems(execute)
+  			  .setNextPageToken(cursorString)
+  			  .build();
+    }
 
   private boolean containsHitOn(HitOn hiton) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-      HitOn item = mgr.find(HitOn.class, hiton.getKey());
+    	if (hiton.getId()==null)
+    		return false;
+      HitOn item = mgr.find(HitOn.class, hiton.getId());
       if(item == null) {
         contains = false;
       }

@@ -26,6 +26,7 @@ import android.widget.ListView;
       private SpottedPostAdapter mAdapter;	
       private SwipeRefreshLayout mSwipeRefreshLayout;
       private View mProgressView;
+      private SessionManager session;
       @Override
       public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
     	  View v = inflater.inflate(R.layout.fragment_spotted, null);       
@@ -38,9 +39,11 @@ import android.widget.ListView;
           super.onActivityCreated(savedInstanceState);
 
           setHasOptionsMenu(true);
-
+          session = new SessionManager(getActivity().getApplicationContext());
+          Long userId = Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID));
+          String name = session.getUserDetails().get(SessionManager.KEY_NAME);
           // Create an empty adapter we will use to display the loaded data.
-          mAdapter = new SpottedPostAdapter(getActivity());
+          mAdapter = new SpottedPostAdapter(getActivity(),userId,name);
           setListAdapter(mAdapter);
 
           // Start out with a progress indicator.

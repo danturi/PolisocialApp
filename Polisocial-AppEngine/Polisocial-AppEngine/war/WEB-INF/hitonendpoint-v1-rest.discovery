@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/0QBw1KibORT0nLDHolxRWa6FYCU\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/wZcE791F9xxipB6LLRaN9-t7FpQ\"",
  "discoveryVersion": "v1",
  "id": "hitonendpoint:v1",
  "name": "hitonendpoint",
@@ -99,46 +99,21 @@
     "contact": {
      "type": "string"
     },
-    "key": {
-     "$ref": "Key"
-    },
-    "postKey": {
-     "$ref": "Key"
-    },
-    "seducerKey": {
-     "$ref": "Key"
-    },
-    "timestamp": {
-     "type": "string",
-     "format": "date-time"
-    }
-   }
-  },
-  "Key": {
-   "id": "Key",
-   "type": "object",
-   "properties": {
-    "appId": {
-     "type": "string"
-    },
-    "complete": {
-     "type": "boolean"
-    },
     "id": {
      "type": "string",
      "format": "int64"
     },
-    "kind": {
-     "type": "string"
+    "postId": {
+     "type": "string",
+     "format": "int64"
     },
-    "name": {
-     "type": "string"
+    "seducerId": {
+     "type": "string",
+     "format": "int64"
     },
-    "namespace": {
-     "type": "string"
-    },
-    "parent": {
-     "$ref": "Key"
+    "timestamp": {
+     "type": "string",
+     "format": "date-time"
     }
    }
   }
@@ -161,6 +136,37 @@
    ],
    "response": {
     "$ref": "HitOn"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getUserHitOn": {
+   "id": "hitonendpoint.getUserHitOn",
+   "path": "collectionresponse_hiton/{userId}",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "userId"
+   ],
+   "response": {
+    "$ref": "CollectionResponse_HitOn"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

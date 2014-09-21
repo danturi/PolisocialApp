@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/OLKlpt0T_4vcYKoMMacUAezxPDs\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/-uZQtQwj0zS6Awkd_y3cTnCvQMQ\"",
  "discoveryVersion": "v1",
  "id": "deviceinfoendpoint:v1",
  "name": "deviceinfoendpoint",
@@ -187,6 +187,10 @@
      "required": true,
      "format": "int64"
     },
+    "postTitle": {
+     "type": "string",
+     "required": true
+    },
     "postType": {
      "type": "string",
      "required": true
@@ -200,7 +204,8 @@
    "parameterOrder": [
     "userId",
     "postId",
-    "postType"
+    "postType",
+    "postTitle"
    ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

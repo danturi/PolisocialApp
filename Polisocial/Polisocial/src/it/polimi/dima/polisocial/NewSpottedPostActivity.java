@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -240,6 +241,7 @@ public class NewSpottedPostActivity extends Activity {
 			showProgress(false);
 			if(result){
 				Toast toast = Toast.makeText(getApplicationContext(), "DONE! You have just insterted a new post", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
 				finish();
 			}else{

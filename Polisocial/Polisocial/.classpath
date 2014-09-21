@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="endpoint-libs/libhitonendpoint-v1/hitonendpoint/hitonendpoint-v1-generated-source"/>
 	<classpathentry kind="src" path="endpoint-libs/libfoursquareendpoint-v1/foursquareendpoint/foursquareendpoint-v1-generated-source"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>

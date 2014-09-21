@@ -89,6 +89,35 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "hitonendpoint.getUserHitOn" : {
+      "path" : "collectionresponse_hiton/{userId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.getUserHitOn",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "hitonendpoint.removeHitOn" : {
       "path" : "hiton/{id}",
       "httpMethod" : "DELETE",
@@ -133,14 +162,17 @@
         "id" : "HitOn",
         "type" : "object",
         "properties" : {
-          "key" : {
-            "$ref" : "Key"
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
           },
-          "seducerKey" : {
-            "$ref" : "Key"
+          "seducerId" : {
+            "type" : "string",
+            "format" : "int64"
           },
-          "postKey" : {
-            "$ref" : "Key"
+          "postId" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "contact" : {
             "type" : "string"
@@ -151,34 +183,6 @@
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
-          }
-        }
-      },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
           }
         }
       },
@@ -213,6 +217,11 @@
         }
       },
       "it.polimi.dima.polisocial.entity.HitOnEndpoint.listHitOn" : {
+        "response" : {
+          "$ref" : "CollectionResponse_HitOn"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.HitOnEndpoint.getUserHitOn" : {
         "response" : {
           "$ref" : "CollectionResponse_HitOn"
         }

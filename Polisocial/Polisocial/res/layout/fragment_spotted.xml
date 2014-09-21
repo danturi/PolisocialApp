@@ -27,5 +27,5 @@
             android:layout_alignParentTop="true" >
         </ListView>
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    
 </RelativeLayout>
