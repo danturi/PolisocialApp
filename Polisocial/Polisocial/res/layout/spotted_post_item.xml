@@ -85,7 +85,12 @@
                     android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
                     android:clickable="true" />
         	
-       		
+       		<ImageButton
+                android:id="@+id/hitOnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/cupido" />
         
     </LinearLayout>
 
