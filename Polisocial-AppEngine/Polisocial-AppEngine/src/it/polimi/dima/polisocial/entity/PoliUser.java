@@ -49,6 +49,7 @@ public class PoliUser {
 	private Boolean notifiedSpotted;
 	private Boolean notifiedAnnouncement;
 	private Boolean notifiedEvent;
+	private Boolean notifiedHitOn;
 	
 	public Long getUserId() {
 		return userId;
@@ -194,6 +195,12 @@ public class PoliUser {
 	}
 	public void setTokenFsq(String tokenFsq) {
 		this.tokenFsq = tokenFsq;
+	}
+	public Boolean getNotifiedHitOn() {
+		return notifiedHitOn;
+	}
+	public void setNotifiedHitOn(Boolean notifiedHitOn) {
+		this.notifiedHitOn = notifiedHitOn;
 	}
 	
 }

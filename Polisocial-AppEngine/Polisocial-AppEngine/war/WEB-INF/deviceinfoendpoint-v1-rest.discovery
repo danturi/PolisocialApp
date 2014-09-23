@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/-uZQtQwj0zS6Awkd_y3cTnCvQMQ\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/D1YNqRFgcFXkL9evCOmwQOmNwtw\"",
  "discoveryVersion": "v1",
  "id": "deviceinfoendpoint:v1",
  "name": "deviceinfoendpoint",
@@ -220,6 +220,25 @@
     "postId",
     "postType",
     "postTitle"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendToUserHitOn": {
+   "id": "deviceinfoendpoint.sendToUserHitOn",
+   "path": "sendToUserHitOn/{postId}",
+   "httpMethod": "POST",
+   "parameters": {
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "postId"
    ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

@@ -1,6 +1,8 @@
 package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.PostSpotted;
+import it.polimi.dima.polisocial.entity.PostSpottedEndpoint;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class DeviceInfoEndpoint {
 
 	
 	private MessageEndpoint messageEndpoint = new MessageEndpoint();
+	private PostSpottedEndpoint postEndpoint = new PostSpottedEndpoint();
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -192,6 +195,30 @@ public class DeviceInfoEndpoint {
 		messageEndpoint.sendMessageToDevice(userId, device, postId, postType,postTitle);
 	}
 
+	
+	@ApiMethod(name="sendToUserHitOn")
+	public void sendToUserHitOn(@Named("postId")Long postId){
+		
+		DeviceInfo device = null;
+		EntityManager mgr = getEntityManager();
+		List<DeviceInfo> execute = null;
+		
+		PostSpotted post = postEndpoint.getPostSpotted(postId);
+		Long userId = post.getUserId();
+		try {
+			Query query = mgr.createQuery("select x from DeviceInfo x where x.userId=?1");
+			query.setParameter(1, userId);
+
+			execute = (List<DeviceInfo>) query.getResultList();
+			if(execute.isEmpty()) throw new EntityNotFoundException("Device does not exist");
+			
+			device = execute.get(0);
+	
+		} finally {
+			mgr.close();
+		}
+		messageEndpoint.sendHitOnToDevice(userId, device, postId,post.getTitle());
+	}
 
 
 	private static EntityManager getEntityManager() {

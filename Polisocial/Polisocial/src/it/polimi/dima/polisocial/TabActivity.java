@@ -97,7 +97,7 @@ public class TabActivity extends FragmentActivity implements
 	private static final int FASTEST_INTERVAL_IN_SECONDS = 1;
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
-	 ActionBar actionBar;
+	ActionBar actionBar;
 
 	private Boolean mUpdatesRequested;
 
@@ -256,7 +256,7 @@ public class TabActivity extends FragmentActivity implements
 			return true;
 		case R.id.action_show_profile:
 			startActivity(new Intent(TabActivity.this, ProfileActivity.class));
-        	overridePendingTransition(R.anim.right_in, R.anim.left_out);
+			overridePendingTransition(R.anim.right_in, R.anim.left_out);
 			return true;
 		case R.id.action_show_preferences:
 			Intent preferencesIntent = new Intent(this,
@@ -379,8 +379,6 @@ public class TabActivity extends FragmentActivity implements
 			mFragmentManager = fm;
 		}
 
-		
-		
 		@Override
 		public Fragment getItem(int i) {
 			switch (i) {
@@ -829,8 +827,6 @@ public class TabActivity extends FragmentActivity implements
 		dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
 	}
 
-	
-
 	@Override
 	public void onDialogPositiveClick(String message, Bundle bundle) {
 		long userId = bundle.getLong("userId");
@@ -939,7 +935,7 @@ public class TabActivity extends FragmentActivity implements
 				/*
 				 * Try the request again
 				 */
-
+				mLocationClient.connect();
 				break;
 			}
 
@@ -1043,7 +1039,23 @@ public class TabActivity extends FragmentActivity implements
 			actionBar.setSelectedNavigationItem(4);
 		}
 		super.onNewIntent(intent);
-	} 
-	
-	
+	}
+
+	public class SendHitOnNotification extends AsyncTask<HitOn, Void, Void> {
+		
+		@Override
+		protected Void doInBackground(HitOn... params) {
+			
+			Hitonendpoint.Builder builder = new Hitonendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Hitonendpoint endHitOn = builder.setApplicationName("polimisocial").build();
+			
+			//endHitOn.
+			
+			return null;
+		}
+	}
+
 }

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/uqZ0Soi_-sSlSJrNVa2jEW-caIE\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/YtY9CWaYDu1MCmTeiJ-3t0eyec4\"",
  "discoveryVersion": "v1",
  "id": "messageEndpoint:v1",
  "name": "messageEndpoint",
@@ -172,6 +172,42 @@
    },
    "response": {
     "$ref": "CollectionResponse_MessageData"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendHitOnToDevice": {
+   "id": "messageEndpoint.sendHitOnToDevice",
+   "path": "sendHitOnToDevice",
+   "httpMethod": "POST",
+   "parameters": {
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    },
+    "postTitle": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    },
+    "user": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "postId",
+    "postTitle",
+    "user"
+   ],
+   "request": {
+    "$ref": "DeviceInfo",
+    "parameterName": "resource"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

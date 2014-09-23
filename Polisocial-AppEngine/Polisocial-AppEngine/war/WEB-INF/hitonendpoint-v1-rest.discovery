@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/wZcE791F9xxipB6LLRaN9-t7FpQ\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/kxZr3-r1wv8fq33oZu4f7iW5n-8\"",
  "discoveryVersion": "v1",
  "id": "hitonendpoint:v1",
  "name": "hitonendpoint",
@@ -224,6 +224,18 @@
    "parameterOrder": [
     "id"
    ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "sendHitOnNotification": {
+   "id": "hitonendpoint.sendHitOnNotification",
+   "path": "sendHitOnNotification",
+   "httpMethod": "POST",
+   "request": {
+    "$ref": "HitOn",
+    "parameterName": "resource"
+   },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]
