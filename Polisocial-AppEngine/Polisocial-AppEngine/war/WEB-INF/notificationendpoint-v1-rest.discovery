@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/LTOHrjDwlYk8fWM8s3udfqyFxtk\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/psf_G0CeEEpfHGbjoqlRUdgD_3s\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",
@@ -186,6 +186,35 @@
    ],
    "response": {
     "$ref": "CollectionResponse_Notification"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "haveHitOnNotificationForPost": {
+   "id": "notificationendpoint.haveHitOnNotificationForPost",
+   "path": "haveHitOnNotificationForPost/{postId}/{userId}",
+   "httpMethod": "POST",
+   "parameters": {
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "postId",
+    "userId"
+   ],
+   "response": {
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

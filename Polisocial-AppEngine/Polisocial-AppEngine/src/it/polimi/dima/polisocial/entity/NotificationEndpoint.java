@@ -154,7 +154,27 @@ public class NotificationEndpoint {
 		return o;
 	}
   
-  
+  @ApiMethod(name = "haveHitOnNotificationForPost")
+	public ResponseObject haveHitOnNotificationForPost(@Named("postId") Long postId,@Named("userId") Long userId) {
+		EntityManager mgr = getEntityManager();
+		ResponseObject o = new ResponseObject();
+		try {
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("SELECT COUNT(n.postId) FROM Notification n WHERE n.postId =?1 AND n.userId =?2 AND n.postType=?3");
+			query.setParameter(1, postId);
+			query.setParameter(2, userId);
+			query.setParameter(3,"hit_on");
+			long count = (long)query.getSingleResult();
+			Boolean response = true;
+			if (count == 0){
+				response = false;
+			}
+			o.setObject(response);
+		}finally {
+			mgr.close();
+		}
+		return o;
+	}
   
   /**
    * This inserts a new entity into App Engine datastore. If the entity already

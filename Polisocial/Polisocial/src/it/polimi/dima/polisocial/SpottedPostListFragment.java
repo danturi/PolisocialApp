@@ -82,6 +82,7 @@ public class SpottedPostListFragment extends ListFragment implements
 					@Override
 					public void onRefresh() {
 						refreshRequest = true;
+						mCursor = null;
 						initiateRefresh();
 					}
 				});
@@ -148,15 +149,16 @@ public class SpottedPostListFragment extends ListFragment implements
 	public void onLoadFinished(Loader<CollectionResponsePostSpotted> arg0,
 			CollectionResponsePostSpotted data) {
 		mCursor = data.getNextPageToken();
-		//mAdapter.setData(data.getItems());
 		if(data.getItems()!=null){
-			mAdapter.addAll(data.getItems());
+			
+			if (refreshRequest) {
+				mAdapter.setData(data.getItems());
+				onRefreshComplete();
+			}else {
+				mAdapter.addAll(data.getItems());
+			}
 		}
 		
-		// The list should now be shown.
-		if (refreshRequest) {
-			onRefreshComplete();
-		}
 		showProgress(false);
 		/**
 		 * if (isResumed()) { //setListShown(true); } else {

@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
+import it.polimi.dima.polisocial.DeviceInfoEndpoint;
 import it.polimi.dima.polisocial.entity.EMF;
 
 import com.google.api.server.spi.config.Api;
@@ -108,6 +109,13 @@ public class HitOnEndpoint {
     return hiton;
   }
 
+  @ApiMethod(name="sendHitOnNotification")
+  public void sendHitOnNotification(HitOn hitOn){
+	 
+	  DeviceInfoEndpoint deviceInfo = new DeviceInfoEndpoint();
+	  deviceInfo.sendToUserHitOn(hitOn.getPostId());
+  }
+  
   /**
    * This method is used for updating an existing entity. If the entity does not
    * exist in the datastore, an exception is thrown.

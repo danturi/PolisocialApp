@@ -242,6 +242,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 							poliuser.setNotifiedAnnouncement(false);
 							poliuser.setNotifiedEvent(false);
 							poliuser.setNotifiedSpotted(false);
+							poliuser.setNotifiedHitOn(false);
 							new searchEmailForLoginFBTask().execute();
 						}
 					}
@@ -588,7 +589,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			if (success) {
 				sessionManager.createLoginSession(poliuser.getNickname(), poliuser.getEmail());
 				sessionManager.setId(Long.toString(poliuser.getUserId()));
-				new RegisterUser().execute();
+				new RegisterGCMUser().execute();
 				/*GCMIntentService.register(getApplicationContext());
 				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
 				LoginActivity.this.startActivity(loginFinishedIntent);
@@ -659,12 +660,12 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			new RegisterUser().execute();
+			new RegisterGCMUser().execute();
 		}
 		 
 	 }
 	 
-	 public class RegisterUser extends AsyncTask<Void, Void, Void>{
+	 public class RegisterGCMUser extends AsyncTask<Void, Void, Void>{
 
 		@Override
 		protected Void doInBackground(Void... params) {

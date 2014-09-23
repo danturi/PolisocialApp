@@ -65,6 +65,7 @@ public class SpottedPostListLoader extends AsyncTaskLoader<CollectionResponsePos
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		cursor=null;
         return list;
     }
      
@@ -102,12 +103,12 @@ public class SpottedPostListLoader extends AsyncTaskLoader<CollectionResponsePos
      */
     @Override protected void onStartLoading() {
     	
-    	if (takeContentChanged() || mPostItems == null) {
+    	if (takeContentChanged() || mPostItems == null || cursor==null) {
             // If the data has changed since the last time it was loaded
             // or is not currently available, start a load.
             forceLoad();
         }
-        if (mPostItems != null && cursor==null) {
+        if (mPostItems != null) {
             // If we currently have a result available, deliver it
             // immediately.
             deliverResult(mPostItems);

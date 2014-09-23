@@ -208,10 +208,50 @@ public class MessageEndpoint {
 				doSendViaGcm("event", sender, device);
 				userNotifing.setNotifiedEvent(true);
 			}
-			// TODO entity persistence exception...
+			
 			endpointUser.updatePoliUser(userNotifing);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@ApiMethod(name = "sendHitOnToDevice" ,path = "sendHitOnToDevice")
+	public void sendHitOnToDevice(@Named("user") Long user,
+			DeviceInfo device, @Named("postId") Long postId,@Named("postTitle") String postTitle) {
+
+		Sender sender = new Sender(API_KEY);
+		// controllo se utente ha già una notifica per quel post
+		ResponseObject response = endpointNotification
+				.haveHitOnNotificationForPost(postId, user);
+		if (!(boolean) response.getObject()) {
+			// create a Notification entity
+			Notification notification = new Notification();
+			notification.setUserId(user);
+			notification.setPostId(postId);
+			notification.setTypePost("hit_on");
+			notification.setReadFlag(false);
+			notification.setTimestamp(new Date(System.currentTimeMillis()));
+			notification.setPostTitle(postTitle);
+
+			EntityManager mgr = getEntityManager();
+			try {
+				mgr.persist(notification);
+			} finally {
+				mgr.close();
+			}
+		}
+		
+		PoliUser userNotifing = new PoliUser();
+		userNotifing = endpointUser.getPoliUser(user);
+		if (!userNotifing.getNotifiedHitOn()) {
+			try {
+				doSendViaGcm("hit_on", sender, device);
+				userNotifing.setNotifiedHitOn(true);
+				endpointUser.updatePoliUser(userNotifing);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 
@@ -258,4 +298,5 @@ public class MessageEndpoint {
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
 	}
+
 }

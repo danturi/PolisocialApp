@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/Bo5iA4vpwiaAsrpGW192JOOPzU8\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/7Of9qly2dbIuFinDx3GkMfAW6T0\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -132,6 +132,9 @@
      "type": "boolean"
     },
     "notifiedEvent": {
+     "type": "boolean"
+    },
+    "notifiedHitOn": {
      "type": "boolean"
     },
     "notifiedSpotted": {
