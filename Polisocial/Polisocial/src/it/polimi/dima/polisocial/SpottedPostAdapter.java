@@ -201,9 +201,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 			});
 		}
-		
-		
-		
+
 		return view;
 	}
 

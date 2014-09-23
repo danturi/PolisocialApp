@@ -6,7 +6,7 @@ import android.widget.AbsListView.OnScrollListener;
 public abstract class EndlessScrollListener implements OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
-    private int visibleThreshold = 3;
+    private int visibleThreshold = 1;
     // The current offset index of data you have loaded
     private String currentCursor;
     // The total number of items in the dataset after the last load
@@ -43,7 +43,7 @@ public abstract class EndlessScrollListener implements OnScrollListener {
             if (totalItemCount == 0) { this.loading = true; } 
         }
 
-        // If it’s still loading, we check to see if the dataset count has
+        // If itï¿½s still loading, we check to see if the dataset count has
         // changed, if so we conclude it has finished loading and update the current page
         // number and total item count.
         if (loading && (totalItemCount > previousTotalItemCount)) {
@@ -53,7 +53,7 @@ public abstract class EndlessScrollListener implements OnScrollListener {
             //TODO DA DOVE LO PRENDIAMO??? 
         }
 
-        // If it isn’t currently loading, we check to see if we have breached
+        // If it isnï¿½t currently loading, we check to see if we have breached
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         if (!loading && (totalItemCount - visibleItemCount)<=(firstVisibleItem + visibleThreshold)) {
