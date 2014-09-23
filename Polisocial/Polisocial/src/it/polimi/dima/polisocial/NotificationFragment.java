@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -154,6 +156,25 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
         Intent showRelativeCommentsIntent = new Intent(getActivity(), ShowRelatedCommentsActivity.class);
     	showRelativeCommentsIntent.putExtra("postId",postId);
     	showRelativeCommentsIntent.putExtra("notificationCategory",notificationCategory);
+    	showRelativeCommentsIntent.putExtra("notificationId", notificationClicked.getId());
+    	
+    	ImageView icon = (ImageView)v.findViewById(R.id.notification_type_icon);
+    	
+		//depending on notification type and read flag, pick the appropriate icon
+    	if (notificationCategory.equals(NotificationCategory.SIMPLE_SPOTTED.toString())){
+    		icon.setImageResource(R.drawable.spotted_icon_normal);
+    	}else if(notificationCategory.equals(NotificationCategory.EVENT.toString())){
+    		icon.setImageResource(R.drawable.events_icon_normal);
+    	}else if(notificationCategory.equals(NotificationCategory.HIT_ON.toString())){
+    		icon.setImageResource(R.drawable.cupido_pressed);
+    	}else if(notificationCategory.equals(NotificationCategory.SECOND_HAND_BOOK.toString())){
+    		icon.setImageResource(R.drawable.spotted_icon_normal);
+    	}else if(notificationCategory.equals(NotificationCategory.RENTAL.toString())){
+    		icon.setImageResource(R.drawable.spotted_icon_normal);
+    	}else if(notificationCategory.equals(NotificationCategory.PRIVATE_LESSON.toString())){
+    		
+    	} 	
+    	
     	startActivity(showRelativeCommentsIntent);
         // Insert desired behaviour here.
     }

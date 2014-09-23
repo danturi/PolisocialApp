@@ -59,14 +59,41 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 		
 		
 		
-		//TODO: creare enum per il tipo di notifica?
+		
+		
 		if(item.getTypePost()=="HitOn"){
 			text.setText(notificationTextIntroduction+item.getPostTitle()+notificationTextSection+item.getTypePost()+notificationTextHit);
 		}else{
 			text.setText(Html.fromHtml(notificationTextIntroduction+"<font color=blue>"+item.getPostTitle()+"</font>"+notificationTextSection+item.getTypePost()+notificationTextCommented));
 		}	
 		
-		notificationTypeIcon.setImageResource(R.drawable.spotted_icon_normal);
+		String postType=item.getTypePost();
+		//depending on notification type and read flag, pick the appropriate icon
+    	if (postType.equals(NotificationCategory.SIMPLE_SPOTTED.toString())){
+    		if(item.getReadFlag()){
+    			notificationTypeIcon.setImageResource(R.drawable.spotted_icon_normal);
+    		}else{
+    			notificationTypeIcon.setImageResource(R.drawable.spotted_icon_selected);
+    		}
+    	}else if(postType.equals(NotificationCategory.EVENT.toString())){
+    		if(!item.getReadFlag()){
+    			notificationTypeIcon.setImageResource(R.drawable.events_icon_normal);
+    		}else{
+    			notificationTypeIcon.setImageResource(R.drawable.events_icon_selected);
+    		}
+    	}else if(postType.equals(NotificationCategory.HIT_ON.toString())){
+    		if(!item.getReadFlag()){
+    			notificationTypeIcon.setImageResource(R.drawable.cupido_pressed);
+    		}else{
+    			notificationTypeIcon.setImageResource(R.drawable.cupido);
+    		}
+    	}else if(postType.equals(NotificationCategory.SECOND_HAND_BOOK.toString())){
+    		
+    	}else if(postType.equals(NotificationCategory.RENTAL.toString())){
+    		
+    	}else if(postType.equals(NotificationCategory.PRIVATE_LESSON.toString())){
+    		
+    	} 	
 		
 		//TODO: Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(

@@ -255,7 +255,8 @@ public class TabActivity extends FragmentActivity implements
 			startActivity(new Intent(TabActivity.this, NewEventActivity.class));
 			return true;
 		case R.id.action_show_profile:
-			// showProfile();
+			startActivity(new Intent(TabActivity.this, ProfileActivity.class));
+        	overridePendingTransition(R.anim.right_in, R.anim.left_out);
 			return true;
 		case R.id.action_show_preferences:
 			Intent preferencesIntent = new Intent(this,

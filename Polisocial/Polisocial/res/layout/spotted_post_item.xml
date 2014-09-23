@@ -24,10 +24,10 @@
             android:paddingRight="@dimen/post_item_padding_left_right" >
 
             <ImageView
-                android:contentDescription="@string/desc_profile_pic"
                 android:id="@+id/profilePic"
                 android:layout_width="@dimen/post_item_profile_pic"
                 android:layout_height="@dimen/post_item_profile_pic"
+                android:contentDescription="@string/desc_profile_pic"
                 android:scaleType="fitCenter" >
             </ImageView>
 
@@ -63,36 +63,43 @@
             android:paddingTop="@dimen/post_item_status_pad_top" />
 
         <ImageView
-            android:contentDescription="@string/desc_post_image"
             android:id="@+id/postImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:contentDescription="@string/desc_post_image"
             android:scaleType="centerCrop"
             android:visibility="visible" />
-        
-        <TextView
-                    android:id="@+id/numb_of_comments"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    
-                    android:paddingBottom="3dp"
-           			android:paddingLeft="@dimen/post_item_status_pad_left_right"
-            		android:paddingRight="@dimen/post_item_status_pad_left_right"
-            		android:paddingTop="@dimen/post_item_status_pad_top"
-                    android:textSize="@dimen/post_item_numb_of_commments"
-                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                    android:clickable="true" />
-        	
-       		<ImageButton
-                android:id="@+id/hitOnButton"
-                android:layout_width="wrap_content"
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/numb_of_comments"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/hitOnButton"
+                android:clickable="true"
+                android:paddingBottom="3dp"
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:paddingRight="@dimen/post_item_status_pad_left_right"
+                android:paddingTop="@dimen/post_item_status_pad_top"
+                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                android:textSize="@dimen/post_item_numb_of_commments"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/hitOnButton"
+                android:layout_width="@dimen/post_item_hit_on_button"
+                android:layout_height="@dimen/post_item_hit_on_button"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/cupido" />
-        
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/hit_on_selector"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
-    

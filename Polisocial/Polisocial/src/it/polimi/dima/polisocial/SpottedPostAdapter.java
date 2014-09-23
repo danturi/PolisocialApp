@@ -102,7 +102,10 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			}
 		});
 
-		if(item.getPostCategory().equals("Love")){
+		if(item.getPostCategory().equals("Love")){	
+			if(userId.compareTo(item.getUserId())!=0){
+			hitOnButton.setVisibility(View.VISIBLE);
+			}
 			hitOnButton.setOnClickListener(new IdParameterOnClickListener(item
 					.getId()) {
 

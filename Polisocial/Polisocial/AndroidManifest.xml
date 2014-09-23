@@ -154,6 +154,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polimi.dima.polisocial.TabActivity" />
         </activity>
+                <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".TabActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.polimi.dima.polisocial.TabActivity" />
+        </activity>
+        <activity
+            android:name=".EditProfileFieldActivity"
+            android:label="@string/title_activity_edit_profile_field" >
+        </activity>
     </application>
 
 </manifest>
