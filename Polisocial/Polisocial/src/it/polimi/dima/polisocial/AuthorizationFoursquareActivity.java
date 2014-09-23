@@ -23,6 +23,7 @@ public class AuthorizationFoursquareActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authorization_foursquare);
+		sessionManager = new SessionManager(getApplicationContext());
 		String code= getIntent().getStringExtra("code");
 		String id = sessionManager.getUserDetails().get(SessionManager.KEY_USERID);
 		tokenTask= new TokenFoursquareRequestTask(this);

@@ -110,7 +110,7 @@ public class CommentEndpoint {
 		List<Comment> comments = null;
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("SELECT c FROM Comment c WHERE c.postId =?1");
+			Query query = mgr.createQuery("SELECT c FROM Comment c WHERE c.postId =?1 ORDER BY c.commentTimestamp ASC");
 			query.setParameter(1, postId);
 			comments = query.getResultList();
 		} finally {

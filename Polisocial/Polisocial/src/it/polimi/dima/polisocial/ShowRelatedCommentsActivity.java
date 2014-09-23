@@ -100,6 +100,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	            	if(!text.matches("")){
 	            		showProgress(true);
 	            		new InsertCommentTask(postId).execute(text);
+	            		 
 					}
 				}
 			});
@@ -408,7 +409,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
     		
     		try {
     			endpoint.insertComment(comment).execute();
-    			endpoint.sendNotification(comment).execute();
+    			//endpoint.sendNotification(comment).execute();
     		} catch (IOException e) {
     			e.printStackTrace();
     			return false;
@@ -423,6 +424,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 				showProgress(false);
 				//new SendNotificationTask().execute(comment);
 				Toast.makeText(getBaseContext(), "Insert comment done!",Toast.LENGTH_LONG).show();
+				new SendNotificationTask().execute(comment);
 				
 			}else {
 				showProgress(false);
@@ -452,7 +454,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 		@Override
 		protected void onPostExecute(Void result) {
-			showProgress(false);
+			
 			super.onPostExecute(result);
 		}
 		

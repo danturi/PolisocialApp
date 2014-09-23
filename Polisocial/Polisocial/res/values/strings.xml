@@ -29,9 +29,9 @@
     <string name="fifth_tab_title">Notifications</string>
     <string name="title_activity_registration">Registration</string>
     <string name="foodTab_message">Fame? Ecco dove puoi mangiare qualcosa!</string>
-    <string name="changeViewVenues">Elenco locali</string>
+    <string name="changeViewVenues">Go to venues list</string>
     <string name="addVenue">Nuovo locale</string>
-    <string name="change_to_map">Torna alla mappa</string>
+    <string name="change_to_map">&#8592;Back to map</string>
     <string name="app_id">856286317717902</string>
     <string name="title_activity_gcm">GCMActivity</string>
     <string name="register">Register</string>

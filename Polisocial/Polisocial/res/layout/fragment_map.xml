@@ -17,12 +17,17 @@
 
 </com.google.android.gms.maps.MapView>
 
-<Button
+<TextView
     android:id="@+id/button_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:text="@string/changeViewVenues" />
+    android:layout_marginBottom="21dp"
+    android:clickable="true"
+    android:gravity="center"
+    android:text="@string/changeViewVenues"
+    android:textColor="@color/Green"
+    android:textSize="18sp" />
 
 </RelativeLayout>

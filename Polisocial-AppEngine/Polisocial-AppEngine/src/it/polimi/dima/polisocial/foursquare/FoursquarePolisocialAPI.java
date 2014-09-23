@@ -119,6 +119,7 @@ public class FoursquarePolisocialAPI {
 			user = endpointUser.getPoliUser(userId);
 			if (user !=null){
 			user.setTokenFsq(token);
+			//log.info(token);
 			endpointUser.updatePoliUser(user);
 			}
 			
