@@ -89,7 +89,15 @@
                 android:textSize="@dimen/post_item_numb_of_commments"
                 android:textStyle="bold" />
 
-
+            <ImageButton
+                android:id="@+id/hitOnButton"
+                android:layout_width="@dimen/post_item_hit_on_button"
+                android:layout_height="@dimen/post_item_hit_on_button"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/hit_on_selector"
+                android:scaleType="fitCenter" />
         </RelativeLayout>
     </LinearLayout>
 

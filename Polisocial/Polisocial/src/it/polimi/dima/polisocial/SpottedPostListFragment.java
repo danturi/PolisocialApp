@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.customOnClickListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 //class representing the fragment at position 0 (spotted section)
 	public class SpottedPostListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<PostSpotted>> {
@@ -27,6 +29,7 @@ import android.widget.ListView;
       private SwipeRefreshLayout mSwipeRefreshLayout;
       private View mProgressView;
       private SessionManager session;
+      private ListView mList;
       @Override
       public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
     	  View v = inflater.inflate(R.layout.fragment_spotted, null);       
@@ -44,7 +47,19 @@ import android.widget.ListView;
           String name = session.getUserDetails().get(SessionManager.KEY_NAME);
           // Create an empty adapter we will use to display the loaded data.
           mAdapter = new SpottedPostAdapter(getActivity(),userId,name);
-          setListAdapter(mAdapter);
+          mList=getListView();
+          mList.setAdapter(mAdapter);
+
+          
+          mList.setOnScrollListener(new EndlessScrollListener() {
+              @Override
+              public void onLoadMore(String cursor, int totalItemsCount) {
+                      // Triggered only when new data needs to be appended to the list
+                      // Add whatever code is needed to append new items to your AdapterView
+                  customLoadMoreDataFromApi(cursor); 
+                      // or customLoadMoreDataFromApi(totalItemsCount); 
+              }
+              });
 
           // Start out with a progress indicator.
           mProgressView = getView().findViewById(R.id.progress_bar);
@@ -64,6 +79,16 @@ import android.widget.ListView;
           getLoaderManager().initLoader(0, null, this);
       }
 
+      // Append more data into the adapter
+      public void customLoadMoreDataFromApi(String cursor) {
+        Toast.makeText(getActivity(), "A questo punto comincia il caricamento dei nuovi post", Toast.LENGTH_LONG).show();
+        
+    	  //TODO AGGIUNGI QUI AGGIORNAMENTO
+    	  // This method probably sends out a network request and appends new data items to your adapter. 
+        // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
+        // Deserialize API response and then construct new objects to append to the adapter
+      }
+      
       
       @Override
       public void onPrepareOptionsMenu(Menu menu) {

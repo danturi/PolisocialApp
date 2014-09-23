@@ -136,7 +136,7 @@ public class NewEventActivity extends Activity {
 		// when dialog box is closed, below method will be called.
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
-			year = selectedYear;
+			year = selectedYear-1900;
 			month = selectedMonth;
 			day = selectedDay;
 

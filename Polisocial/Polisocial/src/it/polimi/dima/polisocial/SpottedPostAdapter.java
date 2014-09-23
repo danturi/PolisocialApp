@@ -38,19 +38,21 @@ import android.widget.TextView;
 
 public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
+	private final int VIEW_CUPIDO = 1;
+	private final int VIEW_NO_CUPIDO = 0;
+	
 	private final LayoutInflater mInflater;
 	private Context context;
 	private Long userId;
 	private String name;
 	private Long postId;
-	
 
-	public SpottedPostAdapter(Context context, Long userId,String name) {
+	public SpottedPostAdapter(Context context, Long userId, String name) {
 		super(context, R.layout.spotted_post_item);
 		this.context = context;
 		mInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.userId=userId;
+		this.userId = userId;
 		this.name = name;
 	}
 
@@ -63,6 +65,31 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		}
 	}
 
+	
+	
+	@Override
+	public int getItemViewType(int position) {
+	    PostSpotted item=getItem(position);
+	    // Define a way to determine which layout to use.
+		if (item.getPostCategory().equals("Love")) {
+			if (userId.compareTo(item.getUserId()) != 0) {
+				return VIEW_CUPIDO;
+			}
+		}
+			return VIEW_NO_CUPIDO;
+		
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Populate new items in the list.
 	 */
@@ -71,7 +98,14 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		View view;
 
 		if (convertView == null) {
-			view = mInflater.inflate(R.layout.spotted_post_item, parent, false);
+			
+			if(getItemViewType(position)==VIEW_NO_CUPIDO){
+				view = mInflater.inflate(R.layout.spotted_post_item, parent, false);
+			}else{
+				view = mInflater.inflate(
+						R.layout.spotted_post_item_cupido, parent,
+						false);
+			}
 		} else {
 			view = convertView;
 		}
@@ -84,7 +118,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		ImageView postImage = (ImageView) view.findViewById(R.id.postImage);
 		TextView numbOfComments = (TextView) view
 				.findViewById(R.id.numb_of_comments);
-		ImageButton hitOnButton = (ImageButton) view.findViewById(R.id.hitOnButton);
+
 
 		numbOfComments.setOnClickListener(new IdParameterOnClickListener(item
 				.getId()) {
@@ -102,25 +136,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			}
 		});
 
-		if(item.getPostCategory().equals("Love")){	
-			if(userId.compareTo(item.getUserId())!=0){
-			hitOnButton.setVisibility(View.VISIBLE);
-			}
-			hitOnButton.setOnClickListener(new IdParameterOnClickListener(item
-					.getId()) {
-
-				@Override
-				public void onClick(View v) {
-					postId = id;
-					showNoticeDialog();
-					
-					
-				}
-				
-			});
-		}
-		
-		
+	
 		title.setText(item.getTitle());
 
 		// Converting timestamp into time ago format
@@ -170,25 +186,33 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 		numbOfComments.setText(item.getNumOfComments() + " comments");
 
+		if(getItemViewType(position)==VIEW_CUPIDO){
+			ImageButton hitOnButton = (ImageButton) view
+					.findViewById(R.id.hitOnButton);
+			hitOnButton.setOnClickListener(new IdParameterOnClickListener(item
+					.getId()) {
+
+				@Override
+				public void onClick(View v) {
+					postId = id;
+					showNoticeDialog();
+
+				}
+
+			});
+		}
+		
+		
+		
 		return view;
 	}
-	
-	
-	
 
-
-		
-		
-
-	
-	
 	public void showNoticeDialog() {
-        // Create an instance of the dialog fragment and show it
-		 FragmentManager fm = ((TabActivity)context).getFragmentManager();
-        DialogFragment dialog = HitOnDialogFragment.newInstance(name,userId,postId);
-        dialog.show(fm, "HitOnDialogFragm");
-    }
-	
-	
-	
+		// Create an instance of the dialog fragment and show it
+		FragmentManager fm = ((TabActivity) context).getFragmentManager();
+		DialogFragment dialog = HitOnDialogFragment.newInstance(name, userId,
+				postId);
+		dialog.show(fm, "HitOnDialogFragm");
+	}
+
 }
