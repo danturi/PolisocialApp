@@ -2165,11 +2165,12 @@ containing a value of this type.
         public static final int header_gradient=0x7f030044;
         public static final int loading=0x7f030045;
         public static final int notification_item=0x7f030046;
-        public static final int spotted_notification_header=0x7f030047;
-        public static final int spotted_post_item=0x7f030048;
-        public static final int spotted_post_item_cupido=0x7f030049;
-        public static final int support_simple_spinner_dropdown_item=0x7f03004a;
-        public static final int swipeback_layout=0x7f03004b;
+        public static final int progress=0x7f030047;
+        public static final int spotted_notification_header=0x7f030048;
+        public static final int spotted_post_item=0x7f030049;
+        public static final int spotted_post_item_cupido=0x7f03004a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03004b;
+        public static final int swipeback_layout=0x7f03004c;
     }
     public static final class menu {
         public static final int authorized_foursquare=0x7f0d0000;

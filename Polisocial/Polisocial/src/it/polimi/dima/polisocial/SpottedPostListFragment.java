@@ -4,9 +4,6 @@ import it.polimi.dima.polisocial.customOnClickListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 
-import java.util.Currency;
-import java.util.List;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -22,7 +19,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 //class representing the fragment at position 0 (spotted section)
 public class SpottedPostListFragment extends ListFragment implements
@@ -62,8 +58,6 @@ public class SpottedPostListFragment extends ListFragment implements
 			@Override
 			public void onLoadMore(String cursor, int totalItemsCount) {
 				// Triggered only when new data needs to be appended to the list
-				// Add whatever code is needed to append new items to your
-				// AdapterView
 
 				customLoadMoreDataFromApi(cursor);
 				// or customLoadMoreDataFromApi(totalItemsCount);
@@ -96,21 +90,12 @@ public class SpottedPostListFragment extends ListFragment implements
 
 	// Append more data into the adapter
 	public void customLoadMoreDataFromApi(String cursor) {
-		Toast.makeText(getActivity(),
-				"A questo punto comincia il caricamento dei nuovi post",
-				Toast.LENGTH_LONG).show();
+		//Toast.makeText(getActivity(),
+			//	"A questo punto comincia il caricamento dei nuovi post",
+				//Toast.LENGTH_LONG).show();
 
-		// TODO AGGIUNGI QUI AGGIORNAMENTO
-		// This method probably sends out a network request and appends new data
-		// items to your adapter.
-		// Use the offset value and add it as a parameter to your API request to
-		// retrieve paginated data.
-		// Deserialize API response and then construct new objects to append to
-		// the adapter
-		/*Bundle bundle = new Bundle();
-		bundle.putString("cursor", mCursor);
-		getLoaderManager().initLoader(0, bundle, this);*/
 		initiateRefresh();
+		
 
 	}
 

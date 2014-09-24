@@ -16,12 +16,15 @@ import java.util.StringTokenizer;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,6 +53,7 @@ import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.internal.lm;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -194,7 +198,23 @@ public class TabActivity extends FragmentActivity implements
 
 						actionBar.setSelectedNavigationItem(position);
 						actionBar.setTitle(setActionBarTitle(position));
+						if (position == 3) {
+							LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+							if (locationManager
+									.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+								Toast.makeText(getApplicationContext(),
+										"GPS is Enabled in your device",
+										Toast.LENGTH_SHORT).show();
+								mLocationClient.requestLocationUpdates(mLocationRequest,TabActivity.this);
+							} else {
+								showGPSDisabledAlertToUser();
+							}
+						}
 					}
+
+					
+
 				});
 
 		// For each of the sections in the app, add a tab to the action bar.
@@ -479,7 +499,10 @@ public class TabActivity extends FragmentActivity implements
 
 				@Override
 				public void onClick(View v) {
-					task.cancel(true);
+					if (task != null) {
+						task.cancel(true);
+					}
+
 					listener.onSwitchFragment();
 
 				}
@@ -813,14 +836,7 @@ public class TabActivity extends FragmentActivity implements
 		}
 	}
 
-	/*
-	 * @Override public void onDialogPositiveClick(String faculty) {
-	 * 
-	 * this.faculty = faculty; //new updateUserTask().execute();
-	 * 
-	 * }
-	 */
-
+	// faculty dialog
 	public void showNoticeDialog() {
 		// Create an instance of the dialog fragment and show it
 		DialogFragment dialog = new SingleChoiceDialogFragm();
@@ -836,11 +852,13 @@ public class TabActivity extends FragmentActivity implements
 
 	}
 
+	// creo hitOn e lo inserisco nel db
 	public class InsertHitOn extends AsyncTask<Long, Void, Boolean> {
 
 		private Hitonendpoint end;
 		private String seducerName;
 		private String message;
+		HitOn hitOn;
 
 		public InsertHitOn(String name, String message) {
 			seducerName = name;
@@ -855,7 +873,7 @@ public class TabActivity extends FragmentActivity implements
 					null);
 			builder = CloudEndpointUtils.updateBuilder(builder);
 			end = builder.setApplicationName("polimisocial").build();
-			HitOn hitOn = new HitOn();
+			hitOn = new HitOn();
 			hitOn.setSeducerId(params[0]);
 			hitOn.setPostId(params[1]);
 			hitOn.setAuthorName(seducerName);
@@ -882,6 +900,7 @@ public class TabActivity extends FragmentActivity implements
 				toast.setGravity(Gravity.CENTER_VERTICAL,
 						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
+				new SendHitOnNotification().execute(hitOn);
 			} else {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"FAILED! Error connection", Toast.LENGTH_SHORT);
@@ -892,6 +911,29 @@ public class TabActivity extends FragmentActivity implements
 
 			super.onPostExecute(result);
 
+		}
+	}
+
+	// mando notifica per hitOn
+	public class SendHitOnNotification extends AsyncTask<HitOn, Void, Void> {
+
+		@Override
+		protected Void doInBackground(HitOn... params) {
+
+			Hitonendpoint.Builder builder = new Hitonendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Hitonendpoint endHitOn = builder.setApplicationName("polimisocial")
+					.build();
+
+			try {
+				endHitOn.sendHitOnNotification(params[0]).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return null;
 		}
 	}
 
@@ -1040,22 +1082,35 @@ public class TabActivity extends FragmentActivity implements
 		}
 		super.onNewIntent(intent);
 	}
-
-	public class SendHitOnNotification extends AsyncTask<HitOn, Void, Void> {
+	
+	private void showGPSDisabledAlertToUser() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				this);
+		alertDialogBuilder
+				.setMessage(
+						"GPS is disabled in your device.Would you like to enable it?")
+				.setCancelable(false)
+				.setPositiveButton(
+						"Goto Settings Page To Enable GPS",
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialog,
+									int id) {
+								Intent callGPSSettingIntent = new Intent(
+										android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+								startActivity(callGPSSettingIntent);
+							}
+						});
+		alertDialogBuilder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int id) {
+						dialog.cancel();
+					}
+				});
 		
-		@Override
-		protected Void doInBackground(HitOn... params) {
-			
-			Hitonendpoint.Builder builder = new Hitonendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-					null);
-			builder = CloudEndpointUtils.updateBuilder(builder);
-			Hitonendpoint endHitOn = builder.setApplicationName("polimisocial").build();
-			
-			//endHitOn.
-			
-			return null;
-		}
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
 	}
 
 }

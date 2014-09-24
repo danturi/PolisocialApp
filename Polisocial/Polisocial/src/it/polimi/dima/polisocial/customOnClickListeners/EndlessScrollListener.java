@@ -40,6 +40,9 @@ public abstract class EndlessScrollListener implements OnScrollListener {
         if (totalItemCount < previousTotalItemCount) {
             this.currentCursor = this.startingCursor;
             this.previousTotalItemCount = totalItemCount;
+            if(loading){
+            	this.loading=false;
+            }
             if (totalItemCount == 0) { this.loading = true; } 
         }
 

@@ -40,6 +40,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	private final int VIEW_CUPIDO = 1;
 	private final int VIEW_NO_CUPIDO = 0;
+	private final int VIEW_LOADING = 2; 
 	
 	private final LayoutInflater mInflater;
 	private Context context;
@@ -71,7 +72,8 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 	public int getItemViewType(int position) {
 	    PostSpotted item=getItem(position);
 	    // Define a way to determine which layout to use.
-		if (item.getPostCategory().equals("Love")) {
+		if(position>=(getCount()-1)){return VIEW_LOADING;}
+	    if (item.getPostCategory().equals("Love")) {
 			if (userId.compareTo(item.getUserId()) != 0) {
 				return VIEW_CUPIDO;
 			}
@@ -82,7 +84,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	@Override
 	public int getViewTypeCount() {
-		return 2;
+		return 3;
 	}
 	
 	
@@ -98,7 +100,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		View view;
 
 		if (convertView == null) {
-			
+			if(getItemViewType(position)==VIEW_LOADING){return mInflater.inflate(R.layout.progress, parent, false);}
 			if(getItemViewType(position)==VIEW_NO_CUPIDO){
 				view = mInflater.inflate(R.layout.spotted_post_item, parent, false);
 			}else{
@@ -110,98 +112,91 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			view = convertView;
 		}
 
-		PostSpotted item = getItem(position);
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
-		TextView statusMsg = (TextView) view.findViewById(R.id.text);
-		ImageView profilePic = (ImageView) view.findViewById(R.id.profilePic);
-		ImageView postImage = (ImageView) view.findViewById(R.id.postImage);
-		TextView numbOfComments = (TextView) view
-				.findViewById(R.id.numb_of_comments);
-
-
-		numbOfComments.setOnClickListener(new IdParameterOnClickListener(item
-				.getId()) {
-
-			@Override
-			public void onClick(View v) {
-				Intent showRelativeCommentsIntent = new Intent(context,
-						ShowRelatedCommentsActivity.class);
-				showRelativeCommentsIntent.putExtra("postId", id);
-				showRelativeCommentsIntent.putExtra("type",
-						NotificationCategory.SIMPLE_SPOTTED.toString());
-				showRelativeCommentsIntent.putExtra("notificationCategory",
-						NotificationCategory.NOT_FROM_NOTIFICATION.toString());
-				context.startActivity(showRelativeCommentsIntent);
-			}
-		});
-
-	
-		title.setText(item.getTitle());
-
-		// Converting timestamp into time ago format
-		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
-				.getTimestamp().getValue(), System.currentTimeMillis(),
-				DateUtils.SECOND_IN_MILLIS);
-
-		timestamp.setText(timeAgo);
-
-		// Check for empty status message
-		if (!TextUtils.isEmpty(item.getText())) {
-			statusMsg.setText(item.getText());
-			statusMsg.setVisibility(View.VISIBLE);
-		} else {
-			// status is empty, remove from view
-			statusMsg.setVisibility(View.GONE);
-		}
-
-		switch (item.getPostCategory()) {
-		case "Fun":
-			profilePic.setImageResource(R.drawable.owl_fun);
-			break;
-		case "Love":
-			profilePic.setImageResource(R.drawable.owl_love);
-			break;
-		case "Complaint":
-			profilePic.setImageResource(R.drawable.owl_complaint);
-			break;
-		case "Advice":
-			profilePic.setImageResource(R.drawable.owl_advice);
-			break;
-		default:
-			profilePic.setImageResource(R.drawable.owl_fun);
-
-		}
-
-		// Feed image
-		if (item.getPicture() != null) {
-			byte[] byteArrayImage = Base64.decode(item.getPicture(),
-					Base64.DEFAULT);
-			postImage.setImageBitmap(BitmapFactory.decodeByteArray(
-					byteArrayImage, 0, byteArrayImage.length));
-			postImage.setVisibility(View.VISIBLE);
-		} else {
-			postImage.setVisibility(View.GONE);
-		}
-
-		numbOfComments.setText(item.getNumOfComments() + " comments");
-
-		if(getItemViewType(position)==VIEW_CUPIDO){
-			ImageButton hitOnButton = (ImageButton) view
-					.findViewById(R.id.hitOnButton);
-			hitOnButton.setOnClickListener(new IdParameterOnClickListener(item
-					.getId()) {
+		if (getItemViewType(position)!=VIEW_LOADING) {
+			PostSpotted item = getItem(position);
+			TextView title = (TextView) view.findViewById(R.id.title);
+			TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
+			TextView statusMsg = (TextView) view.findViewById(R.id.text);
+			ImageView profilePic = (ImageView) view
+					.findViewById(R.id.profilePic);
+			ImageView postImage = (ImageView) view.findViewById(R.id.postImage);
+			TextView numbOfComments = (TextView) view
+					.findViewById(R.id.numb_of_comments);
+			numbOfComments.setOnClickListener(new IdParameterOnClickListener(
+					item.getId()) {
 
 				@Override
 				public void onClick(View v) {
-					postId = id;
-					showNoticeDialog();
-
+					Intent showRelativeCommentsIntent = new Intent(context,
+							ShowRelatedCommentsActivity.class);
+					showRelativeCommentsIntent.putExtra("postId", id);
+					showRelativeCommentsIntent.putExtra("type",
+							NotificationCategory.SIMPLE_SPOTTED.toString());
+					showRelativeCommentsIntent.putExtra("notificationCategory",
+							NotificationCategory.NOT_FROM_NOTIFICATION
+									.toString());
+					context.startActivity(showRelativeCommentsIntent);
 				}
-
 			});
-		}
+			title.setText(item.getTitle());
+			// Converting timestamp into time ago format
+			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
+					.getTimestamp().getValue(), System.currentTimeMillis(),
+					DateUtils.SECOND_IN_MILLIS);
+			timestamp.setText(timeAgo);
+			// Check for empty status message
+			if (!TextUtils.isEmpty(item.getText())) {
+				statusMsg.setText(item.getText());
+				statusMsg.setVisibility(View.VISIBLE);
+			} else {
+				// status is empty, remove from view
+				statusMsg.setVisibility(View.GONE);
+			}
+			switch (item.getPostCategory()) {
+			case "Fun":
+				profilePic.setImageResource(R.drawable.owl_fun);
+				break;
+			case "Love":
+				profilePic.setImageResource(R.drawable.owl_love);
+				break;
+			case "Complaint":
+				profilePic.setImageResource(R.drawable.owl_complaint);
+				break;
+			case "Advice":
+				profilePic.setImageResource(R.drawable.owl_advice);
+				break;
+			default:
+				profilePic.setImageResource(R.drawable.owl_fun);
 
+			}
+			// Feed image
+			if (item.getPicture() != null) {
+				byte[] byteArrayImage = Base64.decode(item.getPicture(),
+						Base64.DEFAULT);
+				postImage.setImageBitmap(BitmapFactory.decodeByteArray(
+						byteArrayImage, 0, byteArrayImage.length));
+				postImage.setVisibility(View.VISIBLE);
+			} else {
+				postImage.setVisibility(View.GONE);
+			}
+			numbOfComments.setText(item.getNumOfComments() + " comments");
+			if (getItemViewType(position) == VIEW_CUPIDO) {
+				ImageButton hitOnButton = (ImageButton) view
+						.findViewById(R.id.hitOnButton);
+				hitOnButton.setOnClickListener(new IdParameterOnClickListener(
+						item.getId()) {
+
+					@Override
+					public void onClick(View v) {
+						postId = id;
+						showNoticeDialog();
+
+					}
+
+				});
+			}
+			
+		}
 		return view;
 	}
 
@@ -212,5 +207,28 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 				postId);
 		dialog.show(fm, "HitOnDialogFragm");
 	}
+//CAMBIAMENTI
+	
+    @Override
+    public int getCount() {
+        return super.getCount()+ 1;
+    }
 
+	@Override
+	public PostSpotted getItem(int position) {
+		if(position<(getCount()-1))	
+			return super.getItem(position);
+		else
+			return null;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		if(position<(getCount()-1))	
+			return super.getItemId(position);
+		else
+			return -1;
+	}
+    
+    
 }
