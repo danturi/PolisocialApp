@@ -456,6 +456,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		protected void onPostExecute(Void result) {
 			
 			super.onPostExecute(result);
+			finish();
 		}
 		
 	}

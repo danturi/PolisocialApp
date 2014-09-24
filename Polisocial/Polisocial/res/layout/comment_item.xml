@@ -17,7 +17,8 @@
                 android:id="@+id/profilePic"
                 android:layout_width="@dimen/comment_item_profile_pic"
                 android:layout_height="@dimen/comment_item_profile_pic"
-                android:scaleType="fitCenter" >
+                android:scaleType="fitCenter"
+                android:clickable="true" >
             </ImageView>
 
             <LinearLayout
@@ -32,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="@dimen/comment_item_profile_name"
+                    android:clickable="true"
                     android:textStyle="bold" />
 
                 <TextView

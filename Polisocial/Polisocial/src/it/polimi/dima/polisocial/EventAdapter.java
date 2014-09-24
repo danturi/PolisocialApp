@@ -1,6 +1,9 @@
 package it.polimi.dima.polisocial;
 
+import java.text.DateFormat;
 import java.util.List;
+import java.util.StringTokenizer;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -82,22 +85,24 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 			}
 		});
 
-		eventPicture.setImageResource(R.drawable.imageprova);
-
-		// Feed image
+		// Event image
 		if (item.getPicture() != null) {
 			byte[] byteArrayImage = Base64.decode(item.getPicture(),
 					Base64.DEFAULT);
 			eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
 					byteArrayImage, 0, byteArrayImage.length));
 		} else {
-			eventPicture.setImageResource(R.drawable.imageprova);
+			eventPicture.setImageResource(R.drawable.event_no_pic);
 		}
 
 		title.setText(item.getTitle());
-		location.setText("WHERE: " + item.getLocation());
+		location.setText(item.getLocation());
 		
-		beginningDate.setText("START: " + item.getBeginningDate().toString());
+        String dateTime = item.getBeginningDate().toString();
+        String date = dateTime.substring(0, Math.min(dateTime.length(), 10));
+        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
+		
+		beginningDate.setText(date+" at "+ time);
 		description.setText(item.getText());
 
 		// Converting timestamp into time ago format

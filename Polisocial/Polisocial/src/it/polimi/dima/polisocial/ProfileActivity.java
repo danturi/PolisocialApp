@@ -405,7 +405,7 @@ public class ProfileActivity extends SwipeBackActivity {
 							});
 
 				} else {
-
+					
 					if (poliuser.getSelfSummary() != null) {
 						selfSummaryText.setText(poliuser.getSelfSummary());
 					} else {

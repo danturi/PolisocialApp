@@ -26,7 +26,7 @@
                 android:layout_width="@dimen/event_item_width"
                 android:layout_height="@dimen/event_item_height"
                 android:contentDescription="@string/desc_profile_pic"
-                android:scaleType="fitCenter" >
+                android:scaleType="centerCrop" >
             </ImageView>
 
             <LinearLayout
@@ -39,25 +39,28 @@
                     android:id="@+id/title"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/post_item_profile_name"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/post_item_profile_name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/timestamp"
+                    android:textSize="@dimen/post_item_timestamp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/beginning_date"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/timestamp"
                     android:textSize="@dimen/post_item_timestamp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/timestamp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/timestamp"
-                    android:textSize="@dimen/post_item_timestamp"
-                    android:paddingTop="@dimen/post_item_status_pad_top" />
             </LinearLayout>
         </LinearLayout>
 
@@ -71,10 +74,18 @@
             android:paddingRight="@dimen/post_item_status_pad_left_right"
             android:paddingTop="@dimen/post_item_status_pad_top" />
 
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/post_item_status_pad_left_right"
+            android:textColor="@color/timestamp"
+            android:textSize="@dimen/post_item_timestamp" />
+
     </LinearLayout>
 
     <View
     android:layout_width="fill_parent"
     android:layout_height="1dp"
-    android:background="@android:color/darker_gray"/>
+    android:background="@color/Green"/>
 </LinearLayout>

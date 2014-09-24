@@ -47,7 +47,7 @@
                 android:background="@drawable/rect_text_edit"
                 android:hint="@string/event_title_example"
                 android:inputType="text"
-                android:maxLength="25"
+                android:maxLength="45"
                 android:maxLines="1"
                 android:padding="5dip"
                 android:singleLine="true" />

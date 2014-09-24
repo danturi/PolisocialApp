@@ -40,8 +40,8 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	private final int VIEW_CUPIDO = 1;
 	private final int VIEW_NO_CUPIDO = 0;
-	private final int VIEW_LOADING = 2; 
-	
+	private final int VIEW_LOADING = 2;
+
 	private final LayoutInflater mInflater;
 	private Context context;
 	private Long userId;
@@ -66,63 +66,74 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		}
 	}
 
-	
-	
 	@Override
 	public int getItemViewType(int position) {
-	    PostSpotted item=getItem(position);
-	    // Define a way to determine which layout to use.
-		if(position>=(getCount()-1)){return VIEW_LOADING;}
-	    if (item.getPostCategory().equals("Love")) {
+		PostSpotted item = getItem(position);
+		// Define a way to determine which layout to use.
+		if (position >= (getCount() - 1)) {
+			return VIEW_LOADING;
+		}
+		if (item.getPostCategory().equals("Love")) {
 			if (userId.compareTo(item.getUserId()) != 0) {
 				return VIEW_CUPIDO;
 			}
 		}
-			return VIEW_NO_CUPIDO;
-		
+		return VIEW_NO_CUPIDO;
+
 	}
 
 	@Override
 	public int getViewTypeCount() {
 		return 3;
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Populate new items in the list.
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view;
+		// View view;
+		View view = convertView;
+		ViewHolder holder;
+		int type = getItemViewType(position);
 
-		if (convertView == null) {
-			if(getItemViewType(position)==VIEW_LOADING){return mInflater.inflate(R.layout.progress, parent, false);}
-			if(getItemViewType(position)==VIEW_NO_CUPIDO){
-				view = mInflater.inflate(R.layout.spotted_post_item, parent, false);
-			}else{
-				view = mInflater.inflate(
-						R.layout.spotted_post_item_cupido, parent,
-						false);
+		if (view == null) {
+			holder = new ViewHolder();
+			if (type == VIEW_LOADING) {
+				view = mInflater.inflate(R.layout.progress, parent, false);
+			} else {
+				if (type == VIEW_NO_CUPIDO) {
+					view = mInflater.inflate(R.layout.spotted_post_item,
+							parent, false);
+					
+				} else {
+					view = mInflater.inflate(R.layout.spotted_post_item_cupido,
+							parent, false);
+					holder.hitOnButton = (ImageButton) view
+							.findViewById(R.id.hitOnButton);
+				}
+				
+				holder.title = (TextView) view.findViewById(R.id.title);
+				holder.timestamp = (TextView) view.findViewById(R.id.timestamp);
+				holder.statusMsg = (TextView) view.findViewById(R.id.text);
+				holder.profilePic = (ImageView) view
+						.findViewById(R.id.profilePic);
+				holder.postImage = (ImageView) view.findViewById(R.id.postImage);
+				holder.numbOfComments = (TextView) view
+						.findViewById(R.id.numb_of_comments);
+				
 			}
+			holder.type = type;
+			view.setTag(holder);
 		} else {
-			view = convertView;
+				holder = (ViewHolder) view.getTag();
+
 		}
 
-		if (getItemViewType(position)!=VIEW_LOADING) {
+		if (getItemViewType(position) != VIEW_LOADING) {
 			PostSpotted item = getItem(position);
-			TextView title = (TextView) view.findViewById(R.id.title);
-			TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
-			TextView statusMsg = (TextView) view.findViewById(R.id.text);
-			ImageView profilePic = (ImageView) view
-					.findViewById(R.id.profilePic);
-			ImageView postImage = (ImageView) view.findViewById(R.id.postImage);
-			TextView numbOfComments = (TextView) view
-					.findViewById(R.id.numb_of_comments);
-			numbOfComments.setOnClickListener(new IdParameterOnClickListener(
+			
+			holder.numbOfComments.setOnClickListener(new IdParameterOnClickListener(
 					item.getId()) {
 
 				@Override
@@ -138,52 +149,51 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 					context.startActivity(showRelativeCommentsIntent);
 				}
 			});
-			title.setText(item.getTitle());
+			holder.title.setText(item.getTitle());
 			// Converting timestamp into time ago format
 			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 					.getTimestamp().getValue(), System.currentTimeMillis(),
 					DateUtils.SECOND_IN_MILLIS);
-			timestamp.setText(timeAgo);
+			holder.timestamp.setText(timeAgo);
 			// Check for empty status message
 			if (!TextUtils.isEmpty(item.getText())) {
-				statusMsg.setText(item.getText());
-				statusMsg.setVisibility(View.VISIBLE);
+				holder.statusMsg.setText(item.getText());
+				holder.statusMsg.setVisibility(View.VISIBLE);
 			} else {
 				// status is empty, remove from view
-				statusMsg.setVisibility(View.GONE);
+				holder.statusMsg.setVisibility(View.GONE);
 			}
 			switch (item.getPostCategory()) {
 			case "Fun":
-				profilePic.setImageResource(R.drawable.owl_fun);
+				holder.profilePic.setImageResource(R.drawable.owl_fun);
 				break;
 			case "Love":
-				profilePic.setImageResource(R.drawable.owl_love);
+				holder.profilePic.setImageResource(R.drawable.owl_love);
 				break;
 			case "Complaint":
-				profilePic.setImageResource(R.drawable.owl_complaint);
+				holder.profilePic.setImageResource(R.drawable.owl_complaint);
 				break;
 			case "Advice":
-				profilePic.setImageResource(R.drawable.owl_advice);
+				holder.profilePic.setImageResource(R.drawable.owl_advice);
 				break;
 			default:
-				profilePic.setImageResource(R.drawable.owl_fun);
+				holder.profilePic.setImageResource(R.drawable.owl_fun);
 
 			}
 			// Feed image
 			if (item.getPicture() != null) {
 				byte[] byteArrayImage = Base64.decode(item.getPicture(),
 						Base64.DEFAULT);
-				postImage.setImageBitmap(BitmapFactory.decodeByteArray(
+				holder.postImage.setImageBitmap(BitmapFactory.decodeByteArray(
 						byteArrayImage, 0, byteArrayImage.length));
-				postImage.setVisibility(View.VISIBLE);
+				holder.postImage.setVisibility(View.VISIBLE);
 			} else {
-				postImage.setVisibility(View.GONE);
+				holder.postImage.setVisibility(View.GONE);
 			}
-			numbOfComments.setText(item.getNumOfComments() + " comments");
+			holder.numbOfComments.setText(item.getNumOfComments() + " comments");
 			if (getItemViewType(position) == VIEW_CUPIDO) {
-				ImageButton hitOnButton = (ImageButton) view
-						.findViewById(R.id.hitOnButton);
-				hitOnButton.setOnClickListener(new IdParameterOnClickListener(
+				
+				holder.hitOnButton.setOnClickListener(new IdParameterOnClickListener(
 						item.getId()) {
 
 					@Override
@@ -195,7 +205,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 				});
 			}
-			
+
 		}
 		return view;
 	}
@@ -207,16 +217,17 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 				postId);
 		dialog.show(fm, "HitOnDialogFragm");
 	}
-//CAMBIAMENTI
-	
-    @Override
-    public int getCount() {
-        return super.getCount()+ 1;
-    }
+
+	// CAMBIAMENTI
+
+	@Override
+	public int getCount() {
+		return super.getCount() + 1;
+	}
 
 	@Override
 	public PostSpotted getItem(int position) {
-		if(position<(getCount()-1))	
+		if (position < (getCount() - 1))
 			return super.getItem(position);
 		else
 			return null;
@@ -224,11 +235,23 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	@Override
 	public long getItemId(int position) {
-		if(position<(getCount()-1))	
+		if (position < (getCount() - 1))
 			return super.getItemId(position);
 		else
 			return -1;
 	}
-    
-    
+
+	static class ViewHolder {
+
+		public int type;
+
+		TextView title;
+		TextView timestamp;
+		TextView statusMsg;
+		ImageView profilePic;
+		ImageView postImage;
+		TextView numbOfComments;
+		ImageButton hitOnButton;
+	}
+
 }

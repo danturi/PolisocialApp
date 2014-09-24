@@ -28,7 +28,7 @@
                 android:layout_width="@dimen/event_item_width"
                 android:layout_height="@dimen/event_item_height"
                 android:contentDescription="@string/desc_profile_pic"
-                android:scaleType="fitCenter" >
+                android:scaleType="centerCrop" >
             </ImageView>
 
             <LinearLayout
