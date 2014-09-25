@@ -6,14 +6,24 @@ import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringCollection;
+import it.polimi.dima.polisocial.utilClasses.VenueItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,6 +37,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
@@ -46,6 +57,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,7 +115,7 @@ public class TabActivity extends FragmentActivity implements
 			* FASTEST_INTERVAL_IN_SECONDS;
 	ActionBar actionBar;
 
-	private Boolean mUpdatesRequested;
+	private Boolean gpsAdvice = true;
 
 	@Override
 	public void onBackPressed() {
@@ -161,7 +173,6 @@ public class TabActivity extends FragmentActivity implements
 		mLocationRequest.setInterval(UPDATE_INTERVAL);
 		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 		// Start with updates turned off
-		mUpdatesRequested = false;
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections
@@ -198,7 +209,7 @@ public class TabActivity extends FragmentActivity implements
 
 						actionBar.setSelectedNavigationItem(position);
 						actionBar.setTitle(setActionBarTitle(position));
-						if (position == 3) {
+						if (position == 3 && gpsAdvice) {
 							LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 							if (locationManager
@@ -206,14 +217,14 @@ public class TabActivity extends FragmentActivity implements
 								Toast.makeText(getApplicationContext(),
 										"GPS is Enabled in your device",
 										Toast.LENGTH_SHORT).show();
-								mLocationClient.requestLocationUpdates(mLocationRequest,TabActivity.this);
+								mLocationClient.requestLocationUpdates(
+										mLocationRequest, TabActivity.this);
 							} else {
 								showGPSDisabledAlertToUser();
 							}
+							gpsAdvice = false;
 						}
 					}
-
-					
 
 				});
 
@@ -285,6 +296,7 @@ public class TabActivity extends FragmentActivity implements
 			return true;
 
 		case R.id.action_logout:
+			gpsAdvice = true;
 			Session session = Session.getActiveSession();
 			if (session != null && session.isOpened()) {
 				session.close();
@@ -689,7 +701,8 @@ public class TabActivity extends FragmentActivity implements
 	public static class ListVenuesFragment extends Fragment {
 
 		ListView listVenues;
-		ArrayAdapter<String> adapter = null;
+		ProgressBar progressBar;
+		ArrayAdapter<ArrayList<String>> adapter = null;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
 		VenuesNearPoliTask task;
 		static RestaurantsFragmentListener listener;
@@ -719,7 +732,9 @@ public class TabActivity extends FragmentActivity implements
 					false);
 
 			listVenues = (ListView) v.findViewById(R.id.listViewVenues);
+			progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
 			task = new VenuesNearPoliTask();
+			showProgress(true);
 			task.execute();
 
 			TextView buttonView = (TextView) v
@@ -729,11 +744,55 @@ public class TabActivity extends FragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					task.cancel(true);
+					showProgress(false);
 					listener.onSwitchFragment();
 
 				}
 			});
 			return v;
+		}
+
+		/**
+		 * Shows the progress UI and hides post list.
+		 */
+		@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+		public void showProgress(final boolean show) {
+			// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which
+			// allow
+			// for very easy animations. If available, use these APIs to fade-in
+			// the progress spinner.
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+				int shortAnimTime = getResources().getInteger(
+						android.R.integer.config_shortAnimTime);
+
+				listVenues.setVisibility(show ? View.GONE : View.VISIBLE);
+				listVenues.animate().setDuration(shortAnimTime)
+						.alpha(show ? 0 : 1)
+						.setListener(new AnimatorListenerAdapter() {
+							@Override
+							public void onAnimationEnd(Animator animation) {
+								listVenues.setVisibility(show ? View.GONE
+										: View.VISIBLE);
+							}
+						});
+
+				progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+				progressBar.animate().setDuration(shortAnimTime)
+						.alpha(show ? 1 : 0)
+						.setListener(new AnimatorListenerAdapter() {
+							@Override
+							public void onAnimationEnd(Animator animation) {
+								progressBar.setVisibility(show ? View.VISIBLE
+										: View.GONE);
+							}
+						});
+			} else {
+				// The ViewPropertyAnimator APIs are not available, so simply
+				// show
+				// and hide the relevant UI components.
+				progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+				listVenues.setVisibility(show ? View.GONE : View.VISIBLE);
+			}
 		}
 
 		@Override
@@ -792,47 +851,170 @@ public class TabActivity extends FragmentActivity implements
 
 						if (task.isCancelled())
 							return;
-						int name = 1;
-						Iterator<ArrayList<String>> iterator = venues
-								.iterator();
-						while (iterator.hasNext())
-							listVenuesName.add(iterator.next().get(name)); // prendo
-																			// il
-																			// nome
-																			// di
-																			// ogni
-																			// venue
-						adapter = new ArrayAdapter<String>(getActivity(),
-								android.R.layout.simple_list_item_1,
-								listVenuesName);
-						listVenues.setAdapter(adapter);
-
-						listVenues
-								.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-									@Override
-									public void onItemClick(
-											AdapterView<?> adapt,
-											final View componente, int pos,
-											long id) {
-										String idVenueFsq = venues.get(pos)
-												.get(0);
-										String baseUrl = "http://foursquare.com/venue/";
-										StringBuilder urlBuilder = new StringBuilder(
-												baseUrl);
-										urlBuilder.append(idVenueFsq);
-										String url = urlBuilder.toString();
-										Intent intent = new Intent(
-												Intent.ACTION_VIEW, Uri
-														.parse(url));
-										startActivity(intent);
-
-									}
-								});
+						new RetrieveDistanceVenues().execute(venues);
+						/*
+						 * int name = 1; Iterator<ArrayList<String>> iterator =
+						 * venues .iterator(); while (iterator.hasNext()){
+						 * ArrayList<String> venue = iterator.next();
+						 * 
+						 * listVenuesName.add(venue.get(name));
+						 * 
+						 * 
+						 * }
+						 * 
+						 * 
+						 * adapter = new ArrayAdapter<String>(getActivity(),
+						 * android.R.layout.simple_list_item_1, listVenuesName);
+						 * listVenues.setAdapter(adapter);
+						 * 
+						 * listVenues .setOnItemClickListener(new
+						 * AdapterView.OnItemClickListener() {
+						 * 
+						 * @Override public void onItemClick( AdapterView<?>
+						 * adapt, final View componente, int pos, long id) {
+						 * String idVenueFsq = venues.get(pos) .get(0); String
+						 * baseUrl = "http://foursquare.com/venue/";
+						 * StringBuilder urlBuilder = new StringBuilder(
+						 * baseUrl); urlBuilder.append(idVenueFsq); String url =
+						 * urlBuilder.toString(); Intent intent = new Intent(
+						 * Intent.ACTION_VIEW, Uri .parse(url));
+						 * startActivity(intent);
+						 * 
+						 * } });
+						 */
 
 					}
 				}
 
 			}
+		}
+
+		public class RetrieveDistanceVenues extends
+				AsyncTask<ArrayList<ArrayList<String>>, Void, Void> {
+
+			ArrayList<ArrayList<String>> listVenuesInfo;
+			VenueItem venue;
+			List<VenueItem> list = new ArrayList<VenueItem>();
+			Collection<VenueItem> listItem = new ArrayList<VenueItem>();
+
+			@Override
+			protected Void doInBackground(
+					ArrayList<ArrayList<String>>... params) {
+				
+				listVenuesInfo=params[0];
+				Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				Foursquareendpoint endpoint = builder.setApplicationName(
+						"polimisocial").build();
+				
+				if(mCurrentLocation!=null){
+					ResponseObject response = null;
+				
+					StringBuilder venuesAttribute = new StringBuilder();
+					
+					Iterator<ArrayList<String>> iter = listVenuesInfo.iterator();
+					ArrayList<String> venueArray = new ArrayList<String>();
+					
+					if(iter.hasNext()){
+						venueArray = (ArrayList<String>) iter.next();
+						venue = new VenueItem(venueArray.get(0),venueArray.get(1),venueArray.get(2));
+						listItem.add(venue);
+						venuesAttribute.append(venue.getCoord());
+					}
+					
+					while (iter.hasNext()){
+						
+						venueArray = (ArrayList<String>) iter.next();
+						venue = new VenueItem(venueArray.get(0),venueArray.get(1),venueArray.get(2));
+						listItem.add(venue);
+						venuesAttribute.append(",");
+						venuesAttribute.append(venue.getCoord());
+					}
+					
+					try {
+						response = endpoint.findDistanceAndWalkingDuration(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(),venuesAttribute.toString()).execute();
+
+						ArrayList<ArrayList<String>> venuesAttr;
+						venuesAttr=(ArrayList<ArrayList<String>>) response.getObject();
+						Iterator<ArrayList<String>> attrIter = venuesAttr.iterator();
+						Iterator<VenueItem> venueIter = listItem.iterator();
+		
+						while (attrIter.hasNext())
+						{
+							venue = venueIter.next();
+							ArrayList<String> attr = attrIter.next();					
+							venue.setDistanceInMeter(Integer.valueOf(attr.get(0)));
+							venue.setDistance(attr.get(1));
+							
+						}
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+				}	
+						
+
+				return null;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			protected void onPostExecute(Void result) {
+
+				list=(List<VenueItem>) listItem;
+				Collections.sort(list, new Comparator<VenueItem>(){
+					   public int compare(VenueItem o1, VenueItem o2){
+						   if(o1.getDistanceInMeter()!=null && o2.getDistanceInMeter()!=null){
+							   return o1.getDistanceInMeter() - o2.getDistanceInMeter();
+						   }
+					      return 0;
+					   }
+					});
+				adapter = new ArrayAdapter(getActivity(),
+						android.R.layout.simple_list_item_2,
+						android.R.id.text1, list) {
+					@Override
+					public View getView(int position, View convertView,
+							ViewGroup parent) {
+						View view = super
+								.getView(position, convertView, parent);
+						TextView text1 = (TextView) view
+								.findViewById(android.R.id.text1);
+						TextView text2 = (TextView) view
+								.findViewById(android.R.id.text2);
+
+						text1.setText(list.get(position).getName());
+						text2.setText(list.get(position).getDistance());
+						return view;
+					}
+				};
+				showProgress(false);
+				listVenues.setAdapter(adapter);
+
+				listVenues
+						.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+							@Override
+							public void onItemClick(AdapterView<?> adapt,
+									final View componente, int pos, long id) {
+								String idVenueFsq = list.get(pos).getVenueId();
+								String baseUrl = "http://foursquare.com/venue/";
+								StringBuilder urlBuilder = new StringBuilder(
+										baseUrl);
+								urlBuilder.append(idVenueFsq);
+								String url = urlBuilder.toString();
+								Intent intent = new Intent(Intent.ACTION_VIEW,
+										Uri.parse(url));
+								startActivity(intent);
+
+							}
+						});
+
+				super.onPostExecute(result);
+			}
+
 		}
 	}
 
@@ -1082,20 +1264,16 @@ public class TabActivity extends FragmentActivity implements
 		}
 		super.onNewIntent(intent);
 	}
-	
+
 	private void showGPSDisabledAlertToUser() {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder
 				.setMessage(
 						"GPS is disabled in your device.Would you like to enable it?")
 				.setCancelable(false)
-				.setPositiveButton(
-						"Goto Settings Page To Enable GPS",
+				.setPositiveButton("Goto Settings Page To Enable GPS",
 						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialog,
-									int id) {
+							public void onClick(DialogInterface dialog, int id) {
 								Intent callGPSSettingIntent = new Intent(
 										android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 								startActivity(callGPSSettingIntent);
@@ -1103,12 +1281,11 @@ public class TabActivity extends FragmentActivity implements
 						});
 		alertDialogBuilder.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int id) {
+					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
 					}
 				});
-		
+
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
