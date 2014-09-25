@@ -26,20 +26,19 @@ import com.google.appengine.datanucleus.query.JPACursorHelper;
 @Api(name = "commentendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class CommentEndpoint {
 
-
 	private DeviceInfoEndpoint deviceInfoEndpoint = new DeviceInfoEndpoint();
 	private PostSpottedEndpoint spottedEndpoint = new PostSpottedEndpoint();
 	private RentalEndpoint rentalEndpoint = new RentalEndpoint();
 	private SecondHandBookEndpoint secondHandEndpoint = new SecondHandBookEndpoint();
 	private PrivateLessonEndpoint privateLessonEndpoint = new PrivateLessonEndpoint();
 	private InitiativeEndpoint initiativeEndpoint = new InitiativeEndpoint();
-	
+
 	/**
-	 * This method lists all the entities inserted in datastore.
-	 * It uses HTTP GET method and paging support.
-	 *
+	 * This method lists all the entities inserted in datastore. It uses HTTP
+	 * GET method and paging support.
+	 * 
 	 * @return A CollectionResponse class containing the list of all entities
-	 * persisted and a cursor to the next page.
+	 *         persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
 	@ApiMethod(name = "listComment")
@@ -69,7 +68,8 @@ public class CommentEndpoint {
 			if (cursor != null)
 				cursorString = cursor.toWebSafeString();
 
-			// Tight loop for fetching all entities from datastore and accomodate
+			// Tight loop for fetching all entities from datastore and
+			// accomodate
 			// for lazy fetch.
 			for (Comment obj : execute)
 				;
@@ -82,11 +82,13 @@ public class CommentEndpoint {
 	}
 
 	/**
-	 * This method gets the entity having primary key id. It uses HTTP GET method.
-	 *
-	 * @param id the primary key of the java bean.
+	 * This method gets the entity having primary key id. It uses HTTP GET
+	 * method.
+	 * 
+	 * @param id
+	 *            the primary key of the java bean.
 	 * @return The entity with primary key id.
-	 * @throws NotFoundException 
+	 * @throws NotFoundException
 	 */
 	@ApiMethod(name = "getComment")
 	public Comment getComment(@Named("id") Long id) throws NotFoundException {
@@ -94,29 +96,33 @@ public class CommentEndpoint {
 		Comment comment = null;
 		try {
 			comment = mgr.find(Comment.class, id);
-			if (comment == null) throw new NotFoundException("Not Found Entity");
+			if (comment == null)
+				throw new NotFoundException("Not Found Entity");
 		} finally {
 			mgr.close();
 		}
 		return comment;
 	}
-	
+
 	@SuppressWarnings({ "unchecked" })
 	@ApiMethod(name = "getPostComments")
-	public CollectionResponse<Comment> getPostComments(@Named("postId") Long postId) {
+	public CollectionResponse<Comment> getPostComments(
+			@Named("postId") Long postId) {
 		EntityManager mgr = getEntityManager();
-		
-		//TODO ordine discendente per timeStamp
+
+		// TODO ordine discendente per timeStamp
 		List<Comment> comments = null;
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("SELECT c FROM Comment c WHERE c.postId =?1 ORDER BY c.commentTimestamp ASC");
+			Query query = mgr
+					.createQuery("SELECT c FROM Comment c WHERE c.postId =?1 ORDER BY c.commentTimestamp ASC");
 			query.setParameter(1, postId);
 			comments = query.getResultList();
 		} finally {
 			mgr.close();
 		}
-		return CollectionResponse.<Comment> builder().setItems(comments).build();
+		return CollectionResponse.<Comment> builder().setItems(comments)
+				.build();
 	}
 
 	@ApiMethod(name = "getNumbPostComments")
@@ -125,22 +131,24 @@ public class CommentEndpoint {
 		ResponseObject o = new ResponseObject();
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("SELECT COUNT(c.commentId) FROM Comment c WHERE c.postId =?1");
+			Query query = mgr
+					.createQuery("SELECT COUNT(c.commentId) FROM Comment c WHERE c.postId =?1");
 			query.setParameter(1, postId);
-			long count = (long)query.getSingleResult();
+			long count = (long) query.getSingleResult();
 			o.setObject(count);
-		}finally {
+		} finally {
 			mgr.close();
 		}
 		return o;
 	}
-	
+
 	/**
-	 * This inserts a new entity into App Engine datastore. If the entity already
-	 * exists in the datastore, an exception is thrown.
-	 * It uses HTTP POST method.
-	 *
-	 * @param comment the entity to be inserted.
+	 * This inserts a new entity into App Engine datastore. If the entity
+	 * already exists in the datastore, an exception is thrown. It uses HTTP
+	 * POST method.
+	 * 
+	 * @param comment
+	 *            the entity to be inserted.
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertComment")
@@ -154,19 +162,17 @@ public class CommentEndpoint {
 		} finally {
 			mgr.close();
 		}
-		
 
-		
-		
 		return comment;
 	}
 
 	/**
-	 * This method is used for updating an existing entity. If the entity does not
-	 * exist in the datastore, an exception is thrown.
-	 * It uses HTTP PUT method.
-	 *
-	 * @param comment the entity to be updated.
+	 * This method is used for updating an existing entity. If the entity does
+	 * not exist in the datastore, an exception is thrown. It uses HTTP PUT
+	 * method.
+	 * 
+	 * @param comment
+	 *            the entity to be updated.
 	 * @return The updated entity.
 	 */
 	@ApiMethod(name = "updateComment")
@@ -184,10 +190,11 @@ public class CommentEndpoint {
 	}
 
 	/**
-	 * This method removes the entity with primary key id.
-	 * It uses HTTP DELETE method.
-	 *
-	 * @param id the primary key of the entity to be deleted.
+	 * This method removes the entity with primary key id. It uses HTTP DELETE
+	 * method.
+	 * 
+	 * @param id
+	 *            the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeComment")
 	public void removeComment(@Named("id") Long id) {
@@ -199,13 +206,12 @@ public class CommentEndpoint {
 			mgr.close();
 		}
 	}
-	
 
 	private boolean containsComment(Comment comment) {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			if (comment.getCommentId()==null)
+			if (comment.getCommentId() == null)
 				return false;
 			Comment item = mgr.find(Comment.class, comment.getCommentId());
 			if (item == null) {
@@ -216,14 +222,13 @@ public class CommentEndpoint {
 		}
 		return contains;
 	}
-	
-	@ApiMethod(name="sendNotification")
-	public void sendNotification(Comment comment){
-		
-		
+
+	@ApiMethod(name = "sendNotification")
+	public void sendNotification(Comment comment) {
+
 		Long postId = comment.getPostId();
 		String type = comment.getType();
-		Post post=null;
+		Post post = null;
 		if (type.equals("spotted"))
 			post = spottedEndpoint.getPostSpotted(postId);
 		if (type.equals("rental"))
@@ -234,31 +239,43 @@ public class CommentEndpoint {
 			post = privateLessonEndpoint.getPrivateLesson(postId);
 		if (type.equals("event"))
 			post = initiativeEndpoint.getInitiative(postId);
-		
-		//id autore del post commentato
+
+		// id autore del post commentato
 		Long idAuthorPost = post.getUserId();
 		String postTitle = post.getTitle();
-		CollectionResponse<Comment> postComments = CommentEndpoint.this.getPostComments(postId);
-		//ids degli autori dei commenti precedenti
+		CollectionResponse<Comment> postComments = CommentEndpoint.this
+				.getPostComments(postId);
+		List<Comment> comments = (List<Comment>) postComments.getItems();
+
+		// prendo l'id dell'user che ha appena commentato e lo tolgo dagli utenti
+		// da notificare
+		Long userLastComment = comment.getAuthorId();
+		// ids degli autori dei commenti precedenti tranne l'user autore del
+		// commento appena inserito
 		ArrayList<Long> authorsCommentIds = new ArrayList<Long>();
-		for (Comment c : postComments.getItems()){
-			//elimina doppia notifica all'autore post che si auto-commenta  e  elimina doppioni notifiche a chi ha commentato più volte il post
-			if(c.getAuthorId().compareTo(idAuthorPost)==0 && !authorsCommentIds.contains(c.getAuthorId())){
+		for (Comment c : postComments.getItems()) {
+			if (c.getAuthorId() != userLastComment) {
+				// elimina doppia notifica all'autore post che si è auto-commentato precedentemente
+				// e elimina doppioni notifiche a chi ha commentato più volte il
+				// post
+				if (!(c.getAuthorId().compareTo(idAuthorPost) == 0)
+						&& !authorsCommentIds.contains(c.getAuthorId())) {
 					authorsCommentIds.add(c.getAuthorId());
+				}
 			}
-			
 		}
-		//notifico autore del post se non è lui che ha commentato
-		if(!(idAuthorPost.compareTo(comment.getAuthorId())==0))
-		    deviceInfoEndpoint.sendToUser(idAuthorPost,post.getId(),type,postTitle);
-		//notifico gli autori dei commenti
-		if(!authorsCommentIds.isEmpty()){
-		for (Long id : authorsCommentIds)
-			deviceInfoEndpoint.sendToUser(id,post.getId(),type,postTitle);
+		// notifico autore del post se non è lui che ha commentato
+		if (!(idAuthorPost.compareTo(userLastComment) == 0))
+			deviceInfoEndpoint.sendToUser(idAuthorPost, post.getId(), type,
+					postTitle);
+		// notifico gli autori dei commenti
+		if (!authorsCommentIds.isEmpty()) {
+			for (Long id : authorsCommentIds)
+				deviceInfoEndpoint
+						.sendToUser(id, post.getId(), type, postTitle);
 		}
 	}
-	
-	
+
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
 	}

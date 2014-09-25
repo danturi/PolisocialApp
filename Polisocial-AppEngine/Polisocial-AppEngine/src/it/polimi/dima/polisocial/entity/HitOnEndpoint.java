@@ -157,7 +157,7 @@ public class HitOnEndpoint {
   
   @SuppressWarnings("unchecked")
   @ApiMethod(name = "getUserHitOn")
-    public CollectionResponse<HitOn> getUserHitOn(@Named("userId") Long userId,@Nullable @Named("cursor") String cursorString,
+    public CollectionResponse<HitOn> getUserHitOn(@Named("postId") Long postId,@Nullable @Named("cursor") String cursorString,
   		  @Nullable @Named("limit") Integer limit) {
   	  
   	  EntityManager mgr = null;
@@ -166,8 +166,8 @@ public class HitOnEndpoint {
 
   			  try{
   				  mgr = getEntityManager();
-  				  Query query = mgr.createQuery("select h from HitOn h where h.userId=?1");
-  				  query.setParameter(1, userId);
+  				  Query query = mgr.createQuery("select h from HitOn h where h.postId=?1");
+  				  query.setParameter(1, postId);
   				  if (cursorString != null && cursorString != "") {
   					  cursor = Cursor.fromWebSafeString(cursorString);
   					  query.setHint(JPACursorHelper.CURSOR_HINT, cursor);

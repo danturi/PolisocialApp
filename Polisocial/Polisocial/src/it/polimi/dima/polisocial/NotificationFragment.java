@@ -36,8 +36,14 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
     private View mProgressView;
 	private SessionManager session;
 	private TextView mTextView ;
+	private TabActivity activity;
     
 	
+
+	public NotificationFragment(TabActivity activity) {
+		this.activity=activity;
+	}
+
 
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -48,6 +54,7 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
 		return v;       
 	}
     
+	
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -83,6 +90,7 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
 
     }
 
+    
     
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -214,6 +222,16 @@ public class NotificationFragment extends ListFragment implements LoaderManager.
     public void onLoaderReset(Loader<List<Notification>> arg0) {
         mAdapter.setData(null);
     }
+
+
+	@Override
+	public void onResume() {
+		if(activity.getNotificationIntent().getBooleanExtra("gcmNotification", false)){
+			initiateRefresh();
+			activity.setNotificationIntent(new Intent());
+		}
+		super.onResume();
+	}
 }
  
 

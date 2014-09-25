@@ -117,6 +117,7 @@ public class TabActivity extends FragmentActivity implements
 	ActionBar actionBar;
 
 	private Boolean gpsAdvice = true;
+	private Intent intentGcmNotifica;
 
 	@Override
 	public void onBackPressed() {
@@ -179,7 +180,7 @@ public class TabActivity extends FragmentActivity implements
 		// primary sections
 		// of the app.
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
-				getSupportFragmentManager());
+				getSupportFragmentManager(),this);
 
 		// Set up the action bar.
 		actionBar = getActionBar();
@@ -356,6 +357,7 @@ public class TabActivity extends FragmentActivity implements
 		private SavedState mFragmentAtpos3Map = null;
 		private SavedState mFragmentAtpos3List = null;
 		private Boolean update = false;
+		private TabActivity activity;
 
 		private final class RestaurantsListener implements
 				RestaurantsFragmentListener {
@@ -407,9 +409,10 @@ public class TabActivity extends FragmentActivity implements
 
 		RestaurantsListener listener = new RestaurantsListener();
 
-		public AppSectionsPagerAdapter(FragmentManager fm) {
+		public AppSectionsPagerAdapter(FragmentManager fm, TabActivity tabActivity) {
 			super(fm);
 			mFragmentManager = fm;
+			activity=tabActivity;
 		}
 
 		@Override
@@ -437,7 +440,7 @@ public class TabActivity extends FragmentActivity implements
 				return mFragmentAtPos3;
 			case 4:
 				if (mFragmentAtPos4 == null) {
-					mFragmentAtPos4 = new NotificationFragment();
+					mFragmentAtPos4 = new NotificationFragment(activity);
 				}
 				return mFragmentAtPos4;
 			default:
@@ -1260,6 +1263,7 @@ public class TabActivity extends FragmentActivity implements
 
 	@Override
 	protected void onNewIntent(Intent intent) {
+		intentGcmNotifica=intent;
 		if (intent.getBooleanExtra("gcmNotification", false)) {
 			actionBar.setSelectedNavigationItem(4);
 		}
@@ -1289,6 +1293,13 @@ public class TabActivity extends FragmentActivity implements
 
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
+	}
+	
+	public Intent getNotificationIntent(){
+		return intentGcmNotifica;
+	}
+	public void setNotificationIntent(Intent intent){
+		intentGcmNotifica=intent;
 	}
 
 }

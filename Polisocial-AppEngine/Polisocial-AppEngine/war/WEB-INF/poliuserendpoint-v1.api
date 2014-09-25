@@ -192,6 +192,27 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
+    },
+    "poliuserendpoint.getPictureUser" : {
+      "path" : "responseobject/{userId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPictureUser",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
@@ -333,6 +354,22 @@
             "type" : "string"
           }
         }
+      },
+      "ResponseObject" : {
+        "id" : "ResponseObject",
+        "type" : "object",
+        "properties" : {
+          "exception" : {
+            "type" : "string"
+          },
+          "object" : {
+            "$ref" : "_any"
+          }
+        }
+      },
+      "_any" : {
+        "id" : "_any",
+        "type" : "any"
       }
     },
     "methods" : {
@@ -377,6 +414,11 @@
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername" : {
         "response" : {
           "$ref" : "PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPictureUser" : {
+        "response" : {
+          "$ref" : "ResponseObject"
         }
       }
     }

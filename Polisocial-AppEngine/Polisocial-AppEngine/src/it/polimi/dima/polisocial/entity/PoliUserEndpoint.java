@@ -3,6 +3,9 @@ package it.polimi.dima.polisocial.entity;
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -20,7 +23,13 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.Transform;
+
 
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class PoliUserEndpoint {
@@ -252,6 +261,22 @@ public class PoliUserEndpoint {
 			mgr.close();
 		}
 	}
+	
+	@ApiMethod(name = "getPictureUser")
+	public ResponseObject getPictureUser(@Named("userId") Long userId) throws NotFoundException {
+		
+		EntityManager mgr = getEntityManager();
+		List<Blob> results = new ArrayList<Blob>();
+		Query q = mgr.createQuery ("SELECT x.profilePicture1 FROM PoliUser x WHERE x.userId = ?1");
+		q.setParameter (1, userId);
+		results = q.getResultList();
+		if(results.isEmpty()) throw new NotFoundException("Not Found Picture");
+		Blob pictureUser = results.get(0);
+		byte[] imageResized = resize(pictureUser.getBytes());
+		ResponseObject o = new ResponseObject();
+		o.setObject(imageResized);
+		return o;
+	}
 
 	
 
@@ -270,9 +295,28 @@ public class PoliUserEndpoint {
 		}
 		return contains;
 	}
+	
+	
+	// Image Java API per la gestione delle immagini profilo
+	private byte[] resize(byte[] image){
+		
+		byte[] oldImageData = image; 
+
+        ImagesService imagesService = ImagesServiceFactory.getImagesService();
+
+        Image oldImage = ImagesServiceFactory.makeImage(oldImageData);
+        Transform resize = ImagesServiceFactory.makeResize(30, 40);
+
+        Image newImage = imagesService.applyTransform(resize, oldImage);
+
+        byte[] newImageData = newImage.getImageData();
+        return newImageData;
+	}
 
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
 	}
+	
+	
 
 }
