@@ -105,10 +105,10 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 		location.setText(item.getLocation());
 		
         String dateTime = item.getBeginningDate().toString();
-        String date = dateTime.substring(0, Math.min(dateTime.length(), 10));
+        String dateString = composeDateString(dateTime.substring(0,4), dateTime.substring(5,7), dateTime.substring(8,10) );
         String time = dateTime.substring(11, Math.min(dateTime.length(),16));
 		
-		beginningDate.setText(date+" at "+ time);
+		beginningDate.setText(dateString+" at "+ time);
 		description.setText(item.getText());
 
 		// Converting timestamp into time ago format
@@ -212,5 +212,50 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 		return ssb;
 
 	}
+	
+	public static String composeDateString(String year, String month, String day){
+    String stringMonth;
+    switch(month){
+    	case "01": 
+    		stringMonth="jan";
+    		break;
+    	case "02": 
+    		stringMonth="febr";
+    		break;
+    		case "03": 
+    		stringMonth="mar";
+    		break;
+    		case "04": 
+    		stringMonth="apr";
+    		break;
+    		case "05": 
+    		stringMonth="may";
+    		break;
+    		case "06": 
+    		stringMonth="june";
+    		break;
+    		case "07": 
+    		stringMonth="july";
+    		break;
+    		case "08": 
+    		stringMonth="aug";
+    		break;
+    		case "09": 
+    		stringMonth="sept";
+    		break;
+    		case "10": 
+    		stringMonth="oct";
+    		break;
+    		case "11": 
+    		stringMonth="nov";
+    		break;
+    		case "12": 
+    		stringMonth="dec";
+    		break;
+    		default:stringMonth="error";
+    }
+
+    return day +" "+ stringMonth + " " + year; 
+    }
 
 }

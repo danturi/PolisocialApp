@@ -147,9 +147,10 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 
 		location.setText(item.getLocation());
 		String dateTime = item.getBeginningDate().toString();
-		String date = dateTime.substring(0, Math.min(dateTime.length(), 10));
-		String time = dateTime.substring(11, Math.min(dateTime.length(), 16));
-		beginningDate.setText(date + " at " + time);
+        String dateString = EventAdapter.composeDateString(dateTime.substring(0,4), dateTime.substring(5,7), dateTime.substring(8,10) );
+        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
+		
+		beginningDate.setText(dateString+" at "+ time);
 
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 				.getTimestamp().getValue(), System.currentTimeMillis(),
