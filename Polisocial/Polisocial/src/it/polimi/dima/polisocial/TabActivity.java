@@ -7,6 +7,7 @@ import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringCollection;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.VenueItem;
 
 import java.io.IOException;

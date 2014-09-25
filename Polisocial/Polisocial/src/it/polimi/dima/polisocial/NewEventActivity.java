@@ -3,6 +3,7 @@ package it.polimi.dima.polisocial;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

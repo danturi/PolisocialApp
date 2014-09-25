@@ -18,6 +18,8 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.deviceinfoendpoint.Deviceinfoendpoint;
 import it.polimi.dima.polisocial.deviceinfoendpoint.model.DeviceInfo;
+import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.net.URLEncoder;

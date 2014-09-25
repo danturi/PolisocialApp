@@ -1,9 +1,11 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.customOnClickListeners.StringStringParametersOnClickListener;
+import it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
+import it.polimi.dima.polisocial.utilClasses.ProfileFieldType;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

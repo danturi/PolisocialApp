@@ -1,11 +1,20 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.adapter;
 
+import it.polimi.dima.polisocial.FullScreenPicActivity;
+import it.polimi.dima.polisocial.HitOnDialogFragment;
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
+import it.polimi.dima.polisocial.TabActivity;
 import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
-import it.polimi.dima.polisocial.customOnClickListeners.IdParameterOnClickListener;
+import it.polimi.dima.polisocial.R.drawable;
+import it.polimi.dima.polisocial.R.id;
+import it.polimi.dima.polisocial.R.layout;
+import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -29,6 +38,7 @@ import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -182,11 +192,21 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			}
 			// Feed image
 			if (item.getPicture() != null) {
-				byte[] byteArrayImage = Base64.decode(item.getPicture(),
+				final byte[] byteArrayImage = Base64.decode(item.getPicture(),
 						Base64.DEFAULT);
 				holder.postImage.setImageBitmap(BitmapFactory.decodeByteArray(
 						byteArrayImage, 0, byteArrayImage.length));
 				holder.postImage.setVisibility(View.VISIBLE);
+				holder.postImage.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent showFullScreenPicIntent = new Intent(context,
+								FullScreenPicActivity.class);
+						showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
+						context.startActivity(showFullScreenPicIntent);
+					}
+				});
 			} else {
 				holder.postImage.setVisibility(View.GONE);
 			}

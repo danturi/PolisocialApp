@@ -1,4 +1,4 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.adapter;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -23,8 +23,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
-import it.polimi.dima.polisocial.customOnClickListeners.IdParameterOnClickListener;
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
+import it.polimi.dima.polisocial.R.drawable;
+import it.polimi.dima.polisocial.R.id;
+import it.polimi.dima.polisocial.R.layout;
+import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
 public class EventAdapter extends ArrayAdapter<Initiative> {
 	private final LayoutInflater mInflater;

@@ -1,4 +1,6 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.utilClasses;
+
+import it.polimi.dima.polisocial.LoginActivity;
 
 import java.util.HashMap;
 

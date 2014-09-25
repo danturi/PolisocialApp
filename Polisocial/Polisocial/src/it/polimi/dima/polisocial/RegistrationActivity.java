@@ -10,6 +10,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -27,7 +29,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import it.polimi.dima.polisocial.AeSimpleSHA1;
 import it.polimi.dima.polisocial.SingleChoiceDialogFragm.NoticeDialogListener;
 
 
@@ -61,7 +62,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration);
 		sessionManager = new SessionManager(getApplicationContext());
-		
+		getActionBar().setIcon(R.drawable.logo_login);
 		// Set up the registration form.
 		mEmailView = (EditText) findViewById(R.id.email);
 		mUsernameView = (EditText) findViewById(R.id.username);

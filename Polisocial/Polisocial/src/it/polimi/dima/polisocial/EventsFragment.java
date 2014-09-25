@@ -1,6 +1,8 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.adapter.EventAdapter;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.loader.EventListLoader;
 
 import java.util.List;
 

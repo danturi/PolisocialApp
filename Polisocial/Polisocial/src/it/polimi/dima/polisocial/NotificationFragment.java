@@ -1,6 +1,10 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.adapter.NotificationAdapter;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
+import it.polimi.dima.polisocial.loader.NotificationListLoader;
+import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.util.List;
 

@@ -6,6 +6,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;

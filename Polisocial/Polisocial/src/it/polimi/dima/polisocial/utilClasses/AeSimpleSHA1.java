@@ -1,4 +1,4 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.utilClasses;
 import java.io.UnsupportedEncodingException; 
 import java.security.MessageDigest; 
 import java.security.NoSuchAlgorithmException; 

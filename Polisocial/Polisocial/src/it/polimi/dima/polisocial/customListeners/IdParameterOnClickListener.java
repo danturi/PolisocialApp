@@ -1,4 +1,4 @@
-package it.polimi.dima.polisocial.customOnClickListeners;
+package it.polimi.dima.polisocial.customListeners;
 
 import android.view.View;
 import android.view.View.OnClickListener;

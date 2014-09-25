@@ -2,6 +2,7 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 

@@ -4,6 +4,7 @@ package it.polimi.dima.polisocial;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

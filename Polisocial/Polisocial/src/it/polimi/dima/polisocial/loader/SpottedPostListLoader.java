@@ -1,5 +1,6 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.loader;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;

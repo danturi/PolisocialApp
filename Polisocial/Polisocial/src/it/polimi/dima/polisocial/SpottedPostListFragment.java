@@ -1,8 +1,11 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.customOnClickListeners.EndlessScrollListener;
+import it.polimi.dima.polisocial.adapter.SpottedPostAdapter;
+import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.loader.SpottedPostListLoader;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

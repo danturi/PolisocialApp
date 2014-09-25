@@ -1,4 +1,4 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.utilClasses;
 
 public enum NotificationCategory {
 

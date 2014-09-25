@@ -151,7 +151,7 @@
           <TextView android:id="@+id/link_to_register"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="New to Polisocial? Register here"
+                android:text="@string/new_to_myowlcampus"
                 android:gravity="center"
                 android:textSize="20dip"
                 android:layout_marginTop="30dip"

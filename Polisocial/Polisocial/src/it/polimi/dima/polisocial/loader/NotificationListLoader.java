@@ -1,5 +1,6 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.loader;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.CollectionResponseNotification;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
