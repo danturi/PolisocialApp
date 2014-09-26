@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.adapter;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.ProfileActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.R.drawable;
@@ -7,11 +8,20 @@ import it.polimi.dima.polisocial.R.id;
 import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
+import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.StringTokenizer;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.content.ClipData.Item;
 import android.content.Context;
@@ -33,6 +43,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	private final int VIEW_ONLY_COMMENTS = 0;
 	private final int VIEW_SPOTTED = 1;
 	private final int VIEW_EVENT = 2;
+	private final int VIEW_HIT_ON = 3;
 
 	private final LayoutInflater mInflater;
 	private Context context;
@@ -84,7 +95,13 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			// if it is not the first element of the list, then inflate standard
 			// comment layout
 			default:
-				return VIEW_ONLY_COMMENTS;
+				if(!notificationCategory.equals(NotificationCategory.HIT_ON
+						.toString())){
+					return VIEW_ONLY_COMMENTS;
+				}else{
+					return VIEW_HIT_ON;
+				}
+				
 			}
 		}
 		return VIEW_ONLY_COMMENTS;
@@ -92,7 +109,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 
 	@Override
 	public int getViewTypeCount() {
-		return 3;
+		return 4;
 	}
 
 	/**
@@ -105,6 +122,10 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			if (getItemViewType(position) == VIEW_ONLY_COMMENTS) {
 				view = mInflater.inflate(R.layout.comment_item, parent, false);
 				setUpCommentRow(position, view);
+			} else if (getItemViewType(position) == VIEW_HIT_ON) {
+				view = mInflater.inflate(R.layout.comment_item,
+						parent, false);
+				setUpHitOnRow(position, view);
 			} else if (getItemViewType(position) == VIEW_SPOTTED) {
 				view = mInflater.inflate(R.layout.spotted_notification_header,
 						parent, false);
@@ -120,6 +141,53 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 		}
 		return view;
 
+	}
+
+	private void setUpHitOnRow(int position, View view) {
+		HitOn commentItem;
+		commentItem = (HitOn) getItem(position);
+
+		TextView name = (TextView) view.findViewById(R.id.name);
+		TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
+		TextView statusMsg = (TextView) view.findViewById(R.id.text);
+		ImageView profilePic = (ImageView) view.findViewById(R.id.profilePic);
+
+		name.setText(commentItem.getAuthorName());
+		name.setOnClickListener(new IdParameterOnClickListener(commentItem.getSeducerId()){
+			 @Override
+	            public void onClick(View v) {
+				 Intent showProfileIntent = new Intent(context,
+							ProfileActivity.class);
+					showProfileIntent.putExtra("userToRetrieveId", id);
+					context.startActivity(showProfileIntent);
+	            }
+		} );
+		// Converting timestamp into time ago format
+		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(commentItem
+				.getTimestamp().getValue(), System.currentTimeMillis(),
+				DateUtils.SECOND_IN_MILLIS);
+		timestamp.setText(timeAgo);
+
+		// Check for empty status message
+		if (!TextUtils.isEmpty(commentItem.getContact())) {
+			statusMsg.setText(commentItem.getContact());
+			statusMsg.setVisibility(View.VISIBLE);
+		} else {
+			// status is empty, remove from view
+			statusMsg.setVisibility(View.GONE);
+		}
+		profilePic.setOnClickListener(new IdParameterOnClickListener(commentItem.getSeducerId()){
+			 @Override
+	            public void onClick(View v) {
+				 Intent showProfileIntent = new Intent(context,
+							ProfileActivity.class);
+					showProfileIntent.putExtra("userToRetrieveId", id);
+					context.startActivity(showProfileIntent);
+	            }
+		} );
+		// retrieve profile pic with asynctask
+		new RetrieveCommentProfilePicTask(profilePic, commentItem.getSeducerId()).execute();
+		
 	}
 
 	private void setUpEventHeader(int position, View view) {
@@ -276,8 +344,8 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	}
 
 	public class RetrieveCommentProfilePicTask extends
-			AsyncTask<Void, String, String> {
-
+			AsyncTask<Void, String, byte[]> {
+		private PoliUser poliUser = new PoliUser();
 		private ImageView view;
 		private long userId;
 
@@ -287,17 +355,31 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 		}
 
 		@Override
-		protected String doInBackground(Void...voids) {
+		protected byte[] doInBackground(Void...voids) {
 			//TODO
 			// retrieve from server the picture of the user having id = userId
 			// and pass it to a
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			//check if email is available 
+			/**ResponseObject pic = null;
+			try {
+				pic=endpoint.getPictureUser(userId).execute();
+			} catch (IOException e2) {
+			}
+			byte[] byteArrayPic = (byte[])pic;
+			return byteArrayPic;
+			**/
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(String pic) {
-			if (pic != null && view != null) {
-				byte[] byteArrayImage = Base64.decode(pic, Base64.DEFAULT);
+		protected void onPostExecute(byte[] byteArrayImage) {
+			if (byteArrayImage != null && view != null) {
+				//byte[] byteArrayImage = Base64.decode(pic, Base64.DEFAULT);
 				view.setImageBitmap(BitmapFactory.decodeByteArray(
 						byteArrayImage, 0, byteArrayImage.length));
 			} else {

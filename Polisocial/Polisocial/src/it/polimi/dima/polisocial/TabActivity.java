@@ -117,7 +117,7 @@ public class TabActivity extends FragmentActivity implements
 	ActionBar actionBar;
 
 	private Boolean gpsAdvice = true;
-	private Intent intentGcmNotifica;
+	private Intent intentGcmNotifica = new Intent();
 
 	@Override
 	public void onBackPressed() {

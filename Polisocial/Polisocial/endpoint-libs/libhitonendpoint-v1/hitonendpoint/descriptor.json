@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/hitonendpoint/v1/20140924200552/java/1.18.0-rc/polimi.it-hitonendpoint-v1-20140924200552-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-hitonendpoint-v1-20140924200552-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/hitonendpoint/v1/20140926032141/java/1.18.0-rc/polimi.it-hitonendpoint-v1-20140926032141-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-hitonendpoint-v1-20140926032141-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-09-24 20:05"
+      "timestamp": "2014-09-26 03:21"
     }, 
     {
-      "path": "polimi.it-hitonendpoint-v1-20140924200552-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-hitonendpoint-v1-20140926032141-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "hitonendpoint:v1", 
-  "revision": 20140924200552
+  "revision": 20140926032141
 }

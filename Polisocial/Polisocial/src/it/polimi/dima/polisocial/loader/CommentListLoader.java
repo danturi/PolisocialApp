@@ -4,6 +4,9 @@ import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.CollectionResponseComment;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
+import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
+import it.polimi.dima.polisocial.entity.hitonendpoint.model.CollectionResponseHitOn;
+import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
@@ -96,6 +99,25 @@ public class CommentListLoader extends AsyncTaskLoader<List<Object>> {
 		//case hit_on
 		}else{
 			//TODO retrieve hit_on related to the post
+			Hitonendpoint.Builder build = new Hitonendpoint.Builder(
+    				AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+
+    		build= CloudEndpointUtils.updateBuilder(build);
+    		Hitonendpoint commEndpoint = build.setApplicationName("polimisocial").build();
+    		
+    		CollectionResponseHitOn comments;
+			try {
+				comments = commEndpoint.getUserHitOn(postId).execute();
+				
+	    		
+	    		if(comments.getItems()!=null){
+	    			for ( HitOn c : comments.getItems())
+	    	    		entries.add(c);
+	    		}
+			} catch (IOException e) {
+				e.printStackTrace();
+				Toast.makeText(getContext(), "Retreiving comments failed.Connection error.",Toast.LENGTH_SHORT).show();
+			}
 		}
 			
 		return entries;
@@ -113,8 +135,8 @@ public class CommentListLoader extends AsyncTaskLoader<List<Object>> {
 	}
 	
 	private boolean notHitOn() {
-		return !notificationCategory.equals(notificationCategory.equals(NotificationCategory.HIT_ON
-						.toString()));
+		return !notificationCategory.equals(NotificationCategory.HIT_ON
+						.toString());
 	}
 	/**
 	 * Called when there is new data to deliver to the client. The super

@@ -1,8 +1,12 @@
 package it.polimi.dima.polisocial;
 
+import it.polimi.dima.polisocial.RegistrationActivity.UserLoginTask;
 import it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.ProfileFieldType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
@@ -10,6 +14,8 @@ import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -28,6 +34,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,8 +44,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.internal.en;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 public class ProfileActivity extends SwipeBackActivity {
 
@@ -48,10 +57,12 @@ public class ProfileActivity extends SwipeBackActivity {
 	private View mProgressView;
 	private View mProfileScreen;
 	private long mUserToRetrieveId;
+	private long mThisUserId;
 	private boolean mShowEditable = false;
 	private ActionBar actionBar;
 	private SessionManager session;
-
+	private PoliUser poliuser;
+	
 	ImageView profilePic1;
 	TextView generalInfoText;
 	TextView selfSummaryLabel;
@@ -81,7 +92,7 @@ public class ProfileActivity extends SwipeBackActivity {
 		setContentView(R.layout.activity_profile);
 		getActionBar().setIcon(R.drawable.logo_login);
 		session = new SessionManager(getApplicationContext());
-		Long thisUserId = Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID));
+		mThisUserId = Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID));
 		
 
 		mSwipeBackLayout = getSwipeBackLayout();
@@ -112,7 +123,7 @@ public class ProfileActivity extends SwipeBackActivity {
 			mShowEditable = true;
 			// mUserToRetrieveId=SessionManager.getIdDellutenteLoggato
 			try {
-				new RetrieveProfileTask(thisUserId).execute();
+				new RetrieveProfileTask(mThisUserId).execute();
 			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -181,6 +192,12 @@ public class ProfileActivity extends SwipeBackActivity {
 			pictureInBytes = PictureEditing.compressPicture(picturePath);
 			// TODO:update pic on server
 			showPicture();
+			try {
+				new UpdateProfilePictureTask(pictureInBytes).execute();
+			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -236,7 +253,7 @@ public class ProfileActivity extends SwipeBackActivity {
 	 */
 	public class RetrieveProfileTask extends AsyncTask<Void, Void, Boolean> {
 
-		private PoliUser poliuser;
+
 		private long userId;
 
 		RetrieveProfileTask(long userId) throws NoSuchAlgorithmException,
@@ -470,5 +487,57 @@ public class ProfileActivity extends SwipeBackActivity {
 		}
 
 	}
+	
+	public class UpdateProfilePictureTask extends AsyncTask<Void, Void, Boolean> {
+
+		private String mPicture;
+		
+		UpdateProfilePictureTask(byte[] picture) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+			this.mPicture = Base64.encodeToString(picture, Base64.DEFAULT);	
+		}
+		
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			
+			poliuser.setProfilePicture1(mPicture);
+	
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+
+			
+			//check if email is available 
+			try {
+					endpoint.updatePoliUser(poliuser).execute();
+			} catch (IOException e2) {
+				return false;
+			}
+			return true;
+			}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			showProgress(false);
+			if(result){
+				Toast toast = Toast.makeText(getApplicationContext(), "DONE! You have just changed your photo", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+			}else{
+				Toast toast = Toast.makeText(getApplicationContext(), "Can't perform operation. Please retry", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+
+		}
+
+		@Override
+		protected void onCancelled() {
+			showProgress(false);
+		}
+	}
+	
 
 }
