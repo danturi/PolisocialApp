@@ -366,11 +366,17 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			
 			//check if email is available 
 			ResponseObject pic = null;
+			String byteArrayPic;
 			try {
 				pic=endpoint.getPictureUser(userId).execute();
 			} catch (IOException e2) {
 			}
-			String byteArrayPic = (String) pic.getObject();
+			if(pic.getObject()!=null){
+				byteArrayPic = (String) pic.getObject();
+			}else {
+				byteArrayPic=null;
+			}
+			
 			return byteArrayPic;
 			
 			
