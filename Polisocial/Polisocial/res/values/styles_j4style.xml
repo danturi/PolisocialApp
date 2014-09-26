@@ -29,7 +29,7 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_j4style</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_j4style</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.J4style</item>
-        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsTranslucent">true</item>
         
                 <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.J4style.Widget</item>

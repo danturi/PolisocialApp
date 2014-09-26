@@ -17,7 +17,7 @@
                 android:id="@+id/profilePic"
                 android:layout_width="@dimen/comment_item_profile_pic"
                 android:layout_height="@dimen/comment_item_profile_pic"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:clickable="true" >
             </ImageView>
 

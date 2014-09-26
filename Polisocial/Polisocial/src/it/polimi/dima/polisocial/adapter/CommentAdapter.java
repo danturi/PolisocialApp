@@ -344,7 +344,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	}
 
 	public class RetrieveCommentProfilePicTask extends
-			AsyncTask<Void, String, byte[]> {
+			AsyncTask<Void, String, String> {
 		private PoliUser poliUser = new PoliUser();
 		private ImageView view;
 		private long userId;
@@ -355,7 +355,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 		}
 
 		@Override
-		protected byte[] doInBackground(Void...voids) {
+		protected String doInBackground(Void...voids) {
 			//TODO
 			// retrieve from server the picture of the user having id = userId
 			// and pass it to a
@@ -365,21 +365,21 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 			
 			//check if email is available 
-			/**ResponseObject pic = null;
+			ResponseObject pic = null;
 			try {
 				pic=endpoint.getPictureUser(userId).execute();
 			} catch (IOException e2) {
 			}
-			byte[] byteArrayPic = (byte[])pic;
+			String byteArrayPic = (String) pic.getObject();
 			return byteArrayPic;
-			**/
-			return null;
+			
+			
 		}
 
 		@Override
-		protected void onPostExecute(byte[] byteArrayImage) {
-			if (byteArrayImage != null && view != null) {
-				//byte[] byteArrayImage = Base64.decode(pic, Base64.DEFAULT);
+		protected void onPostExecute(String pic) {
+			if (pic != null && view != null) {
+				byte[] byteArrayImage = Base64.decode(pic, Base64.DEFAULT);
 				view.setImageBitmap(BitmapFactory.decodeByteArray(
 						byteArrayImage, 0, byteArrayImage.length));
 			} else {
