@@ -254,7 +254,7 @@ public class CommentEndpoint {
 		// commento appena inserito
 		ArrayList<Long> authorsCommentIds = new ArrayList<Long>();
 		for (Comment c : postComments.getItems()) {
-			if (c.getAuthorId() != userLastComment) {
+			if (!(c.getAuthorId().compareTo(userLastComment)==0)) {
 				// elimina doppia notifica all'autore post che si è auto-commentato precedentemente
 				// e elimina doppioni notifiche a chi ha commentato più volte il
 				// post

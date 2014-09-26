@@ -14,9 +14,13 @@ import it.polimi.dima.polisocial.foursquare.constants.Constants;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -191,7 +195,7 @@ public class FoursquarePolisocialAPI {
 	public ArrayList<String> findInfoAddress(
 			@Named("coordinates") String coordinates) throws NotFoundException {
 
-		String coordinate = "45.478178,9.228031";
+		//String coordinates = "45.478178,9.228031";
 		String address = null;
 		String city = null;
 		String state = null;
@@ -201,7 +205,7 @@ public class FoursquarePolisocialAPI {
 		// find address from coordinates via Google Web service
 		String baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
 		StringBuilder urlBuilder = new StringBuilder(baseUrl);
-		urlBuilder.append(coordinate);
+		urlBuilder.append(coordinates);
 		urlBuilder.append("&location_type=ROOFTOP&result_type=street_address");
 		urlBuilder.append("&key=" + Constants.GOOGLE_API_SERVER_KEY);
 		String url = urlBuilder.toString();
@@ -297,29 +301,52 @@ public class FoursquarePolisocialAPI {
 	 * @throws NotFoundException 
 	 */
 	@ApiMethod(name = "findDistanceAndWalkingDuration", httpMethod = HttpMethod.GET)
-	public ArrayList<String> findDistanceAndWalkingDuration(
-			@Named("origLat") Long origLat, @Named("origLong") Long origLong,
-			@Named("venueCoord") String venueCoord) throws NotFoundException {
+	public ResponseObject findDistanceAndWalkingDuration(
+			@Named("origLat") Double origLat, @Named("origLong") Double origLong,
+			@Named("venuesCoord") String venuesCoord) throws NotFoundException {
 
-		venueCoord = "45.478178,9.228031";
- 
+		//venuesCoord.add("45.478178,9.228031");
+		//venuesCoord.add("45.478178,9.228031");
+		ArrayList<String> venuesCoordArray = new ArrayList<String>();
+		StringTokenizer tokenizer = new StringTokenizer(venuesCoord,",");
+		while(tokenizer.hasMoreElements()){
+			StringBuilder coord = new StringBuilder();
+			coord.append((String) tokenizer.nextElement());
+			coord.append(",");
+			coord.append((String) tokenizer.nextElement());
+			venuesCoordArray.add(coord.toString());
+		}
+		log.info(venuesCoordArray.toString());
+		System.out.println(venuesCoordArray.toString());
 		
 		// find distance from coordinates via Google Web service
 		String baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
 		StringBuilder urlBuilder = new StringBuilder(baseUrl);
 		urlBuilder.append(origLat + "," + origLong);
 		urlBuilder.append("&destinations=");
-		/*
-		 * for (int i=0;i<listVenues.size();i++){
-		 * urlBuilder.append("|"+listVenues.get(i).get(coord)); }
-		 */
-		urlBuilder.append(venueCoord);
+		
+		 Iterator<String> iter = venuesCoordArray.iterator();
+		 urlBuilder.append(iter.next());
+		 while(iter.hasNext()){
+			 log.info("ciclo");
+			 try {
+				 urlBuilder.append(URLEncoder.encode("|","UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			 urlBuilder.append(iter.next());
+		 }
+
+		//urlBuilder.append(venueCoord);
 		urlBuilder.append("&mode=walking&language=en-EN&key="
 				+ Constants.GOOGLE_API_SERVER_KEY);
 		String url = urlBuilder.toString();
+		System.out.println(url);
 		URL addressUrl;
 		JSONObject obj = null;
-		ArrayList<String> attributes = new ArrayList<String>();
+		ArrayList<ArrayList<String>> attributes = new ArrayList<ArrayList<String>>();
+		
+		ResponseObject response = new ResponseObject();
 		String exception = null;
 
 		try {
@@ -341,21 +368,32 @@ public class FoursquarePolisocialAPI {
 				
 				String duration = "";
 				String distance = "";
+				Integer value =99999999;
 				JSONArray element = (JSONArray) elements.get("elements");
-				JSONObject myElem = (JSONObject) element.get(0);
-				if (myElem.get("status").equals("OK")) {
-					duration = myElem.getJSONObject("duration").getString("text");
-							
-					distance = myElem.getJSONObject("distance").getString("text");
-							
-					attributes.add(distance);
-					attributes.add(duration);
-				}
+				for (int i=0;i<element.length();i++){
+					
+					JSONObject myElem = (JSONObject) element.get(i);
+					if (myElem.get("status").equals("OK")) {
+						duration = myElem.getJSONObject("duration").getString("text");
+								
+						distance = myElem.getJSONObject("distance").getString("text");
+						value = (Integer) myElem.getJSONObject("distance").get("value");
+					}
+					ArrayList<String> attr = new ArrayList<String>();
+						attr.add(value.toString());
+						attr.add(distance+"    "+duration+" by foot");
+						attributes.add(attr);
+					}
+				
+			
 			} else {
-				exception = obj.get("error_message").toString();
-				log.warning(exception);
+				if(obj.has("error_message")){
+					exception = obj.get("error_message").toString();
+					log.warning(exception);
+				}
 				throw new NotFoundException(exception);
 			}
+			
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -368,7 +406,9 @@ public class FoursquarePolisocialAPI {
 			e.printStackTrace();
 		}
 		log.info(attributes.toString()); 
-		return attributes;
+		response.setException(exception);
+		response.setObject(attributes);
+		return response;
 
 	}
 

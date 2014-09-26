@@ -263,17 +263,26 @@ public class PoliUserEndpoint {
 	}
 	
 	@ApiMethod(name = "getPictureUser")
-	public ResponseObject getPictureUser(@Named("userId") Long userId) throws NotFoundException {
+	public ResponseObject getPictureUser(@Named("userId") Long userId) {
 		
+		ResponseObject o = new ResponseObject();
+		o.setObject(null);
 		EntityManager mgr = getEntityManager();
 		List<Blob> results = new ArrayList<Blob>();
 		Query q = mgr.createQuery ("SELECT x.profilePicture1 FROM PoliUser x WHERE x.userId = ?1");
 		q.setParameter (1, userId);
 		results = q.getResultList();
-		if(results.isEmpty()) throw new NotFoundException("Not Found Picture");
+		if(results.isEmpty()){
+			o.setException("No image found");
+			return o;
+		}
+		if(results.get(0) == null){
+			o.setException("No image found");
+			return o;
+		}
 		Blob pictureUser = results.get(0);
 		byte[] imageResized = resize(pictureUser.getBytes());
-		ResponseObject o = new ResponseObject();
+	
 		o.setObject(imageResized);
 		return o;
 	}
@@ -305,7 +314,7 @@ public class PoliUserEndpoint {
         ImagesService imagesService = ImagesServiceFactory.getImagesService();
 
         Image oldImage = ImagesServiceFactory.makeImage(oldImageData);
-        Transform resize = ImagesServiceFactory.makeResize(30, 40);
+        Transform resize = ImagesServiceFactory.makeResize(50, 50);
 
         Image newImage = imagesService.applyTransform(resize, oldImage);
 

@@ -101,7 +101,7 @@
       }
     },
     "foursquareendpoint.findDistanceAndWalkingDuration" : {
-      "path" : "findDistanceAndWalkingDuration/{origLat}/{origLong}/{venueCoord}",
+      "path" : "findDistanceAndWalkingDuration/{origLat}/{origLong}/{venuesCoord}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -111,14 +111,14 @@
       "request" : {
         "parameters" : {
           "origLat" : {
-            "type" : "int64",
+            "type" : "double",
             "required" : true
           },
           "origLong" : {
-            "type" : "int64",
+            "type" : "double",
             "required" : true
           },
-          "venueCoord" : {
+          "venuesCoord" : {
             "type" : "string",
             "required" : true
           }
@@ -226,7 +226,7 @@
       },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findDistanceAndWalkingDuration" : {
         "response" : {
-          "$ref" : "StringCollection"
+          "$ref" : "ResponseObject"
         }
       },
       "it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI.findInfoAddress" : {
