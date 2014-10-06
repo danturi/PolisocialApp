@@ -30,11 +30,13 @@ public abstract class Post {
 		
 		private String text;
 		
-		private Blob picture;
+		//private Blob picture;
 		
 		private String title;
 		
 		private Date timestamp;
+		
+		private Boolean havePicture;
 		
 		
 		public Long getId(){
@@ -67,6 +69,7 @@ public abstract class Post {
 			this.timestamp = timestamp;
 		}
 
+		/*
 		public Blob getPicture() {
 			return picture;
 		}
@@ -74,6 +77,7 @@ public abstract class Post {
 		public void setPicture(Blob picture) {
 			this.picture = picture;
 		}
+		*/
 
 		public String getTitle() {
 			return title;
@@ -81,6 +85,16 @@ public abstract class Post {
 
 		public void setTitle(String title) {
 			this.title = title;
+		}
+
+
+		public Boolean getHavePicture() {
+			return havePicture;
+		}
+
+
+		public void setHavePicture(Boolean havePicture) {
+			this.havePicture = havePicture;
 		}
 
 

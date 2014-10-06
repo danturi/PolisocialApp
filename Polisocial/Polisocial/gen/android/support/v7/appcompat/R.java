@@ -136,33 +136,33 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f0b0002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f080032;
-		public static final int abc_search_url_text_normal = 0x7f08001e;
-		public static final int abc_search_url_text_pressed = 0x7f080020;
-		public static final int abc_search_url_text_selected = 0x7f08001f;
+		public static final int abc_search_url_text_holo = 0x7f090032;
+		public static final int abc_search_url_text_normal = 0x7f09001e;
+		public static final int abc_search_url_text_pressed = 0x7f090020;
+		public static final int abc_search_url_text_selected = 0x7f09001f;
 	}
 	public static final class dimen {
-		public static final int abc_action_bar_default_height = 0x7f0a0010;
-		public static final int abc_action_bar_icon_vertical_padding = 0x7f0a0011;
-		public static final int abc_action_bar_progress_bar_size = 0x7f0a0018;
-		public static final int abc_action_bar_stacked_max_height = 0x7f0a0017;
-		public static final int abc_action_bar_stacked_tab_max_width = 0x7f0a000f;
-		public static final int abc_action_bar_subtitle_bottom_margin = 0x7f0a0015;
-		public static final int abc_action_bar_subtitle_text_size = 0x7f0a0013;
-		public static final int abc_action_bar_subtitle_top_margin = 0x7f0a0014;
-		public static final int abc_action_bar_title_text_size = 0x7f0a0012;
-		public static final int abc_action_button_min_width = 0x7f0a0016;
-		public static final int abc_config_prefDialogWidth = 0x7f0a000e;
-		public static final int abc_dropdownitem_icon_width = 0x7f0a001e;
-		public static final int abc_dropdownitem_text_padding_left = 0x7f0a001c;
-		public static final int abc_dropdownitem_text_padding_right = 0x7f0a001d;
-		public static final int abc_panel_menu_list_width = 0x7f0a0019;
-		public static final int abc_search_view_preferred_width = 0x7f0a001b;
-		public static final int abc_search_view_text_min_width = 0x7f0a001a;
-		public static final int dialog_fixed_height_major = 0x7f0a0021;
-		public static final int dialog_fixed_height_minor = 0x7f0a0022;
-		public static final int dialog_fixed_width_major = 0x7f0a001f;
-		public static final int dialog_fixed_width_minor = 0x7f0a0020;
+		public static final int abc_action_bar_default_height = 0x7f080010;
+		public static final int abc_action_bar_icon_vertical_padding = 0x7f080011;
+		public static final int abc_action_bar_progress_bar_size = 0x7f080018;
+		public static final int abc_action_bar_stacked_max_height = 0x7f080017;
+		public static final int abc_action_bar_stacked_tab_max_width = 0x7f08000f;
+		public static final int abc_action_bar_subtitle_bottom_margin = 0x7f080015;
+		public static final int abc_action_bar_subtitle_text_size = 0x7f080013;
+		public static final int abc_action_bar_subtitle_top_margin = 0x7f080014;
+		public static final int abc_action_bar_title_text_size = 0x7f080012;
+		public static final int abc_action_button_min_width = 0x7f080016;
+		public static final int abc_config_prefDialogWidth = 0x7f08000e;
+		public static final int abc_dropdownitem_icon_width = 0x7f08001e;
+		public static final int abc_dropdownitem_text_padding_left = 0x7f08001c;
+		public static final int abc_dropdownitem_text_padding_right = 0x7f08001d;
+		public static final int abc_panel_menu_list_width = 0x7f080019;
+		public static final int abc_search_view_preferred_width = 0x7f08001b;
+		public static final int abc_search_view_text_min_width = 0x7f08001a;
+		public static final int dialog_fixed_height_major = 0x7f080021;
+		public static final int dialog_fixed_height_minor = 0x7f080022;
+		public static final int dialog_fixed_width_major = 0x7f08001f;
+		public static final int dialog_fixed_width_minor = 0x7f080020;
 	}
 	public static final class drawable {
 		public static final int abc_ab_bottom_solid_dark_holo = 0x7f020006;
@@ -287,7 +287,7 @@ public final class R {
 		public static final int list_item = 0x7f050041;
 		public static final int middle = 0x7f05002a;
 		public static final int never = 0x7f050022;
-		public static final int none = 0x7f050004;
+		public static final int none = 0x7f050007;
 		public static final int normal = 0x7f050005;
 		public static final int progress_circular = 0x7f050030;
 		public static final int progress_horizontal = 0x7f050031;
@@ -316,7 +316,7 @@ public final class R {
 		public static final int withText = 0x7f050025;
 	}
 	public static final class integer {
-		public static final int abc_max_action_buttons = 0x7f090001;
+		public static final int abc_max_action_buttons = 0x7f0a0001;
 	}
 	public static final class layout {
 		public static final int abc_action_bar_decor = 0x7f030000;

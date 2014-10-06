@@ -5,7 +5,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>it.polimi.dima.polisocial.DeviceInfoEndpoint,it.polimi.dima.polisocial.MessageEndpoint,it.polimi.dima.polisocial.entity.CommentEndpoint,it.polimi.dima.polisocial.entity.HitOnEndpoint,it.polimi.dima.polisocial.entity.InitiativeEndpoint,it.polimi.dima.polisocial.entity.NotificationEndpoint,it.polimi.dima.polisocial.entity.PoliUserEndpoint,it.polimi.dima.polisocial.entity.PostSpottedEndpoint,it.polimi.dima.polisocial.entity.PrivateLessonEndpoint,it.polimi.dima.polisocial.entity.RentalEndpoint,it.polimi.dima.polisocial.entity.SecondHandBookEndpoint,it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI</param-value>
+   <param-value>it.polimi.dima.polisocial.DeviceInfoEndpoint,it.polimi.dima.polisocial.MessageEndpoint,it.polimi.dima.polisocial.entity.CommentEndpoint,it.polimi.dima.polisocial.entity.HitOnEndpoint,it.polimi.dima.polisocial.entity.InitiativeEndpoint,it.polimi.dima.polisocial.entity.NotificationEndpoint,it.polimi.dima.polisocial.entity.PoliUserEndpoint,it.polimi.dima.polisocial.entity.PostImageEndpoint,it.polimi.dima.polisocial.entity.PostSpottedEndpoint,it.polimi.dima.polisocial.entity.PrivateLessonEndpoint,it.polimi.dima.polisocial.entity.RentalEndpoint,it.polimi.dima.polisocial.entity.SecondHandBookEndpoint,it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>

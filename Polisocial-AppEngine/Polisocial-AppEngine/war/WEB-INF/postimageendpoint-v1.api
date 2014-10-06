@@ -1,0 +1,249 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://polimisocial.appspot.com/_ah/api",
+  "name" : "postimageendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://polimisocial.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "polimi.it",
+  "ownerName" : "polimi.it",
+  "packagePath" : "dima.polisocial.entity",
+  "methods" : {
+    "postimageendpoint.getImageFromPostId" : {
+      "path" : "getImageFromPostId",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.getImageFromPostId",
+      "request" : {
+        "parameters" : {
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.listPostImage" : {
+      "path" : "postimage",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.listPostImage",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.getPostImage" : {
+      "path" : "postimage/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.getPostImage",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.updatePostImage" : {
+      "path" : "postimage",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.updatePostImage",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.insertPostImage" : {
+      "path" : "postimage",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.insertPostImage",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.removePostImage" : {
+      "path" : "postimage/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.removePostImage",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "PostImage" : {
+        "id" : "PostImage",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "postId" : {
+            "$ref" : "Post"
+          },
+          "image" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        }
+      },
+      "Post" : {
+        "id" : "Post",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "text" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "havePicture" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CollectionResponse_PostImage" : {
+        "id" : "CollectionResponse_PostImage",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PostImage"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.getImageFromPostId" : {
+        "response" : {
+          "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.listPostImage" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.getPostImage" : {
+        "response" : {
+          "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.updatePostImage" : {
+        "request" : {
+          "$ref" : "PostImage"
+        },
+        "response" : {
+          "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.insertPostImage" : {
+        "request" : {
+          "$ref" : "PostImage"
+        },
+        "response" : {
+          "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.entity.PostImageEndpoint.removePostImage" : {
+      }
+    }
+  }
+}

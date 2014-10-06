@@ -144,16 +144,15 @@
           "text" : {
             "type" : "string"
           },
-          "picture" : {
-            "type" : "string",
-            "format" : "byte"
-          },
           "title" : {
             "type" : "string"
           },
           "timestamp" : {
             "type" : "string",
             "format" : "date-time"
+          },
+          "havePicture" : {
+            "type" : "boolean"
           },
           "postCategory" : {
             "type" : "string"
