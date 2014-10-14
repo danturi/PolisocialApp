@@ -164,6 +164,7 @@ public class ProfileActivity extends SwipeBackActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_search) {
+			startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

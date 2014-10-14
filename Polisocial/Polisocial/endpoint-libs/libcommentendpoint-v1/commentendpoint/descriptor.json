@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/commentendpoint/v1/20141006230143/java/1.18.0-rc/polimi.it-commentendpoint-v1-20141006230143-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-commentendpoint-v1-20141006230143-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/commentendpoint/v1/20141012150459/java/1.18.0-rc/polimi.it-commentendpoint-v1-20141012150459-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-commentendpoint-v1-20141012150459-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-06 23:01"
+      "timestamp": "2014-10-12 15:04"
     }, 
     {
-      "path": "polimi.it-commentendpoint-v1-20141006230143-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-commentendpoint-v1-20141012150459-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "commentendpoint:v1", 
-  "revision": 20141006230143
+  "revision": 20141012150459
 }

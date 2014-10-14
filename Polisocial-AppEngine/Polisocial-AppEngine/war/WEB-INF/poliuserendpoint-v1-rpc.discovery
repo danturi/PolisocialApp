@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/Hgqhs2e9ImM4oEw9yXarak_qtpQ\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/sFQAcZFLsOq8wiFaVs8VQ9Nx5jY\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -72,6 +72,15 @@
   }
  },
  "schemas": {
+  "Blob": {
+   "id": "Blob",
+   "type": "object",
+   "properties": {
+    "binaryStream": {
+     "$ref": "InputStream"
+    }
+   }
+  },
   "CollectionResponse_PoliUser": {
    "id": "CollectionResponse_PoliUser",
    "type": "object",
@@ -86,6 +95,25 @@
      "type": "string"
     }
    }
+  },
+  "CollectionResponse_UserDTO": {
+   "id": "CollectionResponse_UserDTO",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "UserDTO"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "InputStream": {
+   "id": "InputStream",
+   "type": "object"
   },
   "PhoneNumber": {
    "id": "PhoneNumber",
@@ -221,6 +249,22 @@
     },
     "userId": {
      "type": "string"
+    }
+   }
+  },
+  "UserDTO": {
+   "id": "UserDTO",
+   "type": "object",
+   "properties": {
+    "nickname": {
+     "type": "string"
+    },
+    "picture": {
+     "$ref": "Blob"
+    },
+    "userId": {
+     "type": "string",
+     "format": "int64"
     }
    }
   },
@@ -380,6 +424,34 @@
    "parameterOrder": [
     "id"
    ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "poliuserendpoint.searchPoliUser": {
+   "id": "poliuserendpoint.searchPoliUser",
+   "parameters": {
+    "age": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "faculty": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "username": {
+     "type": "string"
+    }
+   },
+   "returns": {
+    "$ref": "CollectionResponse_UserDTO"
+   },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

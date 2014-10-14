@@ -1,9 +1,6 @@
 package it.polimi.dima.polisocial.adapter;
 
 import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 

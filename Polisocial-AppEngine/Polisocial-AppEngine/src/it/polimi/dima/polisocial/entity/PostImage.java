@@ -14,13 +14,13 @@ public class PostImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Post postId;
+	private Long postId;
 	private Blob  image;
 	
-	public Post getPostId() {
+	public Long getPostId() {
 		return postId;
 	}
-	public void setPostId(Post postId) {
+	public void setPostId(Long postId) {
 		this.postId = postId;
 	}
 	public Blob getImage() {

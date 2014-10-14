@@ -182,6 +182,99 @@ public class PoliUserEndpoint {
 				.setNextPageToken(cursorString).build();
 	}
 
+	
+	@SuppressWarnings({ "unchecked", "unused" })
+	@ApiMethod(name = "searchPoliUser")
+	public CollectionResponse<UserDTO> searchPoliUser(
+			@Nullable @Named("cursor") String cursorString,
+			@Nullable @Named("limit") Integer limit,
+			@Nullable @Named("username") String username,
+			@Nullable @Named("age")Integer age,
+			@Nullable @Named("faculty") String faculty) {
+
+		EntityManager mgr = null;
+		Cursor cursor = null;
+		List<UserDTO> listUserDTO = new ArrayList<UserDTO>(); 
+		Query query = null;
+
+		try {
+			mgr = getEntityManager();
+			if(username==null && age==null && faculty==null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p");
+			}
+			if(username==null && age!=null && faculty==null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.age=?1");
+				query.setParameter(1, age);
+			}
+			if(username==null && age==null && faculty!=null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.faculty=?1");
+				query.setParameter(1, faculty);
+			}
+			if(username==null && age!=null && faculty!=null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.faculty=?1 and p.age=?2");
+				query.setParameter(1, faculty);
+				query.setParameter(2, age);
+			}
+			if(username!=null && age==null && faculty==null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1");
+				query.setParameter(1, username);
+			}
+			if(username!=null && age!=null && faculty==null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1 and p.age=?2");
+				query.setParameter(1, username);
+				query.setParameter(2, age);
+			}
+			if(username!=null && age==null && faculty!=null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1 and p.faculty=?2");
+				query.setParameter(1, username);
+				query.setParameter(2, faculty);
+			}
+			if(username!=null && age!=null && faculty!=null){
+				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1 and p.age=?2 and p.faculty=?3");
+				query.setParameter(1, username);
+				query.setParameter(2, age);
+				query.setParameter(3, faculty);
+			}
+			
+			
+			if (cursorString != null && cursorString != "") {
+				cursor = Cursor.fromWebSafeString(cursorString);
+				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+			}
+
+			if (limit != null) {
+				query.setFirstResult(0);
+				query.setMaxResults(limit);
+			}
+
+			List<Object[]> results = (List<Object[]>) query.getResultList();
+			
+			cursor = JPACursorHelper.getCursor(results);
+			if (cursor != null)
+				cursorString = cursor.toWebSafeString();
+
+			for (Object[] result : results) {
+			    UserDTO user = new UserDTO();
+			    user.setUserId((Long) result[0]);
+			    user.setNickname((String) result[1]);
+			    user.setAge((Integer) result[2]);
+			    user.setFaculty((String) result[3]);
+				listUserDTO.add(user);
+			  }
+			// Tight loop for fetching all entities from datastore and accomodate
+			// for lazy fetch.
+			for (Object obj : results)
+				;
+		} finally {
+			mgr.close();
+		}
+
+		return CollectionResponse.<UserDTO> builder().setItems(listUserDTO)
+				.setNextPageToken(cursorString).build();
+	}
+
+	
+	
 	/**
 	 * This method gets the entity having primary key id. It uses HTTP GET method.
 	 *

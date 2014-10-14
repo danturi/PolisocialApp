@@ -109,6 +109,8 @@
     <string name="im_really_good_at_hint">Go on, brag a little (or a lot). We won\'t judge.</string>
     <string name="favorite_hint">That\'s easy</string>
     <string name="six_things_without_hint">One last effort and then your profile will be complete</string>
+    <string name="search_hint">Search users</string>
+    <string name="search">Search</string>
 
     <!-- profile label -->
     <string name="self_summary">SELF SUMMARY</string>
@@ -123,7 +125,7 @@
     <string name="title_activity_full_screen_pic">MyOwlCampus gallery mode</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="new_to_myowlcampus">New to myOwlCampus?</string>
-    
-    
+    <string name="title_activity_search">SearchActivity</string>
+   
 
 </resources>

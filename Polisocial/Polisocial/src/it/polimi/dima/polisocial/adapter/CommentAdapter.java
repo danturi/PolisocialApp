@@ -1,29 +1,25 @@
 package it.polimi.dima.polisocial.adapter;
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
+import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.ProfileActivity;
 import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
-import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -34,6 +30,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -95,13 +92,12 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			// if it is not the first element of the list, then inflate standard
 			// comment layout
 			default:
-				if(!notificationCategory.equals(NotificationCategory.HIT_ON
-						.toString())){
+				if (!notificationCategory.equals(NotificationCategory.HIT_ON
+						.toString())) {
 					return VIEW_ONLY_COMMENTS;
-				}else{
+				} else {
 					return VIEW_HIT_ON;
 				}
-				
 			}
 		}
 		return VIEW_ONLY_COMMENTS;
@@ -117,213 +113,338 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = null;
-		if (convertView == null) {
-			if (getItemViewType(position) == VIEW_ONLY_COMMENTS) {
-				view = mInflater.inflate(R.layout.comment_item, parent, false);
-				setUpCommentRow(position, view);
-			} else if (getItemViewType(position) == VIEW_HIT_ON) {
-				view = mInflater.inflate(R.layout.comment_item,
-						parent, false);
-				setUpHitOnRow(position, view);
-			} else if (getItemViewType(position) == VIEW_SPOTTED) {
-				view = mInflater.inflate(R.layout.spotted_notification_header,
-						parent, false);
-				setUpSpottedHeader(position, view);
-			} else if (getItemViewType(position) == VIEW_EVENT) {
-				view = mInflater.inflate(R.layout.event_notification_header,
-						parent, false);
-				setUpEventHeader(position, view);
-			}
-			// TODO add announcement case
-		} else {
-			view = convertView;
-		}
-		return view;
+		int type = getItemViewType(position);
 
+		switch (type) {
+		case VIEW_ONLY_COMMENTS:
+			CommentViewHolder holder;
+			View view = convertView;
+			if (view == null) {
+				view = mInflater.inflate(R.layout.comment_item, parent, false);
+				holder = new CommentViewHolder();
+				holder.name = (TextView) view.findViewById(R.id.name);
+				holder.timestamp = (TextView) view.findViewById(R.id.timestamp);
+				holder.statusMsg = (TextView) view.findViewById(R.id.text);
+				holder.profilePic = (ImageView) view
+						.findViewById(R.id.profilePic);
+			} else {
+				holder = (CommentViewHolder) view.getTag();
+			}
+			setUpCommentRow(position, holder);
+			return view;
+
+		case VIEW_SPOTTED:
+			SpottedViewHolder spottedHolder;
+			View spottedView = convertView;
+			if (spottedView == null) {
+				spottedView = mInflater.inflate(
+						R.layout.spotted_notification_header, parent, false);
+				spottedHolder = new SpottedViewHolder();
+				spottedHolder.title = (TextView) spottedView.findViewById(R.id.title);
+				spottedHolder.timestamp = (TextView) spottedView
+						.findViewById(R.id.timestamp);
+				spottedHolder.statusMsg = (TextView) spottedView
+						.findViewById(R.id.text);
+				spottedHolder.profilePic = (ImageView) spottedView
+						.findViewById(R.id.profilePic);
+				spottedHolder.postImage = (ImageView) spottedView
+						.findViewById(R.id.postImage);
+			} else {
+				spottedHolder = (SpottedViewHolder) spottedView.getTag();
+			}
+			setUpSpottedHeader(position, spottedHolder);
+			return spottedView;
+
+		case VIEW_EVENT:
+			EventViewHolder eventHolder;
+			View eventView = convertView;
+			if (eventView == null) {
+				eventView = mInflater.inflate(
+						R.layout.event_notification_header, parent, false);
+				eventHolder = new EventViewHolder();
+				eventHolder.eventPicture = (ImageView) eventView
+						.findViewById(R.id.event_picture);
+				eventHolder.title = (TextView) eventView.findViewById(R.id.title);
+				eventHolder.beginningDate = (TextView) eventView
+						.findViewById(R.id.beginning_date);
+				eventHolder.description = (TextView) eventView
+						.findViewById(R.id.description);
+				eventHolder.creationDate = (TextView) eventView
+						.findViewById(R.id.timestamp);
+				eventHolder.location = (TextView) eventView.findViewById(R.id.location);
+
+			} else {
+				eventHolder = (EventViewHolder)eventView.getTag();
+			}
+			setUpEventHeader(position, eventHolder);
+			return eventView;
+			
+		case VIEW_HIT_ON:
+			CommentViewHolder hitHolder;
+			View hitView = convertView;
+			if(hitView == null){
+				hitView = mInflater.inflate(R.layout.comment_item, parent, false);
+				hitHolder = new CommentViewHolder();
+				hitHolder.name = (TextView) hitView.findViewById(R.id.name);
+				hitHolder.timestamp = (TextView) hitView.findViewById(R.id.timestamp);
+				hitHolder.statusMsg = (TextView) hitView.findViewById(R.id.text);
+				hitHolder.profilePic = (ImageView) hitView.findViewById(R.id.profilePic);
+			}else{
+				hitHolder = (CommentViewHolder) hitView.getTag();
+			}
+			setUpHitOnRow(position, hitHolder);
+			return hitView;
+		}
+		return null;
 	}
 
-	private void setUpHitOnRow(int position, View view) {
+	private void setUpHitOnRow(int position, CommentViewHolder holder) {
 		HitOn commentItem;
 		commentItem = (HitOn) getItem(position);
 
-		TextView name = (TextView) view.findViewById(R.id.name);
-		TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
-		TextView statusMsg = (TextView) view.findViewById(R.id.text);
-		ImageView profilePic = (ImageView) view.findViewById(R.id.profilePic);
-
-		name.setText(commentItem.getAuthorName());
-		name.setOnClickListener(new IdParameterOnClickListener(commentItem.getSeducerId()){
-			 @Override
-	            public void onClick(View v) {
-				 Intent showProfileIntent = new Intent(context,
-							ProfileActivity.class);
-					showProfileIntent.putExtra("userToRetrieveId", id);
-					context.startActivity(showProfileIntent);
-	            }
-		} );
+		holder.name.setText(commentItem.getAuthorName());
+		holder.name.setOnClickListener(new IdParameterOnClickListener(commentItem
+				.getSeducerId()) {
+			@Override
+			public void onClick(View v) {
+				Intent showProfileIntent = new Intent(context,
+						ProfileActivity.class);
+				showProfileIntent.putExtra("userToRetrieveId", id);
+				context.startActivity(showProfileIntent);
+			}
+		});
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(commentItem
 				.getTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-		timestamp.setText(timeAgo);
+		holder.timestamp.setText(timeAgo);
 
-		// Check for empty status message
-		if (!TextUtils.isEmpty(commentItem.getContact())) {
-			statusMsg.setText(commentItem.getContact());
-			statusMsg.setVisibility(View.VISIBLE);
-		} else {
-			// status is empty, remove from view
-			statusMsg.setVisibility(View.GONE);
-		}
-		profilePic.setOnClickListener(new IdParameterOnClickListener(commentItem.getSeducerId()){
-			 @Override
-	            public void onClick(View v) {
-				 Intent showProfileIntent = new Intent(context,
-							ProfileActivity.class);
-					showProfileIntent.putExtra("userToRetrieveId", id);
-					context.startActivity(showProfileIntent);
-	            }
-		} );
+			holder.statusMsg.setText(commentItem.getContact());
+
+			holder.profilePic.setOnClickListener(new IdParameterOnClickListener(
+				commentItem.getSeducerId()) {
+			@Override
+			public void onClick(View v) {
+				Intent showProfileIntent = new Intent(context,
+						ProfileActivity.class);
+				showProfileIntent.putExtra("userToRetrieveId", id);
+				context.startActivity(showProfileIntent);
+			}
+		});
 		// retrieve profile pic with asynctask
-		new RetrieveCommentProfilePicTask(profilePic, commentItem.getSeducerId()).execute();
-		
+		new RetrieveCommentProfilePicTask(holder.profilePic,
+				commentItem.getSeducerId()).execute();
+
 	}
 
-	private void setUpEventHeader(int position, View view) {
+	private void setUpEventHeader(int position, EventViewHolder holder) {
 		Initiative item;
 		item = (Initiative) getItem(position);
-		ImageView eventPicture = (ImageView) view
-				.findViewById(R.id.event_picture);
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView beginningDate = (TextView) view
-				.findViewById(R.id.beginning_date);
-		TextView description = (TextView) view.findViewById(R.id.description);
-		TextView creationDate = (TextView) view.findViewById(R.id.timestamp);
-		TextView location = (TextView) view.findViewById(R.id.location);
 
 		// Event image
-		if (item.getPicture() != null) {
-			byte[] byteArrayImage = Base64.decode(item.getPicture(),
-					Base64.DEFAULT);
-			eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
-					byteArrayImage, 0, byteArrayImage.length));
-		} else {
-			eventPicture.setImageResource(R.drawable.event_no_pic);
-		}
-		title.setText(item.getTitle());
+		if(item.getHavePicture()){
+			//asynctask to retrieve post image
+			new AsyncTask<Object, Void, Boolean>() {
+			    private EventViewHolder v;
+			    private String s;
 
-		location.setText(item.getLocation());
-		String dateTime = item.getBeginningDate().toString();
-        String dateString = EventAdapter.composeDateString(dateTime.substring(0,4), dateTime.substring(5,7), dateTime.substring(8,10) );
-        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
+			    @Override
+			    protected Boolean doInBackground(Object... params) {
+			        v = (EventViewHolder)params[0];
+			        Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+							AndroidHttp.newCompatibleTransport(),
+							new JacksonFactory(), null);
+
+					imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+
+					Postimageendpoint imageEndpoint = imageBuilder
+							.setApplicationName("polimisocial").build();
+
+					try {
+						s=imageEndpoint.getImageFromPostId((long)params[1]).execute().getImage();
+					} catch (IOException e2) {
+						System.out.println(e2.getMessage());
+						return false;
+					}
+					return true;
+			    }
+
+
+			    @Override
+			    protected void onPostExecute(Boolean result) {
+
+			    	if(result){
+			    		final byte[] byteArrayImage = Base64.decode(s,
+								Base64.DEFAULT);
+						v.eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
+								byteArrayImage, 0, byteArrayImage.length));
+						v.eventPicture.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								Intent showFullScreenPicIntent = new Intent(context,
+										FullScreenPicActivity.class);
+								showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
+								context.startActivity(showFullScreenPicIntent);
+							}
+						});
+			    	}
+			    }
+			}.execute(holder,item.getId());
+		}else {
+			holder.eventPicture.setImageResource(R.drawable.event_no_pic);
+		}
 		
-		beginningDate.setText(dateString+" at "+ time);
+		
+		holder.title.setText(item.getTitle());
+
+		holder.location.setText(item.getLocation());
+		String dateTime = item.getBeginningDate().toString();
+		String dateString = EventAdapter.composeDateString(
+				dateTime.substring(0, 4), dateTime.substring(5, 7),
+				dateTime.substring(8, 10));
+		String time = dateTime.substring(11, Math.min(dateTime.length(), 16));
+
+		holder.beginningDate.setText(dateString + " at " + time);
 
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 				.getTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-		creationDate.setText("created " + timeAgo);
-		description.setText(item.getText());
-		EventAdapter.makeTextViewResizable(description, 3, "View More", true);
+		holder.creationDate.setText("created " + timeAgo);
+		holder.description.setText(item.getText());
+		EventAdapter.makeTextViewResizable(holder.description, 3, "View More", true);
 
 	}
 
-	private void setUpSpottedHeader(int position, View view) {
+	private void setUpSpottedHeader(int position, SpottedViewHolder holder) {
 		PostSpotted item = (PostSpotted) getItem(position);
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
-		TextView statusMsg = (TextView) view.findViewById(R.id.text);
-		ImageView profilePic = (ImageView) view.findViewById(R.id.profilePic);
-		ImageView postImage = (ImageView) view.findViewById(R.id.postImage);
 
-		title.setText(item.getTitle());
+		holder.title.setText(item.getTitle());
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 				.getTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-		timestamp.setText(timeAgo);
+		holder.timestamp.setText(timeAgo);
 		// Check for empty status message
 		if (!TextUtils.isEmpty(item.getText())) {
-			statusMsg.setText(item.getText());
-			statusMsg.setVisibility(View.VISIBLE);
+			holder.statusMsg.setText(item.getText());
+			holder.statusMsg.setVisibility(View.VISIBLE);
 		} else {
 			// status is empty, remove from view
-			statusMsg.setVisibility(View.GONE);
+			holder.statusMsg.setVisibility(View.GONE);
 		}
 		switch (item.getPostCategory()) {
 		case "Fun":
-			profilePic.setImageResource(R.drawable.owl_fun);
+			holder.profilePic.setImageResource(R.drawable.owl_fun);
 			break;
 		case "Love":
-			profilePic.setImageResource(R.drawable.owl_love);
+			holder.profilePic.setImageResource(R.drawable.owl_love);
 			break;
 		case "Complaint":
-			profilePic.setImageResource(R.drawable.owl_complaint);
+			holder.profilePic.setImageResource(R.drawable.owl_complaint);
 			break;
 		case "Advice":
-			profilePic.setImageResource(R.drawable.owl_advice);
+			holder.profilePic.setImageResource(R.drawable.owl_advice);
 			break;
 		default:
-			profilePic.setImageResource(R.drawable.owl_fun);
+			holder.profilePic.setImageResource(R.drawable.owl_fun);
 
 		}
 		// Feed image
-		if (item.getPicture() != null) {
-			byte[] byteArrayImage = Base64.decode(item.getPicture(),
-					Base64.DEFAULT);
-			postImage.setImageBitmap(BitmapFactory.decodeByteArray(
-					byteArrayImage, 0, byteArrayImage.length));
-			postImage.setVisibility(View.VISIBLE);
+		if (item.getHavePicture()) {
+			holder.postImage.setVisibility(View.VISIBLE);
+
+			// asynctask to retrieve post image
+			new AsyncTask<Object, Void, Boolean>() {
+				private SpottedViewHolder v;
+				private String s;
+
+				@Override
+				protected Boolean doInBackground(Object... params) {
+					v = (SpottedViewHolder) params[0];
+					Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+							AndroidHttp.newCompatibleTransport(),
+							new JacksonFactory(), null);
+
+					imageBuilder = CloudEndpointUtils
+							.updateBuilder(imageBuilder);
+
+					Postimageendpoint imageEndpoint = imageBuilder
+							.setApplicationName("polimisocial").build();
+
+					try {
+						s=imageEndpoint.getImageFromPostId((long) params[1])
+								.execute().getImage();
+					} catch (IOException e2) {
+						System.out.println(e2.getMessage());
+						return false;
+					}
+					return true;
+				}
+
+				@Override
+				protected void onPostExecute(Boolean result) {
+					if (result) {
+						final byte[] byteArrayImage = Base64.decode(s,
+								Base64.DEFAULT);
+						v.postImage.setImageBitmap(BitmapFactory
+								.decodeByteArray(byteArrayImage, 0,
+										byteArrayImage.length));
+						v.postImage.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								Intent showFullScreenPicIntent = new Intent(
+										context, FullScreenPicActivity.class);
+								showFullScreenPicIntent.putExtra("picInByte",
+										byteArrayImage);
+								context.startActivity(showFullScreenPicIntent);
+							}
+						});
+					}
+				}
+			}.execute(holder, item.getId());
+
+			// case with no post picture
 		} else {
-			postImage.setVisibility(View.GONE);
+			holder.postImage.setVisibility(View.GONE);
 		}
 	}
 
-	private void setUpCommentRow(int position, View view) {
+	private void setUpCommentRow(int position, CommentViewHolder holder) {
 		Comment commentItem;
 		commentItem = (Comment) getItem(position);
 
-		TextView name = (TextView) view.findViewById(R.id.name);
-		TextView timestamp = (TextView) view.findViewById(R.id.timestamp);
-		TextView statusMsg = (TextView) view.findViewById(R.id.text);
-		ImageView profilePic = (ImageView) view.findViewById(R.id.profilePic);
-
-		name.setText(commentItem.getAuthorName());
-		name.setOnClickListener(new IdParameterOnClickListener(commentItem.getAuthorId()){
-			 @Override
-	            public void onClick(View v) {
-				 Intent showProfileIntent = new Intent(context,
-							ProfileActivity.class);
-					showProfileIntent.putExtra("userToRetrieveId", id);
-					context.startActivity(showProfileIntent);
-	            }
-		} );
+		holder.name.setText(commentItem.getAuthorName());
+		holder.name.setOnClickListener(new IdParameterOnClickListener(
+				commentItem.getAuthorId()) {
+			@Override
+			public void onClick(View v) {
+				Intent showProfileIntent = new Intent(context,
+						ProfileActivity.class);
+				showProfileIntent.putExtra("userToRetrieveId", id);
+				context.startActivity(showProfileIntent);
+			}
+		});
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(commentItem
 				.getCommentTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-		timestamp.setText(timeAgo);
-
-		// Check for empty status message
-		if (!TextUtils.isEmpty(commentItem.getText())) {
-			statusMsg.setText(commentItem.getText());
-			statusMsg.setVisibility(View.VISIBLE);
-		} else {
-			// status is empty, remove from view
-			statusMsg.setVisibility(View.GONE);
-		}
-		profilePic.setOnClickListener(new IdParameterOnClickListener(commentItem.getAuthorId()){
-			 @Override
-	            public void onClick(View v) {
-				 Intent showProfileIntent = new Intent(context,
-							ProfileActivity.class);
-					showProfileIntent.putExtra("userToRetrieveId", id);
-					context.startActivity(showProfileIntent);
-	            }
-		} );
+		holder.timestamp.setText(timeAgo);
+		holder.statusMsg.setText(commentItem.getText());
+		holder.profilePic.setOnClickListener(new IdParameterOnClickListener(
+				commentItem.getAuthorId()) {
+			@Override
+			public void onClick(View v) {
+				Intent showProfileIntent = new Intent(context,
+						ProfileActivity.class);
+				showProfileIntent.putExtra("userToRetrieveId", id);
+				context.startActivity(showProfileIntent);
+			}
+		});
 		// retrieve profile pic with asynctask
-		new RetrieveCommentProfilePicTask(profilePic, commentItem.getAuthorId()).execute();
+		new RetrieveCommentProfilePicTask(holder.profilePic,
+				commentItem.getAuthorId()).execute();
 	}
 
 	private boolean eventPostNotification() {
@@ -345,7 +466,6 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 
 	public class RetrieveCommentProfilePicTask extends
 			AsyncTask<Void, String, String> {
-		private PoliUser poliUser = new PoliUser();
 		private ImageView view;
 		private long userId;
 
@@ -355,31 +475,32 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 		}
 
 		@Override
-		protected String doInBackground(Void...voids) {
-			//TODO
+		protected String doInBackground(Void... voids) {
+			// TODO
 			// retrieve from server the picture of the user having id = userId
 			// and pass it to a
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-			
-			//check if email is available 
+			Poliuserendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+
+			// check if email is available
 			ResponseObject pic = null;
 			String byteArrayPic;
 			try {
-				pic=endpoint.getPictureUser(userId).execute();
+				pic = endpoint.getPictureUser(userId).execute();
 			} catch (IOException e2) {
 			}
-			if(pic.getObject()!=null){
+			if (pic.getObject() != null) {
 				byteArrayPic = (String) pic.getObject();
-			}else {
-				byteArrayPic=null;
+			} else {
+				byteArrayPic = null;
 			}
-			
+
 			return byteArrayPic;
-			
-			
+
 		}
 
 		@Override
@@ -393,4 +514,35 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 			}
 		}
 	}
+
+	static class EventViewHolder {
+		public int type;
+
+		TextView title;
+		TextView location;
+		ImageView eventPicture;
+		TextView creationDate;
+		TextView description;
+		TextView beginningDate;
+	}
+
+	static class SpottedViewHolder {
+
+		public int type;
+
+		TextView title;
+		TextView timestamp;
+		TextView statusMsg;
+		ImageView profilePic;
+		ImageView postImage;
+	}
+
+	static class CommentViewHolder {
+		public int type;
+		TextView name;
+		TextView timestamp;
+		TextView statusMsg;
+		ImageView profilePic;
+	}
+
 }

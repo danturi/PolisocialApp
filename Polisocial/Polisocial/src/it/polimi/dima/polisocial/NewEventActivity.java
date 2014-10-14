@@ -2,6 +2,8 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
+import it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
@@ -12,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
 
-import com.google.android.gms.internal.md;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
@@ -137,7 +138,7 @@ public class NewEventActivity extends Activity {
 		// when dialog box is closed, below method will be called.
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
-			year = selectedYear-1900;
+			year = selectedYear - 1900;
 			month = selectedMonth;
 			day = selectedDay;
 
@@ -149,19 +150,6 @@ public class NewEventActivity extends Activity {
 	};
 
 	private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
-
-		// when dialog box is closed, below method will be called.
-		public void onTimeSet(TimePicker view, int selectedYear,
-				int selectedMonth, int selectedDay) {
-			year = selectedYear;
-			month = selectedMonth;
-			day = selectedDay;
-
-			// set selected date into Text View
-			mEventDateView.setText(new StringBuilder().append(month + 1)
-					.append("-").append(day).append("-").append(year)
-					.append(" "));
-		}
 
 		@Override
 		public void onTimeSet(TimePicker view, int selectedHour,
@@ -214,7 +202,7 @@ public class NewEventActivity extends Activity {
 			}
 
 			String time = mEventTimeView.getText().toString();
-			if (date.equals(INITIAL_TEXT_TIME)) {
+			if (time.equals(INITIAL_TEXT_TIME)) {
 				mEventTimeView
 						.setError(getString(R.string.error_field_required));
 				focusView = mEventTimeView;
@@ -326,6 +314,7 @@ public class NewEventActivity extends Activity {
 		private String pic;
 		private DateTime mDateAndTime;
 		Initiative newEventPost;
+		PostImage newPostImage;
 
 		CreateNewEventTask(String title, String location, String category,
 				DateTime dateAndTime, String description, byte[] picture)
@@ -346,13 +335,13 @@ public class NewEventActivity extends Activity {
 			mCategory = category;
 			mDescription = description;
 			mDateAndTime = dateAndTime;
+			pic = null;
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
 
 			newEventPost = new Initiative();
-			newEventPost.setPicture(pic);
 			newEventPost.setTitle(mTitle);
 			newEventPost.setLocation(mLocation);
 			newEventPost.setText(mDescription);
@@ -365,9 +354,14 @@ public class NewEventActivity extends Activity {
 			newEventPost.setUserId(mUserId);
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
-
-			// Timestamp currentTimestamp = new Timestamp(now.getTime());
 			newEventPost.setTimestamp(new DateTime(now));
+
+			if (pic != null) {
+				newEventPost.setHavePicture(true);
+			} else {
+				newEventPost.setHavePicture(false);
+			}
+
 			Initiativeendpoint.Builder builder = new Initiativeendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 					null);
@@ -378,11 +372,34 @@ public class NewEventActivity extends Activity {
 					"polimisocial").build();
 
 			try {
-				endpoint.insertInitiative(newEventPost).execute();
+				newEventPost = endpoint.insertInitiative(newEventPost)
+						.execute();
 			} catch (IOException e2) {
 				System.out.println(e2.getMessage());
 				return false;
 			}
+
+			if (pic != null) {
+				newPostImage = new PostImage();
+				newPostImage.setPostId(newEventPost.getId());
+				newPostImage.setImage(pic);
+				Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+
+				imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+
+				Postimageendpoint imageEndpoint = imageBuilder
+						.setApplicationName("polimisocial").build();
+
+				try {
+					imageEndpoint.insertPostImage(newPostImage).execute();
+				} catch (IOException e2) {
+					System.out.println(e2.getMessage());
+					return false;
+				}
+			}
+
 			return true;
 		}
 

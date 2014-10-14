@@ -1,12 +1,15 @@
 package it.polimi.dima.polisocial.adapter;
 
-import java.text.DateFormat;
+import java.io.IOException;
 import java.util.List;
-import java.util.StringTokenizer;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -16,6 +19,7 @@ import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -23,19 +27,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+import it.polimi.dima.polisocial.CloudEndpointUtils;
+import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
 public class EventAdapter extends ArrayAdapter<Initiative> {
+	
+	private final int VIEW_STANDARD=0;
+	private final int VIEW_LOADING=1;
+	
 	private final LayoutInflater mInflater;
 	private Context context;
 
+
+	
 	public EventAdapter(Context context) {
 		super(context, R.layout.event_item);
 		this.context = context;
@@ -52,77 +62,174 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 		}
 	}
 
+	@Override
+	public int getItemViewType(int position) {
+		// Define a way to determine which layout to use.
+		if (position >= (getCount() - 1)) {
+			return VIEW_LOADING;
+		}
+		return VIEW_STANDARD;
+	}
+	
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+	
+	
 	/**
 	 * Populate new items in the list.
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view;
+		View view = convertView;
+		EventViewHolder holder;
+		int type = getItemViewType(position); 
 
-		if (convertView == null) {
-			view = mInflater.inflate(R.layout.event_item, parent, false);
-		} else {
-			view = convertView;
-		}
-		Initiative item = getItem(position);
+		if (view == null) {
+			holder = new EventViewHolder();
+			if(type==VIEW_STANDARD){
+				view = mInflater.inflate(R.layout.event_item, parent, false);
 
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView beginningDate = (TextView) view
-				.findViewById(R.id.beginning_date);
-		TextView location = (TextView) view.findViewById(R.id.location);
-		ImageView eventPicture = (ImageView) view
-				.findViewById(R.id.event_picture);
-		TextView description = (TextView) view.findViewById(R.id.description);
-		TextView creationDate = (TextView) view.findViewById(R.id.timestamp);
-		TextView numbOfComments = (TextView) view
-				.findViewById(R.id.numb_of_comments);
+				holder.title = (TextView) view.findViewById(R.id.title);
+				holder.beginningDate = (TextView) view
+						.findViewById(R.id.beginning_date);
+				holder.location = (TextView) view.findViewById(R.id.location);
+				holder.eventPicture = (ImageView) view
+						.findViewById(R.id.event_picture);
+				holder.description = (TextView) view.findViewById(R.id.description);
+				holder.creationDate = (TextView) view.findViewById(R.id.timestamp);
+				holder.numbOfComments = (TextView) view
+						.findViewById(R.id.numb_of_comments);
 
-		numbOfComments.setOnClickListener(new IdParameterOnClickListener(item
-				.getId()) {
-			@Override
-			public void onClick(View v) {
-				Intent showRelativeCommentsIntent = new Intent(context,
-						ShowRelatedCommentsActivity.class);
-				showRelativeCommentsIntent.putExtra("postId", id);
-				showRelativeCommentsIntent.putExtra("notificationCategory",
-						NotificationCategory.NOT_FROM_NOTIFICATION.toString());
-				showRelativeCommentsIntent.putExtra("type", NotificationCategory.EVENT.toString());
-				context.startActivity(showRelativeCommentsIntent);
+				
+			}else{
+				view = mInflater.inflate(R.layout.progress, parent, false);
 			}
-		});
-
-		// Event image
-		if (item.getPicture() != null) {
-			byte[] byteArrayImage = Base64.decode(item.getPicture(),
-					Base64.DEFAULT);
-			eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
-					byteArrayImage, 0, byteArrayImage.length));
 		} else {
-			eventPicture.setImageResource(R.drawable.event_no_pic);
+			holder = (EventViewHolder) view.getTag();
 		}
-
-		title.setText(item.getTitle());
-		location.setText(item.getLocation());
 		
-        String dateTime = item.getBeginningDate().toString();
-        String dateString = composeDateString(dateTime.substring(0,4), dateTime.substring(5,7), dateTime.substring(8,10) );
-        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
+		if(type==VIEW_STANDARD){
+
+			Initiative item = getItem(position);
+			holder.numbOfComments.setOnClickListener(new IdParameterOnClickListener(item
+					.getId()) {
+				@Override
+				public void onClick(View v) {
+					Intent showRelativeCommentsIntent = new Intent(context,
+							ShowRelatedCommentsActivity.class);
+					showRelativeCommentsIntent.putExtra("postId", id);
+					showRelativeCommentsIntent.putExtra("notificationCategory",
+							NotificationCategory.NOT_FROM_NOTIFICATION.toString());
+					showRelativeCommentsIntent.putExtra("type", NotificationCategory.EVENT.toString());
+					context.startActivity(showRelativeCommentsIntent);
+				}
+			});
+
+			// Event image
+			if(item.getHavePicture()){
+				//asynctask to retrieve post image
+				new AsyncTask<Object, Void, Boolean>() {
+				    private EventViewHolder v;
+				    private String s;
+
+				    @Override
+				    protected Boolean doInBackground(Object... params) {
+				        v = (EventViewHolder)params[0];
+				        Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+								AndroidHttp.newCompatibleTransport(),
+								new JacksonFactory(), null);
+
+						imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+
+						Postimageendpoint imageEndpoint = imageBuilder
+								.setApplicationName("polimisocial").build();
+
+						try {
+							s=imageEndpoint.getImageFromPostId((long)params[1]).execute().getImage();
+						} catch (IOException e2) {
+							System.out.println(e2.getMessage());
+							return false;
+						}
+						return true;
+				    }
+
+
+				    @Override
+				    protected void onPostExecute(Boolean result) {
+
+				    	if(result){
+				    		final byte[] byteArrayImage = Base64.decode(s,
+									Base64.DEFAULT);
+							v.eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
+									byteArrayImage, 0, byteArrayImage.length));
+							v.eventPicture.setOnClickListener(new OnClickListener() {
+								
+								@Override
+								public void onClick(View v) {
+									Intent showFullScreenPicIntent = new Intent(context,
+											FullScreenPicActivity.class);
+									showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
+									context.startActivity(showFullScreenPicIntent);
+								}
+							});
+				    	}
+				    }
+				}.execute(holder,item.getId());
+			}else {
+				holder.eventPicture.setImageResource(R.drawable.event_no_pic);
+			}
+			
+			holder.title.setText(item.getTitle());
+			holder.location.setText(item.getLocation());
+			
+	        String dateTime = item.getBeginningDate().toString();
+	        String dateString = composeDateString(dateTime.substring(0,4), dateTime.substring(5,7), dateTime.substring(8,10) );
+	        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
+			
+	        holder.beginningDate.setText(dateString+" at "+ time);
+	        holder.description.setText(item.getText());
+
+			// Converting timestamp into time ago format
+			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
+					.getTimestamp().getValue(), System.currentTimeMillis(),
+					DateUtils.SECOND_IN_MILLIS);
+			holder.creationDate.setText("created " + timeAgo);
+
+			makeTextViewResizable(holder.description, 3, "View More", true);
+			holder.numbOfComments.setText(item.getNumOfComments() + " comments");
 		
-		beginningDate.setText(dateString+" at "+ time);
-		description.setText(item.getText());
-
-		// Converting timestamp into time ago format
-		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
-				.getTimestamp().getValue(), System.currentTimeMillis(),
-				DateUtils.SECOND_IN_MILLIS);
-		creationDate.setText("created " + timeAgo);
-
-		makeTextViewResizable(description, 3, "View More", true);
-		numbOfComments.setText(item.getNumOfComments() + " comments");
-
+		}
+		
+		
 		return view;
 	}
 
+	
+	@Override
+	public int getCount() {
+		return super.getCount() + 1;
+	}
+
+	@Override
+	public Initiative getItem(int position) {
+		if (position < (getCount() - 1))
+			return super.getItem(position);
+		else
+			return null;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		if (position < (getCount() - 1))
+			return super.getItemId(position);
+		else
+			return -1;
+	}
+	
+	
+	
 	public static void makeTextViewResizable(final TextView tv,
 			final int maxLine, final String expandText, final boolean viewMore) {
 
@@ -257,5 +364,18 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 
     return day +" "+ stringMonth + " " + year; 
     }
+
+	
+	static class EventViewHolder {
+		public int type;
+		
+		TextView title;
+		TextView location;
+		ImageView eventPicture;
+		TextView numbOfComments;
+		TextView creationDate;		
+		TextView description;
+		TextView beginningDate;		
+	}
 
 }

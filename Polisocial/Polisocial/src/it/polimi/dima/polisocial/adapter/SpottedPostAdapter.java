@@ -1,35 +1,26 @@
 package it.polimi.dima.polisocial.adapter;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.TabActivity;
-import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
-import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
-import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
-import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
+
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -41,7 +32,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,7 +46,6 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 	private Context context;
 	private Long userId;
 	private String name;
-	private Long postId;
 
 	public SpottedPostAdapter(Context context, Long userId, String name) {
 		super(context, R.layout.spotted_post_item);
@@ -102,13 +91,12 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// View view;
 		View view = convertView;
-		ViewHolder holder;
+		SpottedViewHolder holder;
 		int type = getItemViewType(position);
 
 		if (view == null) {
-			holder = new ViewHolder();
+			holder = new SpottedViewHolder();
 			if (type == VIEW_LOADING) {
 				view = mInflater.inflate(R.layout.progress, parent, false);
 			} else {
@@ -136,7 +124,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			holder.type = type;
 			view.setTag(holder);
 		} else {
-				holder = (ViewHolder) view.getTag();
+				holder = (SpottedViewHolder) view.getTag();
 
 		}
 
@@ -191,25 +179,69 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 			}
 			// Feed image
-			if (item.getPicture() != null) {
-				final byte[] byteArrayImage = Base64.decode(item.getPicture(),
-						Base64.DEFAULT);
-				holder.postImage.setImageBitmap(BitmapFactory.decodeByteArray(
-						byteArrayImage, 0, byteArrayImage.length));
+			if (item.getHavePicture()) {	
 				holder.postImage.setVisibility(View.VISIBLE);
-				holder.postImage.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						Intent showFullScreenPicIntent = new Intent(context,
-								FullScreenPicActivity.class);
-						showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
-						context.startActivity(showFullScreenPicIntent);
-					}
-				});
+
+				//asynctask to retrieve post image
+				new AsyncTask<Object, Void, Boolean>() {
+				    private SpottedViewHolder v;
+				    private String s;
+
+				    @Override
+				    protected Boolean doInBackground(Object... params) {
+				        v = (SpottedViewHolder)params[0];
+				        Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+								AndroidHttp.newCompatibleTransport(),
+								new JacksonFactory(), null);
+
+						imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+
+						Postimageendpoint imageEndpoint = imageBuilder
+								.setApplicationName("polimisocial").build();
+
+						try {
+							s=imageEndpoint.getImageFromPostId((long)params[1]).execute().getImage();
+						} catch (IOException e2) {
+							System.out.println(e2.getMessage());
+							return false;
+						}
+						return true;
+				    }
+
+
+				    @Override
+				    protected void onPostExecute(Boolean result) {
+				        //if (v.position == position) {
+				            // If this item hasn't been recycled already, hide the
+				            // progress and set and show the image
+				            //v.progress.setVisibility(View.GONE);
+				            //v.icon.setVisibility(View.VISIBLE);
+				            //v.icon.setImageBitmap(result);
+				        //}
+				    	if(result){
+				    		final byte[] byteArrayImage = Base64.decode(s,
+									Base64.DEFAULT);
+							v.postImage.setImageBitmap(BitmapFactory.decodeByteArray(
+									byteArrayImage, 0, byteArrayImage.length));
+							v.postImage.setOnClickListener(new OnClickListener() {
+								
+								@Override
+								public void onClick(View v) {
+									Intent showFullScreenPicIntent = new Intent(context,
+											FullScreenPicActivity.class);
+									showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
+									context.startActivity(showFullScreenPicIntent);
+								}
+							});
+				    	}
+				    }
+				}.execute(holder,item.getId());
+				
+			//case with no post picture
 			} else {
 				holder.postImage.setVisibility(View.GONE);
 			}
+			
 			holder.numbOfComments.setText(item.getNumOfComments() + " comments");
 			if (getItemViewType(position) == VIEW_CUPIDO) {
 				
@@ -218,8 +250,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 					@Override
 					public void onClick(View v) {
-						postId = id;
-						showNoticeDialog();
+						showNoticeDialog(id);
 
 					}
 
@@ -230,15 +261,13 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 		return view;
 	}
 
-	public void showNoticeDialog() {
+	public void showNoticeDialog(long postId) {
 		// Create an instance of the dialog fragment and show it
 		FragmentManager fm = ((TabActivity) context).getFragmentManager();
 		DialogFragment dialog = HitOnDialogFragment.newInstance(name, userId,
 				postId);
 		dialog.show(fm, "HitOnDialogFragm");
 	}
-
-	// CAMBIAMENTI
 
 	@Override
 	public int getCount() {
@@ -261,7 +290,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			return -1;
 	}
 
-	static class ViewHolder {
+	static class SpottedViewHolder {
 
 		public int type;
 

@@ -9,6 +9,7 @@
         <class>it.polimi.dima.polisocial.entity.Notification</class>
         <class>it.polimi.dima.polisocial.entity.PoliUser</class>
         <class>it.polimi.dima.polisocial.entity.Post</class>
+        <class>it.polimi.dima.polisocial.entity.PostImage</class>
        	<class>it.polimi.dima.polisocial.entity.PostSpotted</class>
         <class>it.polimi.dima.polisocial.entity.PrivateLesson</class>
        	<class>it.polimi.dima.polisocial.entity.Rental</class>

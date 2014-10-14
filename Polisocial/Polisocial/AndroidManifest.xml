@@ -172,6 +172,10 @@
             android:label="@string/title_activity_full_screen_pic"
             android:theme="@style/FullscreenTheme" >
         </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>

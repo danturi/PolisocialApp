@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="it.polimi.dima.polisocial.PoliUserListFragment" >
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:actionViewClass="android.widget.SearchView" />
+
+</menu>
