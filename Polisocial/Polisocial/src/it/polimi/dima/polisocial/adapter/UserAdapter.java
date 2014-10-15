@@ -8,6 +8,7 @@ import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.UserDTO;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
+import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint.FindVenuesCategories;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.text.StaticLayout;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,14 +38,13 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
 	private final LayoutInflater mInflater;
 	private Context context;
 	private List<UserDTO> origData = new ArrayList<UserDTO>();
+	TextView statusMsg;
 	
 	public UserAdapter(Context context) {
 		super(context, 0);
 		this.context = context;
 		mInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		//this.data = Arrays.asList(names);
-        //this.origData = new ArrayList<String>(this.data);
 		
 	}
 

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/sFQAcZFLsOq8wiFaVs8VQ9Nx5jY\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/_2MvpOOLl7W-ToirSBJsoyNpwbo\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -74,15 +74,6 @@
   }
  },
  "schemas": {
-  "Blob": {
-   "id": "Blob",
-   "type": "object",
-   "properties": {
-    "binaryStream": {
-     "$ref": "InputStream"
-    }
-   }
-  },
   "CollectionResponse_PoliUser": {
    "id": "CollectionResponse_PoliUser",
    "type": "object",
@@ -112,10 +103,6 @@
      "type": "string"
     }
    }
-  },
-  "InputStream": {
-   "id": "InputStream",
-   "type": "object"
   },
   "PhoneNumber": {
    "id": "PhoneNumber",
@@ -258,11 +245,15 @@
    "id": "UserDTO",
    "type": "object",
    "properties": {
-    "nickname": {
+    "age": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "faculty": {
      "type": "string"
     },
-    "picture": {
-     "$ref": "Blob"
+    "nickname": {
+     "type": "string"
     },
     "userId": {
      "type": "string",

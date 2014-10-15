@@ -20,9 +20,11 @@
 
     <TextView
         android:id="@+id/no_user"
+        android:text="@string/no_user_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true" 
+        android:visibility="gone"/>
 
     <ListView
         android:id="@android:id/list"

@@ -126,6 +126,6 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="new_to_myowlcampus">New to myOwlCampus?</string>
     <string name="title_activity_search">SearchActivity</string>
-   
+   <string name="no_user_search">No users found</string>
 
 </resources>

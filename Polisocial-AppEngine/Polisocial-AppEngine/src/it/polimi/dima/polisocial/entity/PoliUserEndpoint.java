@@ -25,6 +25,7 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
@@ -190,17 +191,22 @@ public class PoliUserEndpoint {
 			@Nullable @Named("limit") Integer limit,
 			@Nullable @Named("username") String username,
 			@Nullable @Named("age")Integer age,
-			@Nullable @Named("faculty") String faculty) {
+			@Nullable @Named("faculty") String faculty) throws NotFoundException {
 
 		EntityManager mgr = null;
 		Cursor cursor = null;
-		List<UserDTO> listUserDTO = new ArrayList<UserDTO>(); 
+		List<PoliUser> results = new ArrayList<PoliUser>(); 
+		List<UserDTO> listUserDTO = new ArrayList<UserDTO>();
 		Query query = null;
-
+		String usernameUpper = "";
+		if(username!=null){
+		 usernameUpper= username.toUpperCase();
+		}
 		try {
 			mgr = getEntityManager();
 			if(username==null && age==null && faculty==null){
-				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p");
+				//query = mgr.createQuery("select new it.polimi.dima.polisocial.entity.UserDTO(p.userId,p.nickname,p.age,p.faculty) from PoliUser p");
+				query = mgr.createQuery("select from PoliUser as PoliUser");
 			}
 			if(username==null && age!=null && faculty==null){
 				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.age=?1");
@@ -216,8 +222,8 @@ public class PoliUserEndpoint {
 				query.setParameter(2, age);
 			}
 			if(username!=null && age==null && faculty==null){
-				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1");
-				query.setParameter(1, username);
+				query = mgr.createQuery("select p from PoliUser p where p.nickname LIKE :string");
+				query.setParameter("string", usernameUpper+"%");
 			}
 			if(username!=null && age!=null && faculty==null){
 				query = mgr.createQuery("select p.userId,p.nickname,p.age,p.faculty from PoliUser p where p.nickname=?1 and p.age=?2");
@@ -247,23 +253,30 @@ public class PoliUserEndpoint {
 				query.setMaxResults(limit);
 			}
 
-			List<Object[]> results = (List<Object[]>) query.getResultList();
 			
-			cursor = JPACursorHelper.getCursor(results);
-			if (cursor != null)
-				cursorString = cursor.toWebSafeString();
-
-			for (Object[] result : results) {
+			results = (List<PoliUser>) query.getResultList();
+			if(results.isEmpty()) throw new NotFoundException("Not Found Users");
+			
+		
+			
+			
+			for (PoliUser result : results) {
 			    UserDTO user = new UserDTO();
-			    user.setUserId((Long) result[0]);
-			    user.setNickname((String) result[1]);
-			    user.setAge((Integer) result[2]);
-			    user.setFaculty((String) result[3]);
+			    user.setUserId(result.getUserId());
+			    user.setNickname(result.getNickname());
+			    user.setAge(result.getAge());
+			    user.setFaculty(result.getFaculty());
 				listUserDTO.add(user);
 			  }
+			
+			cursor = JPACursorHelper.getCursor(results);
+			System.out.println(cursor);
+			if (cursor != null)
+				cursorString = cursor.toWebSafeString();
+			System.out.println(cursorString);
 			// Tight loop for fetching all entities from datastore and accomodate
 			// for lazy fetch.
-			for (Object obj : results)
+			for (PoliUser obj : results)
 				;
 		} finally {
 			mgr.close();

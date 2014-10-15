@@ -253,7 +253,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 			mUsername = username;
 			mPassword = AeSimpleSHA1.SHA1(password);
 			
-			newPoliUser.setNickname(mUsername);
+			newPoliUser.setNickname(mUsername.toUpperCase());
 			newPoliUser.setEmail(mEmail);
 			newPoliUser.setPassword(mPassword);
 			newPoliUser.setFaculty(faculty);

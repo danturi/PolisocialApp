@@ -2252,8 +2252,8 @@ containing a value of this type.
         public static final int action_settings=0x7f07004a;
         public static final int action_show_preferences=0x7f070070;
         public static final int action_show_profile=0x7f07006f;
-        public static final int action_sign_in=0x7f0700ae;
-        public static final int action_sign_in_short=0x7f0700af;
+        public static final int action_sign_in=0x7f0700af;
+        public static final int action_sign_in_short=0x7f0700b0;
         public static final int action_write_announcement=0x7f070074;
         /**  Action bar actions and filter 
          */
@@ -2394,13 +2394,13 @@ containing a value of this type.
         public static final int desc_profile_pic=0x7f070057;
         public static final int dummy_button=0x7f0700a7;
         public static final int dummy_section_text=0x7f07005a;
-        public static final int error_duplicate_email=0x7f0700b5;
-        public static final int error_duplicate_username=0x7f0700b6;
-        public static final int error_field_required=0x7f0700b4;
-        public static final int error_incorrect_password=0x7f0700b3;
-        public static final int error_invalid_email=0x7f0700b0;
-        public static final int error_invalid_password=0x7f0700b1;
-        public static final int error_passwords_dont_match=0x7f0700b2;
+        public static final int error_duplicate_email=0x7f0700b6;
+        public static final int error_duplicate_username=0x7f0700b7;
+        public static final int error_field_required=0x7f0700b5;
+        public static final int error_incorrect_password=0x7f0700b4;
+        public static final int error_invalid_email=0x7f0700b1;
+        public static final int error_invalid_password=0x7f0700b2;
+        public static final int error_passwords_dont_match=0x7f0700b3;
         public static final int event_date=0x7f070090;
         public static final int event_description=0x7f070092;
         public static final int event_description_hint=0x7f070093;
@@ -2438,6 +2438,7 @@ containing a value of this type.
         public static final int menu_filter_spotted_hate=0x7f07007b;
         public static final int menu_filter_spotted_love=0x7f07007a;
         public static final int new_to_myowlcampus=0x7f0700a8;
+        public static final int no_user_search=0x7f0700aa;
         public static final int notification_subtitle=0x7f07006d;
         public static final int notification_text_comment_received_part=0x7f070089;
         public static final int notification_text_hit_received_part=0x7f07008a;
@@ -2451,10 +2452,10 @@ containing a value of this type.
         public static final int post_text=0x7f070080;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f0700ab;
-        public static final int prompt_faculty=0x7f0700b7;
-        public static final int prompt_password=0x7f0700ac;
-        public static final int prompt_username=0x7f0700ad;
+        public static final int prompt_email=0x7f0700ac;
+        public static final int prompt_faculty=0x7f0700b8;
+        public static final int prompt_password=0x7f0700ad;
+        public static final int prompt_username=0x7f0700ae;
         public static final int register=0x7f070069;
         public static final int save=0x7f0700a5;
         public static final int search=0x7f07009c;
@@ -2475,7 +2476,7 @@ containing a value of this type.
         public static final int title_activity_foursquare=0x7f07004b;
         public static final int title_activity_full_screen_pic=0x7f0700a6;
         public static final int title_activity_gcm=0x7f070068;
-        public static final int title_activity_login=0x7f0700aa;
+        public static final int title_activity_login=0x7f0700ab;
         public static final int title_activity_map=0x7f070053;
         public static final int title_activity_map2=0x7f070054;
         public static final int title_activity_new_event=0x7f07008b;

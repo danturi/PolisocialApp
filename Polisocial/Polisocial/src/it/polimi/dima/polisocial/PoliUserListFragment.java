@@ -1,5 +1,8 @@
 package it.polimi.dima.polisocial;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.polimi.dima.polisocial.adapter.UserAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
@@ -10,6 +13,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.drawable.shapes.ArcShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -23,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
@@ -36,6 +41,8 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 	public PoliUserListFragment() {};
 	private View mProgressView;
 	private boolean refreshRequest=false;
+	private boolean firstRequest=true;
+	private List<UserDTO> listInitialUsers=new ArrayList<UserDTO>();
 	
 	
 	final private OnQueryTextListener queryListener = new OnQueryTextListener() {       
@@ -44,13 +51,28 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 		
 	    @Override
 	    public boolean onQueryTextChange(String newText) {
+	    	TextView statusMsg =  (TextView) getView().findViewById(R.id.no_user);
+	    	statusMsg.setVisibility(View.GONE);
+	    	mList.setVisibility(View.VISIBLE);
 	    	if (TextUtils.isEmpty(newText)) {
-	            getActivity().getActionBar().setSubtitle("Users");               
-	            mList.clearTextFilter();
+	            getActivity().getActionBar().setSubtitle("Users");
+	            if(getLoaderManager().hasRunningLoaders()){
+	            	getLoaderManager().destroyLoader(0);
+	            }
+	            adapter.setData(listInitialUsers);
+	            
+	            //mList.clearTextFilter();
 	        } else {
 	            getActivity().getActionBar().setSubtitle("Users - Searching for: " + newText);
-	            mList.setFilterText(newText);
-
+	            refreshRequest=true;
+	            username=newText;
+	            mCursor=null;
+	            if(getLoaderManager().hasRunningLoaders()){
+	            	getLoaderManager().destroyLoader(0);
+	            }
+	            restartPoliUserLoader();
+	            //mList.setFilterText(newText);
+	            
 	        }   
 	        
 	        return true;
@@ -66,6 +88,7 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 	        return false;
 	    }
 	};
+	
 	
 
 	
@@ -93,6 +116,7 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
 		super.onActivityCreated(savedInstanceState);
+		firstRequest = true;
 		adapter = new UserAdapter(getActivity());
 		mList = getListView();
 		mList.setAdapter(adapter);
@@ -101,9 +125,8 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 			@Override
 			public void onLoadMore(String cursor, int totalItemsCount) {
 				// Triggered only when new data needs to be appended to the list
-				if(mCursor!=null){
-				customLoadMoreDataFromApi(cursor);
-				}
+				
+				//customLoadMoreDataFromApi(cursor);
 			}
 
 			
@@ -122,14 +145,20 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 	}
 	
 	private void customLoadMoreDataFromApi(String cursor) {
-		restartPoliUserLoader();
+		addListPoliUserLoader();
 		
 	}
 	
-	private void restartPoliUserLoader() {
+	private void addListPoliUserLoader() {
 		showProgress(true);
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
+		getLoaderManager().restartLoader(0, bundle, this);
+	}
+
+	private void restartPoliUserLoader() {
+		showProgress(true);
+		Bundle bundle = new Bundle();
 		bundle.putString("username", username);
 		getLoaderManager().restartLoader(0, bundle, this);
 	}
@@ -146,15 +175,25 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 	public void onLoadFinished(Loader<CollectionResponseUserDTO> arg0,
 			CollectionResponseUserDTO data) {
 		mCursor = data.getNextPageToken();
+		TextView statusMsg =  (TextView) getView().findViewById(R.id.no_user);
 			if(data.getItems()!=null){
-			
+				statusMsg.setVisibility(View.GONE);
+				mList.setVisibility(View.VISIBLE);
+				
 			if (refreshRequest) {
+				if(firstRequest){
+					listInitialUsers=data.getItems();
+					firstRequest=false;
+				}
 				adapter.setData(data.getItems());
 				refreshRequest=false;
 			}else {
 				adapter.addAll(data.getItems());
 				adapter.addToOrigData(data.getItems());
 			}
+		}else {
+			statusMsg.setVisibility(View.VISIBLE);
+			mList.setVisibility(View.GONE);
 		}
 		
 		showProgress(false);

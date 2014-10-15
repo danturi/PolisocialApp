@@ -8,7 +8,18 @@ public class UserDTO {
 	private Integer age;
 	private String faculty;
 	
+	public UserDTO(Long userId, String nickname, Integer age, String faculty) {
+		super();
+		this.userId = userId;
+		this.nickname = nickname;
+		this.age = age;
+		this.faculty = faculty;
+	}
 	
+	public UserDTO() {
+		
+	}
+
 	public Long getUserId() {
 		return userId;
 	}

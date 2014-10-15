@@ -232,7 +232,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 					{
 						if(response.getError()==null)
 						{	
-							nickname=user.getFirstName()+user.getLastName();
+							nickname=user.getFirstName()+" "+user.getLastName();
+							nickname=nickname.toUpperCase();
 							email = (String) user.getProperty("email");
 							poliuser.setEmail(email);
 							poliuser.setNickname(nickname);

@@ -5,6 +5,7 @@ import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.CollectionResponseUserDTO;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
@@ -44,7 +45,8 @@ public class UserListLoader extends AsyncTaskLoader<CollectionResponseUserDTO> {
 				list = endpoint.searchPoliUser().setLimit(10).execute();
 			}
 		}catch (IOException e) {
-			e.printStackTrace();
+			if( new StringTokenizer(e.getMessage().toString()).nextToken().equals("404"))
+				return list;
 		}
 		cursor=null;
 		username=null;
