@@ -27,6 +27,27 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
+    "poliuserendpoint.removePoliUser" : {
+      "path" : "poliuser/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "poliuserendpoint.checkForDuplicateEmail" : {
       "path" : "checkForDuplicateEmail/{email}",
       "httpMethod" : "GET",
@@ -71,27 +92,6 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "poliuserendpoint.removePoliUser" : {
-      "path" : "poliuser/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
       }
     },
     "poliuserendpoint.insertPoliUser" : {
@@ -444,6 +444,8 @@
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
+      },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail" : {
         "response" : {
           "$ref" : "PoliUser"
@@ -453,8 +455,6 @@
         "response" : {
           "$ref" : "PoliUser"
         }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
       },
       "it.polimi.dima.polisocial.entity.PoliUserEndpoint.insertPoliUser" : {
         "request" : {

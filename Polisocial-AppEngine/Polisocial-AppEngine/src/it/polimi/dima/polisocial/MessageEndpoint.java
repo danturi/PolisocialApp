@@ -169,9 +169,11 @@ public class MessageEndpoint {
 			@Named("postTitle") String postTitle) {
 
 		Sender sender = new Sender(API_KEY);
+		Notification notif = null;
 		// controllo se utente ha già una notifica per quel post
 		ResponseObject response = endpointNotification.haveNotificationForPost(
 				postId, user);
+		//se non ha notifica
 		if (!(boolean) response.getObject()) {
 			// create a Notification entity
 			Notification notification = new Notification();
@@ -188,28 +190,39 @@ public class MessageEndpoint {
 			} finally {
 				mgr.close();
 			}
+		}//se ha una notifica
+		else {
+			notif = endpointNotification.getNotificationForPost(postId, user);
+			//se la notifica è stata letta, aggiorna come non letta
+			if (notif.getReadFlag()){
+				notif.setReadFlag(false);
+				endpointNotification.updateNotification(notif);
+			}
 		}
+		
+		
+		
 		try {
 			PoliUser userNotifing = new PoliUser();
 			userNotifing = endpointUser.getPoliUser(user);
 			if (postType.equals("spotted") && userNotifing.getNotifySpotted()
-					&& !userNotifing.getNotifiedSpotted()) {
+					&& notif!=null && notif.getReadFlag()) {
 				doSendViaGcm("spotted", sender, device);
-				userNotifing.setNotifiedSpotted(true);
+				//userNotifing.setNotifiedSpotted(true);
 			} else if ((postType.equals("rental")
 					|| postType.equals("secondHandBook") || postType
 						.equals("privateLesson"))
 					&& userNotifing.getNotifyAnnouncement()
-					&& !userNotifing.getNotifiedAnnouncement()) {
+					&& notif!=null && notif.getReadFlag()) {
 				doSendViaGcm("announcement", sender, device);
-				userNotifing.setNotifiedAnnouncement(true);
+				//userNotifing.setNotifiedAnnouncement(true);
 			} else if ((postType.equals("event"))
-					&& !userNotifing.getNotifiedEvent()) {
+					&& notif!=null && notif.getReadFlag()) {
 				doSendViaGcm("event", sender, device);
-				userNotifing.setNotifiedEvent(true);
+				//userNotifing.setNotifiedEvent(true);
 			}
 			
-			endpointUser.updatePoliUser(userNotifing);
+			//endpointUser.updatePoliUser(userNotifing);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

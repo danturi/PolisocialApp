@@ -36,13 +36,13 @@ public class UserListLoader extends AsyncTaskLoader<CollectionResponseUserDTO> {
 		CollectionResponseUserDTO list = new CollectionResponseUserDTO();
 		
 		try {
-			if(cursor!=null){
-				list = endpoint.searchPoliUser().setLimit(10).setCursor(cursor).execute();
-			}else if(username!=null){
-				list = endpoint.searchPoliUser().setLimit(10).setUsername(username).execute();
+			if(username!=null){
+				list = endpoint.searchPoliUser().setLimit(15).setCursor(cursor).setUsername(username).execute();
+			//}else if(username!=null){
+				//list = endpoint.searchPoliUser().setLimit(10).setUsername(username).execute();
 				
 			}else {
-				list = endpoint.searchPoliUser().setLimit(10).execute();
+				list = endpoint.searchPoliUser().setLimit(15).setCursor(cursor).execute();
 			}
 		}catch (IOException e) {
 			if( new StringTokenizer(e.getMessage().toString()).nextToken().equals("404"))

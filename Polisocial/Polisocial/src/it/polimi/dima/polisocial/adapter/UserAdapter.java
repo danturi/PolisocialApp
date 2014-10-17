@@ -57,10 +57,6 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
 			}
 		}
 	}
-	
-	public void addToOrigData(List<UserDTO> items){
-		origData.addAll(items);
-	}
 
 
 	@Override

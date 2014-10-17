@@ -32,86 +32,90 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 public class PoliUserListFragment extends ListFragment implements
-LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
+		LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 
 	private ListView mList;
 	private UserAdapter adapter;
-	private String mCursor= null;
-	private String username=null;
-	public PoliUserListFragment() {};
-	private View mProgressView;
-	private boolean refreshRequest=false;
-	private boolean firstRequest=true;
-	private List<UserDTO> listInitialUsers=new ArrayList<UserDTO>();
-	
-	
-	final private OnQueryTextListener queryListener = new OnQueryTextListener() {       
+	private String mCursor = null;
+	private String username = null;
 
-		
-		
-	    @Override
-	    public boolean onQueryTextChange(String newText) {
-	    	TextView statusMsg =  (TextView) getView().findViewById(R.id.no_user);
-	    	statusMsg.setVisibility(View.GONE);
-	    	mList.setVisibility(View.VISIBLE);
-	    	if (TextUtils.isEmpty(newText)) {
-	            getActivity().getActionBar().setSubtitle("Users");
-	            if(getLoaderManager().hasRunningLoaders()){
-	            	getLoaderManager().destroyLoader(0);
-	            }
-	            adapter.setData(listInitialUsers);
-	            
-	            //mList.clearTextFilter();
-	        } else {
-	            getActivity().getActionBar().setSubtitle("Users - Searching for: " + newText);
-	            refreshRequest=true;
-	            username=newText;
-	            mCursor=null;
-	            if(getLoaderManager().hasRunningLoaders()){
-	            	getLoaderManager().destroyLoader(0);
-	            }
-	            restartPoliUserLoader();
-	            //mList.setFilterText(newText);
-	            
-	        }   
-	        
-	        return true;
-	    }
-
-	    @Override
-	    public boolean onQueryTextSubmit(String query) {            
-	        Toast.makeText(getActivity(), "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
-	        refreshRequest=true;
-	        mCursor=null;
-	        username=query;
-	        restartPoliUserLoader();
-	        return false;
-	    }
+	public PoliUserListFragment() {
 	};
-	
-	
 
-	
+	private View mProgressView;
+	private boolean refreshRequest = false;
+	private boolean firstRequest = true;
+	private boolean origList = false;
+	private List<UserDTO> listInitialUsers = new ArrayList<UserDTO>();
+	private String listInitialCursor = null;
 
-	
+	final private OnQueryTextListener queryListener = new OnQueryTextListener() {
+
+		@Override
+		public boolean onQueryTextChange(String newText) {
+			TextView statusMsg = (TextView) getView()
+					.findViewById(R.id.no_user);
+			statusMsg.setVisibility(View.GONE);
+			mList.setVisibility(View.VISIBLE);
+			if (TextUtils.isEmpty(newText)) {
+				origList=true;
+				getActivity().getActionBar().setSubtitle("Users");
+				if (getLoaderManager().hasRunningLoaders()) {
+					getLoaderManager().destroyLoader(0);
+				}
+				adapter.setData(listInitialUsers);
+				mCursor= listInitialCursor;
+				username=null;
+
+				// mList.clearTextFilter();
+			} else {
+				getActivity().getActionBar().setSubtitle(
+						"Users - Searching for: " + newText);
+				refreshRequest = true;
+				username = newText;
+				mCursor = null;
+				origList=false;
+				if (getLoaderManager().hasRunningLoaders()) {
+					getLoaderManager().destroyLoader(0);
+				}
+				restartPoliUserLoader();
+				// mList.setFilterText(newText);
+
+			}
+
+			return true;
+		}
+
+		@Override
+		public boolean onQueryTextSubmit(String query) {
+			Toast.makeText(getActivity(), "Searching for: " + query + "...",
+					Toast.LENGTH_SHORT).show();
+			refreshRequest = true;
+			mCursor = null;
+			username = query;
+			restartPoliUserLoader();
+			return false;
+		}
+	};
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_poliuser, container,
 				false);
 		return rootView;
-		
+
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.search, menu); 
-	    SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
-	    searchView.setOnQueryTextListener(queryListener);
+		inflater.inflate(R.menu.search, menu);
+		SearchView searchView = (SearchView) menu.findItem(R.id.search)
+				.getActionView();
+		searchView.setOnQueryTextListener(queryListener);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
-	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
@@ -125,34 +129,33 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 			@Override
 			public void onLoadMore(String cursor, int totalItemsCount) {
 				// Triggered only when new data needs to be appended to the list
-				
-				//customLoadMoreDataFromApi(cursor);
+
+				customLoadMoreDataFromApi(cursor);
 			}
 
-			
 		});
-		
 
 		// Start out with a progress indicator.
 		mProgressView = getView().findViewById(R.id.progress_bar);
 		showProgress(true);
-		
+
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
-		refreshRequest=true;
+		refreshRequest = true;
 		getLoaderManager().initLoader(0, bundle, this);
-		
+
 	}
-	
+
 	private void customLoadMoreDataFromApi(String cursor) {
 		addListPoliUserLoader();
-		
+
 	}
-	
+
 	private void addListPoliUserLoader() {
 		showProgress(true);
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
+		bundle.putString("username", username);
 		getLoaderManager().restartLoader(0, bundle, this);
 	}
 
@@ -162,51 +165,61 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 		bundle.putString("username", username);
 		getLoaderManager().restartLoader(0, bundle, this);
 	}
-	
+
 	@Override
-	public Loader<CollectionResponseUserDTO> onCreateLoader(int arg0, Bundle bundle) {
+	public Loader<CollectionResponseUserDTO> onCreateLoader(int arg0,
+			Bundle bundle) {
 		String cursor = (String) bundle.get("cursor");
 		String username = (String) bundle.get("username");
-		return new UserListLoader(getActivity(), cursor,username);
-		
+		return new UserListLoader(getActivity(), cursor, username);
+
 	}
 
 	@Override
 	public void onLoadFinished(Loader<CollectionResponseUserDTO> arg0,
 			CollectionResponseUserDTO data) {
+		
 		mCursor = data.getNextPageToken();
-		TextView statusMsg =  (TextView) getView().findViewById(R.id.no_user);
-			if(data.getItems()!=null){
-				statusMsg.setVisibility(View.GONE);
-				mList.setVisibility(View.VISIBLE);
-				
+		TextView statusMsg = (TextView) getView().findViewById(R.id.no_user);
+		//ci sono nuovi user
+		if (data.getItems() != null) {
+			statusMsg.setVisibility(View.GONE);
+			mList.setVisibility(View.VISIBLE);
+
+			//se è una richiesta nuova 
 			if (refreshRequest) {
-				if(firstRequest){
-					listInitialUsers=data.getItems();
-					firstRequest=false;
+				if (firstRequest) {
+					listInitialUsers = data.getItems();
+					listInitialCursor= mCursor;
+					firstRequest = false;
 				}
 				adapter.setData(data.getItems());
-				refreshRequest=false;
-			}else {
+				refreshRequest = false;
+			}//se è una richiesta di aggiunta utenti nella lista 
+			else {
+				// se ci troviamo nella pagina utenti iniziale
+				if(origList){
+					listInitialUsers.addAll(data.getItems());
+					listInitialCursor=mCursor;
+				}
 				adapter.addAll(data.getItems());
-				adapter.addToOrigData(data.getItems());
 			}
-		}else {
-			statusMsg.setVisibility(View.VISIBLE);
-			mList.setVisibility(View.GONE);
+		} else {
+			if (refreshRequest) {
+				statusMsg.setVisibility(View.VISIBLE);
+				mList.setVisibility(View.GONE);
+			} 
 		}
-		
+
 		showProgress(false);
-		
+
 	}
 
 	@Override
 	public void onLoaderReset(Loader<CollectionResponseUserDTO> arg0) {
 		adapter.setData(null);
-		
-	}
 
-	
+	}
 
 	/**
 	 * Shows the progress UI and hides post list.
@@ -219,7 +232,6 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
-
 
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
 			mProgressView.animate().setDuration(shortAnimTime)
@@ -238,17 +250,14 @@ LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 		}
 	}
 
-
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		
-		UserDTO userDTO = (UserDTO) getListView()
-				.getItemAtPosition(position);
-		
-		Intent intent = new Intent(getActivity(),
-				ProfileActivity.class);
-		intent.putExtra("userToRetrieveId",userDTO.getUserId());
+
+		UserDTO userDTO = (UserDTO) getListView().getItemAtPosition(position);
+
+		Intent intent = new Intent(getActivity(), ProfileActivity.class);
+		intent.putExtra("userToRetrieveId", userDTO.getUserId());
 		startActivity(intent);
 	}
 

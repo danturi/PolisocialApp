@@ -30,6 +30,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -262,13 +263,20 @@ public class GCMIntentService extends GCMBaseIntentService {
 	         
 	        String title = context.getString(R.string.app_name);
 	        String textNotif = "";
-	        if (message.equals(NotificationCategory.SIMPLE_SPOTTED.toString()))
-				textNotif="New Spotted message";
-	        if (message.equals("Rental")|| message.equals("SecondHandBoook") || message.equals("PrivateLesson"))
-				textNotif="New Announcement message";
-	        if (message.equals("Initiative"))
-				textNotif="New Initiative message";
-	     
+	        int id = 0;
+	        if (message.equals(NotificationCategory.SIMPLE_SPOTTED.toString())){
+				textNotif="You have received new Spotted messages";
+	        	id=1;
+	        }
+	        if (message.equals("Rental")|| message.equals("SecondHandBoook") || message.equals("PrivateLesson")){
+				textNotif="You have received new Announcement messages";
+	        	id=2;
+	        }
+	        if (message.equals("Initiative")){
+				textNotif="You have received new Initiative messages";
+				id=3;
+	        }
+	        
 	        
 	        
 	        Intent notificationIntent = new Intent(context, TabActivity.class);
@@ -300,7 +308,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	         
 	        // Vibrate if vibrate is enabled
 	        notification.defaults |= Notification.DEFAULT_VIBRATE;
-	        notificationManager.notify(0, notification);     
+	        notificationManager.notify(id, notification);     
 	 
 	    }
 
