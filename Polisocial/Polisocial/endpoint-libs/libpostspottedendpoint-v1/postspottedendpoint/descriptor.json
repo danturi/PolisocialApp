@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/postspottedendpoint/v1/20141014123050/java/1.18.0-rc/polimi.it-postspottedendpoint-v1-20141014123050-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-postspottedendpoint-v1-20141014123050-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/postspottedendpoint/v1/20141018165213/java/1.18.0-rc/polimi.it-postspottedendpoint-v1-20141018165213-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-postspottedendpoint-v1-20141018165213-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-14 12:30"
+      "timestamp": "2014-10-18 16:52"
     }, 
     {
-      "path": "polimi.it-postspottedendpoint-v1-20141014123050-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-postspottedendpoint-v1-20141018165213-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "postspottedendpoint:v1", 
-  "revision": 20141014123050
+  "revision": 20141018165213
 }

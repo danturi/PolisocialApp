@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="it.polimi.dima.polisocial.ProfileActivity" >
 
     <ProgressBar
@@ -24,21 +21,20 @@
         android:fillViewport="true" >
 
         <RelativeLayout
-            
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
             <RelativeLayout
                 android:id="@+id/profile_pic_panel"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" >
 
                 <ImageView
                     android:id="@+id/profile_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="300dip"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
                     android:contentDescription="@string/desc_profile_pic"
                     android:scaleType="centerCrop"
                     android:src="@drawable/profilepicprova" >
@@ -48,10 +44,10 @@
                     android:id="@+id/change_picture_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/ic_action_edit"
+                    android:layout_marginRight="1dp"
+                    android:src="@drawable/ic_action_photo"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -59,254 +55,273 @@
                 android:id="@+id/general_info_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profile_pic_panel" >
+                android:layout_below="@id/profile_pic_panel"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip" >
 
                 <TextView
                     android:id="@+id/general_info_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/general_info_label"
-                    android:layout_marginRight="30dp"
-                    android:hint="@string/general_info_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="2000"
-                    android:maxLines="4"
-                    android:padding="5dip" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/general_info_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
-                    android:id="@+id/edit_general_info_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit" 
-                    android:visibility="gone"/>
+                    android:maxLines="4" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/self_summary_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/general_info_panel" >
+                android:layout_below="@id/general_info_panel"
+                android:layout_marginTop="@dimen/profile_item_top_margin" >
 
                 <TextView
                     android:id="@+id/self_summary_label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/edit_summary_button"
-                    android:padding="5dip"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"                    
+                    android:layout_toLeftOf="@+id/edit_self_summary_button"
                     android:text="@string/self_summary"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/self_summary_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/self_summary_label"
-                    android:layout_marginRight="30dp"
-                    android:hint="@string/self_summary_hint"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:maxLength="2000"
-                    android:maxLines="4"
-                    android:padding="5dip"/>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/self_summary_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
                     android:id="@+id/edit_self_summary_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit"
+                    android:layout_marginRight="@dimen/profile_edit_right_margin"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/com_facebook_blue"
                     android:visibility="gone" />
+
+                <View
+                    android:id="@+id/self_summary_line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/edit_self_summary_button"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/self_summary_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/self_summary_line"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
+                    android:hint="@string/self_summary_hint"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:padding="5dip"
+                    android:maxLength="2000"
+                    android:maxLines="4" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/what_im_doing_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/self_summary_panel" >
+                android:layout_below="@id/self_summary_panel"
+                android:layout_marginTop="@dimen/profile_item_top_margin" >
 
                 <TextView
                     android:id="@+id/what_im_doing_label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:layout_toLeftOf="@+id/edit_what_im_doing_button"
-                    android:padding="5dip"
                     android:text="@string/what_im_doing"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/edit_what_im_doing_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/profile_edit_right_margin"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/com_facebook_blue"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/what_im_doing_line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/edit_what_im_doing_button"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
                     android:id="@+id/what_im_doing_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/what_im_doing_label"
-                    android:layout_marginRight="30dp"
+                    android:layout_below="@+id/what_im_doing_line"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:hint="@string/what_im_doing_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="2000"
                     android:maxLines="4"
                     android:padding="5dip" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/what_im_doing_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
-                    android:id="@+id/edit_what_im_doing_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit"
-                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/im_really_good_at_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/what_im_doing_panel" >
+                android:layout_below="@id/what_im_doing_panel"
+                android:layout_marginTop="@dimen/profile_item_top_margin" >
 
                 <TextView
                     android:id="@+id/im_really_good_at_label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:layout_toLeftOf="@+id/edit_im_really_good_at_button"
-                    android:padding="5dip"
-                    android:text="@string/what_im_doing"
+                    android:text="@string/im_really_good_at"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/edit_im_really_good_at_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/profile_edit_right_margin"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/com_facebook_blue"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/im_really_good_at_line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/edit_im_really_good_at_button"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
 
                 <TextView
                     android:id="@+id/im_really_good_at_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/im_really_good_at_label"
-                    android:layout_marginRight="30dp"
-                    android:hint="@string/what_im_doing_hint"
+                    android:layout_below="@+id/im_really_good_at_line"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
+                    android:hint="@string/im_really_good_at_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="2000"
                     android:maxLines="4"
                     android:padding="5dip" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/im_really_good_at_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
-                    android:id="@+id/edit_im_really_good_at_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit"
-                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/favorite_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/im_really_good_at_panel" >
+                android:layout_below="@id/im_really_good_at_panel"
+                android:layout_marginTop="@dimen/profile_item_top_margin" >
 
                 <TextView
                     android:id="@+id/favorite_label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:layout_toLeftOf="@+id/edit_favorite_button"
-                    android:padding="5dip"
                     android:text="@string/favorite"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/edit_favorite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/profile_edit_right_margin"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/com_facebook_blue"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/favorite_line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/favorite_label"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
                     android:id="@+id/favorite_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/favorite_label"
-                    android:layout_marginRight="30dp"
+                    android:layout_below="@+id/favorite_line"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:hint="@string/favorite_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="2000"
                     android:maxLines="4"
                     android:padding="5dip" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/favorite_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
-                    android:id="@+id/edit_favorite_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit"
-                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/six_things_without_panel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/favorite_panel" >
+                android:layout_below="@id/favorite_panel"
+                android:layout_marginTop="@dimen/profile_item_top_margin" >
 
                 <TextView
                     android:id="@+id/six_things_without_label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:layout_toLeftOf="@+id/edit_six_things_without_button"
-                    android:padding="5dip"
                     android:text="@string/six_things_without"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/edit_six_things_without_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/profile_edit_right_margin"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/com_facebook_blue"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/six_things_without_line"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/edit_six_things_without_button"
+                    android:layout_marginTop="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
                     android:id="@+id/six_things_without_text"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/six_things_without_label"
-                    android:layout_marginRight="30dp"
+                    android:layout_below="@id/six_things_without_line"
+                    android:layout_marginLeft="@dimen/profile_item_left_right_margin"
+                    android:layout_marginRight="@dimen/profile_item_left_right_margin"
                     android:hint="@string/six_things_without_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="2000"
                     android:maxLines="4"
                     android:padding="5dip" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/six_things_without_text"
-                    android:layout_marginTop="25dp"
-                    android:background="@android:color/darker_gray" />
-
-                <ImageButton
-                    android:id="@+id/edit_six_things_without_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_action_edit"
-                    android:visibility="gone" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

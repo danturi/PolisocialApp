@@ -1,12 +1,8 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.RegistrationActivity.UserLoginTask;
 import it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
-import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
-import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
-import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.ProfileFieldType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
@@ -14,8 +10,6 @@ import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.StringTokenizer;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -44,10 +38,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.internal.en;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 
 public class ProfileActivity extends SwipeBackActivity {
 
@@ -77,12 +69,11 @@ public class ProfileActivity extends SwipeBackActivity {
 	TextView sixThingsWithoutText;
 
 	ImageButton changePictureButton;
-	ImageButton editGeneralInfoButton;
-	ImageButton editSelfSummaryButton;
-	ImageButton editWhatImDoingButton;
-	ImageButton editImReallyGoodAtButton;
-	ImageButton editFavouriteButton;
-	ImageButton editSixThingsWithoutButton;
+	TextView editSelfSummaryButton;
+	TextView editWhatImDoingButton;
+	TextView editImReallyGoodAtButton;
+	TextView editFavouriteButton;
+	TextView editSixThingsWithoutButton;
 
 	private byte[] pictureInBytes;
 
@@ -129,12 +120,11 @@ public class ProfileActivity extends SwipeBackActivity {
 				e.printStackTrace();
 			}
 			changePictureButton = (ImageButton) findViewById(R.id.change_picture_button);
-			editGeneralInfoButton = (ImageButton) findViewById(R.id.edit_general_info_button);
-			editSelfSummaryButton = (ImageButton) findViewById(R.id.edit_self_summary_button);
-			editWhatImDoingButton = (ImageButton) findViewById(R.id.edit_what_im_doing_button);
-			editImReallyGoodAtButton = (ImageButton) findViewById(R.id.edit_im_really_good_at_button);
-			editFavouriteButton = (ImageButton) findViewById(R.id.edit_favorite_button);
-			editSixThingsWithoutButton = (ImageButton) findViewById(R.id.edit_six_things_without_button);
+			editSelfSummaryButton = (TextView) findViewById(R.id.edit_self_summary_button);
+			editWhatImDoingButton = (TextView) findViewById(R.id.edit_what_im_doing_button);
+			editImReallyGoodAtButton = (TextView) findViewById(R.id.edit_im_really_good_at_button);
+			editFavouriteButton = (TextView) findViewById(R.id.edit_favorite_button);
+			editSixThingsWithoutButton = (TextView) findViewById(R.id.edit_six_things_without_button);
 
 			// show the profile of a user identified by the id passed as
 			// parameter
@@ -289,18 +279,21 @@ public class ProfileActivity extends SwipeBackActivity {
 			showProgress(false);
 
 			if (success) {
+
+				int age = poliuser.getAge();
+				String faculty = poliuser.getFaculty();
+				String sex = "M";
+				generalInfoText.setText(age + "  \u25CF  " + sex + "  \u25CF  " + faculty);
+
+				
 				if (mShowEditable) {
 					changePictureButton.setVisibility(View.VISIBLE);
-					editGeneralInfoButton.setVisibility(View.VISIBLE);
 					editSelfSummaryButton.setVisibility(View.VISIBLE);
 					editWhatImDoingButton.setVisibility(View.VISIBLE);
 					editImReallyGoodAtButton.setVisibility(View.VISIBLE);
 					editFavouriteButton.setVisibility(View.VISIBLE);
 					editSixThingsWithoutButton.setVisibility(View.VISIBLE);
 
-					int age = poliuser.getAge();
-					int height = poliuser.getHeight();
-					generalInfoText.setText(age + "years, " + height + "cm ");
 
 					if (poliuser.getSelfSummary() != null) {
 						selfSummaryText.setText(poliuser.getSelfSummary());
@@ -429,47 +422,52 @@ public class ProfileActivity extends SwipeBackActivity {
 					if (poliuser.getSelfSummary() != null) {
 						selfSummaryText.setText(poliuser.getSelfSummary());
 					} else {
-						selfSummaryLabel.setVisibility(View.GONE);
-						selfSummaryText.setVisibility(View.GONE);
+						findViewById(R.id.self_summary_panel).setVisibility(View.GONE);
 					}
 
 					if (poliuser.getWhatImDoingWithMyLife() != null) {
 						whatImDoingText.setText(poliuser
 								.getWhatImDoingWithMyLife());
 					} else {
-						whatImDoingLabel.setVisibility(View.GONE);
-						whatImDoingText.setVisibility(View.GONE);
+						findViewById(R.id.what_im_doing_panel).setVisibility(View.GONE);
 					}
 					if (poliuser.getImReallyGoodAt() != null) {
 						imReallyGoodAtText
 								.setText(poliuser.getImReallyGoodAt());
 					} else {
-						imReallyGoodAtLabel.setVisibility(View.GONE);
-						imReallyGoodAtText.setVisibility(View.GONE);
+						findViewById(R.id.im_really_good_at_panel).setVisibility(View.GONE);
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
 								.getFavoriteBooksMoviesShowsMusic().toString());
 					} else {
-						favoriteLabel.setVisibility(View.GONE);
-						favoriteText.setVisibility(View.GONE);
+						findViewById(R.id.favorite_panel).setVisibility(View.GONE);
 					}
 					if (poliuser.getSixThingsWithout() != null) {
 						sixThingsWithoutText.setText(poliuser
 								.getSixThingsWithout());
 					} else {
-						sixThingsWithoutLabel.setVisibility(View.GONE);
-						sixThingsWithoutText.setVisibility(View.GONE);
+						findViewById(R.id.six_things_without_panel).setVisibility(View.GONE);
 					}
 
 				}
 
 				actionBar.setTitle(poliuser.getNickname());
 				if (poliuser.getProfilePicture1() != null) {
-					byte[] byteArrayImage = Base64.decode(
+					final byte[] byteArrayImage = Base64.decode(
 							poliuser.getProfilePicture1(), Base64.DEFAULT);
 					profilePic1.setImageBitmap(BitmapFactory.decodeByteArray(
 							byteArrayImage, 0, byteArrayImage.length));
+					profilePic1.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							Intent showFullScreenPicIntent = new Intent(v.getContext(),
+									FullScreenPicActivity.class);
+							showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
+							v.getContext().startActivity(showFullScreenPicIntent);
+						}
+					});
 				} else {
 					profilePic1.setImageResource(R.drawable.no_picture_pic);
 				}

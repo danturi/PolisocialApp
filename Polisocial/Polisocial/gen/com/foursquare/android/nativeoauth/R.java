@@ -8,12 +8,12 @@ package com.foursquare.android.nativeoauth;
 
 public final class R {
 	public static final class id {
-		public static final int frame = 0x7f0500cf;
+		public static final int frame = 0x7f0500d2;
 	}
 	public static final class layout {
 		public static final int loading = 0x7f030045;
 	}
 	public static final class string {
-		public static final int loading = 0x7f070000;
+		public static final int loading = 0x7f0a002d;
 	}
 }

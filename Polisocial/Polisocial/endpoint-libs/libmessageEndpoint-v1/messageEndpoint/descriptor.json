@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/messageEndpoint/v1/20141014122920/java/1.18.0-rc/polimi.it-messageEndpoint-v1-20141014122920-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-messageEndpoint-v1-20141014122920-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/messageEndpoint/v1/20141018164812/java/1.18.0-rc/polimi.it-messageEndpoint-v1-20141018164812-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-messageEndpoint-v1-20141018164812-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-14 12:29"
+      "timestamp": "2014-10-18 16:48"
     }, 
     {
-      "path": "polimi.it-messageEndpoint-v1-20141014122920-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-messageEndpoint-v1-20141018164812-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial", 
   "language_version": "1.18.0-rc", 
   "id": "messageEndpoint:v1", 
-  "revision": 20141014122920
+  "revision": 20141018164812
 }

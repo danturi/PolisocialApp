@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Base64;
@@ -103,50 +104,55 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 				if (type == VIEW_NO_CUPIDO) {
 					view = mInflater.inflate(R.layout.spotted_post_item,
 							parent, false);
-					
+
 				} else {
 					view = mInflater.inflate(R.layout.spotted_post_item_cupido,
 							parent, false);
 					holder.hitOnButton = (ImageButton) view
 							.findViewById(R.id.hitOnButton);
 				}
-				
+
 				holder.title = (TextView) view.findViewById(R.id.title);
 				holder.timestamp = (TextView) view.findViewById(R.id.timestamp);
 				holder.statusMsg = (TextView) view.findViewById(R.id.text);
 				holder.profilePic = (ImageView) view
 						.findViewById(R.id.profilePic);
-				holder.postImage = (ImageView) view.findViewById(R.id.postImage);
+				holder.postImage = (ImageView) view
+						.findViewById(R.id.postImage);
 				holder.numbOfComments = (TextView) view
 						.findViewById(R.id.numb_of_comments);
-				
+
 			}
 			holder.type = type;
 			view.setTag(holder);
 		} else {
-				holder = (SpottedViewHolder) view.getTag();
-
+			holder = (SpottedViewHolder) view.getTag();
+			if (type != VIEW_LOADING)
+				holder.postImage.setImageResource(R.drawable.loading_animation);
 		}
 
 		if (getItemViewType(position) != VIEW_LOADING) {
 			PostSpotted item = getItem(position);
-			
-			holder.numbOfComments.setOnClickListener(new IdParameterOnClickListener(
-					item.getId()) {
 
-				@Override
-				public void onClick(View v) {
-					Intent showRelativeCommentsIntent = new Intent(context,
-							ShowRelatedCommentsActivity.class);
-					showRelativeCommentsIntent.putExtra("postId", id);
-					showRelativeCommentsIntent.putExtra("type",
-							NotificationCategory.SIMPLE_SPOTTED.toString());
-					showRelativeCommentsIntent.putExtra("notificationCategory",
-							NotificationCategory.NOT_FROM_NOTIFICATION
-									.toString());
-					context.startActivity(showRelativeCommentsIntent);
-				}
-			});
+			holder.numbOfComments
+					.setOnClickListener(new IdParameterOnClickListener(item
+							.getId()) {
+
+						@Override
+						public void onClick(View v) {
+							Intent showRelativeCommentsIntent = new Intent(
+									context, ShowRelatedCommentsActivity.class);
+							showRelativeCommentsIntent.putExtra("postId", id);
+							showRelativeCommentsIntent.putExtra("type",
+									NotificationCategory.SIMPLE_SPOTTED
+											.toString());
+							showRelativeCommentsIntent.putExtra(
+									"notificationCategory",
+									NotificationCategory.NOT_FROM_NOTIFICATION
+											.toString());
+							context.startActivity(showRelativeCommentsIntent);
+						}
+					});
 			holder.title.setText(item.getTitle());
 			// Converting timestamp into time ago format
 			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
@@ -179,82 +185,91 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 			}
 			// Feed image
-			if (item.getHavePicture()) {	
+			if (item.getHavePicture()) {
 				holder.postImage.setVisibility(View.VISIBLE);
 
-				//asynctask to retrieve post image
+				// asynctask to retrieve post image
 				new AsyncTask<Object, Void, Boolean>() {
-				    private SpottedViewHolder v;
-				    private String s;
+					private SpottedViewHolder v;
+					private String s;
 
-				    @Override
-				    protected Boolean doInBackground(Object... params) {
-				        v = (SpottedViewHolder)params[0];
-				        Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+					@Override
+					protected Boolean doInBackground(Object... params) {
+						v = (SpottedViewHolder) params[0];
+						Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
 								AndroidHttp.newCompatibleTransport(),
 								new JacksonFactory(), null);
 
-						imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+						imageBuilder = CloudEndpointUtils
+								.updateBuilder(imageBuilder);
 
 						Postimageendpoint imageEndpoint = imageBuilder
 								.setApplicationName("polimisocial").build();
 
 						try {
-							s=imageEndpoint.getImageFromPostId((long)params[1]).execute().getImage();
+							s = imageEndpoint
+									.getImageFromPostId((long) params[1])
+									.execute().getImage();
 						} catch (IOException e2) {
 							System.out.println(e2.getMessage());
 							return false;
 						}
 						return true;
-				    }
+					}
 
-
-				    @Override
-				    protected void onPostExecute(Boolean result) {
-				        //if (v.position == position) {
-				            // If this item hasn't been recycled already, hide the
-				            // progress and set and show the image
-				            //v.progress.setVisibility(View.GONE);
-				            //v.icon.setVisibility(View.VISIBLE);
-				            //v.icon.setImageBitmap(result);
-				        //}
-				    	if(result){
-				    		final byte[] byteArrayImage = Base64.decode(s,
+					@Override
+					protected void onPostExecute(Boolean result) {
+						// if (v.position == position) {
+						// If this item hasn't been recycled already, hide the
+						// progress and set and show the image
+						// v.progress.setVisibility(View.GONE);
+						// v.icon.setVisibility(View.VISIBLE);
+						// v.icon.setImageBitmap(result);
+						// }
+						if (result) {
+							final byte[] byteArrayImage = Base64.decode(s,
 									Base64.DEFAULT);
-							v.postImage.setImageBitmap(BitmapFactory.decodeByteArray(
-									byteArrayImage, 0, byteArrayImage.length));
-							v.postImage.setOnClickListener(new OnClickListener() {
-								
-								@Override
-								public void onClick(View v) {
-									Intent showFullScreenPicIntent = new Intent(context,
-											FullScreenPicActivity.class);
-									showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
-									context.startActivity(showFullScreenPicIntent);
-								}
-							});
-				    	}
-				    }
-				}.execute(holder,item.getId());
-				
-			//case with no post picture
+							v.postImage.setImageBitmap(BitmapFactory
+									.decodeByteArray(byteArrayImage, 0,
+											byteArrayImage.length));
+							v.postImage
+									.setOnClickListener(new OnClickListener() {
+
+										@Override
+										public void onClick(View v) {
+											Intent showFullScreenPicIntent = new Intent(
+													context,
+													FullScreenPicActivity.class);
+											showFullScreenPicIntent
+													.putExtra("picInByte",
+															byteArrayImage);
+											context.startActivity(showFullScreenPicIntent);
+										}
+									});
+						}
+					}
+				}.execute(holder, item.getId());
+
+				// case with no post picture
 			} else {
 				holder.postImage.setVisibility(View.GONE);
 			}
-			
-			holder.numbOfComments.setText(item.getNumOfComments() + " comments");
+
+			holder.numbOfComments
+					.setText(item.getNumOfComments() + " comments");
 			if (getItemViewType(position) == VIEW_CUPIDO) {
-				
-				holder.hitOnButton.setOnClickListener(new IdParameterOnClickListener(
-						item.getId()) {
 
-					@Override
-					public void onClick(View v) {
-						showNoticeDialog(id);
+				holder.hitOnButton
+						.setOnClickListener(new IdParameterOnClickListener(item
+								.getId()) {
 
-					}
+							@Override
+							public void onClick(View v) {
+								showNoticeDialog(id);
 
-				});
+							}
+
+						});
 			}
 
 		}

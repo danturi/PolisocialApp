@@ -112,7 +112,7 @@
     <string name="search_hint">Search users</string>
     <string name="search">Search</string>
 
-    <!-- profile label -->
+<!-- profile label -->
     <string name="self_summary">SELF SUMMARY</string>
     <string name="what_im_doing">WHAT I\'M DOING WITH MY LIFE</string>
     <string name="im_really_good_at">I\'M REALLY GOOD AT</string>
@@ -120,12 +120,13 @@
     <string name="six_things_without">THE SIX THINGS I COULD NEVED DO WITHOUT</string>
     <string name="search_users">Search users</string>
     <string name="title_activity_edit_profile_field">EditProfileFieldActivity</string>
-    <string name="type_here">Type here...&#8230;</string>
+    <string name="type_here">Type here &#8230;</string>
     <string name="save">SAVE</string>
     <string name="title_activity_full_screen_pic">MyOwlCampus gallery mode</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="new_to_myowlcampus">New to myOwlCampus?</string>
     <string name="title_activity_search">SearchActivity</string>
    <string name="no_user_search">No users found</string>
+   <string name="edit">edit</string>
 
 </resources>
