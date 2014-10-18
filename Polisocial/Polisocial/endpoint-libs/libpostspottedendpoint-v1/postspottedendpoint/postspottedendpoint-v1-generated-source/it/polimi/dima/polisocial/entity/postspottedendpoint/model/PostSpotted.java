@@ -18,6 +18,8 @@
 
 package it.polimi.dima.polisocial.entity.postspottedendpoint.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Model definition for PostSpotted.
  *
@@ -75,6 +77,8 @@ public final class PostSpotted extends com.google.api.client.json.GenericJson {
 
   
   private Integer numOfComments;
+  
+  private Bitmap bitmap=null;
   
   /**
    * @return value or {@code null} for none
@@ -197,6 +201,14 @@ public Integer getNumOfComments() {
 
 public void setNumOfComments(Integer numOfComments) {
 	this.numOfComments = numOfComments;
+}
+
+public Bitmap getBitmap() {
+	return bitmap;
+}
+
+public void setBitmap(Bitmap bitmap) {
+	this.bitmap = bitmap;
 }
 
 }

@@ -22,6 +22,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.annotation.DrawableRes;
@@ -127,8 +128,6 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			view.setTag(holder);
 		} else {
 			holder = (SpottedViewHolder) view.getTag();
-			if (type != VIEW_LOADING)
-				holder.postImage.setImageResource(R.drawable.loading_animation);
 		}
 
 		if (getItemViewType(position) != VIEW_LOADING) {
@@ -188,67 +187,68 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 			if (item.getHavePicture()) {
 				holder.postImage.setVisibility(View.VISIBLE);
 
-				// asynctask to retrieve post image
-				new AsyncTask<Object, Void, Boolean>() {
-					private SpottedViewHolder v;
-					private String s;
+				if (item.getBitmap() == null) {
+					// asynctask to retrieve post image
+					new AsyncTask<Object, Void, Boolean>() {
+						private SpottedViewHolder v;
+						private String s;
+						private PostSpotted ps;
 
-					@Override
-					protected Boolean doInBackground(Object... params) {
-						v = (SpottedViewHolder) params[0];
-						Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
-								AndroidHttp.newCompatibleTransport(),
-								new JacksonFactory(), null);
+						@Override
+						protected Boolean doInBackground(Object... params) {
+							v = (SpottedViewHolder) params[0];
+							Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+									AndroidHttp.newCompatibleTransport(),
+									new JacksonFactory(), null);
 
-						imageBuilder = CloudEndpointUtils
-								.updateBuilder(imageBuilder);
+							imageBuilder = CloudEndpointUtils
+									.updateBuilder(imageBuilder);
 
-						Postimageendpoint imageEndpoint = imageBuilder
-								.setApplicationName("polimisocial").build();
+							Postimageendpoint imageEndpoint = imageBuilder
+									.setApplicationName("polimisocial").build();
 
-						try {
-							s = imageEndpoint
-									.getImageFromPostId((long) params[1])
-									.execute().getImage();
-						} catch (IOException e2) {
-							System.out.println(e2.getMessage());
-							return false;
+							try {
+								ps = (PostSpotted) params[1];
+								s = imageEndpoint
+										.getImageFromPostId(ps.getId())
+										.execute().getImage();
+							} catch (IOException e2) {
+								System.out.println(e2.getMessage());
+								return false;
+							}
+							return true;
 						}
-						return true;
-					}
 
-					@Override
-					protected void onPostExecute(Boolean result) {
-						// if (v.position == position) {
-						// If this item hasn't been recycled already, hide the
-						// progress and set and show the image
-						// v.progress.setVisibility(View.GONE);
-						// v.icon.setVisibility(View.VISIBLE);
-						// v.icon.setImageBitmap(result);
-						// }
-						if (result) {
-							final byte[] byteArrayImage = Base64.decode(s,
-									Base64.DEFAULT);
-							v.postImage.setImageBitmap(BitmapFactory
-									.decodeByteArray(byteArrayImage, 0,
-											byteArrayImage.length));
-							v.postImage
-									.setOnClickListener(new OnClickListener() {
+						@Override
+						protected void onPostExecute(Boolean result) {
+							if (result) {
+								final byte[] byteArrayImage = Base64.decode(s,
+										Base64.DEFAULT);
+								Bitmap bitmap = BitmapFactory.decodeByteArray(
+										byteArrayImage, 0,
+										byteArrayImage.length);
+								v.postImage.setImageBitmap(bitmap);
+								ps.setBitmap(bitmap);
+								v.postImage
+										.setOnClickListener(new OnClickListener() {
 
-										@Override
-										public void onClick(View v) {
-											Intent showFullScreenPicIntent = new Intent(
-													context,
-													FullScreenPicActivity.class);
-											showFullScreenPicIntent
-													.putExtra("picInByte",
-															byteArrayImage);
-											context.startActivity(showFullScreenPicIntent);
-										}
-									});
+											@Override
+											public void onClick(View v) {
+												Intent showFullScreenPicIntent = new Intent(
+														context,
+														FullScreenPicActivity.class);
+												showFullScreenPicIntent
+														.putExtra("picInByte",
+																byteArrayImage);
+												context.startActivity(showFullScreenPicIntent);
+											}
+										});
+							}
 						}
-					}
-				}.execute(holder, item.getId());
+					}.execute(holder, item);
+				} else {
+					holder.postImage.setImageBitmap(item.getBitmap());
+				}
 
 				// case with no post picture
 			} else {
