@@ -1,6 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.Rental;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -18,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "secondhandbookendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
-public class SecondHandBookEndpoint {
+@Api(name = "rentalendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
+public class RentalEndpoint {
 
   /**
    * This method lists all the entities inserted in datastore.
@@ -29,18 +30,18 @@ public class SecondHandBookEndpoint {
    * persisted and a cursor to the next page.
    */
   @SuppressWarnings({"unchecked", "unused"})
-  @ApiMethod(name = "listSecondHandBook")
-  public CollectionResponse<SecondHandBook> listSecondHandBook(
+  @ApiMethod(name = "listRental")
+  public CollectionResponse<Rental> listRental(
     @Nullable @Named("cursor") String cursorString,
     @Nullable @Named("limit") Integer limit) {
 
     EntityManager mgr = null;
     Cursor cursor = null;
-    List<SecondHandBook> execute = null;
+    List<Rental> execute = null;
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from SecondHandBook as SecondHandBook");
+      Query query = mgr.createQuery("select from Rental as Rental");
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -51,18 +52,18 @@ public class SecondHandBookEndpoint {
         query.setMaxResults(limit);
       }
 
-      execute = (List<SecondHandBook>) query.getResultList();
+      execute = (List<Rental>) query.getResultList();
       cursor = JPACursorHelper.getCursor(execute);
       if (cursor != null) cursorString = cursor.toWebSafeString();
 
       // Tight loop for fetching all entities from datastore and accomodate
       // for lazy fetch.
-      for (SecondHandBook obj : execute);
+      for (Rental obj : execute);
     } finally {
       mgr.close();
     }
 
-    return CollectionResponse.<SecondHandBook>builder()
+    return CollectionResponse.<Rental>builder()
       .setItems(execute)
       .setNextPageToken(cursorString)
       .build();
@@ -74,16 +75,16 @@ public class SecondHandBookEndpoint {
    * @param id the primary key of the java bean.
    * @return The entity with primary key id.
    */
-  @ApiMethod(name = "getSecondHandBook")
-  public SecondHandBook getSecondHandBook(@Named("id") Long id) {
+  @ApiMethod(name = "getRental")
+  public Rental getRental(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
-    SecondHandBook secondhandbook  = null;
+    Rental rental  = null;
     try {
-      secondhandbook = mgr.find(SecondHandBook.class, id);
+      rental = mgr.find(Rental.class, id);
     } finally {
       mgr.close();
     }
-    return secondhandbook;
+    return rental;
   }
 
   /**
@@ -91,21 +92,21 @@ public class SecondHandBookEndpoint {
    * exists in the datastore, an exception is thrown.
    * It uses HTTP POST method.
    *
-   * @param secondhandbook the entity to be inserted.
+   * @param rental the entity to be inserted.
    * @return The inserted entity.
    */
-  @ApiMethod(name = "insertSecondHandBook")
-  public SecondHandBook insertSecondHandBook(SecondHandBook secondhandbook) {
+  @ApiMethod(name = "insertRental")
+  public Rental insertRental(Rental rental) {
     EntityManager mgr = getEntityManager();
     try {
-      if(containsSecondHandBook(secondhandbook)) {
+      if(containsRental(rental)) {
         throw new EntityExistsException("Object already exists");
       }
-      mgr.persist(secondhandbook);
+      mgr.persist(rental);
     } finally {
       mgr.close();
     }
-    return secondhandbook;
+    return rental;
   }
 
   /**
@@ -113,21 +114,21 @@ public class SecondHandBookEndpoint {
    * exist in the datastore, an exception is thrown.
    * It uses HTTP PUT method.
    *
-   * @param secondhandbook the entity to be updated.
+   * @param rental the entity to be updated.
    * @return The updated entity.
    */
-  @ApiMethod(name = "updateSecondHandBook")
-  public SecondHandBook updateSecondHandBook(SecondHandBook secondhandbook) {
+  @ApiMethod(name = "updateRental")
+  public Rental updateRental(Rental rental) {
     EntityManager mgr = getEntityManager();
     try {
-      if(!containsSecondHandBook(secondhandbook)) {
+      if(!containsRental(rental)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(secondhandbook);
+      mgr.persist(rental);
     } finally {
       mgr.close();
     }
-    return secondhandbook;
+    return rental;
   }
 
   /**
@@ -136,22 +137,22 @@ public class SecondHandBookEndpoint {
    *
    * @param id the primary key of the entity to be deleted.
    */
-  @ApiMethod(name = "removeSecondHandBook")
-  public void removeSecondHandBook(@Named("id") Long id) {
+  @ApiMethod(name = "removeRental")
+  public void removeRental(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
     try {
-      SecondHandBook secondhandbook = mgr.find(SecondHandBook.class, id);
-      mgr.remove(secondhandbook);
+      Rental rental = mgr.find(Rental.class, id);
+      mgr.remove(rental);
     } finally {
       mgr.close();
     }
   }
 
-  private boolean containsSecondHandBook(SecondHandBook secondhandbook) {
+  private boolean containsRental(Rental rental) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-      SecondHandBook item = mgr.find(SecondHandBook.class, secondhandbook.getId());
+      Rental item = mgr.find(Rental.class, rental.getId());
       if(item == null) {
         contains = false;
       }

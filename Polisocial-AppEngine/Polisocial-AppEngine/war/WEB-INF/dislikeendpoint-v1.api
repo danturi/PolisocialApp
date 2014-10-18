@@ -2,7 +2,7 @@
   "extends" : "thirdParty.api",
   "abstract" : false,
   "root" : "https://polimisocial.appspot.com/_ah/api",
-  "name" : "rentalendpoint",
+  "name" : "dislikeendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
@@ -27,14 +27,14 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "rentalendpoint.removeRental" : {
-      "path" : "rental/{id}",
+    "dislikeendpoint.removeDisLike" : {
+      "path" : "dislike/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.removeRental",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.removeDisLike",
       "request" : {
         "parameters" : {
           "id" : {
@@ -48,35 +48,14 @@
         "body" : "empty"
       }
     },
-    "rentalendpoint.getRental" : {
-      "path" : "rental/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.getRental",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "rentalendpoint.insertRental" : {
-      "path" : "rental",
+    "dislikeendpoint.insertDisLike" : {
+      "path" : "dislike",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.insertDisLike",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -85,30 +64,51 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "rentalendpoint.updateRental" : {
-      "path" : "rental",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.updateRental",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "rentalendpoint.listRental" : {
-      "path" : "rental",
+    "dislikeendpoint.getDisLike" : {
+      "path" : "dislike/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.listRental",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "dislikeendpoint.updateDisLike" : {
+      "path" : "dislike",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.updateDisLike",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "dislikeendpoint.listDisLike" : {
+      "path" : "dislike",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.listDisLike",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -129,44 +129,32 @@
   },
   "descriptor" : {
     "schemas" : {
-      "Rental" : {
-        "id" : "Rental",
+      "DisLike" : {
+        "id" : "DisLike",
         "type" : "object",
         "properties" : {
           "id" : {
             "type" : "string",
             "format" : "int64"
           },
-          "userId" : {
+          "postId" : {
             "type" : "string",
             "format" : "int64"
           },
-          "text" : {
-            "type" : "string"
-          },
-          "title" : {
-            "type" : "string"
-          },
-          "timestamp" : {
+          "userId" : {
             "type" : "string",
-            "format" : "date-time"
-          },
-          "havePicture" : {
-            "type" : "boolean"
-          },
-          "position" : {
-            "type" : "string"
+            "format" : "int64"
           }
         }
       },
-      "CollectionResponse_Rental" : {
-        "id" : "CollectionResponse_Rental",
+      "CollectionResponse_DisLike" : {
+        "id" : "CollectionResponse_DisLike",
         "type" : "object",
         "properties" : {
           "items" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Rental"
+              "$ref" : "DisLike"
             }
           },
           "nextPageToken" : {
@@ -176,32 +164,32 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.removeRental" : {
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.removeDisLike" : {
       },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.getRental" : {
-        "response" : {
-          "$ref" : "Rental"
-        }
-      },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental" : {
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.insertDisLike" : {
         "request" : {
-          "$ref" : "Rental"
+          "$ref" : "DisLike"
         },
         "response" : {
-          "$ref" : "Rental"
+          "$ref" : "DisLike"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.updateRental" : {
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike" : {
+        "response" : {
+          "$ref" : "DisLike"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.updateDisLike" : {
         "request" : {
-          "$ref" : "Rental"
+          "$ref" : "DisLike"
         },
         "response" : {
-          "$ref" : "Rental"
+          "$ref" : "DisLike"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.listRental" : {
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.listDisLike" : {
         "response" : {
-          "$ref" : "CollectionResponse_Rental"
+          "$ref" : "CollectionResponse_DisLike"
         }
       }
     }

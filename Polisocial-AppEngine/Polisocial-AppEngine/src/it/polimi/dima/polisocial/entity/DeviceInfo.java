@@ -1,4 +1,4 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

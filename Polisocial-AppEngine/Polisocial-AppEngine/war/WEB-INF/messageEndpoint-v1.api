@@ -27,61 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial",
   "methods" : {
-    "messageEndpoint.listMessages" : {
-      "path" : "messagedata",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.listMessages",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "messageEndpoint.sendHitOnToDevice" : {
-      "path" : "sendHitOnToDevice",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.sendHitOnToDevice",
-      "request" : {
-        "parameters" : {
-          "user" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "postId" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "postTitle" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "messageEndpoint.sendMessageToDevice" : {
       "path" : "sendMessageToDevice",
       "httpMethod" : "POST",
@@ -89,7 +34,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendMessageToDevice",
       "request" : {
         "parameters" : {
           "user" : {
@@ -116,6 +61,61 @@
         "body" : "empty"
       }
     },
+    "messageEndpoint.listMessages" : {
+      "path" : "messagedata",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.MessageEndpoint.listMessages",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "messageEndpoint.sendHitOnToDevice" : {
+      "path" : "sendHitOnToDevice",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendHitOnToDevice",
+      "request" : {
+        "parameters" : {
+          "user" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "postTitle" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "messageEndpoint.sendMessage" : {
       "path" : "sendMessage/{message}",
       "httpMethod" : "POST",
@@ -123,7 +123,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.MessageEndpoint.sendMessage",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendMessage",
       "request" : {
         "parameters" : {
           "message" : {
@@ -140,6 +140,26 @@
   },
   "descriptor" : {
     "schemas" : {
+      "DeviceInfo" : {
+        "id" : "DeviceInfo",
+        "type" : "object",
+        "properties" : {
+          "deviceRegistrationID" : {
+            "type" : "string"
+          },
+          "deviceInformation" : {
+            "type" : "string"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
       "CollectionResponse_MessageData" : {
         "id" : "CollectionResponse_MessageData",
         "type" : "object",
@@ -198,45 +218,25 @@
             "type" : "string"
           }
         }
-      },
-      "DeviceInfo" : {
-        "id" : "DeviceInfo",
-        "type" : "object",
-        "properties" : {
-          "deviceRegistrationID" : {
-            "type" : "string"
-          },
-          "deviceInformation" : {
-            "type" : "string"
-          },
-          "timestamp" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "userId" : {
-            "type" : "string",
-            "format" : "int64"
-          }
-        }
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.MessageEndpoint.listMessages" : {
+      "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendMessageToDevice" : {
+        "request" : {
+          "$ref" : "DeviceInfo"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.MessageEndpoint.listMessages" : {
         "response" : {
           "$ref" : "CollectionResponse_MessageData"
         }
       },
-      "it.polimi.dima.polisocial.MessageEndpoint.sendHitOnToDevice" : {
+      "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendHitOnToDevice" : {
         "request" : {
           "$ref" : "DeviceInfo"
         }
       },
-      "it.polimi.dima.polisocial.MessageEndpoint.sendMessageToDevice" : {
-        "request" : {
-          "$ref" : "DeviceInfo"
-        }
-      },
-      "it.polimi.dima.polisocial.MessageEndpoint.sendMessage" : {
+      "it.polimi.dima.polisocial.endpoint.MessageEndpoint.sendMessage" : {
       }
     }
   }

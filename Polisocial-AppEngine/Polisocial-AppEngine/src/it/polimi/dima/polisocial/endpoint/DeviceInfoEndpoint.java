@@ -1,8 +1,8 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.entity.DeviceInfo;
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.PostSpotted;
-import it.polimi.dima.polisocial.entity.PostSpottedEndpoint;
 
 import java.util.List;
 

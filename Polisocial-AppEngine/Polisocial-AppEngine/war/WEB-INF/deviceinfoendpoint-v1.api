@@ -27,48 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial",
   "methods" : {
-    "deviceinfoendpoint.removeDeviceInfo" : {
-      "path" : "deviceinfo/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "deviceinfoendpoint.sendToUserHitOn" : {
-      "path" : "sendToUserHitOn/{postId}",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUserHitOn",
-      "request" : {
-        "parameters" : {
-          "postId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "deviceinfoendpoint.listDeviceInfo" : {
       "path" : "deviceinfo",
       "httpMethod" : "GET",
@@ -76,7 +34,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.listDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.listDeviceInfo",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -94,6 +52,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "deviceinfoendpoint.sendToUserHitOn" : {
+      "path" : "sendToUserHitOn/{postId}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUserHitOn",
+      "request" : {
+        "parameters" : {
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "deviceinfoendpoint.updateDeviceInfo" : {
       "path" : "deviceinfo",
       "httpMethod" : "PUT",
@@ -101,7 +80,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.updateDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.updateDeviceInfo",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -117,7 +96,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.getDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.getDeviceInfo",
       "request" : {
         "parameters" : {
           "id" : {
@@ -138,7 +117,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUser",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUser",
       "request" : {
         "parameters" : {
           "userId" : {
@@ -171,13 +150,34 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.DeviceInfoEndpoint.insertDeviceInfo",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.insertDeviceInfo",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "deviceinfoendpoint.removeDeviceInfo" : {
+      "path" : "deviceinfo/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.removeDeviceInfo",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     }
   },
@@ -220,16 +220,14 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.removeDeviceInfo" : {
-      },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUserHitOn" : {
-      },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.listDeviceInfo" : {
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.listDeviceInfo" : {
         "response" : {
           "$ref" : "CollectionResponse_DeviceInfo"
         }
       },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.updateDeviceInfo" : {
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUserHitOn" : {
+      },
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.updateDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
         },
@@ -237,20 +235,22 @@
           "$ref" : "DeviceInfo"
         }
       },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.getDeviceInfo" : {
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.getDeviceInfo" : {
         "response" : {
           "$ref" : "DeviceInfo"
         }
       },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.sendToUser" : {
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUser" : {
       },
-      "it.polimi.dima.polisocial.DeviceInfoEndpoint.insertDeviceInfo" : {
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.insertDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
         },
         "response" : {
           "$ref" : "DeviceInfo"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.removeDeviceInfo" : {
       }
     }
   }

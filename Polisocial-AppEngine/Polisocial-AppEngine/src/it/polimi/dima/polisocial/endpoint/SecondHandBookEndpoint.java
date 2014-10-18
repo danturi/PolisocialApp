@@ -1,6 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.SecondHandBook;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -18,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "initiativeendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
-public class InitiativeEndpoint {
+@Api(name = "secondhandbookendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
+public class SecondHandBookEndpoint {
 
   /**
    * This method lists all the entities inserted in datastore.
@@ -29,18 +30,18 @@ public class InitiativeEndpoint {
    * persisted and a cursor to the next page.
    */
   @SuppressWarnings({"unchecked", "unused"})
-  @ApiMethod(name = "listInitiative")
-  public CollectionResponse<Initiative> listInitiative(
+  @ApiMethod(name = "listSecondHandBook")
+  public CollectionResponse<SecondHandBook> listSecondHandBook(
     @Nullable @Named("cursor") String cursorString,
     @Nullable @Named("limit") Integer limit) {
 
     EntityManager mgr = null;
     Cursor cursor = null;
-    List<Initiative> execute = null;
+    List<SecondHandBook> execute = null;
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from Initiative as Initiative");
+      Query query = mgr.createQuery("select from SecondHandBook as SecondHandBook");
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -51,18 +52,18 @@ public class InitiativeEndpoint {
         query.setMaxResults(limit);
       }
 
-      execute = (List<Initiative>) query.getResultList();
+      execute = (List<SecondHandBook>) query.getResultList();
       cursor = JPACursorHelper.getCursor(execute);
       if (cursor != null) cursorString = cursor.toWebSafeString();
 
       // Tight loop for fetching all entities from datastore and accomodate
       // for lazy fetch.
-      for (Initiative obj : execute);
+      for (SecondHandBook obj : execute);
     } finally {
       mgr.close();
     }
 
-    return CollectionResponse.<Initiative>builder()
+    return CollectionResponse.<SecondHandBook>builder()
       .setItems(execute)
       .setNextPageToken(cursorString)
       .build();
@@ -74,16 +75,16 @@ public class InitiativeEndpoint {
    * @param id the primary key of the java bean.
    * @return The entity with primary key id.
    */
-  @ApiMethod(name = "getInitiative")
-  public Initiative getInitiative(@Named("id") Long id) {
+  @ApiMethod(name = "getSecondHandBook")
+  public SecondHandBook getSecondHandBook(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
-    Initiative initiative  = null;
+    SecondHandBook secondhandbook  = null;
     try {
-      initiative = mgr.find(Initiative.class, id);
+      secondhandbook = mgr.find(SecondHandBook.class, id);
     } finally {
       mgr.close();
     }
-    return initiative;
+    return secondhandbook;
   }
 
   /**
@@ -91,21 +92,21 @@ public class InitiativeEndpoint {
    * exists in the datastore, an exception is thrown.
    * It uses HTTP POST method.
    *
-   * @param initiative the entity to be inserted.
+   * @param secondhandbook the entity to be inserted.
    * @return The inserted entity.
    */
-  @ApiMethod(name = "insertInitiative")
-  public Initiative insertInitiative(Initiative initiative) {
+  @ApiMethod(name = "insertSecondHandBook")
+  public SecondHandBook insertSecondHandBook(SecondHandBook secondhandbook) {
     EntityManager mgr = getEntityManager();
     try {
-      if(containsInitiative(initiative)) {
+      if(containsSecondHandBook(secondhandbook)) {
         throw new EntityExistsException("Object already exists");
       }
-      mgr.persist(initiative);
+      mgr.persist(secondhandbook);
     } finally {
       mgr.close();
     }
-    return initiative;
+    return secondhandbook;
   }
 
   /**
@@ -113,21 +114,21 @@ public class InitiativeEndpoint {
    * exist in the datastore, an exception is thrown.
    * It uses HTTP PUT method.
    *
-   * @param initiative the entity to be updated.
+   * @param secondhandbook the entity to be updated.
    * @return The updated entity.
    */
-  @ApiMethod(name = "updateInitiative")
-  public Initiative updateInitiative(Initiative initiative) {
+  @ApiMethod(name = "updateSecondHandBook")
+  public SecondHandBook updateSecondHandBook(SecondHandBook secondhandbook) {
     EntityManager mgr = getEntityManager();
     try {
-      if(!containsInitiative(initiative)) {
+      if(!containsSecondHandBook(secondhandbook)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(initiative);
+      mgr.persist(secondhandbook);
     } finally {
       mgr.close();
     }
-    return initiative;
+    return secondhandbook;
   }
 
   /**
@@ -136,24 +137,22 @@ public class InitiativeEndpoint {
    *
    * @param id the primary key of the entity to be deleted.
    */
-  @ApiMethod(name = "removeInitiative")
-  public void removeInitiative(@Named("id") Long id) {
+  @ApiMethod(name = "removeSecondHandBook")
+  public void removeSecondHandBook(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
     try {
-      Initiative initiative = mgr.find(Initiative.class, id);
-      mgr.remove(initiative);
+      SecondHandBook secondhandbook = mgr.find(SecondHandBook.class, id);
+      mgr.remove(secondhandbook);
     } finally {
       mgr.close();
     }
   }
 
-  private boolean containsInitiative(Initiative initiative) {
+  private boolean containsSecondHandBook(SecondHandBook secondhandbook) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-    	if (initiative.getId()==null)
-			return false;
-      Initiative item = mgr.find(Initiative.class, initiative.getId());
+      SecondHandBook item = mgr.find(SecondHandBook.class, secondhandbook.getId());
       if(item == null) {
         contains = false;
       }

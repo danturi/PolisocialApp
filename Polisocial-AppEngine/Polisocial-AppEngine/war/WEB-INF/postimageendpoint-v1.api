@@ -27,6 +27,27 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
+    "postimageendpoint.removePostImage" : {
+      "path" : "postimage/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.removePostImage",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "postimageendpoint.getImageFromPostId" : {
       "path" : "getImageFromPostId",
       "httpMethod" : "GET",
@@ -34,10 +55,31 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.getImageFromPostId",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getImageFromPostId",
       "request" : {
         "parameters" : {
           "postId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.getPostImage" : {
+      "path" : "postimage/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage",
+      "request" : {
+        "parameters" : {
+          "id" : {
             "type" : "int64",
             "required" : true
           }
@@ -55,7 +97,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.listPostImage",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -73,22 +115,17 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "postimageendpoint.getPostImage" : {
-      "path" : "postimage/{id}",
-      "httpMethod" : "GET",
+    "postimageendpoint.insertPostImage" : {
+      "path" : "postimage",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.getPostImage",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.insertPostImage",
       "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -101,50 +138,13 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.updatePostImage",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.updatePostImage",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "postimageendpoint.insertPostImage" : {
-      "path" : "postimage",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.insertPostImage",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "postimageendpoint.removePostImage" : {
-      "path" : "postimage/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PostImageEndpoint.removePostImage",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
       }
     }
   },
@@ -185,22 +185,24 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.getImageFromPostId" : {
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.removePostImage" : {
+      },
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getImageFromPostId" : {
         "response" : {
           "$ref" : "PostImage"
         }
       },
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.listPostImage" : {
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage" : {
+        "response" : {
+          "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage" : {
         "response" : {
           "$ref" : "CollectionResponse_PostImage"
         }
       },
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.getPostImage" : {
-        "response" : {
-          "$ref" : "PostImage"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.updatePostImage" : {
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.insertPostImage" : {
         "request" : {
           "$ref" : "PostImage"
         },
@@ -208,15 +210,13 @@
           "$ref" : "PostImage"
         }
       },
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.insertPostImage" : {
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.updatePostImage" : {
         "request" : {
           "$ref" : "PostImage"
         },
         "response" : {
           "$ref" : "PostImage"
         }
-      },
-      "it.polimi.dima.polisocial.entity.PostImageEndpoint.removePostImage" : {
       }
     }
   }

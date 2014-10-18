@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial;
 
 /**
  * @author danturi

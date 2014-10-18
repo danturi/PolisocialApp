@@ -27,22 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "hitonendpoint.updateHitOn" : {
-      "path" : "hiton",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.updateHitOn",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "hitonendpoint.getHitOn" : {
       "path" : "hiton/{id}",
       "httpMethod" : "GET",
@@ -50,7 +34,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.getHitOn",
       "request" : {
         "parameters" : {
           "id" : {
@@ -71,7 +55,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.listHitOn",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.listHitOn",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -89,6 +73,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "hitonendpoint.insertHitOn" : {
+      "path" : "hiton",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.insertHitOn",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "hitonendpoint.getUserHitOn" : {
       "path" : "collectionresponse_hiton/{postId}",
       "httpMethod" : "GET",
@@ -96,7 +96,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.getUserHitOn",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.getUserHitOn",
       "request" : {
         "parameters" : {
           "postId" : {
@@ -125,13 +125,29 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.sendHitOnNotification",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.sendHitOnNotification",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "hitonendpoint.updateHitOn" : {
+      "path" : "hiton",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.updateHitOn",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "hitonendpoint.removeHitOn" : {
@@ -141,7 +157,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.removeHitOn",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.removeHitOn",
       "request" : {
         "parameters" : {
           "id" : {
@@ -153,22 +169,6 @@
       },
       "response" : {
         "body" : "empty"
-      }
-    },
-    "hitonendpoint.insertHitOn" : {
-      "path" : "hiton",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.HitOnEndpoint.insertHitOn",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -219,7 +219,17 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.updateHitOn" : {
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.getHitOn" : {
+        "response" : {
+          "$ref" : "HitOn"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.listHitOn" : {
+        "response" : {
+          "$ref" : "CollectionResponse_HitOn"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.insertHitOn" : {
         "request" : {
           "$ref" : "HitOn"
         },
@@ -227,35 +237,25 @@
           "$ref" : "HitOn"
         }
       },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.getHitOn" : {
-        "response" : {
-          "$ref" : "HitOn"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.listHitOn" : {
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.getUserHitOn" : {
         "response" : {
           "$ref" : "CollectionResponse_HitOn"
         }
       },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.getUserHitOn" : {
-        "response" : {
-          "$ref" : "CollectionResponse_HitOn"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.sendHitOnNotification" : {
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.sendHitOnNotification" : {
         "request" : {
           "$ref" : "HitOn"
         }
       },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.removeHitOn" : {
-      },
-      "it.polimi.dima.polisocial.entity.HitOnEndpoint.insertHitOn" : {
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.updateHitOn" : {
         "request" : {
           "$ref" : "HitOn"
         },
         "response" : {
           "$ref" : "HitOn"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.HitOnEndpoint.removeHitOn" : {
       }
     }
   }

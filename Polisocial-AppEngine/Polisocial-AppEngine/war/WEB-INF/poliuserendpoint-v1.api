@@ -27,27 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "poliuserendpoint.removePoliUser" : {
-      "path" : "poliuser/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "poliuserendpoint.checkForDuplicateEmail" : {
       "path" : "checkForDuplicateEmail/{email}",
       "httpMethod" : "GET",
@@ -55,7 +34,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkForDuplicateEmail",
       "request" : {
         "parameters" : {
           "email" : {
@@ -76,7 +55,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkCredentials",
       "request" : {
         "parameters" : {
           "email" : {
@@ -94,63 +73,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "poliuserendpoint.insertPoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.insertPoliUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "poliuserendpoint.listPoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "poliuserendpoint.updatePoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.updatePoliUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "poliuserendpoint.getPoliUser" : {
       "path" : "poliuser/{id}",
       "httpMethod" : "GET",
@@ -158,7 +80,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPoliUser",
       "request" : {
         "parameters" : {
           "id" : {
@@ -172,6 +94,43 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "poliuserendpoint.getPictureUser" : {
+      "path" : "responseobject/{userId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPictureUser",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.insertPoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.insertPoliUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "poliuserendpoint.searchPoliUser" : {
       "path" : "searchPoliUser",
       "httpMethod" : "POST",
@@ -179,7 +138,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.searchPoliUser",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.searchPoliUser",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -209,19 +168,23 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "poliuserendpoint.checkForDuplicateUsername" : {
-      "path" : "checkForDuplicateUsername/{username}",
+    "poliuserendpoint.listPoliUser" : {
+      "path" : "poliuser",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.listPoliUser",
       "request" : {
         "parameters" : {
-          "username" : {
+          "cursor" : {
             "type" : "string",
-            "required" : true
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -230,18 +193,55 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "poliuserendpoint.getPictureUser" : {
-      "path" : "responseobject/{userId}",
+    "poliuserendpoint.updatePoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updatePoliUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "poliuserendpoint.removePoliUser" : {
+      "path" : "poliuser/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.removePoliUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "poliuserendpoint.checkForDuplicateUsername" : {
+      "path" : "checkForDuplicateUsername/{username}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPictureUser",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkForDuplicateUsername",
       "request" : {
         "parameters" : {
-          "userId" : {
-            "type" : "int64",
+          "username" : {
+            "type" : "string",
             "required" : true
           }
         },
@@ -377,20 +377,21 @@
           }
         }
       },
-      "CollectionResponse_PoliUser" : {
-        "id" : "CollectionResponse_PoliUser",
+      "ResponseObject" : {
+        "id" : "ResponseObject",
         "type" : "object",
         "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "PoliUser"
-            }
-          },
-          "nextPageToken" : {
+          "exception" : {
             "type" : "string"
+          },
+          "object" : {
+            "$ref" : "_any"
           }
         }
+      },
+      "_any" : {
+        "id" : "_any",
+        "type" : "any"
       },
       "CollectionResponse_UserDTO" : {
         "id" : "CollectionResponse_UserDTO",
@@ -426,37 +427,44 @@
           }
         }
       },
-      "ResponseObject" : {
-        "id" : "ResponseObject",
+      "CollectionResponse_PoliUser" : {
+        "id" : "CollectionResponse_PoliUser",
         "type" : "object",
         "properties" : {
-          "exception" : {
-            "type" : "string"
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PoliUser"
+            }
           },
-          "object" : {
-            "$ref" : "_any"
+          "nextPageToken" : {
+            "type" : "string"
           }
         }
-      },
-      "_any" : {
-        "id" : "_any",
-        "type" : "any"
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.removePoliUser" : {
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateEmail" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkForDuplicateEmail" : {
         "response" : {
           "$ref" : "PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkCredentials" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkCredentials" : {
         "response" : {
           "$ref" : "PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.insertPoliUser" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPoliUser" : {
+        "response" : {
+          "$ref" : "PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPictureUser" : {
+        "response" : {
+          "$ref" : "ResponseObject"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.insertPoliUser" : {
         "request" : {
           "$ref" : "PoliUser"
         },
@@ -464,37 +472,29 @@
           "$ref" : "PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.listPoliUser" : {
-        "response" : {
-          "$ref" : "CollectionResponse_PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.updatePoliUser" : {
-        "request" : {
-          "$ref" : "PoliUser"
-        },
-        "response" : {
-          "$ref" : "PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPoliUser" : {
-        "response" : {
-          "$ref" : "PoliUser"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.searchPoliUser" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.searchPoliUser" : {
         "response" : {
           "$ref" : "CollectionResponse_UserDTO"
         }
       },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.checkForDuplicateUsername" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.listPoliUser" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updatePoliUser" : {
+        "request" : {
+          "$ref" : "PoliUser"
+        },
         "response" : {
           "$ref" : "PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.entity.PoliUserEndpoint.getPictureUser" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.removePoliUser" : {
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkForDuplicateUsername" : {
         "response" : {
-          "$ref" : "ResponseObject"
+          "$ref" : "PoliUser"
         }
       }
     }

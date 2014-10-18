@@ -1,6 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.PostImage;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;

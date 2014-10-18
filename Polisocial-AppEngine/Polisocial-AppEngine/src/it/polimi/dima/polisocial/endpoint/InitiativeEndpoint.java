@@ -1,7 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
-import it.polimi.dima.polisocial.DeviceInfoEndpoint;
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.Initiative;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -19,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "hitonendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
-public class HitOnEndpoint {
+@Api(name = "initiativeendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
+public class InitiativeEndpoint {
 
   /**
    * This method lists all the entities inserted in datastore.
@@ -30,18 +30,18 @@ public class HitOnEndpoint {
    * persisted and a cursor to the next page.
    */
   @SuppressWarnings({"unchecked", "unused"})
-  @ApiMethod(name = "listHitOn")
-  public CollectionResponse<HitOn> listHitOn(
+  @ApiMethod(name = "listInitiative")
+  public CollectionResponse<Initiative> listInitiative(
     @Nullable @Named("cursor") String cursorString,
     @Nullable @Named("limit") Integer limit) {
 
     EntityManager mgr = null;
     Cursor cursor = null;
-    List<HitOn> execute = null;
+    List<Initiative> execute = null;
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from HitOn as HitOn");
+      Query query = mgr.createQuery("select from Initiative as Initiative");
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -52,18 +52,18 @@ public class HitOnEndpoint {
         query.setMaxResults(limit);
       }
 
-      execute = (List<HitOn>) query.getResultList();
+      execute = (List<Initiative>) query.getResultList();
       cursor = JPACursorHelper.getCursor(execute);
       if (cursor != null) cursorString = cursor.toWebSafeString();
 
       // Tight loop for fetching all entities from datastore and accomodate
       // for lazy fetch.
-      for (HitOn obj : execute);
+      for (Initiative obj : execute);
     } finally {
       mgr.close();
     }
 
-    return CollectionResponse.<HitOn>builder()
+    return CollectionResponse.<Initiative>builder()
       .setItems(execute)
       .setNextPageToken(cursorString)
       .build();
@@ -75,16 +75,16 @@ public class HitOnEndpoint {
    * @param id the primary key of the java bean.
    * @return The entity with primary key id.
    */
-  @ApiMethod(name = "getHitOn")
-  public HitOn getHitOn(@Named("id") Long id) {
+  @ApiMethod(name = "getInitiative")
+  public Initiative getInitiative(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
-    HitOn hiton  = null;
+    Initiative initiative  = null;
     try {
-      hiton = mgr.find(HitOn.class, id);
+      initiative = mgr.find(Initiative.class, id);
     } finally {
       mgr.close();
     }
-    return hiton;
+    return initiative;
   }
 
   /**
@@ -92,50 +92,43 @@ public class HitOnEndpoint {
    * exists in the datastore, an exception is thrown.
    * It uses HTTP POST method.
    *
-   * @param hiton the entity to be inserted.
+   * @param initiative the entity to be inserted.
    * @return The inserted entity.
    */
-  @ApiMethod(name = "insertHitOn")
-  public HitOn insertHitOn(HitOn hiton) {
+  @ApiMethod(name = "insertInitiative")
+  public Initiative insertInitiative(Initiative initiative) {
     EntityManager mgr = getEntityManager();
     try {
-      if(containsHitOn(hiton)) {
+      if(containsInitiative(initiative)) {
         throw new EntityExistsException("Object already exists");
       }
-      mgr.persist(hiton);
+      mgr.persist(initiative);
     } finally {
       mgr.close();
     }
-    return hiton;
+    return initiative;
   }
 
-  @ApiMethod(name="sendHitOnNotification")
-  public void sendHitOnNotification(HitOn hitOn){
-	 
-	  DeviceInfoEndpoint deviceInfo = new DeviceInfoEndpoint();
-	  deviceInfo.sendToUserHitOn(hitOn.getPostId());
-  }
-  
   /**
    * This method is used for updating an existing entity. If the entity does not
    * exist in the datastore, an exception is thrown.
    * It uses HTTP PUT method.
    *
-   * @param hiton the entity to be updated.
+   * @param initiative the entity to be updated.
    * @return The updated entity.
    */
-  @ApiMethod(name = "updateHitOn")
-  public HitOn updateHitOn(HitOn hiton) {
+  @ApiMethod(name = "updateInitiative")
+  public Initiative updateInitiative(Initiative initiative) {
     EntityManager mgr = getEntityManager();
     try {
-      if(!containsHitOn(hiton)) {
+      if(!containsInitiative(initiative)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(hiton);
+      mgr.persist(initiative);
     } finally {
       mgr.close();
     }
-    return hiton;
+    return initiative;
   }
 
   /**
@@ -144,64 +137,24 @@ public class HitOnEndpoint {
    *
    * @param id the primary key of the entity to be deleted.
    */
-  @ApiMethod(name = "removeHitOn")
-  public void removeHitOn(@Named("id") Long id) {
+  @ApiMethod(name = "removeInitiative")
+  public void removeInitiative(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
     try {
-      HitOn hiton = mgr.find(HitOn.class, id);
-      mgr.remove(hiton);
+      Initiative initiative = mgr.find(Initiative.class, id);
+      mgr.remove(initiative);
     } finally {
       mgr.close();
     }
   }
-  
-  @SuppressWarnings("unchecked")
-  @ApiMethod(name = "getUserHitOn")
-    public CollectionResponse<HitOn> getUserHitOn(@Named("postId") Long postId,@Nullable @Named("cursor") String cursorString,
-  		  @Nullable @Named("limit") Integer limit) {
-  	  
-  	  EntityManager mgr = null;
-  	  Cursor cursor = null;
-  	  List<HitOn> execute = null;
 
-  			  try{
-  				  mgr = getEntityManager();
-  				  Query query = mgr.createQuery("select h from HitOn h where h.postId=?1");
-  				  query.setParameter(1, postId);
-  				  if (cursorString != null && cursorString != "") {
-  					  cursor = Cursor.fromWebSafeString(cursorString);
-  					  query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
-  				  }
-
-  				  if (limit != null) {
-  					  query.setFirstResult(0);
-  					  query.setMaxResults(limit);
-  				  }
-
-  				  execute = (List<HitOn>) query.getResultList();
-  				  cursor = JPACursorHelper.getCursor(execute);
-  				  if (cursor != null) cursorString = cursor.toWebSafeString();
-
-  				  // Tight loop for fetching all entities from datastore and accomodate
-  				  // for lazy fetch.
-  				  for (HitOn obj : execute);
-  			  } finally {
-  				  mgr.close();
-  			  }
-
-  	  return CollectionResponse.<HitOn>builder()
-  			  .setItems(execute)
-  			  .setNextPageToken(cursorString)
-  			  .build();
-    }
-
-  private boolean containsHitOn(HitOn hiton) {
+  private boolean containsInitiative(Initiative initiative) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-    	if (hiton.getId()==null)
-    		return false;
-      HitOn item = mgr.find(HitOn.class, hiton.getId());
+    	if (initiative.getId()==null)
+			return false;
+      Initiative item = mgr.find(Initiative.class, initiative.getId());
       if(item == null) {
         contains = false;
       }

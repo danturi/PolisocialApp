@@ -27,14 +27,14 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "privatelessonendpoint.insertPrivateLesson" : {
+    "privatelessonendpoint.updatePrivateLesson" : {
       "path" : "privatelesson",
-      "httpMethod" : "POST",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.insertPrivateLesson",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.updatePrivateLesson",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -43,56 +43,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "privatelessonendpoint.removePrivateLesson" : {
-      "path" : "privatelesson/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.removePrivateLesson",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
-    "privatelessonendpoint.getPrivateLesson" : {
-      "path" : "privatelesson/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.getPrivateLesson",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "privatelessonendpoint.updatePrivateLesson" : {
+    "privatelessonendpoint.insertPrivateLesson" : {
       "path" : "privatelesson",
-      "httpMethod" : "PUT",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.updatePrivateLesson",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.insertPrivateLesson",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -108,7 +66,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.listPrivateLesson",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.listPrivateLesson",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -124,6 +82,48 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "privatelessonendpoint.getPrivateLesson" : {
+      "path" : "privatelesson/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.getPrivateLesson",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "privatelessonendpoint.removePrivateLesson" : {
+      "path" : "privatelesson/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.removePrivateLesson",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     }
   },
@@ -173,7 +173,7 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.insertPrivateLesson" : {
+      "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.updatePrivateLesson" : {
         "request" : {
           "$ref" : "PrivateLesson"
         },
@@ -181,14 +181,7 @@
           "$ref" : "PrivateLesson"
         }
       },
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.removePrivateLesson" : {
-      },
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.getPrivateLesson" : {
-        "response" : {
-          "$ref" : "PrivateLesson"
-        }
-      },
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.updatePrivateLesson" : {
+      "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.insertPrivateLesson" : {
         "request" : {
           "$ref" : "PrivateLesson"
         },
@@ -196,10 +189,17 @@
           "$ref" : "PrivateLesson"
         }
       },
-      "it.polimi.dima.polisocial.entity.PrivateLessonEndpoint.listPrivateLesson" : {
+      "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.listPrivateLesson" : {
         "response" : {
           "$ref" : "CollectionResponse_PrivateLesson"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.getPrivateLesson" : {
+        "response" : {
+          "$ref" : "PrivateLesson"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PrivateLessonEndpoint.removePrivateLesson" : {
       }
     }
   }

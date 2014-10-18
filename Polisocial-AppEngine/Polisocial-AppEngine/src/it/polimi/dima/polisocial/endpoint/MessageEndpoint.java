@@ -1,16 +1,11 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.MessageData;
+import it.polimi.dima.polisocial.ResponseObject;
+import it.polimi.dima.polisocial.entity.DeviceInfo;
 import it.polimi.dima.polisocial.entity.EMF;
-import it.polimi.dima.polisocial.entity.InitiativeEndpoint;
 import it.polimi.dima.polisocial.entity.Notification;
-import it.polimi.dima.polisocial.entity.NotificationEndpoint;
 import it.polimi.dima.polisocial.entity.PoliUser;
-import it.polimi.dima.polisocial.entity.PoliUserEndpoint;
-import it.polimi.dima.polisocial.entity.PostSpottedEndpoint;
-import it.polimi.dima.polisocial.entity.PrivateLessonEndpoint;
-import it.polimi.dima.polisocial.entity.RentalEndpoint;
-import it.polimi.dima.polisocial.entity.ResponseObject;
-import it.polimi.dima.polisocial.entity.SecondHandBookEndpoint;
 
 import java.io.IOException;
 import java.util.Date;

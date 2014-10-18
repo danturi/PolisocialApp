@@ -205,7 +205,7 @@ public class PoliUserListFragment extends ListFragment implements
 				adapter.addAll(data.getItems());
 			}
 		} else {
-			if (refreshRequest) {
+			if (refreshRequest && !origList) {
 				statusMsg.setVisibility(View.VISIBLE);
 				mList.setVisibility(View.GONE);
 			} 

@@ -1,6 +1,9 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.ResponseObject;
+import it.polimi.dima.polisocial.UserDTO;
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.PoliUser;
 import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 
 import java.io.ByteArrayOutputStream;

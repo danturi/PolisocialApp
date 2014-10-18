@@ -1,6 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.PrivateLesson;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -18,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "rentalendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
-public class RentalEndpoint {
+@Api(name = "privatelessonendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
+public class PrivateLessonEndpoint {
 
   /**
    * This method lists all the entities inserted in datastore.
@@ -29,18 +30,18 @@ public class RentalEndpoint {
    * persisted and a cursor to the next page.
    */
   @SuppressWarnings({"unchecked", "unused"})
-  @ApiMethod(name = "listRental")
-  public CollectionResponse<Rental> listRental(
+  @ApiMethod(name = "listPrivateLesson")
+  public CollectionResponse<PrivateLesson> listPrivateLesson(
     @Nullable @Named("cursor") String cursorString,
     @Nullable @Named("limit") Integer limit) {
 
     EntityManager mgr = null;
     Cursor cursor = null;
-    List<Rental> execute = null;
+    List<PrivateLesson> execute = null;
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from Rental as Rental");
+      Query query = mgr.createQuery("select from PrivateLesson as PrivateLesson");
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -51,18 +52,18 @@ public class RentalEndpoint {
         query.setMaxResults(limit);
       }
 
-      execute = (List<Rental>) query.getResultList();
+      execute = (List<PrivateLesson>) query.getResultList();
       cursor = JPACursorHelper.getCursor(execute);
       if (cursor != null) cursorString = cursor.toWebSafeString();
 
       // Tight loop for fetching all entities from datastore and accomodate
       // for lazy fetch.
-      for (Rental obj : execute);
+      for (PrivateLesson obj : execute);
     } finally {
       mgr.close();
     }
 
-    return CollectionResponse.<Rental>builder()
+    return CollectionResponse.<PrivateLesson>builder()
       .setItems(execute)
       .setNextPageToken(cursorString)
       .build();
@@ -74,16 +75,16 @@ public class RentalEndpoint {
    * @param id the primary key of the java bean.
    * @return The entity with primary key id.
    */
-  @ApiMethod(name = "getRental")
-  public Rental getRental(@Named("id") Long id) {
+  @ApiMethod(name = "getPrivateLesson")
+  public PrivateLesson getPrivateLesson(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
-    Rental rental  = null;
+    PrivateLesson privatelesson  = null;
     try {
-      rental = mgr.find(Rental.class, id);
+      privatelesson = mgr.find(PrivateLesson.class, id);
     } finally {
       mgr.close();
     }
-    return rental;
+    return privatelesson;
   }
 
   /**
@@ -91,21 +92,21 @@ public class RentalEndpoint {
    * exists in the datastore, an exception is thrown.
    * It uses HTTP POST method.
    *
-   * @param rental the entity to be inserted.
+   * @param privatelesson the entity to be inserted.
    * @return The inserted entity.
    */
-  @ApiMethod(name = "insertRental")
-  public Rental insertRental(Rental rental) {
+  @ApiMethod(name = "insertPrivateLesson")
+  public PrivateLesson insertPrivateLesson(PrivateLesson privatelesson) {
     EntityManager mgr = getEntityManager();
     try {
-      if(containsRental(rental)) {
+      if(containsPrivateLesson(privatelesson)) {
         throw new EntityExistsException("Object already exists");
       }
-      mgr.persist(rental);
+      mgr.persist(privatelesson);
     } finally {
       mgr.close();
     }
-    return rental;
+    return privatelesson;
   }
 
   /**
@@ -113,21 +114,21 @@ public class RentalEndpoint {
    * exist in the datastore, an exception is thrown.
    * It uses HTTP PUT method.
    *
-   * @param rental the entity to be updated.
+   * @param privatelesson the entity to be updated.
    * @return The updated entity.
    */
-  @ApiMethod(name = "updateRental")
-  public Rental updateRental(Rental rental) {
+  @ApiMethod(name = "updatePrivateLesson")
+  public PrivateLesson updatePrivateLesson(PrivateLesson privatelesson) {
     EntityManager mgr = getEntityManager();
     try {
-      if(!containsRental(rental)) {
+      if(!containsPrivateLesson(privatelesson)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(rental);
+      mgr.persist(privatelesson);
     } finally {
       mgr.close();
     }
-    return rental;
+    return privatelesson;
   }
 
   /**
@@ -136,22 +137,22 @@ public class RentalEndpoint {
    *
    * @param id the primary key of the entity to be deleted.
    */
-  @ApiMethod(name = "removeRental")
-  public void removeRental(@Named("id") Long id) {
+  @ApiMethod(name = "removePrivateLesson")
+  public void removePrivateLesson(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
     try {
-      Rental rental = mgr.find(Rental.class, id);
-      mgr.remove(rental);
+      PrivateLesson privatelesson = mgr.find(PrivateLesson.class, id);
+      mgr.remove(privatelesson);
     } finally {
       mgr.close();
     }
   }
 
-  private boolean containsRental(Rental rental) {
+  private boolean containsPrivateLesson(PrivateLesson privatelesson) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-      Rental item = mgr.find(Rental.class, rental.getId());
+      PrivateLesson item = mgr.find(PrivateLesson.class, privatelesson.getId());
       if(item == null) {
         contains = false;
       }

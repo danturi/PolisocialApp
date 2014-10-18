@@ -1,6 +1,7 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.PostSpotted;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -18,8 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-@Api(name = "privatelessonendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
-public class PrivateLessonEndpoint {
+@Api(name = "postspottedendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
+public class PostSpottedEndpoint {
 
   /**
    * This method lists all the entities inserted in datastore.
@@ -29,18 +30,19 @@ public class PrivateLessonEndpoint {
    * persisted and a cursor to the next page.
    */
   @SuppressWarnings({"unchecked", "unused"})
-  @ApiMethod(name = "listPrivateLesson")
-  public CollectionResponse<PrivateLesson> listPrivateLesson(
+  @ApiMethod(name = "listPostSpotted")
+  public CollectionResponse<PostSpotted> listPostSpotted(
     @Nullable @Named("cursor") String cursorString,
     @Nullable @Named("limit") Integer limit) {
 
     EntityManager mgr = null;
     Cursor cursor = null;
-    List<PrivateLesson> execute = null;
+    List<PostSpotted> execute = null;
 
     try{
       mgr = getEntityManager();
-      Query query = mgr.createQuery("select from PrivateLesson as PrivateLesson");
+      Query query = mgr.createQuery("select p from PostSpotted p order by p.timestamp DESC ");
+      
       if (cursorString != null && cursorString != "") {
         cursor = Cursor.fromWebSafeString(cursorString);
         query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -51,18 +53,18 @@ public class PrivateLessonEndpoint {
         query.setMaxResults(limit);
       }
 
-      execute = (List<PrivateLesson>) query.getResultList();
+      execute = (List<PostSpotted>) query.getResultList();
       cursor = JPACursorHelper.getCursor(execute);
       if (cursor != null) cursorString = cursor.toWebSafeString();
 
       // Tight loop for fetching all entities from datastore and accomodate
       // for lazy fetch.
-      for (PrivateLesson obj : execute);
+      for (PostSpotted obj : execute);
     } finally {
       mgr.close();
     }
 
-    return CollectionResponse.<PrivateLesson>builder()
+    return CollectionResponse.<PostSpotted>builder()
       .setItems(execute)
       .setNextPageToken(cursorString)
       .build();
@@ -74,16 +76,16 @@ public class PrivateLessonEndpoint {
    * @param id the primary key of the java bean.
    * @return The entity with primary key id.
    */
-  @ApiMethod(name = "getPrivateLesson")
-  public PrivateLesson getPrivateLesson(@Named("id") Long id) {
+  @ApiMethod(name = "getPostSpotted")
+  public PostSpotted getPostSpotted(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
-    PrivateLesson privatelesson  = null;
+    PostSpotted postspotted  = null;
     try {
-      privatelesson = mgr.find(PrivateLesson.class, id);
+      postspotted = mgr.find(PostSpotted.class, id);
     } finally {
       mgr.close();
     }
-    return privatelesson;
+    return postspotted;
   }
 
   /**
@@ -91,21 +93,21 @@ public class PrivateLessonEndpoint {
    * exists in the datastore, an exception is thrown.
    * It uses HTTP POST method.
    *
-   * @param privatelesson the entity to be inserted.
+   * @param postspotted the entity to be inserted.
    * @return The inserted entity.
    */
-  @ApiMethod(name = "insertPrivateLesson")
-  public PrivateLesson insertPrivateLesson(PrivateLesson privatelesson) {
+  @ApiMethod(name = "insertPostSpotted")
+  public PostSpotted insertPostSpotted(PostSpotted postspotted) {
     EntityManager mgr = getEntityManager();
     try {
-      if(containsPrivateLesson(privatelesson)) {
+      if(containsPostSpotted(postspotted)) {
         throw new EntityExistsException("Object already exists");
       }
-      mgr.persist(privatelesson);
+      mgr.persist(postspotted);
     } finally {
       mgr.close();
     }
-    return privatelesson;
+    return postspotted;
   }
 
   /**
@@ -113,21 +115,21 @@ public class PrivateLessonEndpoint {
    * exist in the datastore, an exception is thrown.
    * It uses HTTP PUT method.
    *
-   * @param privatelesson the entity to be updated.
+   * @param postspotted the entity to be updated.
    * @return The updated entity.
    */
-  @ApiMethod(name = "updatePrivateLesson")
-  public PrivateLesson updatePrivateLesson(PrivateLesson privatelesson) {
+  @ApiMethod(name = "updatePostSpotted")
+  public PostSpotted updatePostSpotted(PostSpotted postspotted) {
     EntityManager mgr = getEntityManager();
     try {
-      if(!containsPrivateLesson(privatelesson)) {
+      if(!containsPostSpotted(postspotted)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(privatelesson);
+      mgr.persist(postspotted);
     } finally {
       mgr.close();
     }
-    return privatelesson;
+    return postspotted;
   }
 
   /**
@@ -136,22 +138,24 @@ public class PrivateLessonEndpoint {
    *
    * @param id the primary key of the entity to be deleted.
    */
-  @ApiMethod(name = "removePrivateLesson")
-  public void removePrivateLesson(@Named("id") Long id) {
+  @ApiMethod(name = "removePostSpotted")
+  public void removePostSpotted(@Named("id") Long id) {
     EntityManager mgr = getEntityManager();
     try {
-      PrivateLesson privatelesson = mgr.find(PrivateLesson.class, id);
-      mgr.remove(privatelesson);
+      PostSpotted postspotted = mgr.find(PostSpotted.class, id);
+      mgr.remove(postspotted);
     } finally {
       mgr.close();
     }
   }
 
-  private boolean containsPrivateLesson(PrivateLesson privatelesson) {
+  private boolean containsPostSpotted(PostSpotted postspotted) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
-      PrivateLesson item = mgr.find(PrivateLesson.class, privatelesson.getId());
+    	if(postspotted.getId()==null)
+    		return false;
+      PostSpotted item = mgr.find(PostSpotted.class, postspotted.getId());
       if(item == null) {
         contains = false;
       }

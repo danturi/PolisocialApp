@@ -6,9 +6,9 @@ import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
+import it.polimi.dima.polisocial.ResponseObject;
+import it.polimi.dima.polisocial.endpoint.PoliUserEndpoint;
 import it.polimi.dima.polisocial.entity.PoliUser;
-import it.polimi.dima.polisocial.entity.PoliUserEndpoint;
-import it.polimi.dima.polisocial.entity.ResponseObject;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
 import java.io.BufferedReader;

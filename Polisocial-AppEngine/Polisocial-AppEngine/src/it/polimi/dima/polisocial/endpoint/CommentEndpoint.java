@@ -1,7 +1,9 @@
-package it.polimi.dima.polisocial.entity;
+package it.polimi.dima.polisocial.endpoint;
 
-import it.polimi.dima.polisocial.DeviceInfoEndpoint;
+import it.polimi.dima.polisocial.ResponseObject;
+import it.polimi.dima.polisocial.entity.Comment;
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.Post;
 
 import java.util.ArrayList;
 import java.util.Collection;
