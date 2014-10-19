@@ -68,6 +68,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "secondhandbookendpoint.getBookInfoFromISBN" : {
+      "path" : "void/{isbn}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getBookInfoFromISBN",
+      "request" : {
+        "parameters" : {
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "secondhandbookendpoint.updateSecondHandBook" : {
       "path" : "secondhandbook",
       "httpMethod" : "PUT",
@@ -191,6 +212,8 @@
         "response" : {
           "$ref" : "SecondHandBook"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getBookInfoFromISBN" : {
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.updateSecondHandBook" : {
         "request" : {

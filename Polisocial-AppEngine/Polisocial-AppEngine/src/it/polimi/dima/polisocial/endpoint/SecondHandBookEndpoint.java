@@ -86,6 +86,8 @@ public class SecondHandBookEndpoint {
     }
     return secondhandbook;
   }
+  
+  
 
   /**
    * This inserts a new entity into App Engine datastore. If the entity already
@@ -148,10 +150,17 @@ public class SecondHandBookEndpoint {
     }
   }
 
+  @ApiMethod(name= "getBookInfoFromISBN")
+  public void getBookInfoFromISBN(@Named("isbn") String isbn){
+	  //TODO web service
+  }
+  
   private boolean containsSecondHandBook(SecondHandBook secondhandbook) {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if(secondhandbook.getId()==null)
+    		return false;
       SecondHandBook item = mgr.find(SecondHandBook.class, secondhandbook.getId());
       if(item == null) {
         contains = false;

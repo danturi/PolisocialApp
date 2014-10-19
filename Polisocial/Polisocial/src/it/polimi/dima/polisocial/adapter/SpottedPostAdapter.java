@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Base64;
