@@ -14,6 +14,13 @@
     <color name="selected_text_numbofcomments_color">#000000</color>
     <color name="unselected_text_gotoregistration_color">#0b84aa</color>
     <color name="selected_text_gotoregistration_color">#000000</color>
+    <color name="post_button_background">#FAFAFF</color>
+        <color name="post_button_pressed">#E6E6FF</color>
+        <color name="post_button_text">#707275</color>
+        
+    
+    
+    
 
     <!-- color scheme refresh -->
     <color name="color1">#ff8000</color>

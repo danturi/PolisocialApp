@@ -93,12 +93,11 @@ public class SpottedPostListFragment extends ListFragment implements
 
 	// Append more data into the adapter
 	public void customLoadMoreDataFromApi(String cursor) {
-		//Toast.makeText(getActivity(),
-			//	"A questo punto comincia il caricamento dei nuovi post",
-				//Toast.LENGTH_LONG).show();
+		// Toast.makeText(getActivity(),
+		// "A questo punto comincia il caricamento dei nuovi post",
+		// Toast.LENGTH_LONG).show();
 
 		initiateRefresh();
-		
 
 	}
 
@@ -137,16 +136,16 @@ public class SpottedPostListFragment extends ListFragment implements
 	public void onLoadFinished(Loader<CollectionResponsePostSpotted> arg0,
 			CollectionResponsePostSpotted data) {
 		mCursor = data.getNextPageToken();
-		if(data.getItems()!=null){
-			
+		if (data.getItems() != null) {
+
 			if (refreshRequest) {
 				mAdapter.setData(data.getItems());
 				onRefreshComplete();
-			}else {
+			} else {
 				mAdapter.addAll(data.getItems());
 			}
 		}
-		
+
 		showProgress(false);
 		/**
 		 * if (isResumed()) { //setListShown(true); } else {

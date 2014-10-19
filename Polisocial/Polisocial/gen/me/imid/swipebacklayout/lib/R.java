@@ -142,7 +142,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f060002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f070032;
+		public static final int abc_search_url_text_holo = 0x7f070035;
 		public static final int abc_search_url_text_normal = 0x7f070000;
 		public static final int abc_search_url_text_pressed = 0x7f070002;
 		public static final int abc_search_url_text_selected = 0x7f070001;
@@ -258,10 +258,10 @@ public final class R {
 		public static final int abc_textfield_searchview_holo_light = 0x7f02005a;
 		public static final int abc_textfield_searchview_right_holo_dark = 0x7f02005b;
 		public static final int abc_textfield_searchview_right_holo_light = 0x7f02005c;
-		public static final int ic_launcher = 0x7f0200be;
-		public static final int shadow_bottom = 0x7f0200e3;
-		public static final int shadow_left = 0x7f0200e4;
-		public static final int shadow_right = 0x7f0200e5;
+		public static final int ic_launcher = 0x7f0200c0;
+		public static final int shadow_bottom = 0x7f0200ec;
+		public static final int shadow_left = 0x7f0200ed;
+		public static final int shadow_right = 0x7f0200ee;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f050034;
