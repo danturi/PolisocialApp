@@ -107,7 +107,7 @@ public class EventsFragment extends ListFragment implements
 	private void initiateRefresh() {
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
-		getLoaderManager().restartLoader(0, null, this);
+		getLoaderManager().restartLoader(0, bundle, this);
 	}
 
 	private void onRefreshComplete() {
