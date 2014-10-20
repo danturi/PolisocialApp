@@ -425,7 +425,7 @@ public class TabActivity extends FragmentActivity implements
 				return mFragmentAtPos0;
 			case 1:
 				if (mFragmentAtPos1 == null) {
-					mFragmentAtPos1 = new EventsFragment();
+					mFragmentAtPos1 = new AnnouncementsFragment();
 				}
 				return mFragmentAtPos1;
 			case 2:

@@ -46,7 +46,6 @@ public class EventsFragment extends ListFragment implements
 				SessionManager.KEY_USERID));
 		String name = session.getUserDetails().get(SessionManager.KEY_NAME);
 		// Create an empty adapter we will use to display the loaded data.
-		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new EventAdapter(getActivity());
 		setListAdapter(mAdapter);
 

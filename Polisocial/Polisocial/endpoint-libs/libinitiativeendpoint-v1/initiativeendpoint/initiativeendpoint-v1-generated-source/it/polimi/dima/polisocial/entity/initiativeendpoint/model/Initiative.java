@@ -18,6 +18,8 @@
 
 package it.polimi.dima.polisocial.entity.initiativeendpoint.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Model definition for Initiative.
  *
@@ -87,6 +89,7 @@ public final class Initiative extends com.google.api.client.json.GenericJson {
 
   private Integer numOfComments;
 
+  private Bitmap bitmap;
   
   
   /**
@@ -240,6 +243,14 @@ public Integer getNumOfComments() {
 
 public void setNumOfComments(Integer numOfComments) {
 	this.numOfComments = numOfComments;
+}
+
+public Bitmap getBitmap() {
+	return bitmap;
+}
+
+public void setBitmap(Bitmap bitmap) {
+	this.bitmap = bitmap;
 }
 
 }

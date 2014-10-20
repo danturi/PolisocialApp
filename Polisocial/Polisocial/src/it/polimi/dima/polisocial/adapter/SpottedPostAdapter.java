@@ -42,7 +42,8 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 	private final int VIEW_CUPIDO = 1;
 	private final int VIEW_NO_CUPIDO = 0;
 	private final int VIEW_LOADING = 2;
-
+	private int loading_row = 1;
+	
 	private final LayoutInflater mInflater;
 	private Context context;
 	private Long userId;
@@ -70,7 +71,7 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 	public int getItemViewType(int position) {
 		PostSpotted item = getItem(position);
 		// Define a way to determine which layout to use.
-		if (position >= (getCount() - 1)) {
+		if (position >= (getCount() - loading_row)) {
 			return VIEW_LOADING;
 		}
 		if (item.getPostCategory().equals("Love")) {
@@ -285,12 +286,12 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	@Override
 	public int getCount() {
-		return super.getCount() + 1;
+		return super.getCount() + loading_row;
 	}
 
 	@Override
 	public PostSpotted getItem(int position) {
-		if (position < (getCount() - 1))
+		if (position < (getCount() - loading_row))
 			return super.getItem(position);
 		else
 			return null;
@@ -298,10 +299,18 @@ public class SpottedPostAdapter extends ArrayAdapter<PostSpotted> {
 
 	@Override
 	public long getItemId(int position) {
-		if (position < (getCount() - 1))
+		if (position < (getCount() - loading_row))
 			return super.getItemId(position);
 		else
 			return -1;
+	}
+
+	public int getLoading_row() {
+		return loading_row;
+	}
+
+	public void setLoading_row(int loading_row) {
+		this.loading_row = loading_row;
 	}
 
 	static class SpottedViewHolder {

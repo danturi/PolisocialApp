@@ -57,15 +57,7 @@ public class SpottedPostListFragment extends ListFragment implements
 		mList = getListView();
 		mList.setAdapter(mAdapter);
 
-		mList.setOnScrollListener(new EndlessScrollListener() {
-			@Override
-			public void onLoadMore(String cursor, int totalItemsCount) {
-				// Triggered only when new data needs to be appended to the list
-
-				customLoadMoreDataFromApi(cursor);
-				// or customLoadMoreDataFromApi(totalItemsCount);
-			}
-		});
+		attachScrollListenerToList();
 
 		// Start out with a progress indicator.
 		mProgressView = getView().findViewById(R.id.progress_bar);
@@ -139,11 +131,19 @@ public class SpottedPostListFragment extends ListFragment implements
 		if (data.getItems() != null) {
 
 			if (refreshRequest) {
-				mAdapter.setData(data.getItems());
 				onRefreshComplete();
+				mAdapter.setData(data.getItems());
+				mAdapter.setLoading_row(1);
+				attachScrollListenerToList();
 			} else {
 				mAdapter.addAll(data.getItems());
 			}
+		//case in which there are no more data to retrieve from server	
+		}else{
+			//tell the adapter to dismiss the progress bar cause there are no more data
+			mAdapter.setLoading_row(0);
+			//disable scrolllistener cause there are no more data
+			detachScrollListenerFromList();
 		}
 
 		showProgress(false);
@@ -198,4 +198,21 @@ public class SpottedPostListFragment extends ListFragment implements
 			mSwipeRefreshLayout.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
+	
+	private void attachScrollListenerToList(){
+		mList.setOnScrollListener(new EndlessScrollListener() {
+			@Override
+			public void onLoadMore(String cursor, int totalItemsCount) {
+				// Triggered only when new data needs to be appended to the list
+
+				customLoadMoreDataFromApi(cursor);
+				// or customLoadMoreDataFromApi(totalItemsCount);
+			}
+		});
+	}
+	
+	private void detachScrollListenerFromList(){
+		mList.setOnScrollListener(null);
+	}
+	
 }

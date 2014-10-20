@@ -29,7 +29,7 @@ public class SpottedPostListLoader extends
 		super(context);
 		cursor = curs;
 	}
-
+	
 	@Override
 	public CollectionResponsePostSpotted loadInBackground() {
 		// GET DEI POST DA APP ENGINE
