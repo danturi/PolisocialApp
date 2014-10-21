@@ -5,16 +5,11 @@ import java.util.List;
 
 import it.polimi.dima.polisocial.adapter.UserAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
-import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.CollectionResponseUserDTO;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.UserDTO;
 import it.polimi.dima.polisocial.loader.UserListLoader;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import android.content.Intent;
-import android.graphics.drawable.shapes.ArcShape;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -127,17 +122,17 @@ public class PoliUserListFragment extends ListFragment implements
 		mList.setTextFilterEnabled(true);
 		mList.setOnScrollListener(new EndlessScrollListener() {
 			@Override
-			public void onLoadMore(String cursor, int totalItemsCount) {
+			public void onLoadMore() {
 				// Triggered only when new data needs to be appended to the list
 
-				customLoadMoreDataFromApi(cursor);
+				addListPoliUserLoader();
 			}
 
 		});
 
 		// Start out with a progress indicator.
 		mProgressView = getView().findViewById(R.id.progress_bar);
-		showProgress(true);
+		ShowProgress.showProgress(true, mProgressView, mList, getActivity());
 
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
@@ -146,13 +141,9 @@ public class PoliUserListFragment extends ListFragment implements
 
 	}
 
-	private void customLoadMoreDataFromApi(String cursor) {
-		addListPoliUserLoader();
-
-	}
 
 	private void addListPoliUserLoader() {
-		showProgress(true);
+		ShowProgress.showProgress(true, mProgressView, mList, getActivity());
 		Bundle bundle = new Bundle();
 		bundle.putString("cursor", mCursor);
 		bundle.putString("username", username);
@@ -160,7 +151,7 @@ public class PoliUserListFragment extends ListFragment implements
 	}
 
 	private void restartPoliUserLoader() {
-		showProgress(true);
+		ShowProgress.showProgress(true, mProgressView, mList, getActivity());
 		Bundle bundle = new Bundle();
 		bundle.putString("username", username);
 		getLoaderManager().restartLoader(0, bundle, this);
@@ -211,7 +202,7 @@ public class PoliUserListFragment extends ListFragment implements
 			} 
 		}
 
-		showProgress(false);
+		ShowProgress.showProgress(false, mProgressView, mList, getActivity());
 
 	}
 
@@ -221,34 +212,7 @@ public class PoliUserListFragment extends ListFragment implements
 
 	}
 
-	/**
-	 * Shows the progress UI and hides post list.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	public void showProgress(final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mProgressView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-		}
-	}
+	
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {

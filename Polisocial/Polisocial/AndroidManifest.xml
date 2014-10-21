@@ -52,7 +52,7 @@
             android:label="@string/title_activity_registration" >
         </activity>
         <activity
-            android:name=".TabActivity"
+            android:name="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity"
             android:label="@string/title_activity_tab"
             android:screenOrientation="portrait" >
         </activity>
@@ -139,7 +139,7 @@
         <activity
             android:name=".NewSpottedPostActivity"
             android:label="@string/title_activity_new_spotted_post"
-            android:parentActivityName=".TabActivity"
+            android:parentActivityName="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -148,7 +148,7 @@
         <activity
             android:name=".NewEventActivity"
             android:label="@string/title_activity_new_event"
-            android:parentActivityName=".TabActivity"
+            android:parentActivityName="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -157,7 +157,7 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:parentActivityName=".TabActivity" >
+            android:parentActivityName="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.polimi.dima.polisocial.TabActivity" />

@@ -1,15 +1,30 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.tabactivityAndFragments;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
+import it.polimi.dima.polisocial.GCMIntentService;
+import it.polimi.dima.polisocial.HitOnDialogFragment;
+import it.polimi.dima.polisocial.NewEventActivity;
+import it.polimi.dima.polisocial.NewSpottedPostActivity;
+import it.polimi.dima.polisocial.OAuthAccessActivity;
+import it.polimi.dima.polisocial.PreferencesActivity;
+import it.polimi.dima.polisocial.ProfileActivity;
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.SingleChoiceDialogFragm;
 import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
+import it.polimi.dima.polisocial.R.anim;
+import it.polimi.dima.polisocial.R.drawable;
+import it.polimi.dima.polisocial.R.id;
+import it.polimi.dima.polisocial.R.layout;
+import it.polimi.dima.polisocial.R.menu;
+import it.polimi.dima.polisocial.R.string;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
-import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.StringCollection;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
+import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import it.polimi.dima.polisocial.utilClasses.VenueItem;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,12 +34,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,7 +48,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment.SavedState;
@@ -61,12 +70,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.internal.lm;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -100,9 +107,8 @@ public class TabActivity extends FragmentActivity implements
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	ViewPager mViewPager;
 	PoliUser userSession;
-	private String email;
 	public SessionManager sessionManager;
-	private it.polimi.dima.polisocial.TabActivity.GoogleMapFragment.VenuesNearPoliAndPlotMapTask task;
+	private it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity.GoogleMapFragment.VenuesNearPoliAndPlotMapTask task;
 	private LocationClient mLocationClient;
 	static Location mCurrentLocation;
 	LocationRequest mLocationRequest;
@@ -738,7 +744,7 @@ public class TabActivity extends FragmentActivity implements
 			listVenues = (ListView) v.findViewById(R.id.listViewVenues);
 			progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
 			task = new VenuesNearPoliTask();
-			showProgress(true);
+			ShowProgress.showProgress(true, progressBar, listVenues, getActivity());
 			task.execute();
 
 			TextView buttonView = (TextView) v
@@ -748,7 +754,7 @@ public class TabActivity extends FragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					task.cancel(true);
-					showProgress(false);
+					ShowProgress.showProgress(false, progressBar, listVenues, getActivity());
 					listener.onSwitchFragment();
 
 				}
@@ -756,48 +762,6 @@ public class TabActivity extends FragmentActivity implements
 			return v;
 		}
 
-		/**
-		 * Shows the progress UI and hides post list.
-		 */
-		@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-		public void showProgress(final boolean show) {
-			// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which
-			// allow
-			// for very easy animations. If available, use these APIs to fade-in
-			// the progress spinner.
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-				int shortAnimTime = getResources().getInteger(
-						android.R.integer.config_shortAnimTime);
-
-				listVenues.setVisibility(show ? View.GONE : View.VISIBLE);
-				listVenues.animate().setDuration(shortAnimTime)
-						.alpha(show ? 0 : 1)
-						.setListener(new AnimatorListenerAdapter() {
-							@Override
-							public void onAnimationEnd(Animator animation) {
-								listVenues.setVisibility(show ? View.GONE
-										: View.VISIBLE);
-							}
-						});
-
-				progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-				progressBar.animate().setDuration(shortAnimTime)
-						.alpha(show ? 1 : 0)
-						.setListener(new AnimatorListenerAdapter() {
-							@Override
-							public void onAnimationEnd(Animator animation) {
-								progressBar.setVisibility(show ? View.VISIBLE
-										: View.GONE);
-							}
-						});
-			} else {
-				// The ViewPropertyAnimator APIs are not available, so simply
-				// show
-				// and hide the relevant UI components.
-				progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-				listVenues.setVisibility(show ? View.GONE : View.VISIBLE);
-			}
-		}
 
 		@Override
 		public void onPrepareOptionsMenu(Menu menu) {
@@ -995,7 +959,7 @@ public class TabActivity extends FragmentActivity implements
 						return view;
 					}
 				};
-				showProgress(false);
+				ShowProgress.showProgress(false, progressBar, listVenues, getActivity());
 				listVenues.setAdapter(adapter);
 
 				listVenues

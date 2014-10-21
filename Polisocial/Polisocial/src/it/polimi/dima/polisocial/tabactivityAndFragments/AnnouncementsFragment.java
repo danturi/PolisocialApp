@@ -1,5 +1,6 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.tabactivityAndFragments;
 
+import it.polimi.dima.polisocial.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
