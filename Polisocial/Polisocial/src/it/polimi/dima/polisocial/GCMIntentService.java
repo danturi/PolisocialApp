@@ -18,6 +18,7 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.deviceinfoendpoint.Deviceinfoendpoint;
 import it.polimi.dima.polisocial.deviceinfoendpoint.model.DeviceInfo;
+import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 

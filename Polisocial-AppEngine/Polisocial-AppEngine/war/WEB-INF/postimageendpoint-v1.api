@@ -69,6 +69,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "postimageendpoint.getPostImage" : {
+      "path" : "postimage/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "postimageendpoint.listPostImage" : {
       "path" : "postimage",
       "httpMethod" : "GET",
@@ -86,27 +107,6 @@
           "limit" : {
             "type" : "int32",
             "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "postimageendpoint.getPostImage" : {
-      "path" : "postimage/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
           }
         },
         "body" : "empty"
@@ -192,14 +192,14 @@
           "$ref" : "PostImage"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage" : {
-        "response" : {
-          "$ref" : "CollectionResponse_PostImage"
-        }
-      },
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage" : {
         "response" : {
           "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PostImage"
         }
       },
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.insertPostImage" : {

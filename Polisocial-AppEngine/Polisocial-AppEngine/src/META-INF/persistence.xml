@@ -14,7 +14,7 @@
         <class>it.polimi.dima.polisocial.entity.PrivateLesson</class>
        	<class>it.polimi.dima.polisocial.entity.Rental</class>
        	<class>it.polimi.dima.polisocial.entity.SecondHandBook</class>
-       	<class>it.polimi.dima.polisocial.DeviceInfo</class>
+       	<class>it.polimi.dima.polisocial.entity.DeviceInfo</class>
        	<class>it.polimi.dima.polisocial.MessageData</class>
        	<exclude-unlisted-classes>true</exclude-unlisted-classes>
        	<properties>

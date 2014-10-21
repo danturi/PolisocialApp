@@ -2,9 +2,10 @@ package it.polimi.dima.polisocial;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
-
+import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -12,15 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -29,12 +22,9 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -208,7 +198,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 	private Session.StatusCallback callback = new Session.StatusCallback() {
 		@Override
 		public void call(Session session, SessionState state, Exception exception) {
-			showProgress(true);
+			ShowProgress.showProgress(true, mProgressView, mLoginFormView, getApplicationContext());
 			onSessionStateChange(session, state, exception);
 		}
 	};
@@ -255,7 +245,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			
 
 		} else if (state.isClosed()) {
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 		}
 	}
 
@@ -401,7 +391,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			showProgress(true);
+			ShowProgress.showProgress(true, mProgressView, mLoginFormView, getApplicationContext());
 			new UserLoginTask(email, password).execute();
 
 		}
@@ -417,46 +407,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		return password.length() > 4;
 	}
 
-	/**
-	 * Shows the progress UI and hides the login form.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	public void showProgress(final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-			mLoginFormView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginFormView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
-
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mProgressView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-		}
-	}
+	
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -587,7 +538,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		@Override
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 
 			if (success) {
 				sessionManager.createLoginSession(poliuser.getNickname(), poliuser.getEmail());
@@ -607,7 +558,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		@Override
 		protected void onCancelled() {
 			mAuthTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 		}
 		
 
@@ -681,7 +632,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 			super.onPostExecute(result);
 			Intent i = new Intent(LoginActivity.this,TabActivity.class);
 			startActivity(i);
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 			finish();
 		}
 		

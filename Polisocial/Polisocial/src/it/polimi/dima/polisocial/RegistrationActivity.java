@@ -10,18 +10,15 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import it.polimi.dima.polisocial.utilClasses.ShowProgress;
+
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.sip.SipRegistrationListener;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -176,7 +173,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			showProgress(true);
+			ShowProgress.showProgress(true, mProgressView, mRegistrationFormView, getApplicationContext());
 			mRegTask = new UserRegisterTask(email,username, password,faculty);
 			mRegTask.execute();
 		}
@@ -191,50 +188,6 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 	private boolean isPasswordValid(String password) {
 		return password.length() > 4;
 	}
-
-	/**
-	 * Shows the progress UI and hides the registration form.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	public void showProgress(final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mRegistrationFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-			mRegistrationFormView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mRegistrationFormView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
-
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mProgressView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mRegistrationFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-		}
-	}
-
-	
-	
 
 	/**
 	 * Represents an asynchronous registration task used to register
@@ -325,7 +278,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 				//mAuthTask = new UserLoginTask(mEmail,mPassword);
 				//mAuthTask.execute();
 			} else if(result==1){
-				showProgress(false);
+				ShowProgress.showProgress(false, mProgressView, mRegistrationFormView, getApplicationContext());
 				mEmailView.setError(getString(R.string.error_duplicate_email));
 				mPasswordView.requestFocus();
 			}else{
@@ -337,7 +290,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		@Override
 		protected void onCancelled() {
 			mRegTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mRegistrationFormView, getApplicationContext());
 		}
 	}
 	
@@ -379,7 +332,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		@Override
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mRegistrationFormView, getApplicationContext());
 
 			if (success) {
 				Intent loginFinishedIntent = new Intent(RegistrationActivity.this, TabActivity.class);
@@ -396,7 +349,7 @@ public class RegistrationActivity extends Activity implements NoticeDialogListen
 		@Override
 		protected void onCancelled() {
 			mAuthTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mRegistrationFormView, getApplicationContext());
 		}
 	}
 

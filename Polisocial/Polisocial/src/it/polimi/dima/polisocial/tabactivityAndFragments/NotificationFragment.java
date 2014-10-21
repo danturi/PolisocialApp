@@ -1,5 +1,10 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.tabactivityAndFragments;
 
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
+import it.polimi.dima.polisocial.R.drawable;
+import it.polimi.dima.polisocial.R.id;
+import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.adapter.NotificationAdapter;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
 import it.polimi.dima.polisocial.loader.NotificationListLoader;

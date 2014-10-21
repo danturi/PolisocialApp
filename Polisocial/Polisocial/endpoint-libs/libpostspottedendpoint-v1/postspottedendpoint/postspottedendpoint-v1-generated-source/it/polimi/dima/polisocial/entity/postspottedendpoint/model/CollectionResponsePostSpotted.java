@@ -29,7 +29,7 @@ package it.polimi.dima.polisocial.entity.postspottedendpoint.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class CollectionResponsePostSpotted extends com.google.api.client.json.GenericJson {
+public final class CollectionResponsePostSpotted extends com.google.api.client.json.GenericJson{
 
   /**
    * The value may be {@code null}.

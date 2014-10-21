@@ -8,6 +8,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.Html;
@@ -133,6 +134,7 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 				new AsyncTask<Object, Void, Boolean>() {
 				    private EventViewHolder v;
 				    private String s;
+				    private Initiative ip;
 
 				    @Override
 				    protected Boolean doInBackground(Object... params) {
@@ -147,7 +149,10 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 								.setApplicationName("polimisocial").build();
 
 						try {
-							s=imageEndpoint.getImageFromPostId((long)params[1]).execute().getImage();
+							ip = (Initiative) params[1];
+							s=imageEndpoint
+									.getImageFromPostId(ip.getId())
+									.execute().getImage();
 						} catch (IOException e2) {
 							System.out.println(e2.getMessage());
 							return false;
@@ -162,8 +167,10 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 				    	if(result){
 				    		final byte[] byteArrayImage = Base64.decode(s,
 									Base64.DEFAULT);
-							v.eventPicture.setImageBitmap(BitmapFactory.decodeByteArray(
-									byteArrayImage, 0, byteArrayImage.length));
+				    		Bitmap bitmap = BitmapFactory.decodeByteArray(
+									byteArrayImage, 0, byteArrayImage.length);
+							v.eventPicture.setImageBitmap(bitmap);
+				    		ip.setBitmap(bitmap);
 							v.eventPicture.setOnClickListener(new OnClickListener() {
 								
 								@Override
@@ -176,7 +183,7 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 							});
 				    	}
 				    }
-				}.execute(holder,item.getId());
+				}.execute(holder,item);
 			}else {
 				holder.eventPicture.setImageResource(R.drawable.event_no_pic);
 			}

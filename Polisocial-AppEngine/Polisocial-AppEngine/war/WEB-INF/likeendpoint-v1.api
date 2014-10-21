@@ -94,6 +94,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "likeendpoint.getPostLike" : {
+      "path" : "responseobject/{postId}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.LikeEndpoint.getPostLike",
+      "request" : {
+        "parameters" : {
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "likeendpoint.updateLike" : {
       "path" : "like",
       "httpMethod" : "PUT",
@@ -161,6 +182,22 @@
             "type" : "string"
           }
         }
+      },
+      "ResponseObject" : {
+        "id" : "ResponseObject",
+        "type" : "object",
+        "properties" : {
+          "exception" : {
+            "type" : "string"
+          },
+          "object" : {
+            "$ref" : "_any"
+          }
+        }
+      },
+      "_any" : {
+        "id" : "_any",
+        "type" : "any"
       }
     },
     "methods" : {
@@ -174,6 +211,11 @@
       "it.polimi.dima.polisocial.endpoint.LikeEndpoint.listLike" : {
         "response" : {
           "$ref" : "CollectionResponse_Like"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.LikeEndpoint.getPostLike" : {
+        "response" : {
+          "$ref" : "ResponseObject"
         }
       },
       "it.polimi.dima.polisocial.endpoint.LikeEndpoint.updateLike" : {

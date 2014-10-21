@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.ResponseObject;
 import it.polimi.dima.polisocial.entity.DisLike;
 import it.polimi.dima.polisocial.entity.EMF;
 
@@ -87,6 +88,25 @@ public class DisLikeEndpoint {
 		return dislike;
 	}
 
+	@ApiMethod(name = "getPostDisLike")
+	public ResponseObject getPostDisLike(@Named("postId") Long postId) {
+
+		EntityManager mgr = null;
+		ResponseObject o = new ResponseObject();
+
+		try {
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select count(*) from DisLike d where d.postId=?1");
+			query.setParameter(1, postId);
+			long count = (long) query.getSingleResult();
+			o.setObject(count);
+		} finally {
+			mgr.close();
+		}
+
+		return o;
+	}
+	
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity already
 	 * exists in the datastore, an exception is thrown.

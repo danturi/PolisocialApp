@@ -1,5 +1,6 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.tabactivityAndFragments;
 
+import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.adapter.EventAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative;
@@ -46,7 +47,6 @@ public class EventsFragment extends ListFragment implements
 				SessionManager.KEY_USERID));
 		String name = session.getUserDetails().get(SessionManager.KEY_NAME);
 		// Create an empty adapter we will use to display the loaded data.
-		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new EventAdapter(getActivity());
 		setListAdapter(mAdapter);
 
@@ -55,10 +55,10 @@ public class EventsFragment extends ListFragment implements
 
 		mList.setOnScrollListener(new EndlessScrollListener() {
 			@Override
-			public void onLoadMore(String cursor, int totalItemsCount) {
+			public void onLoadMore() {
 				// Triggered only when new data needs to be appended to the list
 
-				customLoadMoreDataFromApi(cursor);
+				initiateRefresh();
 				// or customLoadMoreDataFromApi(totalItemsCount);
 			}
 		});
@@ -87,15 +87,6 @@ public class EventsFragment extends ListFragment implements
 
 	}
 
-	// Append more data into the adapter
-	public void customLoadMoreDataFromApi(String cursor) {
-		// Toast.makeText(getActivity(),
-		// "A questo punto comincia il caricamento dei nuovi post",
-		// Toast.LENGTH_LONG).show();
-
-		initiateRefresh();
-
-	}
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {

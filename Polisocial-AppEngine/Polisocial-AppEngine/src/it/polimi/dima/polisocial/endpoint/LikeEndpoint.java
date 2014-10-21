@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.ResponseObject;
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.Like;
 
@@ -85,6 +86,25 @@ public class LikeEndpoint {
 			mgr.close();
 		}
 		return like;
+	}
+	
+	@ApiMethod(name = "getPostLike")
+	public ResponseObject getPostLike(@Named("postId") Long postId) {
+
+		EntityManager mgr = null;
+		ResponseObject o = new ResponseObject();
+
+		try {
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select count(*) from Like l where l.postId=?1");
+			query.setParameter(1, postId);
+			long count = (long) query.getSingleResult();
+			o.setObject(count);
+		} finally {
+			mgr.close();
+		}
+
+		return o;
 	}
 
 	/**

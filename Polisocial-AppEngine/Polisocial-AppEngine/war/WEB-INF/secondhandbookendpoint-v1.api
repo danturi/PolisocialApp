@@ -69,7 +69,7 @@
       }
     },
     "secondhandbookendpoint.getBookInfoFromISBN" : {
-      "path" : "void/{isbn}",
+      "path" : "getBookInfoFromISBN",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -86,7 +86,7 @@
         "body" : "empty"
       },
       "response" : {
-        "body" : "empty"
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "secondhandbookendpoint.updateSecondHandBook" : {
@@ -105,19 +105,31 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "secondhandbookendpoint.getSecondHandBook" : {
-      "path" : "secondhandbook/{id}",
-      "httpMethod" : "GET",
+    "secondhandbookendpoint.searchBookByTitleOrAuthor" : {
+      "path" : "searchBookByTitleOrAuthor/{title}",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchBookByTitleOrAuthor",
       "request" : {
         "parameters" : {
-          "id" : {
-            "type" : "int64",
+          "title" : {
+            "type" : "string",
             "required" : true
+          },
+          "author" : {
+            "type" : "string",
+            "required" : false
+          },
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -145,6 +157,27 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "secondhandbookendpoint.getSecondHandBook" : {
+      "path" : "secondhandbook/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -195,6 +228,22 @@
           },
           "bookTitle" : {
             "type" : "string"
+          },
+          "authorsBook" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "publisher" : {
+            "type" : "string"
+          },
+          "publishedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "isbn" : {
+            "type" : "string"
           }
         }
       }
@@ -214,6 +263,9 @@
         }
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getBookInfoFromISBN" : {
+        "response" : {
+          "$ref" : "SecondHandBook"
+        }
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.updateSecondHandBook" : {
         "request" : {
@@ -223,12 +275,17 @@
           "$ref" : "SecondHandBook"
         }
       },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchBookByTitleOrAuthor" : {
+        "response" : {
+          "$ref" : "CollectionResponse_SecondHandBook"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
+      },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook" : {
         "response" : {
           "$ref" : "SecondHandBook"
         }
-      },
-      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
       }
     }
   }
