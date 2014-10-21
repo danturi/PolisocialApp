@@ -96,7 +96,7 @@ public class LikeEndpoint {
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select count(*) from Like l where l.postId=?1");
+			Query query = mgr.createQuery("select count(l.id) from Like l where l.postId=?1");
 			query.setParameter(1, postId);
 			long count = (long) query.getSingleResult();
 			o.setObject(count);

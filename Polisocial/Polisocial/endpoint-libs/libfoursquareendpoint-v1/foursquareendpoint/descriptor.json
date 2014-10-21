@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/foursquareendpoint/v1/20141018165257/java/1.18.0-rc/polimi.it-foursquareendpoint-v1-20141018165257-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-foursquareendpoint-v1-20141018165257-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/foursquareendpoint/v1/20141021215045/java/1.18.0-rc/polimi.it-foursquareendpoint-v1-20141021215045-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-foursquareendpoint-v1-20141021215045-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-18 16:53"
+      "timestamp": "2014-10-21 21:50"
     }, 
     {
-      "path": "polimi.it-foursquareendpoint-v1-20141018165257-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-foursquareendpoint-v1-20141021215045-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.foursquare", 
   "language_version": "1.18.0-rc", 
   "id": "foursquareendpoint:v1", 
-  "revision": 20141018165257
+  "revision": 20141021215045
 }

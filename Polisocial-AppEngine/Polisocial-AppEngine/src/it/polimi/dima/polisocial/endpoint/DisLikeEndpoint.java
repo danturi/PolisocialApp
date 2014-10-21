@@ -96,7 +96,7 @@ public class DisLikeEndpoint {
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select count(*) from DisLike d where d.postId=?1");
+			Query query = mgr.createQuery("select count(d.id) from DisLike d where d.postId=?1");
 			query.setParameter(1, postId);
 			long count = (long) query.getSingleResult();
 			o.setObject(count);
