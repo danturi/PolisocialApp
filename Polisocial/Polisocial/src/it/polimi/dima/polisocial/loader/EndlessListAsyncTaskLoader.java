@@ -7,16 +7,15 @@ public abstract class EndlessListAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
 
 	protected D mItems;
 	protected String cursor;
-	
+
 	public EndlessListAsyncTaskLoader(Context context, String cursor) {
 		super(context);
 		this.cursor = cursor;
 	}
 
-	
 	@Override
 	public abstract D loadInBackground();
-	
+
 	/**
 	 * Called when there is new data to deliver to the client. The super class
 	 * will take care of delivering it; the implementation here just adds a
@@ -46,14 +45,14 @@ public abstract class EndlessListAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
 			onReleaseResources(oldApps);
 		}
 	}
-	
+
 	/**
 	 * Handles a request to start the Loader.
 	 */
 	@Override
 	protected void onStartLoading() {
 
-		if (takeContentChanged() || mItems == null || cursor == null) {
+		if (takeContentChanged() || mItems == null ){//|| cursor == null) {
 			// If the data has changed since the last time it was loaded
 			// or is not currently available, start a load.
 			forceLoad();
@@ -65,8 +64,6 @@ public abstract class EndlessListAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
 		}
 
 	}
-	
-	
 
 	/**
 	 * Handles a request to stop the Loader.
@@ -76,8 +73,7 @@ public abstract class EndlessListAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
 		// Attempt to cancel the current load task if possible.
 		cancelLoad();
 	}
-	
-	
+
 	/**
 	 * Handles a request to cancel a load.
 	 */
@@ -107,12 +103,12 @@ public abstract class EndlessListAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
 			mItems = null;
 		}
 	}
-	
+
 	/**
 	 * Helper function to take care of releasing resources associated with an
 	 * actively loaded data set.
 	 */
 	protected void onReleaseResources(D listOfData) {
 	}
-	
+
 }

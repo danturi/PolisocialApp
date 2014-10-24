@@ -1,7 +1,6 @@
 package it.polimi.dima.polisocial.adapter;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -18,13 +17,11 @@ import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -37,36 +34,20 @@ import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
 
-public class EventAdapter extends ArrayAdapter<Initiative> {
+public class EventAdapter extends EndlessListAdapter<Initiative> {
 	
 	private final int VIEW_STANDARD=0;
 	private final int VIEW_LOADING=1;
 	
-	private final LayoutInflater mInflater;
-	private Context context;
-
-
-	
 	public EventAdapter(Context context) {
 		super(context, R.layout.event_item);
-		this.context = context;
-		mInflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	public void setData(List<Initiative> data) {
-		clear();
-		if (data != null) {
-			for (Initiative appEntry : data) {
-				add(appEntry);
-			}
-		}
-	}
 
 	@Override
 	public int getItemViewType(int position) {
 		// Define a way to determine which layout to use.
-		if (position >= (getCount() - 1)) {
+		if (position >= (getCount() - loading_row)) {
 			return VIEW_LOADING;
 		}
 		return VIEW_STANDARD;
@@ -107,6 +88,8 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 			}else{
 				view = mInflater.inflate(R.layout.progress, parent, false);
 			}
+			holder.type = type;
+			view.setTag(holder);
 		} else {
 			holder = (EventViewHolder) view.getTag();
 		}
@@ -212,29 +195,6 @@ public class EventAdapter extends ArrayAdapter<Initiative> {
 		
 		return view;
 	}
-
-	
-	@Override
-	public int getCount() {
-		return super.getCount() + 1;
-	}
-
-	@Override
-	public Initiative getItem(int position) {
-		if (position < (getCount() - 1))
-			return super.getItem(position);
-		else
-			return null;
-	}
-
-	@Override
-	public long getItemId(int position) {
-		if (position < (getCount() - 1))
-			return super.getItemId(position);
-		else
-			return -1;
-	}
-	
 	
 	
 	public static void makeTextViewResizable(final TextView tv,

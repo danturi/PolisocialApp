@@ -1,6 +1,5 @@
 package it.polimi.dima.polisocial.tabactivityAndFragments;
 
-
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.adapter.SpottedPostAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 //class representing the fragment at position 0 (spotted section)
 public class SpottedPostListFragment extends ListFragment implements
@@ -32,7 +30,7 @@ public class SpottedPostListFragment extends ListFragment implements
 	private ListView mList;
 	private String mCursor = null;
 	private EndlessScrollListener mEndlessScrollListener;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -44,7 +42,6 @@ public class SpottedPostListFragment extends ListFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		setHasOptionsMenu(true);
 		session = new SessionManager(getActivity().getApplicationContext());
 		Long userId = Long.valueOf(session.getUserDetails().get(
@@ -60,10 +57,9 @@ public class SpottedPostListFragment extends ListFragment implements
 			public void onLoadMore() {
 				// Triggered only when new data needs to be appended to the list
 				loadData();
-				Toast.makeText(getActivity(), "load new data", Toast.LENGTH_SHORT).show();
 			}
 		};
-
+		mList.setOnScrollListener(mEndlessScrollListener);
 		// Start out with a progress indicator.
 		mProgressView = getView().findViewById(R.id.progress_bar);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(
@@ -79,7 +75,8 @@ public class SpottedPostListFragment extends ListFragment implements
 						loadData();
 					}
 				});
-		ShowProgress.showProgress(true, mProgressView, mSwipeRefreshLayout, getActivity());
+		ShowProgress.showProgress(true, mProgressView, mSwipeRefreshLayout,
+				getActivity());
 		// Prepare the loader. Either re-connect with an existing one,
 		// or start a new one.
 		getLoaderManager().initLoader(0, null, this);
@@ -98,7 +95,6 @@ public class SpottedPostListFragment extends ListFragment implements
 		// Insert desired behaviour here.
 	}
 
-	
 	private void loadData() {
 		getLoaderManager().restartLoader(0, null, this);
 	}
@@ -108,11 +104,10 @@ public class SpottedPostListFragment extends ListFragment implements
 		mSwipeRefreshLayout.setRefreshing(false);
 	}
 
-
 	@Override
 	public Loader<CollectionResponsePostSpotted> onCreateLoader(int arg0,
 			Bundle bundle) {
-		detachScrollListenerFromList();
+		mEndlessScrollListener.setLoading(true);
 		return new SpottedPostListLoader(getActivity(), mCursor);
 	}
 
@@ -121,7 +116,6 @@ public class SpottedPostListFragment extends ListFragment implements
 			CollectionResponsePostSpotted data) {
 		mCursor = data.getNextPageToken();
 		if (data.getItems() != null) {
-			attachScrollListenerToList();
 			if (refreshRequest) {
 				onRefreshComplete();
 				mAdapter.setData(data.getItems());
@@ -131,30 +125,20 @@ public class SpottedPostListFragment extends ListFragment implements
 			} else {
 				mAdapter.addAll(data.getItems());
 			}
-		//case in which there are no more data to retrieve from server	
-		}else{
-			//tell the adapter to dismiss the progress bar cause there are no more data
+			mEndlessScrollListener.setLoading(false);
+			// case in which there are no more data to retrieve from server
+		} else {
+			// tell the adapter to dismiss the progress bar cause there are no
+			// more data
 			mAdapter.setLoading_row(0);
 			mAdapter.notifyDataSetChanged();
-			//disable scrolllistener cause there are no more data
-			detachScrollListenerFromList();
 		}
-		ShowProgress.showProgress(false, mProgressView, mSwipeRefreshLayout, getActivity());
+		ShowProgress.showProgress(false, mProgressView, mSwipeRefreshLayout,
+				getActivity());
 	}
 
 	@Override
 	public void onLoaderReset(Loader<CollectionResponsePostSpotted> arg0) {
 		mAdapter.setData(null);
 	}
-
-	
-	
-	private void attachScrollListenerToList(){
-		mList.setOnScrollListener(mEndlessScrollListener);
-	}
-	
-	private void detachScrollListenerFromList(){
-		mList.setOnScrollListener(null);
-	}
-	
 }

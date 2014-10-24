@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial.tabactivityAndFragments;
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.GCMIntentService;
-import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.NewEventActivity;
 import it.polimi.dima.polisocial.NewSpottedPostActivity;
 import it.polimi.dima.polisocial.OAuthAccessActivity;
@@ -11,12 +10,6 @@ import it.polimi.dima.polisocial.ProfileActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.SingleChoiceDialogFragm;
 import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
-import it.polimi.dima.polisocial.R.anim;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
-import it.polimi.dima.polisocial.R.menu;
-import it.polimi.dima.polisocial.R.string;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
@@ -431,7 +424,7 @@ public class TabActivity extends FragmentActivity implements
 				return mFragmentAtPos0;
 			case 1:
 				if (mFragmentAtPos1 == null) {
-					mFragmentAtPos1 = new AnnouncementsFragment();
+					mFragmentAtPos1 = new EventsFragment();
 				}
 				return mFragmentAtPos1;
 			case 2:

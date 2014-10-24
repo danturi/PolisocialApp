@@ -16,14 +16,13 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 public class SpottedPostListLoader extends
 		EndlessListAsyncTaskLoader<CollectionResponsePostSpotted> {
 
-
 	public SpottedPostListLoader(Context context, String cursor) {
 		super(context, cursor);
 	}
 
 	@Override
 	public CollectionResponsePostSpotted loadInBackground() {
-		// GET DEI POST DA APP ENGINE
+		//retrieve data from server
 		Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(
 				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 				null);
@@ -40,7 +39,6 @@ public class SpottedPostListLoader extends
 				.build();
 
 		CollectionResponsePostSpotted list = new CollectionResponsePostSpotted();
-		// List<PostSpotted> entries = new ArrayList<PostSpotted>();
 		try {
 			if (cursor != null) {
 				list = endpoint.listPostSpotted().setLimit(10)
@@ -55,14 +53,12 @@ public class SpottedPostListLoader extends
 							post.getId()).execute();
 					post.setNumOfComments(Integer.valueOf((String) count
 							.getObject()));
-					// entries.add(post);
 				}
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		cursor = null;
 		return list;
 	}
 }

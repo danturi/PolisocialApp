@@ -27,8 +27,7 @@ public class UserListLoader extends AsyncTaskLoader<CollectionResponseUserDTO> {
 
 	@Override
 	public CollectionResponseUserDTO loadInBackground() {
-	     
-		//GET USERS DA APP ENGINE
+		//retrieve data from server
         Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
         builder = CloudEndpointUtils.updateBuilder(builder);
 		Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
@@ -37,10 +36,7 @@ public class UserListLoader extends AsyncTaskLoader<CollectionResponseUserDTO> {
 		
 		try {
 			if(username!=null){
-				list = endpoint.searchPoliUser().setLimit(15).setCursor(cursor).setUsername(username).execute();
-			//}else if(username!=null){
-				//list = endpoint.searchPoliUser().setLimit(10).setUsername(username).execute();
-				
+				list = endpoint.searchPoliUser().setLimit(15).setCursor(cursor).setUsername(username).execute();				
 			}else {
 				list = endpoint.searchPoliUser().setLimit(15).setCursor(cursor).execute();
 			}

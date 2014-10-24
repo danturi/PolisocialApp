@@ -5,8 +5,6 @@ import it.polimi.dima.polisocial.adapter.EventAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative;
 import it.polimi.dima.polisocial.loader.EventListLoader;
-import it.polimi.dima.polisocial.utilClasses.SessionManager;
-
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -24,10 +22,10 @@ public class EventsFragment extends ListFragment implements
 	private boolean refreshRequest = false;
 	private EventAdapter mAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	// TODO private View mProgressView;
-	private SessionManager session;
+	private View mProgressView;
 	private ListView mList;
 	private String mCursor = null;
+	private EndlessScrollListener mEndlessScrollListener;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,28 +40,22 @@ public class EventsFragment extends ListFragment implements
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 
-		session = new SessionManager(getActivity().getApplicationContext());
-		Long userId = Long.valueOf(session.getUserDetails().get(
-				SessionManager.KEY_USERID));
-		String name = session.getUserDetails().get(SessionManager.KEY_NAME);
 		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new EventAdapter(getActivity());
 		setListAdapter(mAdapter);
-
 		mList = getListView();
 		mList.setAdapter(mAdapter);
 
-		mList.setOnScrollListener(new EndlessScrollListener() {
+		mEndlessScrollListener = new EndlessScrollListener() {
 			@Override
 			public void onLoadMore() {
 				// Triggered only when new data needs to be appended to the list
-
-				initiateRefresh();
-				// or customLoadMoreDataFromApi(totalItemsCount);
+				loadData();
 			}
-		});
+		};
+		mList.setOnScrollListener(mEndlessScrollListener);
 		// Start out with a progress indicator.
-		// TODO mProgressView = getView().findViewById(R.id.progress_bar);
+		mProgressView = getView().findViewById(R.id.progress_bar);
 
 		mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(
 				R.id.swipe_container);
@@ -75,18 +67,15 @@ public class EventsFragment extends ListFragment implements
 					public void onRefresh() {
 						refreshRequest = true;
 						mCursor = null;
-						initiateRefresh();
+						loadData();
 					}
 				});
-		// showProgress(true);
+		// ShowProgress.showProgress(true, mProgressView, mSwipeRefreshLayout,
+		// getActivity());
 		// Prepare the loader. Either re-connect with an existing one,
-		// or start a new one.
-		Bundle bundle = new Bundle();
-		bundle.putString("cursor", mCursor);
-		getLoaderManager().initLoader(0, bundle, this);
+		getLoaderManager().initLoader(0, null, this);
 
 	}
-
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
@@ -95,10 +84,13 @@ public class EventsFragment extends ListFragment implements
 		menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 	}
 
-	private void initiateRefresh() {
-		Bundle bundle = new Bundle();
-		bundle.putString("cursor", mCursor);
-		getLoaderManager().restartLoader(0, bundle, this);
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// Insert desired behaviour here.
+	}
+
+	private void loadData() {
+		getLoaderManager().restartLoader(0, null, this);
 	}
 
 	private void onRefreshComplete() {
@@ -107,15 +99,10 @@ public class EventsFragment extends ListFragment implements
 	}
 
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// Insert desired behaviour here.
-	}
-
-	@Override
 	public Loader<CollectionResponseInitiative> onCreateLoader(int arg0,
 			Bundle bundle) {
-		String cursor = (String)bundle.get("cursor");
-		return new EventListLoader(getActivity(), null);
+		mEndlessScrollListener.setLoading(true);
+		return new EventListLoader(getActivity(), mCursor);
 	}
 
 	@Override
@@ -123,16 +110,25 @@ public class EventsFragment extends ListFragment implements
 			CollectionResponseInitiative data) {
 		mCursor = data.getNextPageToken();
 		if (data.getItems() != null) {
-
 			if (refreshRequest) {
-				mAdapter.setData(data.getItems());
 				onRefreshComplete();
+				mAdapter.setData(data.getItems());
+				mAdapter.notifyDataSetChanged();
+				mAdapter.setLoading_row(1);
+				mAdapter.notifyDataSetChanged();
 			} else {
 				mAdapter.addAll(data.getItems());
 			}
+			mEndlessScrollListener.setLoading(false);
+			// case in which there are no more data to retrieve from server
+		} else {
+			// tell the adapter to dismiss the progress bar cause there are no
+			// more data
+			mAdapter.setLoading_row(0);
+			mAdapter.notifyDataSetChanged();
 		}
-
-		// showProgress(false);
+		// ShowProgress.showProgress(false, mProgressView, mSwipeRefreshLayout,
+		// getActivity());
 	}
 
 	@Override
