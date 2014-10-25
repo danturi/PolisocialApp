@@ -2,47 +2,37 @@ package it.polimi.dima.polisocial.adapter;
 
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
-import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.UserDTO;
-import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
-import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint.FindVenuesCategories;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.text.StaticLayout;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UserAdapter extends ArrayAdapter<UserDTO>{
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+public class UserAdapter extends EndlessListAdapter<UserDTO>{
 
 	
 	private final LayoutInflater mInflater;
-	private Context context;
-	private List<UserDTO> origData = new ArrayList<UserDTO>();
 	TextView statusMsg;
+	private final int VIEW_USER = 0;
+	private final int VIEW_LOADING = 1;
 	
 	public UserAdapter(Context context) {
 		super(context, 0);
-		this.context = context;
 		mInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
@@ -50,7 +40,6 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
 
 	public void setData(List<UserDTO> list) {
 		clear();
-		origData=list;
 		if (list != null) {
 			for (UserDTO appEntry : list) {
 				add(appEntry);
@@ -61,10 +50,16 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view;
+		View view=convertView;
+		int type = getItemViewType(position);
 		
-        if (convertView == null) {
-            view = mInflater.inflate(R.layout.searchpoliuser_item, parent, false);
+        if (view == null) {
+        	if (type == VIEW_LOADING) {
+				view = mInflater.inflate(R.layout.progress, parent, false);
+        	}else {
+        		view = mInflater.inflate(R.layout.searchpoliuser_item, parent, false);
+        	}
+            
         } else {
             view = convertView;
         }
@@ -118,7 +113,21 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
         return view;
 	}
 
+	@Override
+	public int getItemViewType(int position) {
+		if (position >= (getCount() - loading_row)) {
+			return VIEW_LOADING;
+		}
+		return VIEW_USER;
+	}
 
+	@Override
+	public int getViewTypeCount() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
+	/*
 	@Override
 	public Filter getFilter() {
 		return new Filter(){
@@ -159,7 +168,8 @@ public class UserAdapter extends ArrayAdapter<UserDTO>{
 			}
 
 	    };
-	}
+	} 
+	*/
 		
 	
 	

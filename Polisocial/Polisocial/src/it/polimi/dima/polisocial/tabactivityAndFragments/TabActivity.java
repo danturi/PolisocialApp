@@ -18,6 +18,7 @@ import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObj
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import it.polimi.dima.polisocial.utilClasses.VenueItem;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -63,6 +65,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -179,7 +182,7 @@ public class TabActivity extends FragmentActivity implements
 		// primary sections
 		// of the app.
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
-				getSupportFragmentManager(),this);
+				getSupportFragmentManager(), this);
 
 		// Set up the action bar.
 		actionBar = getActionBar();
@@ -355,11 +358,14 @@ public class TabActivity extends FragmentActivity implements
 		private Fragment mFragmentAtPos1;
 		private SavedState mFragmentAtpos3Map = null;
 		private SavedState mFragmentAtpos3List = null;
+		private SavedState mFragmentBook = null;
+		private SavedState mFragmentRental = null;
+		private SavedState mFragmentLesson = null;
 		private Boolean update = false;
 		private TabActivity activity;
 
 		private final class RestaurantsListener implements
-				RestaurantsFragmentListener {
+				SwitchFragmentListener {
 
 			public void onSwitchFragment() {
 
@@ -372,7 +378,7 @@ public class TabActivity extends FragmentActivity implements
 						mFragmentManager.beginTransaction()
 								.remove(mFragmentAtPos3).commit();
 						mFragmentAtPos3 = ListVenuesFragment
-								.newInstance(listener);
+								.newInstance(listenerRestaurant);
 
 					} else {
 						mFragmentAtpos3Map = mFragmentManager
@@ -389,7 +395,7 @@ public class TabActivity extends FragmentActivity implements
 						mFragmentManager.beginTransaction()
 								.remove(mFragmentAtPos3).commit();
 						mFragmentAtPos3 = GoogleMapFragment
-								.newInstance(listener);
+								.newInstance(listenerRestaurant);
 
 					} else {
 						mFragmentAtpos3List = mFragmentManager
@@ -404,14 +410,76 @@ public class TabActivity extends FragmentActivity implements
 
 				notifyDataSetChanged();
 			}
+
+			@Override
+			public void onSwitchFragmentName(String newFragment) {
+			}
 		}
 
-		RestaurantsListener listener = new RestaurantsListener();
+		private final class AnnouncementListener implements
+				SwitchFragmentListener {
 
-		public AppSectionsPagerAdapter(FragmentManager fm, TabActivity tabActivity) {
+			@Override
+			public void onSwitchFragment() {
+			}
+
+			@Override
+			public void onSwitchFragmentName(String newFragmentName) {
+
+				if (newFragmentName.equals("book")) {
+					if (mFragmentAtPos2 instanceof PrivateLessonFragment) {
+						mFragmentLesson = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					} else {
+						mFragmentRental = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					}
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+							.commit();
+					mFragmentAtPos2 = new SecondHandBookFragment();
+					mFragmentAtPos2.setInitialSavedState(mFragmentBook);
+				}
+
+				if (newFragmentName.equals("rental")) {
+					if (mFragmentAtPos2 instanceof PrivateLessonFragment) {
+						mFragmentLesson = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					} else {
+						mFragmentBook = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					}
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+							.commit();
+					mFragmentAtPos2 = new RentalFragment();
+					mFragmentAtPos2.setInitialSavedState(mFragmentRental);
+				}
+				if (newFragmentName.equals("lesson")) {
+					if (mFragmentAtPos2 instanceof SecondHandBookFragment) {
+						mFragmentBook = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					} else {
+						mFragmentRental = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					}
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+							.commit();
+					mFragmentAtPos2 = new PrivateLessonFragment();
+					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
+				}
+
+				notifyDataSetChanged();
+			}
+
+		}
+
+		RestaurantsListener listenerRestaurant = new RestaurantsListener();
+		AnnouncementListener listenerAnnouncement = new AnnouncementListener();
+
+		public AppSectionsPagerAdapter(FragmentManager fm,
+				TabActivity tabActivity) {
 			super(fm);
 			mFragmentManager = fm;
-			activity=tabActivity;
+			activity = tabActivity;
 		}
 
 		@Override
@@ -429,12 +497,14 @@ public class TabActivity extends FragmentActivity implements
 				return mFragmentAtPos1;
 			case 2:
 				if (mFragmentAtPos2 == null) {
-					mFragmentAtPos2 = new AnnouncementsFragment();
+					mFragmentAtPos2 = AnnouncementsFragment
+							.newInstance(listenerAnnouncement);
 				}
 				return mFragmentAtPos2;
 			case 3:
 				if (mFragmentAtPos3 == null) {
-					mFragmentAtPos3 = GoogleMapFragment.newInstance(listener);
+					mFragmentAtPos3 = GoogleMapFragment
+							.newInstance(listenerRestaurant);
 				}
 				return mFragmentAtPos3;
 			case 4:
@@ -471,8 +541,10 @@ public class TabActivity extends FragmentActivity implements
 
 	}
 
-	public interface RestaurantsFragmentListener {
+	public interface SwitchFragmentListener {
 		void onSwitchFragment();
+
+		void onSwitchFragmentName(String newFragment);
 	}
 
 	public static class GoogleMapFragment extends Fragment {
@@ -480,7 +552,7 @@ public class TabActivity extends FragmentActivity implements
 		GoogleMap map;
 		MapView mapView;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
-		static RestaurantsFragmentListener listener;
+		static SwitchFragmentListener listener;
 		VenuesNearPoliAndPlotMapTask task;
 
 		public GoogleMapFragment() {
@@ -534,7 +606,7 @@ public class TabActivity extends FragmentActivity implements
 		}
 
 		public static GoogleMapFragment newInstance(
-				RestaurantsFragmentListener googleMapFragmentListener) {
+				SwitchFragmentListener googleMapFragmentListener) {
 			GoogleMapFragment googleMapFrgm = new GoogleMapFragment();
 			listener = googleMapFragmentListener;
 			return googleMapFrgm;
@@ -708,13 +780,13 @@ public class TabActivity extends FragmentActivity implements
 		ArrayAdapter<ArrayList<String>> adapter = null;
 		ArrayList<String> listVenuesName = new ArrayList<String>();
 		VenuesNearPoliTask task;
-		static RestaurantsFragmentListener listener;
+		static SwitchFragmentListener listener;
 
 		public ListVenuesFragment() {
 		}
 
 		public static ListVenuesFragment newInstance(
-				RestaurantsFragmentListener listVenuesFragmentListener) {
+				SwitchFragmentListener listVenuesFragmentListener) {
 			ListVenuesFragment listVenuesFrgm = new ListVenuesFragment();
 			listener = listVenuesFragmentListener;
 			return listVenuesFrgm;
@@ -737,7 +809,8 @@ public class TabActivity extends FragmentActivity implements
 			listVenues = (ListView) v.findViewById(R.id.listViewVenues);
 			progressBar = (ProgressBar) v.findViewById(R.id.progressBar1);
 			task = new VenuesNearPoliTask();
-			ShowProgress.showProgress(true, progressBar, listVenues, getActivity());
+			ShowProgress.showProgress(true, progressBar, listVenues,
+					getActivity());
 			task.execute();
 
 			TextView buttonView = (TextView) v
@@ -747,14 +820,14 @@ public class TabActivity extends FragmentActivity implements
 				@Override
 				public void onClick(View v) {
 					task.cancel(true);
-					ShowProgress.showProgress(false, progressBar, listVenues, getActivity());
+					ShowProgress.showProgress(false, progressBar, listVenues,
+							getActivity());
 					listener.onSwitchFragment();
 
 				}
 			});
 			return v;
 		}
-
 
 		@Override
 		public void onPrepareOptionsMenu(Menu menu) {
@@ -861,62 +934,69 @@ public class TabActivity extends FragmentActivity implements
 			@Override
 			protected Void doInBackground(
 					ArrayList<ArrayList<String>>... params) {
-				
-				listVenuesInfo=params[0];
+
+				listVenuesInfo = params[0];
 				Foursquareendpoint.Builder builder = new Foursquareendpoint.Builder(
 						AndroidHttp.newCompatibleTransport(),
 						new JacksonFactory(), null);
 				builder = CloudEndpointUtils.updateBuilder(builder);
 				Foursquareendpoint endpoint = builder.setApplicationName(
 						"polimisocial").build();
-				
-				if(mCurrentLocation!=null){
+
+				if (mCurrentLocation != null) {
 					ResponseObject response = null;
-				
+
 					StringBuilder venuesAttribute = new StringBuilder();
-					
-					Iterator<ArrayList<String>> iter = listVenuesInfo.iterator();
+
+					Iterator<ArrayList<String>> iter = listVenuesInfo
+							.iterator();
 					ArrayList<String> venueArray = new ArrayList<String>();
-					
-					if(iter.hasNext()){
+
+					if (iter.hasNext()) {
 						venueArray = (ArrayList<String>) iter.next();
-						venue = new VenueItem(venueArray.get(0),venueArray.get(1),venueArray.get(2));
+						venue = new VenueItem(venueArray.get(0),
+								venueArray.get(1), venueArray.get(2));
 						listItem.add(venue);
 						venuesAttribute.append(venue.getCoord());
 					}
-					
-					while (iter.hasNext()){
-						
+
+					while (iter.hasNext()) {
+
 						venueArray = (ArrayList<String>) iter.next();
-						venue = new VenueItem(venueArray.get(0),venueArray.get(1),venueArray.get(2));
+						venue = new VenueItem(venueArray.get(0),
+								venueArray.get(1), venueArray.get(2));
 						listItem.add(venue);
 						venuesAttribute.append(",");
 						venuesAttribute.append(venue.getCoord());
 					}
-					
+
 					try {
-						response = endpoint.findDistanceAndWalkingDuration(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(),venuesAttribute.toString()).execute();
+						response = endpoint.findDistanceAndWalkingDuration(
+								mCurrentLocation.getLatitude(),
+								mCurrentLocation.getLongitude(),
+								venuesAttribute.toString()).execute();
 
 						ArrayList<ArrayList<String>> venuesAttr;
-						venuesAttr=(ArrayList<ArrayList<String>>) response.getObject();
-						Iterator<ArrayList<String>> attrIter = venuesAttr.iterator();
+						venuesAttr = (ArrayList<ArrayList<String>>) response
+								.getObject();
+						Iterator<ArrayList<String>> attrIter = venuesAttr
+								.iterator();
 						Iterator<VenueItem> venueIter = listItem.iterator();
-		
-						while (attrIter.hasNext())
-						{
+
+						while (attrIter.hasNext()) {
 							venue = venueIter.next();
-							ArrayList<String> attr = attrIter.next();					
-							venue.setDistanceInMeter(Integer.valueOf(attr.get(0)));
+							ArrayList<String> attr = attrIter.next();
+							venue.setDistanceInMeter(Integer.valueOf(attr
+									.get(0)));
 							venue.setDistance(attr.get(1));
-							
+
 						}
-						
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					
-				}	
-						
+
+				}
 
 				return null;
 			}
@@ -925,15 +1005,17 @@ public class TabActivity extends FragmentActivity implements
 			@Override
 			protected void onPostExecute(Void result) {
 
-				list=(List<VenueItem>) listItem;
-				Collections.sort(list, new Comparator<VenueItem>(){
-					   public int compare(VenueItem o1, VenueItem o2){
-						   if(o1.getDistanceInMeter()!=null && o2.getDistanceInMeter()!=null){
-							   return o1.getDistanceInMeter() - o2.getDistanceInMeter();
-						   }
-					      return 0;
-					   }
-					});
+				list = (List<VenueItem>) listItem;
+				Collections.sort(list, new Comparator<VenueItem>() {
+					public int compare(VenueItem o1, VenueItem o2) {
+						if (o1.getDistanceInMeter() != null
+								&& o2.getDistanceInMeter() != null) {
+							return o1.getDistanceInMeter()
+									- o2.getDistanceInMeter();
+						}
+						return 0;
+					}
+				});
 				adapter = new ArrayAdapter(getActivity(),
 						android.R.layout.simple_list_item_2,
 						android.R.id.text1, list) {
@@ -952,7 +1034,8 @@ public class TabActivity extends FragmentActivity implements
 						return view;
 					}
 				};
-				ShowProgress.showProgress(false, progressBar, listVenues, getActivity());
+				ShowProgress.showProgress(false, progressBar, listVenues,
+						getActivity());
 				listVenues.setAdapter(adapter);
 
 				listVenues
@@ -1220,7 +1303,7 @@ public class TabActivity extends FragmentActivity implements
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		intentGcmNotifica=intent;
+		intentGcmNotifica = intent;
 		if (intent.getBooleanExtra("gcmNotification", false)) {
 			actionBar.setSelectedNavigationItem(4);
 		}
@@ -1251,12 +1334,13 @@ public class TabActivity extends FragmentActivity implements
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
-	
-	public Intent getNotificationIntent(){
+
+	public Intent getNotificationIntent() {
 		return intentGcmNotifica;
 	}
-	public void setNotificationIntent(Intent intent){
-		intentGcmNotifica=intent;
+
+	public void setNotificationIntent(Intent intent) {
+		intentGcmNotifica = intent;
 	}
 
 }
