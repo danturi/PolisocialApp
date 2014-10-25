@@ -30,12 +30,10 @@ public class PoliUserListFragment extends ListFragment implements
 		LoaderManager.LoaderCallbacks<CollectionResponseUserDTO> {
 
 	private ListView mList;
-	private UserAdapter adapter;
+	private UserAdapter mAdapter;
 	private String mCursor = null;
 	private String username = null;
 
-	public PoliUserListFragment() {
-	};
 
 	private View mProgressView;
 	private boolean refreshRequest = false;
@@ -58,7 +56,7 @@ public class PoliUserListFragment extends ListFragment implements
 				if (getLoaderManager().hasRunningLoaders()) {
 					getLoaderManager().destroyLoader(0);
 				}
-				adapter.setData(listInitialUsers);
+				mAdapter.setData(listInitialUsers);
 				mCursor= listInitialCursor;
 				username=null;
 
@@ -116,9 +114,9 @@ public class PoliUserListFragment extends ListFragment implements
 		setHasOptionsMenu(true);
 		super.onActivityCreated(savedInstanceState);
 		firstRequest = true;
-		adapter = new UserAdapter(getActivity());
+		mAdapter = new UserAdapter(getActivity());
 		mList = getListView();
-		mList.setAdapter(adapter);
+		mList.setAdapter(mAdapter);
 		mList.setTextFilterEnabled(true);
 		mList.setOnScrollListener(new EndlessScrollListener() {
 			@Override
@@ -184,7 +182,7 @@ public class PoliUserListFragment extends ListFragment implements
 					listInitialCursor= mCursor;
 					firstRequest = false;
 				}
-				adapter.setData(data.getItems());
+				mAdapter.setData(data.getItems());
 				refreshRequest = false;
 			}//se è una richiesta di aggiunta utenti nella lista 
 			else {
@@ -193,7 +191,7 @@ public class PoliUserListFragment extends ListFragment implements
 					listInitialUsers.addAll(data.getItems());
 					listInitialCursor=mCursor;
 				}
-				adapter.addAll(data.getItems());
+				mAdapter.addAll(data.getItems());
 			}
 		} else {
 			if (refreshRequest && !origList) {
@@ -208,7 +206,7 @@ public class PoliUserListFragment extends ListFragment implements
 
 	@Override
 	public void onLoaderReset(Loader<CollectionResponseUserDTO> arg0) {
-		adapter.setData(null);
+		mAdapter.setData(null);
 
 	}
 

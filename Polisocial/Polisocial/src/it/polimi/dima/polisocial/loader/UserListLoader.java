@@ -8,14 +8,12 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class UserListLoader extends EndlessListAsyncTaskLoader<CollectionResponseUserDTO> {
 
-	private String cursor;
 	private String username;
 
 	public UserListLoader(Context context, String cursor, String username) {

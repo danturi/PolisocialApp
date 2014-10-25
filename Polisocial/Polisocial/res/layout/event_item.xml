@@ -2,19 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/post_bg"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/post_item_margin"
-        android:layout_marginRight="@dimen/post_item_margin"
-        android:layout_marginTop="@dimen/post_item_margin"
-        android:background="@drawable/bg_parent_rounded_corner"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/post_item_padding_top_bottom"
-        android:paddingTop="@dimen/post_item_padding_top_bottom" >
+        android:paddingBottom="@dimen/event_item_padding_top_bottom"
+        android:paddingTop="@dimen/event_item_padding_top_bottom" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -23,17 +19,104 @@
             android:paddingLeft="@dimen/post_item_padding_left_right"
             android:paddingRight="@dimen/post_item_padding_left_right" >
 
-            <ImageView
-                android:id="@+id/event_picture"
-                android:layout_width="@dimen/event_item_width"
-                android:layout_height="@dimen/event_item_height"
-                android:contentDescription="@string/desc_profile_pic"
-                android:scaleType="centerCrop" >
-            </ImageView>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/month"
+                    android:layout_width="@dimen/event_item_width"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/event_calendar_monthbar_border"
+                    android:gravity="center"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="0.0"
+                    android:shadowDy="0.0"
+                    android:shadowRadius="2.0"
+                    android:text="OCT"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bar1"
+                    android:layout_width="10dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/event_calendar_bar_border"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="0.0"
+                    android:shadowDy="0.0"
+                    android:shadowRadius="2.0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/post_item_profile_name"/>
+
+                <TextView
+                    android:id="@+id/bar2"
+                    android:layout_width="10dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="65dp"
+                    android:background="@drawable/event_calendar_bar_border"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="0.0"
+                    android:shadowDy="0.0"
+                    android:shadowRadius="2.0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/post_item_profile_name" />
+
+                <RelativeLayout
+                    android:id="@+id/event_pic_panel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/month"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp" >
+
+                    <ImageView
+                        android:id="@+id/event_picture"
+                        android:layout_width="@dimen/event_item_width"
+                        android:layout_height="@dimen/event_item_height"
+                        android:contentDescription="@string/desc_profile_pic"
+                        android:scaleType="centerCrop" >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/day"
+                        android:layout_width="@dimen/event_item_width"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:shadowColor="@color/black"
+                        android:shadowDx="1.0"
+                        android:shadowDy="1.0"
+                        android:shadowRadius="2.0"
+                        android:text="13"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/bottom_calendar"
+                    android:layout_width="@dimen/event_item_width"
+                    android:layout_height="5dp"
+                    android:layout_below="@+id/event_pic_panel"
+                    android:background="@drawable/event_calendar_bottombar_border"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/post_item_profile_name"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/post_item_profile_info_padd" >
 
@@ -41,7 +124,7 @@
                     android:id="@+id/title"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:textSize="@dimen/post_item_profile_name"
                     android:textStyle="bold" />
 
@@ -49,51 +132,71 @@
                     android:id="@+id/location"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/timestamp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/post_item_timestamp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/beginning_date"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/timestamp"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/post_item_timestamp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/numb_of_comments"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+					android:layout_marginLeft="15dp"
+					android:layout_marginBottom="7dp"
+                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                    android:textSize="@dimen/post_item_numb_of_commments"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/imageButton1"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/event_right_bottom_button"
+                        android:drawableLeft="@drawable/like_button_icon"
+                        android:drawableStart="@drawable/like_button_icon"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        android:text="Like"
+                        android:textColor="@color/post_button_text"
+                        android:textSize="8dp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/imageButton2"
+                        android:layout_width="0dp"
+                        android:layout_height="24dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/event_left_bottom_button"
+                        android:drawableLeft="@drawable/dislike_button_icon"
+                        android:drawableStart="@drawable/dislike_button_icon"
+                        android:paddingLeft="27dp"
+                        android:paddingRight="27dp"
+                        android:text="Dislike"
+                        android:textColor="@color/post_button_text"
+                        android:textSize="8dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="@dimen/post_item_status_pad_left_right"
-            android:paddingRight="@dimen/post_item_status_pad_left_right"
-            android:paddingTop="@dimen/post_item_status_pad_top" />
 
-        <TextView
-            android:id="@+id/timestamp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/post_item_status_pad_left_right"
-            android:textColor="@color/timestamp"
-            android:textSize="@dimen/post_item_timestamp" />
 
-        <TextView
-            android:id="@+id/numb_of_comments"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:paddingBottom="3dp"
-            android:paddingLeft="@dimen/post_item_status_pad_left_right"
-            android:paddingRight="@dimen/post_item_status_pad_left_right"
-            android:paddingTop="@dimen/post_item_status_pad_top"
-            android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-            android:textSize="@dimen/post_item_numb_of_commments"
-            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

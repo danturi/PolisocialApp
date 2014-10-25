@@ -26,8 +26,9 @@
     <dimen name="comment_item_timestamp_pad_left">55dp</dimen>
     <dimen name="comment_item_corner_radius">3dp</dimen>
     <dimen name="comment_item_border_width">1dp</dimen>
-    <dimen name="event_item_width">150dp</dimen>
-    <dimen name="event_item_height">150dp</dimen>
+    <dimen name="event_item_width">90dp</dimen>
+    <dimen name="event_item_height">90dp</dimen>
+    <dimen name="event_item_padding_top_bottom">10dp</dimen>
     <dimen name="notification_item_icon">45dp</dimen>
     <dimen name="post_item_hit_on_button">35dp</dimen>
 
@@ -35,5 +36,7 @@
     <dimen name="profile_item_left_right_margin">15dp</dimen>
     <dimen name="profile_item_top_margin">35dp</dimen>
     <dimen name="profile_edit_right_margin">8dp</dimen>
+    
+    
 
 </resources>

@@ -79,8 +79,6 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 				holder.location = (TextView) view.findViewById(R.id.location);
 				holder.eventPicture = (ImageView) view
 						.findViewById(R.id.event_picture);
-				holder.description = (TextView) view.findViewById(R.id.description);
-				holder.creationDate = (TextView) view.findViewById(R.id.timestamp);
 				holder.numbOfComments = (TextView) view
 						.findViewById(R.id.numb_of_comments);
 
@@ -167,8 +165,6 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 				    	}
 				    }
 				}.execute(holder,item);
-			}else {
-				holder.eventPicture.setImageResource(R.drawable.event_no_pic);
 			}
 			
 			holder.title.setText(item.getTitle());
@@ -179,15 +175,12 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 	        String time = dateTime.substring(11, Math.min(dateTime.length(),16));
 			
 	        holder.beginningDate.setText(dateString+" at "+ time);
-	        holder.description.setText(item.getText());
 
 			// Converting timestamp into time ago format
 			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 					.getTimestamp().getValue(), System.currentTimeMillis(),
 					DateUtils.SECOND_IN_MILLIS);
-			holder.creationDate.setText("created " + timeAgo);
 
-			makeTextViewResizable(holder.description, 3, "View More", true);
 			holder.numbOfComments.setText(item.getNumOfComments() + " comments");
 		
 		}
@@ -340,8 +333,6 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		TextView location;
 		ImageView eventPicture;
 		TextView numbOfComments;
-		TextView creationDate;		
-		TextView description;
 		TextView beginningDate;		
 	}
 

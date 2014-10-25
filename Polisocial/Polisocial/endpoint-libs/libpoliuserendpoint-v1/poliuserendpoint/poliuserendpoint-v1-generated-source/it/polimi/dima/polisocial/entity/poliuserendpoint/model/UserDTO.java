@@ -18,6 +18,8 @@
 
 package it.polimi.dima.polisocial.entity.poliuserendpoint.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Model definition for UserDTO.
  *
@@ -55,6 +57,8 @@ public final class UserDTO extends com.google.api.client.json.GenericJson {
   @com.google.api.client.util.Key @com.google.api.client.json.JsonString
   private java.lang.Long userId;
 
+  private Bitmap bitmap;
+  
   /**
    * @return value or {@code null} for none
    */
@@ -124,5 +128,13 @@ public final class UserDTO extends com.google.api.client.json.GenericJson {
   public UserDTO clone() {
     return (UserDTO) super.clone();
   }
+
+public Bitmap getBitmap() {
+	return bitmap;
+}
+
+public void setBitmap(Bitmap bitmap) {
+	this.bitmap = bitmap;
+}
 
 }
