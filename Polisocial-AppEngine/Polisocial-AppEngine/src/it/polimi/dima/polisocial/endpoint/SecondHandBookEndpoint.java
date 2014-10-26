@@ -1,7 +1,9 @@
 package it.polimi.dima.polisocial.endpoint;
 
+import it.polimi.dima.polisocial.ResponseObject;
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.SecondHandBook;
+import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
 
 import com.google.api.server.spi.config.Api;
@@ -11,6 +13,8 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.search.*;
+import com.google.appengine.api.search.Document.Builder;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
@@ -26,7 +30,9 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -38,6 +44,9 @@ import javax.persistence.Query;
 @Api(name = "secondhandbookendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class SecondHandBookEndpoint {
 
+	
+	private static final Logger log = Logger
+			.getLogger(FoursquarePolisocialAPI.class.getName());
 	/**
 	 * This method lists all the entities inserted in datastore. It uses HTTP
 	 * GET method and paging support.
@@ -110,7 +119,7 @@ public class SecondHandBookEndpoint {
 	/**
 	 * This inserts a new entity into App Engine datastore. If the entity
 	 * already exists in the datastore, an exception is thrown. It uses HTTP
-	 * POST method.
+	 * secondhandbook method.
 	 * 
 	 * @param secondhandbook
 	 *            the entity to be inserted.
@@ -124,10 +133,114 @@ public class SecondHandBookEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(secondhandbook);
+			addDocumentIndex(secondhandbook);
 		} finally {
 			mgr.close();
 		}
 		return secondhandbook;
+	}
+
+	private void addDocumentIndex(SecondHandBook secondhandbook) {
+
+		Builder builder = Document
+				.newBuilder()
+				.setId(secondhandbook.getId().toString())
+				.addField(
+						Field.newBuilder().setName("bookTitle")
+								.setText(secondhandbook.getBookTitle()))
+				.addField(
+						Field.newBuilder().setName("publisher")
+								.setText(secondhandbook.getPublisher()))
+				.addField(
+						Field.newBuilder().setName("faculty")
+								.setText(secondhandbook.getFaculty()))
+				.addField(
+						Field.newBuilder().setName("price")
+								.setNumber(secondhandbook.getPrice()));
+
+		for (String author : secondhandbook.getAuthorsBook()) {
+			builder.addField(Field.newBuilder().setName("author")
+					.setText(author));
+		}
+
+		Document document = builder.build();
+
+		// creates an Index and saves the Document
+		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
+				.build();
+		Index index = SearchServiceFactory.getSearchService().getIndex(
+				indexSpec);
+		index.put(document);
+
+	}
+
+	@ApiMethod(name = "searchFullTextBook", path = "searchFullTextBook")
+	public ResponseObject searchFullTextBook(
+			@Named("title") String title,
+			@Nullable @Named("author") String author,
+			@Nullable @Named("cursor") String cursorString,
+			@Nullable @Named("limit") Integer limit) throws NotFoundException {
+
+		ResponseObject response = new ResponseObject();
+		com.google.appengine.api.search.Cursor cursor;
+		
+		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
+				.build();
+		Index index = SearchServiceFactory.getSearchService().getIndex(
+				indexSpec);
+		SortOptions sortOptions = SortOptions
+				.newBuilder()
+				.addSortExpression(
+						SortExpression
+								.newBuilder()
+								.setExpression("price")
+								.setDirection(
+										SortExpression.SortDirection.ASCENDING)
+								.setDefaultValueNumeric(99999)).build();
+		try {
+			if(cursorString != null && cursorString != ""){
+				cursor = com.google.appengine.api.search.Cursor.newBuilder().build(cursorString);
+			}else {
+		    // create the initial cursor
+				cursor = com.google.appengine.api.search.Cursor.newBuilder().build();
+			}
+		        // build options and query
+		        QueryOptions options = QueryOptions.newBuilder()
+		            .setCursor(cursor)
+		            .setSortOptions(sortOptions)
+		            .setLimit(20)
+		            .build();
+		        String queryString;
+		        if(author!=null){
+		        	queryString = "bookTitle: "+title+" AND author: "+author;
+		        }else {
+		        	queryString = "bookTitle: "+title;
+		        }
+		        com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(queryString);
+		        
+		        // search at least once
+		        Results<ScoredDocument> result = index.search(query);
+		        int numberRetrieved = result.getNumberReturned();
+		        cursor = result.getCursor();
+
+		        if (numberRetrieved > 0) {
+		        	log.info("book found");
+		            // process the matched docs
+		        	response.setObject(result.getResults());
+		        	if(cursor!=null){
+		        	//metto qui il cursore
+		        	response.setException(cursor.toWebSafeString());
+		        	}
+		        }else {
+		        	throw new NotFoundException("Not found book");
+		        }
+		    
+		} catch (SearchException e) {
+		    // handle exception...
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	/**
@@ -246,16 +359,18 @@ public class SecondHandBookEndpoint {
 
 		try {
 			mgr = getEntityManager();
-			Query query ;
-			if(author==null){
-			query= mgr.createQuery("select s from SecondHandBook s where s.bookTitle like :string");
-			query.setParameter("string",title+"%");
-			}else {
-				query= mgr.createQuery("select s from SecondHandBook s where s.bookTitle like :string and :author member of s.authorsBook");
-				query.setParameter("string", "%"+title+"%");
-				query.setParameter("author",author);
+			Query query;
+			if (author == null) {
+				query = mgr
+						.createQuery("select s from SecondHandBook s where s.bookTitle like :string");
+				query.setParameter("string", title + "%");
+			} else {
+				query = mgr
+						.createQuery("select s from SecondHandBook s where s.bookTitle like :string and :author member of s.authorsBook");
+				query.setParameter("string", "%" + title + "%");
+				query.setParameter("author", author);
 			}
-			
+
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);

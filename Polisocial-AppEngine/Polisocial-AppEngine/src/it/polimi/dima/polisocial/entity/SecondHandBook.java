@@ -1,5 +1,6 @@
 package it.polimi.dima.polisocial.entity;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +20,8 @@ public class SecondHandBook extends Post{
 	private Date publishedDate;
 	
 	private String isbn;
+	
+	private Double price;
 
 	public String getFaculty() {
 		return faculty;
@@ -68,5 +71,13 @@ public class SecondHandBook extends Post{
 
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 }

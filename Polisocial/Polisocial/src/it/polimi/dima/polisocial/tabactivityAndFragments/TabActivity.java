@@ -423,6 +423,7 @@ public class TabActivity extends FragmentActivity implements
 			public void onSwitchFragment() {
 			}
 
+			//utilizza il parametro per scegliere quale fragm sostituire
 			@Override
 			public void onSwitchFragmentName(String newFragmentName) {
 
@@ -465,6 +466,22 @@ public class TabActivity extends FragmentActivity implements
 							.commit();
 					mFragmentAtPos2 = new PrivateLessonFragment();
 					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
+				}
+				
+				if(newFragmentName.equals("announcements")){
+					if (mFragmentAtPos2 instanceof SecondHandBookFragment) {
+						mFragmentBook = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					} else if (mFragmentAtPos2 instanceof RentalFragment){
+						mFragmentRental = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					}else if (mFragmentAtPos2 instanceof PrivateLessonFragment){
+						mFragmentLesson = mFragmentManager
+								.saveFragmentInstanceState(mFragmentAtPos2);
+					}
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+							.commit();
+					mFragmentAtPos2 = new AnnouncementsFragment();
 				}
 
 				notifyDataSetChanged();
@@ -535,6 +552,16 @@ public class TabActivity extends FragmentActivity implements
 			if (object instanceof ListVenuesFragment
 					&& mFragmentAtPos3 instanceof GoogleMapFragment)
 				return POSITION_NONE;
+			if (object instanceof SecondHandBookFragment
+					&& !(mFragmentAtPos2 instanceof SecondHandBookFragment))
+				return POSITION_NONE;
+			if (object instanceof PrivateLessonFragment
+					&& !(mFragmentAtPos2 instanceof PrivateLessonFragment))
+				return POSITION_NONE;
+			if (object instanceof AnnouncementsFragment
+					&& !(mFragmentAtPos2 instanceof AnnouncementsFragment))
+				return POSITION_NONE;
+			
 			return POSITION_UNCHANGED;
 
 		}

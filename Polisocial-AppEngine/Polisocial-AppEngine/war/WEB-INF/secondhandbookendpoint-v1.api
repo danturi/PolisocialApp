@@ -138,6 +138,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "secondhandbookendpoint.getSecondHandBook" : {
+      "path" : "secondhandbook/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "secondhandbookendpoint.removeSecondHandBook" : {
       "path" : "secondhandbook/{id}",
       "httpMethod" : "DELETE",
@@ -159,19 +180,31 @@
         "body" : "empty"
       }
     },
-    "secondhandbookendpoint.getSecondHandBook" : {
-      "path" : "secondhandbook/{id}",
-      "httpMethod" : "GET",
+    "secondhandbookendpoint.searchFullTextBook" : {
+      "path" : "searchFullTextBook",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchFullTextBook",
       "request" : {
         "parameters" : {
-          "id" : {
-            "type" : "int64",
+          "title" : {
+            "type" : "string",
             "required" : true
+          },
+          "author" : {
+            "type" : "string",
+            "required" : false
+          },
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -244,8 +277,27 @@
           },
           "isbn" : {
             "type" : "string"
+          },
+          "price" : {
+            "type" : "number"
           }
         }
+      },
+      "ResponseObject" : {
+        "id" : "ResponseObject",
+        "type" : "object",
+        "properties" : {
+          "exception" : {
+            "type" : "string"
+          },
+          "object" : {
+            "$ref" : "_any"
+          }
+        }
+      },
+      "_any" : {
+        "id" : "_any",
+        "type" : "any"
       }
     },
     "methods" : {
@@ -280,11 +332,16 @@
           "$ref" : "CollectionResponse_SecondHandBook"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
-      },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook" : {
         "response" : {
           "$ref" : "SecondHandBook"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchFullTextBook" : {
+        "response" : {
+          "$ref" : "ResponseObject"
         }
       }
     }

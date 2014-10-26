@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/aHpwElcOWIDh4BJFkNIG1VwSAhw\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/qN2RhnqfcIbZvWxePKfFjGqCeRU\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -87,6 +87,18 @@
     }
    }
   },
+  "ResponseObject": {
+   "id": "ResponseObject",
+   "type": "object",
+   "properties": {
+    "exception": {
+     "type": "string"
+    },
+    "object": {
+     "$ref": "_any"
+    }
+   }
+  },
   "SecondHandBook": {
    "id": "SecondHandBook",
    "type": "object",
@@ -113,6 +125,10 @@
     "isbn": {
      "type": "string"
     },
+    "price": {
+     "type": "number",
+     "format": "double"
+    },
     "publishedDate": {
      "type": "string",
      "format": "date-time"
@@ -135,6 +151,10 @@
      "format": "int64"
     }
    }
+  },
+  "_any": {
+   "id": "_any",
+   "type": "any"
   }
  },
  "methods": {
@@ -252,6 +272,34 @@
    ],
    "returns": {
     "$ref": "CollectionResponse_SecondHandBook"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "secondhandbookendpoint.searchFullTextBook": {
+   "id": "secondhandbookendpoint.searchFullTextBook",
+   "parameters": {
+    "author": {
+     "type": "string"
+    },
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "title": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "title"
+   ],
+   "returns": {
+    "$ref": "ResponseObject"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

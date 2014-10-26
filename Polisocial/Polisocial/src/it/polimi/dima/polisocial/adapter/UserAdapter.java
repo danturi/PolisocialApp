@@ -71,6 +71,7 @@ public class UserAdapter extends EndlessListAdapter<UserDTO> {
 				@Override
 				protected Boolean doInBackground(Object... params) {
 					v = (UserListViewHolder) params[0];
+					ud = (UserDTO) params[1];
 					Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
 							AndroidHttp.newCompatibleTransport(),
 							new JacksonFactory(), null);
@@ -78,7 +79,7 @@ public class UserAdapter extends EndlessListAdapter<UserDTO> {
 					Poliuserendpoint endpoint = builder.setApplicationName(
 							"polimisocial").build();
 
-					// check if email is available
+					// check if picture is available
 					ResponseObject pic = null;
 					String byteArrayPic;
 					try {
