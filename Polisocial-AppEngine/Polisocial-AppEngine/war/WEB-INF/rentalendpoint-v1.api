@@ -154,8 +154,14 @@
           "havePicture" : {
             "type" : "boolean"
           },
-          "position" : {
-            "type" : "string"
+          "latitude" : {
+            "type" : "number"
+          },
+          "longitude" : {
+            "type" : "number"
+          },
+          "price" : {
+            "type" : "number"
           }
         }
       },

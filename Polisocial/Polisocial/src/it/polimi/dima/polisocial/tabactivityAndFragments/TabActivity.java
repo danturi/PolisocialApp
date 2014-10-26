@@ -597,7 +597,7 @@ public class TabActivity extends FragmentActivity implements
 				Bundle savedInstanceState) {
 
 			super.onCreateView(inflater, container, savedInstanceState);
-			View v = inflater.inflate(R.layout.fragment_map, container, false);
+			View v = inflater.inflate(R.layout.fragment_venues_map, container, false);
 
 			// location =
 			// lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

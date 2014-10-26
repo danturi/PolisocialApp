@@ -81,6 +81,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "notificationendpoint.updateNotification" : {
+      "path" : "notification",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.updateNotification",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "notificationendpoint.getNotification" : {
       "path" : "notification/{id}",
       "httpMethod" : "GET",
@@ -97,22 +113,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "notificationendpoint.updateNotification" : {
-      "path" : "notification",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.updateNotification",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -332,15 +332,15 @@
           "$ref" : "Notification"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification" : {
-        "response" : {
-          "$ref" : "Notification"
-        }
-      },
       "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.updateNotification" : {
         "request" : {
           "$ref" : "Notification"
         },
+        "response" : {
+          "$ref" : "Notification"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification" : {
         "response" : {
           "$ref" : "Notification"
         }

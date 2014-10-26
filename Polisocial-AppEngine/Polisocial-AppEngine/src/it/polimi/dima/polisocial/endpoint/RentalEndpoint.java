@@ -152,6 +152,8 @@ public class RentalEndpoint {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if (rental.getId() == null)
+			return false;
       Rental item = mgr.find(Rental.class, rental.getId());
       if(item == null) {
         contains = false;

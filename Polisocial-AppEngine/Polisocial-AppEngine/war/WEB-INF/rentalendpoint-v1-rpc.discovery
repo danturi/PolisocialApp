@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/qRRaskcF7c5W4CUyVSRcyAmsSew\"",
+ "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/lXDxwSKzPQSDjmDWaqRcTH3oxSs\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -98,8 +98,17 @@
      "type": "string",
      "format": "int64"
     },
-    "position": {
-     "type": "string"
+    "latitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "longitude": {
+     "type": "number",
+     "format": "double"
+    },
+    "price": {
+     "type": "number",
+     "format": "double"
     },
     "text": {
      "type": "string"

@@ -367,7 +367,7 @@ public class SecondHandBookEndpoint {
 			} else {
 				query = mgr
 						.createQuery("select s from SecondHandBook s where s.bookTitle like :string and :author member of s.authorsBook");
-				query.setParameter("string", "%" + title + "%");
+				query.setParameter("string",title + "%");
 				query.setParameter("author", author);
 			}
 

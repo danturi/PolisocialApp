@@ -1733,7 +1733,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f020076;
         public static final int com_facebook_loginbutton_silver=0x7f020077;
         public static final int com_facebook_logo=0x7f020078;
-        public static final int com_facebook_picker_default_separator_color=0x7f020106;
+        public static final int com_facebook_picker_default_separator_color=0x7f020107;
         public static final int com_facebook_picker_item_background=0x7f020079;
         public static final int com_facebook_picker_list_focused=0x7f02007a;
         public static final int com_facebook_picker_list_longpressed=0x7f02007b;
@@ -1848,33 +1848,34 @@ containing a value of this type.
         public static final int progress_primary_j4style=0x7f0200e8;
         public static final int progress_secondary_j4style=0x7f0200e9;
         public static final int rect_text_edit=0x7f0200ea;
-        public static final int restaurant=0x7f0200eb;
-        public static final int restaurants_icon=0x7f0200ec;
-        public static final int restaurants_icon_normal=0x7f0200ed;
-        public static final int restaurants_icon_selected=0x7f0200ee;
-        public static final int rounded_corners=0x7f0200ef;
-        public static final int selectable_background_j4style=0x7f0200f0;
-        public static final int send_comment_button=0x7f0200f1;
-        public static final int shadow_bottom=0x7f0200f2;
-        public static final int shadow_left=0x7f0200f3;
-        public static final int shadow_right=0x7f0200f4;
-        public static final int spinner_ab_default_j4style=0x7f0200f5;
-        public static final int spinner_ab_disabled_j4style=0x7f0200f6;
-        public static final int spinner_ab_focused_j4style=0x7f0200f7;
-        public static final int spinner_ab_pressed_j4style=0x7f0200f8;
-        public static final int spinner_background_ab_j4style=0x7f0200f9;
-        public static final int spotted_icon=0x7f0200fa;
-        public static final int spotted_icon_normal=0x7f0200fb;
-        public static final int spotted_icon_selected=0x7f0200fc;
-        public static final int styled_button=0x7f0200fd;
-        public static final int tab_indicator_ab_j4style=0x7f0200fe;
-        public static final int tab_selected_focused_j4style=0x7f0200ff;
-        public static final int tab_selected_j4style=0x7f020100;
-        public static final int tab_selected_pressed_j4style=0x7f020101;
-        public static final int tab_unselected_focused_j4style=0x7f020102;
-        public static final int tab_unselected_j4style=0x7f020103;
-        public static final int tab_unselected_pressed_j4style=0x7f020104;
-        public static final int youarehere=0x7f020105;
+        public static final int renticon=0x7f0200eb;
+        public static final int restaurant=0x7f0200ec;
+        public static final int restaurants_icon=0x7f0200ed;
+        public static final int restaurants_icon_normal=0x7f0200ee;
+        public static final int restaurants_icon_selected=0x7f0200ef;
+        public static final int rounded_corners=0x7f0200f0;
+        public static final int selectable_background_j4style=0x7f0200f1;
+        public static final int send_comment_button=0x7f0200f2;
+        public static final int shadow_bottom=0x7f0200f3;
+        public static final int shadow_left=0x7f0200f4;
+        public static final int shadow_right=0x7f0200f5;
+        public static final int spinner_ab_default_j4style=0x7f0200f6;
+        public static final int spinner_ab_disabled_j4style=0x7f0200f7;
+        public static final int spinner_ab_focused_j4style=0x7f0200f8;
+        public static final int spinner_ab_pressed_j4style=0x7f0200f9;
+        public static final int spinner_background_ab_j4style=0x7f0200fa;
+        public static final int spotted_icon=0x7f0200fb;
+        public static final int spotted_icon_normal=0x7f0200fc;
+        public static final int spotted_icon_selected=0x7f0200fd;
+        public static final int styled_button=0x7f0200fe;
+        public static final int tab_indicator_ab_j4style=0x7f0200ff;
+        public static final int tab_selected_focused_j4style=0x7f020100;
+        public static final int tab_selected_j4style=0x7f020101;
+        public static final int tab_selected_pressed_j4style=0x7f020102;
+        public static final int tab_unselected_focused_j4style=0x7f020103;
+        public static final int tab_unselected_j4style=0x7f020104;
+        public static final int tab_unselected_pressed_j4style=0x7f020105;
+        public static final int youarehere=0x7f020106;
     }
     public static final class id {
         public static final int action_add_restaurant=0x7f0500e9;
@@ -1915,7 +1916,7 @@ containing a value of this type.
         public static final int buttonFSQ=0x7f05006c;
         public static final int buttonSearch=0x7f050058;
         public static final int button_changeToMap=0x7f0500d2;
-        public static final int button_view=0x7f0500d4;
+        public static final int button_view=0x7f0500d7;
         public static final int buyButton=0x7f05000e;
         public static final int buy_now=0x7f050013;
         public static final int buy_with_google=0x7f050012;
@@ -2028,8 +2029,8 @@ containing a value of this type.
         public static final int name=0x7f0500c1;
         public static final int never=0x7f050022;
         public static final int no_comments=0x7f0500a3;
-        public static final int no_notification=0x7f0500d6;
-        public static final int no_user=0x7f0500d7;
+        public static final int no_notification=0x7f0500d5;
+        public static final int no_user=0x7f0500d6;
         public static final int none=0x7f050004;
         public static final int normal=0x7f050005;
         public static final int notification_type_icon=0x7f0500d9;
@@ -2049,7 +2050,7 @@ containing a value of this type.
         public static final int profile_picture=0x7f05007b;
         public static final int progress=0x7f050055;
         public static final int progressBar1=0x7f0500d3;
-        public static final int progress_bar=0x7f0500d5;
+        public static final int progress_bar=0x7f0500d4;
         public static final int progress_circular=0x7f050030;
         public static final int progress_horizontal=0x7f050031;
         public static final int radio=0x7f050047;
@@ -2207,23 +2208,24 @@ containing a value of this type.
         public static final int fragment_events=0x7f03003d;
         public static final int fragment_foursquare=0x7f03003e;
         public static final int fragment_listvenues=0x7f03003f;
-        public static final int fragment_map=0x7f030040;
-        public static final int fragment_notification=0x7f030041;
-        public static final int fragment_poliuser=0x7f030042;
-        public static final int fragment_privatelesson=0x7f030043;
-        public static final int fragment_rental=0x7f030044;
+        public static final int fragment_notification=0x7f030040;
+        public static final int fragment_poliuser=0x7f030041;
+        public static final int fragment_privatelesson=0x7f030042;
+        public static final int fragment_rental=0x7f030043;
+        public static final int fragment_rental_map=0x7f030044;
         public static final int fragment_secondhandbook=0x7f030045;
         public static final int fragment_spotted=0x7f030046;
-        public static final int header_gradient=0x7f030047;
-        public static final int loading=0x7f030048;
-        public static final int notification_item=0x7f030049;
-        public static final int progress=0x7f03004a;
-        public static final int searchpoliuser_item=0x7f03004b;
-        public static final int spotted_notification_header=0x7f03004c;
-        public static final int spotted_post_item=0x7f03004d;
-        public static final int spotted_post_item_cupido=0x7f03004e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03004f;
-        public static final int swipeback_layout=0x7f030050;
+        public static final int fragment_venues_map=0x7f030047;
+        public static final int header_gradient=0x7f030048;
+        public static final int loading=0x7f030049;
+        public static final int notification_item=0x7f03004a;
+        public static final int progress=0x7f03004b;
+        public static final int searchpoliuser_item=0x7f03004c;
+        public static final int spotted_notification_header=0x7f03004d;
+        public static final int spotted_post_item=0x7f03004e;
+        public static final int spotted_post_item_cupido=0x7f03004f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030050;
+        public static final int swipeback_layout=0x7f030051;
     }
     public static final class menu {
         public static final int authorized_foursquare=0x7f0d0000;
@@ -2289,8 +2291,8 @@ containing a value of this type.
         public static final int action_settings=0x7f07004a;
         public static final int action_show_preferences=0x7f070070;
         public static final int action_show_profile=0x7f07006f;
-        public static final int action_sign_in=0x7f0700b0;
-        public static final int action_sign_in_short=0x7f0700b1;
+        public static final int action_sign_in=0x7f0700b1;
+        public static final int action_sign_in_short=0x7f0700b2;
         public static final int action_write_announcement=0x7f070074;
         /**  Action bar actions and filter 
          */
@@ -2305,6 +2307,9 @@ containing a value of this type.
         public static final int auth_client_play_services_err_notification_msg=0x7f070004;
         public static final int auth_client_requested_by_msg=0x7f070005;
         public static final int auth_client_using_bad_version_title=0x7f070000;
+        /**  Rental fragment 
+         */
+        public static final int changeViewRental=0x7f0700ac;
         public static final int changeViewVenues=0x7f070064;
         public static final int change_to_map=0x7f070066;
         public static final int clear_credentials=0x7f07004d;
@@ -2432,13 +2437,13 @@ containing a value of this type.
         public static final int dummy_button=0x7f0700a7;
         public static final int dummy_section_text=0x7f07005a;
         public static final int edit=0x7f0700ab;
-        public static final int error_duplicate_email=0x7f0700b7;
-        public static final int error_duplicate_username=0x7f0700b8;
-        public static final int error_field_required=0x7f0700b6;
-        public static final int error_incorrect_password=0x7f0700b5;
-        public static final int error_invalid_email=0x7f0700b2;
-        public static final int error_invalid_password=0x7f0700b3;
-        public static final int error_passwords_dont_match=0x7f0700b4;
+        public static final int error_duplicate_email=0x7f0700b8;
+        public static final int error_duplicate_username=0x7f0700b9;
+        public static final int error_field_required=0x7f0700b7;
+        public static final int error_incorrect_password=0x7f0700b6;
+        public static final int error_invalid_email=0x7f0700b3;
+        public static final int error_invalid_password=0x7f0700b4;
+        public static final int error_passwords_dont_match=0x7f0700b5;
         public static final int event_date=0x7f070090;
         public static final int event_description=0x7f070092;
         public static final int event_description_hint=0x7f070093;
@@ -2490,10 +2495,10 @@ containing a value of this type.
         public static final int post_text=0x7f070080;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f0700ad;
-        public static final int prompt_faculty=0x7f0700b9;
-        public static final int prompt_password=0x7f0700ae;
-        public static final int prompt_username=0x7f0700af;
+        public static final int prompt_email=0x7f0700ae;
+        public static final int prompt_faculty=0x7f0700ba;
+        public static final int prompt_password=0x7f0700af;
+        public static final int prompt_username=0x7f0700b0;
         public static final int register=0x7f070069;
         public static final int save=0x7f0700a5;
         public static final int search=0x7f07009c;
@@ -2514,7 +2519,7 @@ containing a value of this type.
         public static final int title_activity_foursquare=0x7f07004b;
         public static final int title_activity_full_screen_pic=0x7f0700a6;
         public static final int title_activity_gcm=0x7f070068;
-        public static final int title_activity_login=0x7f0700ac;
+        public static final int title_activity_login=0x7f0700ad;
         public static final int title_activity_map=0x7f070053;
         public static final int title_activity_map2=0x7f070054;
         public static final int title_activity_new_event=0x7f07008b;

@@ -128,5 +128,8 @@
     <string name="title_activity_search">SearchActivity</string>
    <string name="no_user_search">No users found</string>
    <string name="edit">edit</string>
+   
+   <!-- Rental fragment -->
+	<string name="changeViewRental">Go to rental list</string>
 
 </resources>
