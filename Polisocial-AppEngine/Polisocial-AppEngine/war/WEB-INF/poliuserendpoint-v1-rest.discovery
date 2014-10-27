@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/_2MvpOOLl7W-ToirSBJsoyNpwbo\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/C4QtHLT7icOx-Kr9ooFPayRON_o\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -338,14 +338,14 @@
   },
   "getPictureUser": {
    "id": "poliuserendpoint.getPictureUser",
-   "path": "responseobject/{userId}",
+   "path": "getPictureUser",
    "httpMethod": "GET",
    "parameters": {
     "userId": {
      "type": "string",
      "required": true,
      "format": "int64",
-     "location": "path"
+     "location": "query"
     }
    },
    "parameterOrder": [
@@ -467,6 +467,31 @@
    "response": {
     "$ref": "CollectionResponse_UserDTO"
    },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateFacultyPoliUser": {
+   "id": "poliuserendpoint.updateFacultyPoliUser",
+   "path": "updateFacultyPoliUser",
+   "httpMethod": "PUT",
+   "parameters": {
+    "faculty": {
+     "type": "string",
+     "required": true,
+     "location": "query"
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "faculty",
+    "userId"
+   ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/TSAnqKtLDevmsI9rfqAwT3jZa1g\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/TSAnqKtLDevmsI9rfqAwT3jZa1g\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",

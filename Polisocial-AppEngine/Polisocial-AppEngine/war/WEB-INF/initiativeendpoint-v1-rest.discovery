@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/cJqVpiSNMI6qMtdTt1y7v2VsW3k\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/cJqVpiSNMI6qMtdTt1y7v2VsW3k\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",

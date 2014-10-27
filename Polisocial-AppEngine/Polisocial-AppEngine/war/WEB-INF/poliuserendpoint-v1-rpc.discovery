@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/_2MvpOOLl7W-ToirSBJsoyNpwbo\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/C4QtHLT7icOx-Kr9ooFPayRON_o\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -443,6 +443,27 @@
    "returns": {
     "$ref": "CollectionResponse_UserDTO"
    },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "poliuserendpoint.updateFacultyPoliUser": {
+   "id": "poliuserendpoint.updateFacultyPoliUser",
+   "parameters": {
+    "faculty": {
+     "type": "string",
+     "required": true
+    },
+    "userId": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "faculty",
+    "userId"
+   ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

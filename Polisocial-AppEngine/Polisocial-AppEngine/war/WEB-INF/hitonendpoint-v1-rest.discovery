@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/jzeGYZ25i-lyBjx8VfmdZTlbC9c\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/jzeGYZ25i-lyBjx8VfmdZTlbC9c\"",
  "discoveryVersion": "v1",
  "id": "hitonendpoint:v1",
  "name": "hitonendpoint",

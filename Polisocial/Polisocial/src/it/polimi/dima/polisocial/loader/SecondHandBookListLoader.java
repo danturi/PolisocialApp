@@ -3,11 +3,8 @@ package it.polimi.dima.polisocial.loader;
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook;
-import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.ResponseObject;
-import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import android.content.Context;
@@ -79,7 +76,7 @@ public class SecondHandBookListLoader extends
 				e.printStackTrace();
 				if (new StringTokenizer(e.getMessage().toString()).nextToken()
 						.equals("404"))
-					return list;
+					return null;
 
 			}
 

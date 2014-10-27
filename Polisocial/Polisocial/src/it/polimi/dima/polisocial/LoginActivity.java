@@ -6,13 +6,19 @@ import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.AeSimpleSHA1;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +36,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -144,7 +151,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 
 		LoginButton authButton = (LoginButton) findViewById(R.id.facebook_login);
-		authButton.setReadPermissions(Arrays.asList("user_status","email"));
+		authButton.setReadPermissions(Arrays.asList("user_status","email","user_birthday"));
 
 	}
 
@@ -217,6 +224,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 				Request meRequest=Request.newMeRequest(session, new GraphUserCallback()
 				{
 
+					
 					@Override
 					public void onCompleted(GraphUser user, Response response)
 					{
@@ -229,6 +237,18 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 							poliuser.setNickname(nickname);
 							poliuser.setFbaccount(user.getLink());
 							poliuser.setSelfSummary((String) user.getProperty("bio"));
+							String dateBirth = (String) user.getProperty("birthday");
+							if (dateBirth==null){
+								poliuser.setAge(0);
+							}else {
+								SimpleDateFormat date =new SimpleDateFormat("MM/dd/yyyy");
+								try {
+									Date userDate = date.parse(dateBirth);
+									poliuser.setAge(calculateAge(userDate));
+								} catch (ParseException e) {
+									e.printStackTrace();
+								}
+							}
 							poliuser.setNotifyAnnouncement(true);
 							poliuser.setNotifyEvent(true);
 							poliuser.setNotifySpotted(true);
@@ -631,6 +651,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			Intent i = new Intent(LoginActivity.this,TabActivity.class);
+			i.putExtra("firstLogin", true);
 			startActivity(i);
 			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 			finish();
@@ -638,5 +659,57 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 		
 		 
 	 }
+	 
+	 //calcolo età PoliUser from facebook
+	 private  int calculateAge(Date birthDate)
+	   {
+	      int years = 0;
+	      int months = 0;
+	      int days = 0;
+	      //create calendar object for birth day
+	      Calendar birthDay = Calendar.getInstance();
+	      birthDay.setTimeInMillis(birthDate.getTime());
+	      //create calendar object for current day
+	      long currentTime = System.currentTimeMillis();
+	      Calendar now = Calendar.getInstance();
+	      now.setTimeInMillis(currentTime);
+	      //Get difference between years
+	      years = now.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+	      int currMonth = now.get(Calendar.MONTH) + 1;
+	      int birthMonth = birthDay.get(Calendar.MONTH) + 1;
+	      //Get difference between months
+	      months = currMonth - birthMonth;
+	      //if month difference is in negative then reduce years by one and calculate the number of months.
+	      if (months < 0)
+	      {
+	         years--;
+	         months = 12 - birthMonth + currMonth;
+	         if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
+	            months--;
+	      } else if (months == 0 && now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
+	      {
+	         years--;
+	         months = 11;
+	      }
+	      //Calculate the days
+	      if (now.get(Calendar.DATE) > birthDay.get(Calendar.DATE))
+	         days = now.get(Calendar.DATE) - birthDay.get(Calendar.DATE);
+	      else if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
+	      {
+	         int today = now.get(Calendar.DAY_OF_MONTH);
+	         now.add(Calendar.MONTH, -1);
+	         days = now.getActualMaximum(Calendar.DAY_OF_MONTH) - birthDay.get(Calendar.DAY_OF_MONTH) + today;
+	      } else
+	      {
+	         days = 0;
+	         if (months == 12)
+	         {
+	            years++;
+	            months = 0;
+	         }
+	      }
+	      
+	      return years;
+	   }
 
 }

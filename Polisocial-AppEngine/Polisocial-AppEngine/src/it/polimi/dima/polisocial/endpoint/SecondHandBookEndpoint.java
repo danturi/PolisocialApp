@@ -1,27 +1,9 @@
 package it.polimi.dima.polisocial.endpoint;
 
-import it.polimi.dima.polisocial.ResponseObject;
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.SecondHandBook;
 import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 import it.polimi.dima.polisocial.foursquare.constants.Constants;
-
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.ApiConfigInconsistency.ListBuilder;
-import com.google.api.server.spi.config.ApiMethod.HttpMethod;
-import com.google.api.server.spi.response.CollectionResponse;
-import com.google.api.server.spi.response.NotFoundException;
-import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.search.*;
-import com.google.appengine.api.search.Document.Builder;
-import com.google.appengine.datanucleus.query.JPACursorHelper;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
-import com.google.appengine.labs.repackaged.org.json.JSONException;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-import com.google.appengine.labs.repackaged.org.json.JSONTokener;
-import com.google.gson.JsonArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,17 +13,44 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
 import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
+
+import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiMethod.HttpMethod;
+import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.response.CollectionResponse;
+import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Document.Builder;
+import com.google.appengine.api.search.Field;
+import com.google.appengine.api.search.GetRequest;
+import com.google.appengine.api.search.GetResponse;
+import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.QueryOptions;
+import com.google.appengine.api.search.Results;
+import com.google.appengine.api.search.ScoredDocument;
+import com.google.appengine.api.search.SearchException;
+import com.google.appengine.api.search.SearchServiceFactory;
+import com.google.appengine.api.search.SortExpression;
+import com.google.appengine.api.search.SortOptions;
+import com.google.appengine.datanucleus.query.JPACursorHelper;
+import com.google.appengine.labs.repackaged.org.json.JSONArray;
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.appengine.labs.repackaged.org.json.JSONTokener;
 
 @Api(name = "secondhandbookendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class SecondHandBookEndpoint {
@@ -175,7 +184,45 @@ public class SecondHandBookEndpoint {
 		index.put(document);
 
 	}
+	
+	@ApiMethod(name="deleteIndexBookById", path="deleteIndexBookById")
+	public void deleteIndexBookById(@Named("bookId") Long bookId){
+		
+		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
+				.build();
+		Index index = SearchServiceFactory.getSearchService().getIndex(
+				indexSpec);
+		index.delete(bookId.toString());
+	}
+	
+	@ApiMethod(name="deleteAllIndexBook", path="deleteAllIndexBook")
+	public void deleteAllIndexBook(){
+		try {
+		    // looping because getRange by default returns up to 100 documents at a time
+		    while (true) {
+		        List<String> docIds = new ArrayList<String>();
+		        IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
+						.build();
+				Index index = SearchServiceFactory.getSearchService().getIndex(
+						indexSpec);
+		        // Return a set of doc_ids.
+		        GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
+		        GetResponse<Document> response = index.getRange(request);
+		        if (response.getResults().isEmpty()) {
+		            break;
+		        }
+		        for (Document doc : response) {
+		            docIds.add(doc.getId());
+		        }
+		        index.delete(docIds);
+		    }
+		} catch (RuntimeException e) {
+		    log.info("Failed to delete documents");
+		}
 
+	}
+	
+	
 	@ApiMethod(name = "searchFullTextBook", path = "searchFullTextBook")
 	public CollectionResponse<SecondHandBook> searchFullTextBook(
 			@Named("title") String title,
@@ -297,6 +344,7 @@ public class SecondHandBookEndpoint {
 		try {
 			SecondHandBook secondhandbook = mgr.find(SecondHandBook.class, id);
 			mgr.remove(secondhandbook);
+			deleteIndexBookById(id);
 		} finally {
 			mgr.close();
 		}

@@ -37,6 +37,8 @@ public class SessionManager {
     
     // Id (make variable public to access from outside)
     public static final String KEY_USERID = "key";
+    
+    public static final String KEY_FACULTY = "faculty";
      
     // Constructor
     public SessionManager(Context context){
@@ -64,6 +66,11 @@ public class SessionManager {
     
     public void setId(String id){
     	editor.putString(KEY_USERID, id);
+    	editor.commit();
+    }
+    
+    public void setFaculty(String faculty){
+    	editor.putString(KEY_FACULTY, faculty);
     	editor.commit();
     }
      

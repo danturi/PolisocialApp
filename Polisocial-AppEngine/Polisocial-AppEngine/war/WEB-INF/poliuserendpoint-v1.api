@@ -27,6 +27,31 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
+    "poliuserendpoint.updateFacultyPoliUser" : {
+      "path" : "updateFacultyPoliUser",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updateFacultyPoliUser",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "faculty" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "poliuserendpoint.getPoliUser" : {
       "path" : "poliuser/{id}",
       "httpMethod" : "GET",
@@ -95,7 +120,7 @@
       }
     },
     "poliuserendpoint.getPictureUser" : {
-      "path" : "responseobject/{userId}",
+      "path" : "getPictureUser",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -444,6 +469,8 @@
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updateFacultyPoliUser" : {
+      },
       "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPoliUser" : {
         "response" : {
           "$ref" : "PoliUser"

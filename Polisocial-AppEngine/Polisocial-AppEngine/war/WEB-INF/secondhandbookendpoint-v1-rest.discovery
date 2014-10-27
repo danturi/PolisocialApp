@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/qN2RhnqfcIbZvWxePKfFjGqCeRU\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/C1sHVaNJ0lR7U-onWb-fJ_GVgzM\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -89,18 +89,6 @@
     }
    }
   },
-  "ResponseObject": {
-   "id": "ResponseObject",
-   "type": "object",
-   "properties": {
-    "exception": {
-     "type": "string"
-    },
-    "object": {
-     "$ref": "_any"
-    }
-   }
-  },
   "SecondHandBook": {
    "id": "SecondHandBook",
    "type": "object",
@@ -110,9 +98,6 @@
      "items": {
       "type": "string"
      }
-    },
-    "bookTitle": {
-     "type": "string"
     },
     "faculty": {
      "type": "string"
@@ -153,13 +138,36 @@
      "format": "int64"
     }
    }
-  },
-  "_any": {
-   "id": "_any",
-   "type": "any"
   }
  },
  "methods": {
+  "deleteAllIndexBook": {
+   "id": "secondhandbookendpoint.deleteAllIndexBook",
+   "path": "deleteAllIndexBook",
+   "httpMethod": "DELETE",
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "deleteIndexBookById": {
+   "id": "secondhandbookendpoint.deleteIndexBookById",
+   "path": "deleteIndexBookById",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "bookId": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "bookId"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "getBookInfoFromISBN": {
    "id": "secondhandbookendpoint.getBookInfoFromISBN",
    "path": "getBookInfoFromISBN",
@@ -321,7 +329,7 @@
     "title"
    ],
    "response": {
-    "$ref": "ResponseObject"
+    "$ref": "CollectionResponse_SecondHandBook"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

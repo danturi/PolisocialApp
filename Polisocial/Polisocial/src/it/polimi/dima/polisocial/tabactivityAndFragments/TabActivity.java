@@ -2,6 +2,7 @@ package it.polimi.dima.polisocial.tabactivityAndFragments;
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.GCMIntentService;
+import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
 import it.polimi.dima.polisocial.NewEventActivity;
 import it.polimi.dima.polisocial.NewSpottedPostActivity;
 import it.polimi.dima.polisocial.OAuthAccessActivity;
@@ -9,9 +10,10 @@ import it.polimi.dima.polisocial.PreferencesActivity;
 import it.polimi.dima.polisocial.ProfileActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.SingleChoiceDialogFragm;
-import it.polimi.dima.polisocial.HitOnDialogFragment.HitOnDialogListener;
+import it.polimi.dima.polisocial.SingleChoiceDialogFragm.FacultyDialogListener;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
@@ -70,7 +72,6 @@ import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.internal.mf;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -90,6 +91,7 @@ import com.google.api.client.util.DateTime;
 
 public class TabActivity extends FragmentActivity implements
 		ActionBar.TabListener, HitOnDialogListener,
+		FacultyDialogListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
@@ -175,6 +177,12 @@ public class TabActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
+		
+		//ask for faculty at the first user login
+		if(getIntent().getBooleanExtra("firstLogin", false)){
+			showNoticeDialog();
+		}
+		
 		sessionManager = new SessionManager(getApplicationContext());
 
 		servicesConnected();
@@ -271,7 +279,7 @@ public class TabActivity extends FragmentActivity implements
 			actionBar.setSelectedNavigationItem(4);
 		}
 
-		// TODO da fare controllo per icona numero notifiche...
+		
 	}
 
 	@Override
@@ -379,10 +387,7 @@ public class TabActivity extends FragmentActivity implements
 			public void onSwitchFragment() {
 
 				if (mFragmentAtPos3 instanceof GoogleMapFragment) {
-					/*
-					 * TODO controllare che si sia aggiunto un nuovo locale,in
-					 * quel caso ricreare fragment
-					 */
+					
 					if (mFragmentAtpos3List == null || update == true) {
 						mFragmentManager.beginTransaction()
 								.remove(mFragmentAtPos3).commit();
@@ -1104,9 +1109,17 @@ public class TabActivity extends FragmentActivity implements
 		DialogFragment dialog = new SingleChoiceDialogFragm();
 		dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
 	}
-
+	
+	//dialog faculty
 	@Override
-	public void onDialogPositiveClick(String message, Bundle bundle) {
+	public void onFacultyDialogPositiveClick(String faculty) {
+		new UpdateFacultyPoliUser(Long.valueOf(sessionManager.getUserDetails().get(SessionManager.KEY_USERID))).execute(faculty);
+		
+	}
+	
+	//dialog HitOn
+	@Override
+	public void onHitOnDialogPositiveClick(String message, Bundle bundle) {
 		long userId = bundle.getLong("userId");
 		long postId = bundle.getLong("postId");
 		String name = bundle.getString("name");
@@ -1114,6 +1127,40 @@ public class TabActivity extends FragmentActivity implements
 
 	}
 
+	public class UpdateFacultyPoliUser extends AsyncTask<String, Void, String>{
+
+		private Long userId;
+		
+		public UpdateFacultyPoliUser(Long userId) {
+			this.userId=userId;
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+			
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			
+			try {
+				endpoint.updateFacultyPoliUser(params[0], userId).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return params[0];
+		}
+
+		@Override
+		protected void onPostExecute(String faculty) {
+			super.onPostExecute(faculty);
+			sessionManager.setFaculty(faculty);
+		}
+		
+	}
+	
+	
 	// creo hitOn e lo inserisco nel db
 	public class InsertHitOn extends AsyncTask<Long, Void, Boolean> {
 
@@ -1378,5 +1425,7 @@ public class TabActivity extends FragmentActivity implements
 	public void setNotificationIntent(Intent intent) {
 		intentGcmNotifica = intent;
 	}
+
+	
 
 }

@@ -6,8 +6,6 @@ import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.PoliUser;
 import it.polimi.dima.polisocial.foursquare.FoursquarePolisocialAPI;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,7 +17,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 
-import com.google.appengine.datanucleus.query.JPACursorHelper;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
@@ -28,11 +25,11 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Cursor;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.Transform;
+import com.google.appengine.datanucleus.query.JPACursorHelper;
 
 
 @Api(name = "poliuserendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
@@ -371,7 +368,7 @@ public class PoliUserEndpoint {
 		}
 	}
 	
-	@ApiMethod(name = "getPictureUser")
+	@ApiMethod(name = "getPictureUser" , path = "getPictureUser")
 	public ResponseObject getPictureUser(@Named("userId") Long userId) {
 		
 		ResponseObject o = new ResponseObject();
@@ -396,7 +393,23 @@ public class PoliUserEndpoint {
 		return o;
 	}
 
-	
+	@ApiMethod(name="updateFacultyPoliUser",path="updateFacultyPoliUser")
+	public void updateFacultyPoliUser(@Named("userId") Long userId,@Named("faculty") String faculty) throws NotFoundException{
+		
+		EntityManager mgr = getEntityManager();
+		PoliUser poliuser = null;
+		try {
+			poliuser = mgr.find(PoliUser.class, userId);
+			if (poliuser==null){
+				throw new NotFoundException("Not found user");
+			}
+			poliuser.setFaculty(faculty);
+			mgr.persist(poliuser);
+		} finally {
+			mgr.close();
+		}
+		
+	}
 
 	private boolean containsPoliUser(PoliUser poliuser) {
 		EntityManager mgr = getEntityManager();

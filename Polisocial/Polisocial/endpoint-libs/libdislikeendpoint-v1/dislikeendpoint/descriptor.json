@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/dislikeendpoint/v1/20141026205828/java/1.18.0-rc/polimi.it-dislikeendpoint-v1-20141026205828-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-dislikeendpoint-v1-20141026205828-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/dislikeendpoint/v1/20141028013458/java/1.18.0-rc/polimi.it-dislikeendpoint-v1-20141028013458-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-dislikeendpoint-v1-20141028013458-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-26 20:58"
+      "timestamp": "2014-10-28 01:34"
     }, 
     {
-      "path": "polimi.it-dislikeendpoint-v1-20141026205828-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-dislikeendpoint-v1-20141028013458-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "dislikeendpoint:v1", 
-  "revision": 20141026205828
+  "revision": 20141028013458
 }

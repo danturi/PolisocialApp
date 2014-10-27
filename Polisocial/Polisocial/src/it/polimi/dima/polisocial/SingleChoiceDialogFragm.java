@@ -20,12 +20,12 @@ public class SingleChoiceDialogFragm extends DialogFragment
     
     public SingleChoiceDialogFragm(){}
      
-    public interface NoticeDialogListener {
-        public void onDialogPositiveClick(String faculty);
+    public interface FacultyDialogListener {
+        public void onFacultyDialogPositiveClick(String faculty);
     }
     
     // Use this instance of the interface to deliver action events
-    NoticeDialogListener mListener;
+    FacultyDialogListener mListener;
     
     // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
     @Override
@@ -34,11 +34,11 @@ public class SingleChoiceDialogFragm extends DialogFragment
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            mListener = (NoticeDialogListener) activity;
+            mListener = (FacultyDialogListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()
-                    + " must implement NoticeDialogListener");
+                    + " must implement FacultyDialogListener");
         }
     }
 
@@ -62,7 +62,7 @@ public class SingleChoiceDialogFragm extends DialogFragment
             	if(faculty == null) {
             		//non esce
             	}else{
-            		mListener.onDialogPositiveClick(SingleChoiceDialogFragm.this.faculty);
+            		mListener.onFacultyDialogPositiveClick(SingleChoiceDialogFragm.this.faculty);
                	 	dialog.dismiss();
             	}
             	

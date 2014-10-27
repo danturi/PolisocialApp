@@ -28,7 +28,6 @@ import android.widget.TextView;
 public class SecondHandBookFragment extends ListFragment implements
 		LoaderManager.LoaderCallbacks<CollectionResponseSecondHandBook> {
 
-	private boolean refreshRequest = false;
 	private SecondHandBookAdapter mAdapter;
 	private View mProgressView;
 	private SessionManager session;
@@ -36,6 +35,7 @@ public class SecondHandBookFragment extends ListFragment implements
 	private String mCursor = null;
 	private EndlessScrollListener mEndlessScrollListener;
 	private boolean mSuggestion=true;
+	private boolean mFirstDataSet=true;
 	private String mUserFaculty;
 	private String mUserAge;
 	//header components
@@ -77,7 +77,7 @@ public class SecondHandBookFragment extends ListFragment implements
 			public void onClick(View v) {
 				mCursor=null;
 				mSuggestion=false;
-				mAdapter.clear();
+				mFirstDataSet=true;
 				loadData();
 			}
 		});
@@ -153,7 +153,7 @@ public class SecondHandBookFragment extends ListFragment implements
 			CollectionResponseSecondHandBook data) {
 		mCursor = data.getNextPageToken();
 		if (data.getItems() != null) {
-			if (refreshRequest) {
+			if (mFirstDataSet) {
 				mAdapter.setData(data.getItems());
 				mAdapter.notifyDataSetChanged();
 				mAdapter.setLoading_row(1);

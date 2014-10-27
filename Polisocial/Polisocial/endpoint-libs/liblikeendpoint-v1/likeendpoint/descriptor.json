@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/likeendpoint/v1/20141026205934/java/1.18.0-rc/polimi.it-likeendpoint-v1-20141026205934-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-likeendpoint-v1-20141026205934-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/likeendpoint/v1/20141028013639/java/1.18.0-rc/polimi.it-likeendpoint-v1-20141028013639-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-likeendpoint-v1-20141028013639-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-10-26 20:59"
+      "timestamp": "2014-10-28 01:36"
     }, 
     {
-      "path": "polimi.it-likeendpoint-v1-20141026205934-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-likeendpoint-v1-20141028013639-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "likeendpoint:v1", 
-  "revision": 20141026205934
+  "revision": 20141028013639
 }

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/3LNFpAk3yjxAiQOuT7mEVDIVHvw\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/3LNFpAk3yjxAiQOuT7mEVDIVHvw\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",

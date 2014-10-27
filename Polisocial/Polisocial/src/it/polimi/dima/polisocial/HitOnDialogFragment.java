@@ -1,6 +1,5 @@
 package it.polimi.dima.polisocial;
 
-import it.polimi.dima.polisocial.SingleChoiceDialogFragm.NoticeDialogListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,7 +27,7 @@ public class HitOnDialogFragment extends DialogFragment{
 	}
 	
 	public interface HitOnDialogListener {
-        public void onDialogPositiveClick(String faculty, Bundle bundle);
+        public void onHitOnDialogPositiveClick(String faculty, Bundle bundle);
     }
 	
 	HitOnDialogListener listener;
@@ -63,7 +62,7 @@ public class HitOnDialogFragment extends DialogFragment{
             public void onClick(DialogInterface dialog, int whichButton) {
             		String message = input.getText().toString();
             		if (!message.isEmpty()){
-            		listener.onDialogPositiveClick(message,bundle);
+            		listener.onHitOnDialogPositiveClick(message,bundle);
                	 	dialog.dismiss();
             		}
             	

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"koCc_mmAOJe4d9CoedmJUnZeEcg/YdOmKFyknw2Wf0aBu7FXPUfbiAk\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/YdOmKFyknw2Wf0aBu7FXPUfbiAk\"",
  "discoveryVersion": "v1",
  "id": "foursquareendpoint:v1",
  "name": "foursquareendpoint",
