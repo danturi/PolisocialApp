@@ -9,6 +9,7 @@ import it.polimi.dima.polisocial.foursquare.constants.Constants;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.ApiConfigInconsistency.ListBuilder;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.NotFoundException;
@@ -31,6 +32,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -147,7 +149,7 @@ public class SecondHandBookEndpoint {
 				.setId(secondhandbook.getId().toString())
 				.addField(
 						Field.newBuilder().setName("bookTitle")
-								.setText(secondhandbook.getBookTitle()))
+								.setText(secondhandbook.getTitle()))
 				.addField(
 						Field.newBuilder().setName("publisher")
 								.setText(secondhandbook.getPublisher()))
@@ -175,13 +177,13 @@ public class SecondHandBookEndpoint {
 	}
 
 	@ApiMethod(name = "searchFullTextBook", path = "searchFullTextBook")
-	public ResponseObject searchFullTextBook(
+	public CollectionResponse<SecondHandBook> searchFullTextBook(
 			@Named("title") String title,
 			@Nullable @Named("author") String author,
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit) throws NotFoundException {
 
-		ResponseObject response = new ResponseObject();
+		List<SecondHandBook> listBooks = new ArrayList<SecondHandBook>();
 		com.google.appengine.api.search.Cursor cursor;
 		
 		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
@@ -211,7 +213,7 @@ public class SecondHandBookEndpoint {
 		            .setLimit(20)
 		            .build();
 		        String queryString;
-		        if(author!=null){
+		        if(author!="" || !author.isEmpty()){
 		        	queryString = "bookTitle: "+title+" AND author: "+author;
 		        }else {
 		        	queryString = "bookTitle: "+title;
@@ -223,13 +225,28 @@ public class SecondHandBookEndpoint {
 		        int numberRetrieved = result.getNumberReturned();
 		        cursor = result.getCursor();
 
+		        if (cursor != null){
+					cursorString = cursor.toWebSafeString();
+		        }else {
+		        	cursorString = null;
+		        }
 		        if (numberRetrieved > 0) {
 		        	log.info("book found");
 		            // process the matched docs
-		        	response.setObject(result.getResults());
-		        	if(cursor!=null){
-		        	//metto qui il cursore
-		        	response.setException(cursor.toWebSafeString());
+		        	for (ScoredDocument doc :result.getResults()){
+		        		SecondHandBook book = new SecondHandBook();
+		        		ArrayList<String> authors = new ArrayList<String>();
+		        		book.setId(Long.valueOf(doc.getId()));
+		        		book.setTitle(doc.getOnlyField("bookTitle").getText());
+		        		book.setFaculty(doc.getOnlyField("faculty").getText());
+		        		book.setPrice(doc.getOnlyField("price").getNumber());
+		        		book.setPublisher(doc.getOnlyField("publisher").getText());
+		        		Iterator<Field> iter = doc.getFields("author").iterator();
+		        		while (iter.hasNext()){
+		        			authors.add(iter.next().getText());
+		        		}
+		        		book.setAuthorsBook(authors);
+		        		listBooks.add(book);
 		        	}
 		        }else {
 		        	throw new NotFoundException("Not found book");
@@ -240,7 +257,8 @@ public class SecondHandBookEndpoint {
 			e.printStackTrace();
 		}
 
-		return response;
+		return CollectionResponse.<SecondHandBook> builder().setItems(listBooks)
+				.setNextPageToken(cursorString).build();
 	}
 
 	/**
@@ -327,7 +345,7 @@ public class SecondHandBookEndpoint {
 			String publishedDate = (String) infoBook.get("publishedDate");
 
 			book.setAuthorsBook(authors);
-			book.setBookTitle(title);
+			book.setTitle(title);
 			book.setPublisher(publisher);
 			book.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd")
 					.parse(publishedDate));

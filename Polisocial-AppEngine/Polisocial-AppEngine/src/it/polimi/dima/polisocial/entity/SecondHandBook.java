@@ -11,8 +11,6 @@ public class SecondHandBook extends Post{
 
 	private String faculty;
 	
-	private String bookTitle;
-	
 	private ArrayList<String> authorsBook;
 	
 	private  String publisher;
@@ -29,14 +27,6 @@ public class SecondHandBook extends Post{
 
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
-	}
-
-	public String getBookTitle() {
-		return bookTitle;
-	}
-
-	public void setBookTitle(String bookTitle) {
-		this.bookTitle = bookTitle;
 	}
 
 	

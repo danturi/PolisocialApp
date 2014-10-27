@@ -761,7 +761,7 @@ public class Secondhandbookendpoint extends com.google.api.client.googleapis.ser
     return result;
   }
 
-  public class SearchFullTextBook extends SecondhandbookendpointRequest<it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.ResponseObject> {
+  public class SearchFullTextBook extends SecondhandbookendpointRequest<it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook> {
 
     private static final String REST_PATH = "searchFullTextBook";
 
@@ -778,7 +778,7 @@ public class Secondhandbookendpoint extends com.google.api.client.googleapis.ser
      * @since 1.13
      */
     protected SearchFullTextBook(java.lang.String title) {
-      super(Secondhandbookendpoint.this, "POST", REST_PATH, null, it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.ResponseObject.class);
+      super(Secondhandbookendpoint.this, "POST", REST_PATH, null, it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook.class);
       this.title = com.google.api.client.util.Preconditions.checkNotNull(title, "Required parameter title must be specified.");
     }
 
