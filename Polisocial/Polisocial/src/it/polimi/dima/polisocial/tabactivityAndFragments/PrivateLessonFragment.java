@@ -19,7 +19,7 @@ public class PrivateLessonFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        ((TabActivity) getActivity()).getActionBar().setTitle(getString(R.string.lesson_fragment_title));
         setHasOptionsMenu(true);
     }
     

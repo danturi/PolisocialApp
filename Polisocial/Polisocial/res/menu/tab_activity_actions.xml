@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
- 
-<!--     <item
+
+    <!--
+         <item
           android:id="@+id/menu_filter_spotted"
            android:icon="@drawable/ic_action_filter"
           android:title="@string/menu_filter_spotted"
@@ -23,59 +24,60 @@
 
             </group>
         </menu>
-    </item>   
-       -->
+    </item>   
+    -->
     <item
-          android:id="@+id/menu_filter_events"
-           android:icon="@drawable/ic_action_filter"
-          android:title="@string/menu_filter_events"
-          android:showAsAction="always">
+        android:id="@+id/menu_filter_events"
+        android:icon="@drawable/ic_action_filter"
+        android:showAsAction="always"
+        android:title="@string/menu_filter_events">
         <menu>
-            <group android:checkableBehavior="single">
-
+            <group android:checkableBehavior="single" >
                 <item
-                      android:id="@+id/menu_filter_events_culture"
-                      android:title="@string/menu_filter_events_culture" />
-
+                    android:id="@+id/menu_filter_events_culture"
+                    android:title="@string/menu_filter_events_culture"/>
                 <item
-                      android:id="@+id/menu_filter_events_fun"
-                      android:title="@string/menu_filter_events_fun" />
-
+                    android:id="@+id/menu_filter_events_fun"
+                    android:title="@string/menu_filter_events_fun"/>
                 <item
-                      android:id="@+id/menu_filter_events_various"
-                      android:title="@string/menu_filter_events_various" />
-
+                    android:id="@+id/menu_filter_events_various"
+                    android:title="@string/menu_filter_events_various"/>
             </group>
         </menu>
-    </item>   
-                       
-    
-    <item android:id="@+id/action_write_spotted_post"
-       	  android:icon="@drawable/ic_action_write_post"
-          android:title="@string/action_write_spotted_post"
-          android:showAsAction="ifRoom" />
-    
-        <item android:id="@+id/action_add_restaurant"
-       	  android:icon="@drawable/ic_action_add_restaurant"
-          android:title="@string/action_add_restaurant"
-          android:showAsAction="ifRoom" />
-        
-        <item android:id="@+id/action_create_event"
-       	  android:icon="@drawable/ic_action_add_event"
-          android:title="@string/action_create_event"
-          android:showAsAction="ifRoom" />
+    </item>
+    <item
+        android:id="@+id/action_write_spotted_post"
+        android:icon="@drawable/ic_action_write_post"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_write_spotted_post"/>
+    <item
+        android:id="@+id/action_add_restaurant"
+        android:icon="@drawable/ic_action_add_restaurant"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_add_restaurant"/>
+    <item
+        android:id="@+id/action_create_event"
+        android:icon="@drawable/ic_action_add_event"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_create_event"/>
+    <item
+        android:id="@+id/action_create_book"
+        android:icon="@drawable/ic_action_add_event"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_create_book"/>
+    <item
+        android:id="@+id/action_show_profile"
+        android:icon="@drawable/ic_action_show_profile"
+        android:showAsAction="always"
+        android:title="@string/action_show_profile"/>
+    <item
+        android:id="@+id/action_show_preferences"
+        android:icon="@drawable/ic_action_show_profile"
+        android:showAsAction="never"
+        android:title="@string/action_show_preferences"/>
+    <item
+        android:id="@+id/action_logout"
+        android:showAsAction="never"
+        android:title="@string/action_logout"/>
 
-	<item android:id="@+id/action_show_profile"
-          android:icon="@drawable/ic_action_show_profile"
-          android:title="@string/action_show_profile"
-          android:showAsAction="always" />
-	
-	<item android:id="@+id/action_show_preferences"
-          android:icon="@drawable/ic_action_show_profile"
-          android:title="@string/action_show_preferences"
-          android:showAsAction="never" />
-	
-	<item android:id="@+id/action_logout"
-          android:title="@string/action_logout"
-          android:showAsAction="never" />
 </menu>

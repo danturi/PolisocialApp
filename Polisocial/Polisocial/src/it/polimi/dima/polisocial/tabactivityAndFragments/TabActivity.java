@@ -70,6 +70,7 @@ import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.internal.mf;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -151,7 +152,15 @@ public class TabActivity extends FragmentActivity implements
 			title = getString(R.string.second_tab_title);
 			break;
 		case 2:
-			title = getString(R.string.third_tab_title);
+			if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof SecondHandBookFragment){
+				title = getString(R.string.book_fragment_title);
+			}else if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof RentalFragment){
+				title = getString(R.string.rental_fragment_title);
+			}else if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof PrivateLessonFragment){
+				title = getString(R.string.lesson_fragment_title);
+			}else{
+				title = getString(R.string.third_tab_title);
+			}
 			break;
 		case 3:
 			title = getString(R.string.fourth_tab_title);

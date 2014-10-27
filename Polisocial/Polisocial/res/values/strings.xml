@@ -112,7 +112,7 @@
     <string name="search_hint">Search users</string>
     <string name="search">Search</string>
 
-<!-- profile label -->
+    <!-- profile label -->
     <string name="self_summary">SELF SUMMARY</string>
     <string name="what_im_doing">WHAT I\'M DOING WITH MY LIFE</string>
     <string name="im_really_good_at">I\'M REALLY GOOD AT</string>
@@ -126,10 +126,16 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="new_to_myowlcampus">New to myOwlCampus?</string>
     <string name="title_activity_search">SearchActivity</string>
-   <string name="no_user_search">No users found</string>
-   <string name="edit">edit</string>
-   
-   <!-- Rental fragment -->
-	<string name="changeViewRental">Go to rental list</string>
+    <string name="no_user_search">No users found</string>
+    <string name="edit">edit</string>
+
+    <!-- Rental fragment -->
+    <string name="changeViewRental">Go to rental list</string>
+    <string name="book_title_hint">book title</string>
+    <string name="book_authors_hint">book author</string>
+    <string name="action_create_book">Create book</string>
+    <string name="book_fragment_title">Books</string>
+    <string name="lesson_fragment_title">Private lessons</string>
+    <string name="rental_fragment_title">Rentals</string>
 
 </resources>
