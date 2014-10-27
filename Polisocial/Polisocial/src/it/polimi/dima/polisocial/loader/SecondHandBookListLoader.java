@@ -79,7 +79,7 @@ public class SecondHandBookListLoader extends
 				e.printStackTrace();
 				if (new StringTokenizer(e.getMessage().toString()).nextToken()
 						.equals("404"))
-					return list;
+					return null;
 
 			}
 

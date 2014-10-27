@@ -14,7 +14,7 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 	private final int VIEW_LOADING = 1;
 
 	public SecondHandBookAdapter(Context context) {
-		super(context, R.layout.spotted_post_item);
+		super(context, R.layout.book_row_item);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 			holder.title.setText(item.getTitle());
 			holder.authorNames.setText(item.getAuthorsBook().toString());
 			holder.condition.setText(item.getText());
-			holder.price.setText(item.getText());
+			holder.price.setText(item.getPrice().toString());
 		}
 		return view;
 	}
