@@ -264,7 +264,7 @@ public class PoliUserEndpoint {
 			    UserDTO user = new UserDTO();
 			    user.setUserId(result.getUserId());
 			    user.setNickname(result.getNickname());
-			    user.setAge(result.getAge());
+			    user.setDatebirth(result.getDatebirth());
 			    user.setFaculty(result.getFaculty());
 				listUserDTO.add(user);
 			  }

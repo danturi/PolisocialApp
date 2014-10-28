@@ -112,6 +112,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			   */
 			  DeviceInfo existingInfo = endpoint.getDeviceInfo(registration)
 					  .execute();
+			  //TODO controllo più utenti su stesso device...?
 			  if (existingInfo != null && registration.equals(existingInfo.getDeviceRegistrationID())) {
 				  alreadyRegisteredWithEndpointServer = true;
 			  }

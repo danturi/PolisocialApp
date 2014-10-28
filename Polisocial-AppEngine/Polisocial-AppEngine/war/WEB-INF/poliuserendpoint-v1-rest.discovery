@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/C4QtHLT7icOx-Kr9ooFPayRON_o\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/BO0ZfObutDpFeEvw0DeCQRwi1iI\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -117,9 +117,9 @@
    "id": "PoliUser",
    "type": "object",
    "properties": {
-    "age": {
-     "type": "integer",
-     "format": "int32"
+    "datebirth": {
+     "type": "string",
+     "format": "date-time"
     },
     "email": {
      "type": "string"
@@ -245,9 +245,9 @@
    "id": "UserDTO",
    "type": "object",
    "properties": {
-    "age": {
-     "type": "integer",
-     "format": "int32"
+    "datebirth": {
+     "type": "string",
+     "format": "date-time"
     },
     "faculty": {
      "type": "string"

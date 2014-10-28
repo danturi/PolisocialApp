@@ -1,18 +1,20 @@
 package it.polimi.dima.polisocial;
 
+import java.util.Date;
+
 
 public class UserDTO {
 
 	private Long userId;
 	private String nickname;
-	private Integer age;
+	private Date datebirth;
 	private String faculty;
 	
-	public UserDTO(Long userId, String nickname, Integer age, String faculty) {
+	public UserDTO(Long userId, String nickname, Date datebirth, String faculty) {
 		super();
 		this.userId = userId;
 		this.nickname = nickname;
-		this.age = age;
+		this.setDatebirth(datebirth);
 		this.faculty = faculty;
 	}
 	
@@ -33,16 +35,19 @@ public class UserDTO {
 		this.nickname = nickname;
 	}
 	
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+	
 	public String getFaculty() {
 		return faculty;
 	}
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
+	}
+
+	public Date getDatebirth() {
+		return datebirth;
+	}
+
+	public void setDatebirth(Date datebirth) {
+		this.datebirth = datebirth;
 	}
 }

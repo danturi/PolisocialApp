@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 public class RegistrationActivity extends Activity implements
 		FacultyDialogListener {
@@ -218,13 +220,15 @@ public class RegistrationActivity extends Activity implements
 			// perform the user login attempt.
 			ShowProgress.showProgress(true, mProgressView,
 					mRegistrationFormView, getApplicationContext());
-			int age=0;
+			Date datebirth = null;
 			try {
-				age = calculateAge(new SimpleDateFormat("dd/MM/yyyy").parse(date));
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+				datebirth = dateFormat.parse(date);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			mRegTask = new UserRegisterTask(email, username, password, faculty, age);
+			mRegTask = new UserRegisterTask(email, username, password, faculty, datebirth);
 			mRegTask.execute();
 		}
 	}
@@ -247,24 +251,24 @@ public class RegistrationActivity extends Activity implements
 		private final String mPassword;
 		private final String mUsername;
 		private final String mFaculty;
-		private final Integer mAge;
+		private final Date mDate;
 		private PoliUser newPoliUser = new PoliUser();
 		PoliUser poliUser;
 
 		UserRegisterTask(String email, String username, String password,
-				String faculty,Integer age) throws NoSuchAlgorithmException,
+				String faculty,Date datebirth) throws NoSuchAlgorithmException,
 				UnsupportedEncodingException {
 			mEmail = email;
 			mUsername = username;
 			mFaculty=faculty;
-			mAge = age;
+			mDate = datebirth;
 			mPassword = AeSimpleSHA1.SHA1(password);
 
 			newPoliUser.setNickname(mUsername.toUpperCase());
 			newPoliUser.setEmail(mEmail);
 			newPoliUser.setPassword(mPassword);
 			newPoliUser.setFaculty(mFaculty);
-			newPoliUser.setAge(mAge);
+			newPoliUser.setDatebirth(new DateTime(mDate));
 			newPoliUser.setNotifyAnnouncement(true);
 			newPoliUser.setNotifyEvent(true);
 			newPoliUser.setNotifySpotted(true);
@@ -340,6 +344,8 @@ public class RegistrationActivity extends Activity implements
 				mEmailView.setError(getString(R.string.error_duplicate_email));
 				mPasswordView.requestFocus();
 			} else {
+				ShowProgress.showProgress(false, mProgressView,
+						mRegistrationFormView, getApplicationContext());
 				mUsernameView
 						.setError(getString(R.string.error_duplicate_username));
 				mPasswordView.requestFocus();

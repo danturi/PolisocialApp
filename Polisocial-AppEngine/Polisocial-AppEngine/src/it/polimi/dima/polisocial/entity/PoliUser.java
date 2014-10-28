@@ -1,5 +1,7 @@
 package it.polimi.dima.polisocial.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +36,7 @@ public class PoliUser {
 	private Blob profilePicture2;
 	private String selfSummary;
 	private int height;
-	private int age;
+	private Date datebirth;
 	private String whatImDoingWithMyLife;
 	private String imReallyGoodAt;
 	private Text favoriteBooksMoviesShowsMusic;
@@ -106,12 +108,7 @@ public class PoliUser {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
+	
 	public String getWhatImDoingWithMyLife() {
 		return whatImDoingWithMyLife;
 	}
@@ -201,6 +198,12 @@ public class PoliUser {
 	}
 	public void setNotifiedHitOn(Boolean notifiedHitOn) {
 		this.notifiedHitOn = notifiedHitOn;
+	}
+	public Date getDatebirth() {
+		return datebirth;
+	}
+	public void setDatebirth(Date datebirth) {
+		this.datebirth = datebirth;
 	}
 	
 }

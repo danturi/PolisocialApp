@@ -89,22 +89,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "initiativeendpoint.updateInitiative" : {
-      "path" : "initiative",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.updateInitiative",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "initiativeendpoint.removeInitiative" : {
       "path" : "initiative/{id}",
       "httpMethod" : "DELETE",
@@ -124,6 +108,22 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "initiativeendpoint.updateInitiative" : {
+      "path" : "initiative",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.updateInitiative",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -201,6 +201,8 @@
           "$ref" : "Initiative"
         }
       },
+      "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.removeInitiative" : {
+      },
       "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.updateInitiative" : {
         "request" : {
           "$ref" : "Initiative"
@@ -208,8 +210,6 @@
         "response" : {
           "$ref" : "Initiative"
         }
-      },
-      "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.removeInitiative" : {
       }
     }
   }
