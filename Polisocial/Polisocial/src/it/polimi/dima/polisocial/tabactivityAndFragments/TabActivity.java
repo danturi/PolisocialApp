@@ -179,8 +179,10 @@ public class TabActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_tab);
 		
 		//ask for faculty at the first user login
+		
 		if(getIntent().getBooleanExtra("firstLogin", false)){
 			showNoticeDialog();
+			
 		}
 		
 		sessionManager = new SessionManager(getApplicationContext());

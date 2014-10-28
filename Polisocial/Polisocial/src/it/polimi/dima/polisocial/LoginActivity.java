@@ -344,7 +344,7 @@ import com.google.api.client.util.DateTime;
 			super.onPostExecute(result);
 			sessionManager.createLoginSession(nickname, email);
 			//prendo user dal database per settare id nel sessionManager
-			new GetUserTask().execute(email);
+			new GetUserTask().execute(email,"facebookFirstLogin");
 			
 		}
 
@@ -569,10 +569,7 @@ import com.google.api.client.util.DateTime;
 				sessionManager.createLoginSession(poliuser.getNickname(), poliuser.getEmail());
 				sessionManager.setId(Long.toString(poliuser.getUserId()));
 				new RegisterGCMUser().execute();
-				/*GCMIntentService.register(getApplicationContext());
-				Intent loginFinishedIntent = new Intent(LoginActivity.this, TabActivity.class);
-				LoginActivity.this.startActivity(loginFinishedIntent);
-				finish();*/
+				
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
@@ -615,7 +612,9 @@ import com.google.api.client.util.DateTime;
 	 
 	 
 	 public class GetUserTask extends AsyncTask<String, Void, Void> {
-
+		 
+		private String fbLogin = null;
+		 
 		@Override
 		protected Void doInBackground(String... params) {
 			
@@ -624,6 +623,7 @@ import com.google.api.client.util.DateTime;
 			
 			builder = CloudEndpointUtils.updateBuilder(builder);
 			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
+			fbLogin=params[1];
 			
 			try {
 				PoliUser user = endpoint.checkForDuplicateEmail(params[0]).execute();
@@ -639,15 +639,20 @@ import com.google.api.client.util.DateTime;
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			new RegisterGCMUser().execute();
+			new RegisterGCMUser().execute(fbLogin);
 		}
 		 
 	 }
 	 
-	 public class RegisterGCMUser extends AsyncTask<Void, Void, Void>{
+	 public class RegisterGCMUser extends AsyncTask<String, Void, Void>{
 
+		private String fbLogin=null;
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Void doInBackground(String... params) {
+			if(params.length!=0){
+				fbLogin=params[0];
+			}
+			
 			GCMIntentService.register(getApplicationContext());
 			return null;
 		}
@@ -656,7 +661,10 @@ import com.google.api.client.util.DateTime;
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			Intent i = new Intent(LoginActivity.this,TabActivity.class);
-			i.putExtra("firstLogin", true);
+			if(fbLogin!=null){
+				if(fbLogin.equals("facebookFirstLogin"))
+					i.putExtra("firstLogin", true);
+			}
 			startActivity(i);
 			ShowProgress.showProgress(false, mProgressView, mLoginFormView, getApplicationContext());
 			finish();
