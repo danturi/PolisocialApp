@@ -1,17 +1,24 @@
-package it.polimi.dima.polisocial;
+package it.polimi.dima.polisocial.creationActivities;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.R.drawable;
+import it.polimi.dima.polisocial.R.id;
+import it.polimi.dima.polisocial.R.layout;
+import it.polimi.dima.polisocial.R.menu;
+import it.polimi.dima.polisocial.R.string;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage;
-import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
-import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -22,6 +29,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -38,38 +48,127 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class NewSpottedPostActivity extends Activity {
+public class NewEventActivity extends Activity {
 
 	private static final int RESULT_LOAD_PICTURE = 1;
+	private static final int DATE_DIALOG_ID = 2;
+	private static final int TIME_DIALOG_ID = 3;
 
 	private byte[] pictureInBytes;
-	private CreateNewPostTask mCreatePostTask = null;
-	private EditText mLocationAndTitleView;
-	private EditText mPostTextView;
+	private CreateNewEventTask mCreateEventTask = null;
+	private EditText mTitleView;
+	private EditText mLocationView;
+	private EditText mEventDescriptionView;
+	private TextView mEventDateView;
+	private TextView mEventTimeView;
 	private Spinner mSpinnerView;
 	private View mProgressView;
-	private View mPostCreationForm;
+	private View mEventCreationForm;
+
+	private int year, month, day;
+	private int hour, minute;
+
 	private SessionManager sessionManager;
+
+	private String INITIAL_TEXT_DATE = "Tap to set event date";
+	private String INITIAL_TEXT_TIME = "Tap to set event time";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_spotted_post);
+		setContentView(R.layout.activity_new_event);
 		getActionBar().setIcon(R.drawable.logo_login);
 		sessionManager = new SessionManager(getApplicationContext());
-
-		mLocationAndTitleView = (EditText) findViewById(R.id.location_and_title);
-		mPostTextView = (EditText) findViewById(R.id.post_text);
+		setCurrentDate();
+		mTitleView = (EditText) findViewById(R.id.title);
+		mLocationView = (EditText) findViewById(R.id.location);
+		mEventDescriptionView = (EditText) findViewById(R.id.event_description);
+		mEventDateView = (TextView) findViewById(R.id.start_date);
+		mEventTimeView = (TextView) findViewById(R.id.start_time);
 		mSpinnerView = (Spinner) findViewById(R.id.spinnerCategory);
-		mPostCreationForm = findViewById(R.id.post_creation_form);
+		mEventCreationForm = findViewById(R.id.event_creation_form);
 		mProgressView = findViewById(R.id.progress);
+
+		mEventDateView.setText(INITIAL_TEXT_DATE);
+		mEventTimeView.setText(INITIAL_TEXT_TIME);
+
+		mEventDateView.setOnClickListener(new OnClickListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				showDialog(DATE_DIALOG_ID);
+			}
+		});
+		mEventTimeView.setOnClickListener(new OnClickListener() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				showDialog(TIME_DIALOG_ID);
+			}
+		});
 	}
+
+	// display current date both on the text view and the Date Picker
+	public void setCurrentDate() {
+		final Calendar calendar = Calendar.getInstance();
+		year = calendar.get(Calendar.YEAR);
+		month = calendar.get(Calendar.MONTH);
+		day = calendar.get(Calendar.DAY_OF_MONTH);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+
+		switch (id) {
+		case DATE_DIALOG_ID:
+			// set date picker as current date
+			return new DatePickerDialog(this, datePickerListener, year, month,
+					day);
+		case TIME_DIALOG_ID:
+			return new TimePickerDialog(this, timePickerListener, 12, 0, true);
+		}
+		// set time picker a
+		return null;
+	}
+
+	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			year = selectedYear - 1900;
+			month = selectedMonth;
+			day = selectedDay;
+
+			// set selected date into Text View
+			mEventDateView.setText(new StringBuilder().append(month + 1)
+					.append("-").append(day).append("-").append(year)
+					.append(" "));
+		}
+	};
+
+	private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
+
+		@Override
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+
+			mEventTimeView.setText(new StringBuilder().append(hour)
+					.append(" : ").append(minute));
+
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,37 +186,62 @@ public class NewSpottedPostActivity extends Activity {
 		if (id == R.id.action_post_post) {
 			View focusView = null;
 			boolean cancel = false;
-			String locationAndTitle = mLocationAndTitleView.getText()
-					.toString();
-			if (TextUtils.isEmpty(locationAndTitle)) {
-				mLocationAndTitleView
+			String title = mTitleView.getText().toString();
+			if (TextUtils.isEmpty(title)) {
+				mTitleView.setError(getString(R.string.error_field_required));
+				focusView = mTitleView;
+				cancel = true;
+			}
+			String location = mLocationView.getText().toString();
+			if (TextUtils.isEmpty(title)) {
+				mLocationView
 						.setError(getString(R.string.error_field_required));
-				focusView = mLocationAndTitleView;
+				focusView = mLocationView;
 				cancel = true;
 			}
 
-			String postText = mPostTextView.getText().toString();
-			if (TextUtils.isEmpty(postText)) {
-				mPostTextView
+			String date = mEventDateView.getText().toString();
+			if (date.equals(INITIAL_TEXT_DATE)) {
+				mEventDateView
 						.setError(getString(R.string.error_field_required));
-				focusView = mPostTextView;
+				focusView = mEventDateView;
+				cancel = true;
+			}
+
+			String time = mEventTimeView.getText().toString();
+			if (time.equals(INITIAL_TEXT_TIME)) {
+				mEventTimeView
+						.setError(getString(R.string.error_field_required));
+				focusView = mEventTimeView;
+				cancel = true;
+			}
+
+			String description = mEventDescriptionView.getText().toString();
+			if (TextUtils.isEmpty(title)) {
+				mEventDescriptionView
+						.setError(getString(R.string.error_field_required));
+				focusView = mEventDescriptionView;
 				cancel = true;
 			}
 
 			String category = mSpinnerView.getSelectedItem().toString();
+			@SuppressWarnings("deprecation")
+			DateTime dateAndTime = new DateTime(new Date(year, month, day,
+					hour, minute));
 			if (cancel) {
 				focusView.requestFocus();
 			} else {
 				// Show a progress spinner, and kick off a background task
 				showProgress(true);
 				try {
-					if (pictureInBytes == null)
-						mCreatePostTask = new CreateNewPostTask(
-								locationAndTitle, category, postText);
-					else
-						mCreatePostTask = new CreateNewPostTask(
-								locationAndTitle, category, postText,
+					if (pictureInBytes == null) {
+						mCreateEventTask = new CreateNewEventTask(title,
+								location, category, dateAndTime, description);
+					} else {
+						mCreateEventTask = new CreateNewEventTask(title,
+								location, category, dateAndTime, description,
 								pictureInBytes);
+					}
 				} catch (NoSuchAlgorithmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -125,7 +249,7 @@ public class NewSpottedPostActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				mCreatePostTask.execute();
+				mCreateEventTask.execute();
 			}
 			return true;
 		}
@@ -187,67 +311,75 @@ public class NewSpottedPostActivity extends Activity {
 	 * the server
 	 */
 
-	public class CreateNewPostTask extends AsyncTask<Void, Void, Boolean> {
+	public class CreateNewEventTask extends AsyncTask<Void, Void, Boolean> {
 
 		private long mUserId;
-		private final String mLocationAndTitle;
+		private final String mTitle;
+		private final String mLocation;
 		private final String mCategory;
-		private final String mText;
+		private final String mDescription;
 		private String pic;
-		PostSpotted newSpottedPost;
+		private DateTime mDateAndTime;
+		Initiative newEventPost;
 		PostImage newPostImage;
 
-		CreateNewPostTask(String locationAndTitle, String category,
-				String text, byte[] picture) throws NoSuchAlgorithmException,
-				UnsupportedEncodingException {
-			mLocationAndTitle = locationAndTitle;
+		CreateNewEventTask(String title, String location, String category,
+				DateTime dateAndTime, String description, byte[] picture)
+				throws NoSuchAlgorithmException, UnsupportedEncodingException {
+			mTitle = title;
+			mLocation = location;
 			mCategory = category;
-			mText = text;
+			mDescription = description;
+			mDateAndTime = dateAndTime;
 			pic = Base64.encodeToString(picture, Base64.DEFAULT);
-
 		}
 
-		public CreateNewPostTask(String locationAndTitle, String category,
-				String postText) {
-			mLocationAndTitle = locationAndTitle;
+		CreateNewEventTask(String title, String location, String category,
+				DateTime dateAndTime, String description)
+				throws NoSuchAlgorithmException, UnsupportedEncodingException {
+			mTitle = title;
+			mLocation = location;
 			mCategory = category;
-			mText = postText;
+			mDescription = description;
+			mDateAndTime = dateAndTime;
 			pic = null;
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
 
-			newSpottedPost = new PostSpotted();
+			newEventPost = new Initiative();
+			newEventPost.setTitle(mTitle);
+			newEventPost.setLocation(mLocation);
+			newEventPost.setText(mDescription);
+			newEventPost.setCategory(mCategory);
+			newEventPost.setBeginningDate(mDateAndTime);
 
-			newSpottedPost.setTitle(mLocationAndTitle);
-			newSpottedPost.setText(mText);
-			newSpottedPost.setPostCategory(mCategory);
 			String id = sessionManager.getUserDetails().get(
 					SessionManager.KEY_USERID);
 			mUserId = Long.valueOf(id);
-			newSpottedPost.setUserId(mUserId);
+			newEventPost.setUserId(mUserId);
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
-			newSpottedPost.setTimestamp(new DateTime(now));
+			newEventPost.setTimestamp(new DateTime(now));
 
 			if (pic != null) {
-				newSpottedPost.setHavePicture(true);
+				newEventPost.setHavePicture(true);
 			} else {
-				newSpottedPost.setHavePicture(false);
+				newEventPost.setHavePicture(false);
 			}
 
-			Postspottedendpoint.Builder builder = new Postspottedendpoint.Builder(
+			Initiativeendpoint.Builder builder = new Initiativeendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 					null);
 
 			builder = CloudEndpointUtils.updateBuilder(builder);
 
-			Postspottedendpoint endpoint = builder.setApplicationName(
+			Initiativeendpoint endpoint = builder.setApplicationName(
 					"polimisocial").build();
 
 			try {
-				newSpottedPost = endpoint.insertPostSpotted(newSpottedPost)
+				newEventPost = endpoint.insertInitiative(newEventPost)
 						.execute();
 			} catch (IOException e2) {
 				System.out.println(e2.getMessage());
@@ -256,7 +388,7 @@ public class NewSpottedPostActivity extends Activity {
 
 			if (pic != null) {
 				newPostImage = new PostImage();
-				newPostImage.setPostId(newSpottedPost.getId());
+				newPostImage.setPostId(newEventPost.getId());
 				newPostImage.setImage(pic);
 				Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
 						AndroidHttp.newCompatibleTransport(),
@@ -274,6 +406,7 @@ public class NewSpottedPostActivity extends Activity {
 					return false;
 				}
 			}
+
 			return true;
 		}
 
@@ -282,8 +415,7 @@ public class NewSpottedPostActivity extends Activity {
 			showProgress(false);
 			if (result) {
 				Toast toast = Toast.makeText(getApplicationContext(),
-						"DONE! You have just inserted a new post",
-						Toast.LENGTH_SHORT);
+						"DONE! New event created", Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.CENTER_VERTICAL,
 						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
@@ -292,6 +424,8 @@ public class NewSpottedPostActivity extends Activity {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"Can't perform operation. Please retry",
 						Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
 			}
 
@@ -299,7 +433,7 @@ public class NewSpottedPostActivity extends Activity {
 
 		@Override
 		protected void onCancelled() {
-			mCreatePostTask = null;
+			mCreateEventTask = null;
 			showProgress(false);
 		}
 	}
@@ -313,13 +447,13 @@ public class NewSpottedPostActivity extends Activity {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
-			mPostCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
-			mPostCreationForm.animate().setDuration(shortAnimTime)
+			mEventCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
+			mEventCreationForm.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mPostCreationForm.setVisibility(show ? View.GONE
+							mEventCreationForm.setVisibility(show ? View.GONE
 									: View.VISIBLE);
 						}
 					});
@@ -338,8 +472,7 @@ public class NewSpottedPostActivity extends Activity {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
 			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mPostCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
+			mEventCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
-
 }

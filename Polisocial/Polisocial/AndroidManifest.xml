@@ -83,7 +83,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyB6L9xLqWJLF6fvT2Vf7CE9pDyY9rxfsEM" />
+            android:value="AIzaSyA_7B571W6HKluT28EdJGoh-Lo_LUq1tqw" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
@@ -137,7 +137,7 @@
             android:label="@string/title_activity_error_gcm" >
         </activity>
         <activity
-            android:name=".NewSpottedPostActivity"
+            android:name="it.polimi.dima.polisocial.creationActivities.NewSpottedPostActivity"
             android:label="@string/title_activity_new_spotted_post"
             android:parentActivityName="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity"
             android:windowSoftInputMode="stateHidden" >
@@ -146,7 +146,7 @@
                 android:value="it.polimi.dima.polisocial.TabActivity" />
         </activity>
         <activity
-            android:name=".NewEventActivity"
+            android:name="it.polimi.dima.polisocial.creationActivities.NewEventActivity"
             android:label="@string/title_activity_new_event"
             android:parentActivityName="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity"
             android:windowSoftInputMode="stateHidden" >

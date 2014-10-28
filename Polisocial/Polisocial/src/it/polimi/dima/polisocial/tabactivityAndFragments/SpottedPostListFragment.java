@@ -125,7 +125,13 @@ public class SpottedPostListFragment extends ListFragment implements
 			} else {
 				mAdapter.addAll(data.getItems());
 			}
-			mEndlessScrollListener.setLoading(false);
+			if(data.getItems().size()==10){
+				mEndlessScrollListener.setLoading(false);
+			}else{
+				mAdapter.setLoading_row(0);
+				mAdapter.notifyDataSetChanged();
+			}
+				
 			// case in which there are no more data to retrieve from server
 		} else {
 			// tell the adapter to dismiss the progress bar cause there are no
