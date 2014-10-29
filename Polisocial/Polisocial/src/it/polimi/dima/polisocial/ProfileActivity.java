@@ -42,7 +42,6 @@ import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 
 public class ProfileActivity extends SwipeBackActivity {
 
@@ -57,7 +56,7 @@ public class ProfileActivity extends SwipeBackActivity {
 	private ActionBar actionBar;
 	private SessionManager session;
 	private PoliUser poliuser;
-	
+
 	ImageView profilePic1;
 	TextView generalInfoText;
 	TextView selfSummaryLabel;
@@ -86,8 +85,8 @@ public class ProfileActivity extends SwipeBackActivity {
 		setContentView(R.layout.activity_profile);
 		getActionBar().setIcon(R.drawable.logo_login);
 		session = new SessionManager(getApplicationContext());
-		mThisUserId = Long.valueOf(session.getUserDetails().get(SessionManager.KEY_USERID));
-		
+		mThisUserId = Long.valueOf(session.getUserDetails().get(
+				SessionManager.KEY_USERID));
 
 		mSwipeBackLayout = getSwipeBackLayout();
 		mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
@@ -247,7 +246,6 @@ public class ProfileActivity extends SwipeBackActivity {
 	 */
 	public class RetrieveProfileTask extends AsyncTask<Void, Void, Boolean> {
 
-
 		private long userId;
 
 		RetrieveProfileTask(long userId) throws NoSuchAlgorithmException,
@@ -266,15 +264,15 @@ public class ProfileActivity extends SwipeBackActivity {
 					"polimisocial").build();
 
 			try {
-				poliuser=endpoint.getPoliUser(userId).execute();
-				
+				poliuser = endpoint.getPoliUser(userId).execute();
+
+			} catch (IOException e) {
+				if (new StringTokenizer(e.getMessage().toString()).nextToken()
+						.equals("404"))
+					return false;
 			}
-			 catch (IOException e) {
-				 if( new StringTokenizer(e.getMessage().toString()).nextToken().equals("404")) 
-					 return false; 
-			} 
-			
-			 return true;
+
+			return true;
 		}
 
 		@Override
@@ -282,13 +280,18 @@ public class ProfileActivity extends SwipeBackActivity {
 			showProgress(false);
 
 			if (success) {
-
-				int age = calculateAge(new Date(poliuser.getDatebirth().getValue()));
+				int age;
+				if (poliuser.getDatebirth() != null) {
+					age = calculateAge(new Date(poliuser.getDatebirth()
+							.getValue()));
+				}else{
+					age=99;
+				}
 				String faculty = poliuser.getFaculty();
 				String sex = "M";
-				generalInfoText.setText(age + "  \u25CF  " + sex + "  \u25CF  " + faculty);
+				generalInfoText.setText(age + "  \u25CF  " + sex + "  \u25CF  "
+						+ faculty);
 
-				
 				if (mShowEditable) {
 					changePictureButton.setVisibility(View.VISIBLE);
 					editSelfSummaryButton.setVisibility(View.VISIBLE);
@@ -296,7 +299,6 @@ public class ProfileActivity extends SwipeBackActivity {
 					editImReallyGoodAtButton.setVisibility(View.VISIBLE);
 					editFavouriteButton.setVisibility(View.VISIBLE);
 					editSixThingsWithoutButton.setVisibility(View.VISIBLE);
-
 
 					if (poliuser.getSelfSummary() != null) {
 						selfSummaryText.setText(poliuser.getSelfSummary());
@@ -421,36 +423,41 @@ public class ProfileActivity extends SwipeBackActivity {
 							});
 
 				} else {
-					
+
 					if (poliuser.getSelfSummary() != null) {
 						selfSummaryText.setText(poliuser.getSelfSummary());
 					} else {
-						findViewById(R.id.self_summary_panel).setVisibility(View.GONE);
+						findViewById(R.id.self_summary_panel).setVisibility(
+								View.GONE);
 					}
 
 					if (poliuser.getWhatImDoingWithMyLife() != null) {
 						whatImDoingText.setText(poliuser
 								.getWhatImDoingWithMyLife());
 					} else {
-						findViewById(R.id.what_im_doing_panel).setVisibility(View.GONE);
+						findViewById(R.id.what_im_doing_panel).setVisibility(
+								View.GONE);
 					}
 					if (poliuser.getImReallyGoodAt() != null) {
 						imReallyGoodAtText
 								.setText(poliuser.getImReallyGoodAt());
 					} else {
-						findViewById(R.id.im_really_good_at_panel).setVisibility(View.GONE);
+						findViewById(R.id.im_really_good_at_panel)
+								.setVisibility(View.GONE);
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
 								.getFavoriteBooksMoviesShowsMusic().toString());
 					} else {
-						findViewById(R.id.favorite_panel).setVisibility(View.GONE);
+						findViewById(R.id.favorite_panel).setVisibility(
+								View.GONE);
 					}
 					if (poliuser.getSixThingsWithout() != null) {
 						sixThingsWithoutText.setText(poliuser
 								.getSixThingsWithout());
 					} else {
-						findViewById(R.id.six_things_without_panel).setVisibility(View.GONE);
+						findViewById(R.id.six_things_without_panel)
+								.setVisibility(View.GONE);
 					}
 
 				}
@@ -462,13 +469,15 @@ public class ProfileActivity extends SwipeBackActivity {
 					profilePic1.setImageBitmap(BitmapFactory.decodeByteArray(
 							byteArrayImage, 0, byteArrayImage.length));
 					profilePic1.setOnClickListener(new OnClickListener() {
-						
+
 						@Override
 						public void onClick(View v) {
-							Intent showFullScreenPicIntent = new Intent(v.getContext(),
-									FullScreenPicActivity.class);
-							showFullScreenPicIntent.putExtra("picInByte", byteArrayImage);
-							v.getContext().startActivity(showFullScreenPicIntent);
+							Intent showFullScreenPicIntent = new Intent(v
+									.getContext(), FullScreenPicActivity.class);
+							showFullScreenPicIntent.putExtra("picInByte",
+									byteArrayImage);
+							v.getContext().startActivity(
+									showFullScreenPicIntent);
 						}
 					});
 				} else {
@@ -489,47 +498,54 @@ public class ProfileActivity extends SwipeBackActivity {
 		}
 
 	}
-	
-	public class UpdateProfilePictureTask extends AsyncTask<Void, Void, Boolean> {
+
+	public class UpdateProfilePictureTask extends
+			AsyncTask<Void, Void, Boolean> {
 
 		private String mPicture;
-		
-		UpdateProfilePictureTask(byte[] picture) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-			this.mPicture = Base64.encodeToString(picture, Base64.DEFAULT);	
+
+		UpdateProfilePictureTask(byte[] picture)
+				throws NoSuchAlgorithmException, UnsupportedEncodingException {
+			this.mPicture = Base64.encodeToString(picture, Base64.DEFAULT);
 		}
-		
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			
-			poliuser.setProfilePicture1(mPicture);
-	
-			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-			
-			builder = CloudEndpointUtils.updateBuilder(builder);
-			
-			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
 
-			
-			//check if email is available 
+			poliuser.setProfilePicture1(mPicture);
+
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+
+			Poliuserendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+
+			// check if email is available
 			try {
-					endpoint.updatePoliUser(poliuser).execute();
+				endpoint.updatePoliUser(poliuser).execute();
 			} catch (IOException e2) {
 				return false;
 			}
 			return true;
-			}
+		}
 
 		@Override
 		protected void onPostExecute(Boolean result) {
 			showProgress(false);
-			if(result){
-				Toast toast = Toast.makeText(getApplicationContext(), "DONE! You have just changed your photo", Toast.LENGTH_SHORT);
-				toast.setGravity(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL, 0);
+			if (result) {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"DONE! You have just changed your photo",
+						Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
 				toast.show();
-			}else{
-				Toast toast = Toast.makeText(getApplicationContext(), "Can't perform operation. Please retry", Toast.LENGTH_SHORT);
+			} else {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Can't perform operation. Please retry",
+						Toast.LENGTH_SHORT);
 				toast.show();
 			}
 
@@ -540,57 +556,53 @@ public class ProfileActivity extends SwipeBackActivity {
 			showProgress(false);
 		}
 	}
-	
 
-	 //calcolo età PoliUser
-	 private  int calculateAge(Date birthDate)
-	   {
-	      int years = 0;
-	      int months = 0;
-	      int days = 0;
-	      //create calendar object for birth day
-	      Calendar birthDay = Calendar.getInstance();
-	      birthDay.setTimeInMillis(birthDate.getTime());
-	      //create calendar object for current day
-	      long currentTime = System.currentTimeMillis();
-	      Calendar now = Calendar.getInstance();
-	      now.setTimeInMillis(currentTime);
-	      //Get difference between years
-	      years = now.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
-	      int currMonth = now.get(Calendar.MONTH) + 1;
-	      int birthMonth = birthDay.get(Calendar.MONTH) + 1;
-	      //Get difference between months
-	      months = currMonth - birthMonth;
-	      //if month difference is in negative then reduce years by one and calculate the number of months.
-	      if (months < 0)
-	      {
-	         years--;
-	         months = 12 - birthMonth + currMonth;
-	         if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	            months--;
-	      } else if (months == 0 && now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	      {
-	         years--;
-	         months = 11;
-	      }
-	      //Calculate the days
-	      if (now.get(Calendar.DATE) > birthDay.get(Calendar.DATE))
-	         days = now.get(Calendar.DATE) - birthDay.get(Calendar.DATE);
-	      else if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	      {
-	         int today = now.get(Calendar.DAY_OF_MONTH);
-	         now.add(Calendar.MONTH, -1);
-	         days = now.getActualMaximum(Calendar.DAY_OF_MONTH) - birthDay.get(Calendar.DAY_OF_MONTH) + today;
-	      } else
-	      {
-	         days = 0;
-	         if (months == 12)
-	         {
-	            years++;
-	            months = 0;
-	         }
-	      }
-	      
-	      return years;
-	   }
+	// calcolo età PoliUser
+	private int calculateAge(Date birthDate) {
+		int years = 0;
+		int months = 0;
+		int days = 0;
+		// create calendar object for birth day
+		Calendar birthDay = Calendar.getInstance();
+		birthDay.setTimeInMillis(birthDate.getTime());
+		// create calendar object for current day
+		long currentTime = System.currentTimeMillis();
+		Calendar now = Calendar.getInstance();
+		now.setTimeInMillis(currentTime);
+		// Get difference between years
+		years = now.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+		int currMonth = now.get(Calendar.MONTH) + 1;
+		int birthMonth = birthDay.get(Calendar.MONTH) + 1;
+		// Get difference between months
+		months = currMonth - birthMonth;
+		// if month difference is in negative then reduce years by one and
+		// calculate the number of months.
+		if (months < 0) {
+			years--;
+			months = 12 - birthMonth + currMonth;
+			if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
+				months--;
+		} else if (months == 0
+				&& now.get(Calendar.DATE) < birthDay.get(Calendar.DATE)) {
+			years--;
+			months = 11;
+		}
+		// Calculate the days
+		if (now.get(Calendar.DATE) > birthDay.get(Calendar.DATE))
+			days = now.get(Calendar.DATE) - birthDay.get(Calendar.DATE);
+		else if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE)) {
+			int today = now.get(Calendar.DAY_OF_MONTH);
+			now.add(Calendar.MONTH, -1);
+			days = now.getActualMaximum(Calendar.DAY_OF_MONTH)
+					- birthDay.get(Calendar.DAY_OF_MONTH) + today;
+		} else {
+			days = 0;
+			if (months == 12) {
+				years++;
+				months = 0;
+			}
+		}
+
+		return years;
+	}
 }

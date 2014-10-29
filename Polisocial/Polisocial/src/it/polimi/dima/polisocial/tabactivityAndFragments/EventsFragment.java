@@ -80,6 +80,9 @@ public class EventsFragment extends ListFragment implements
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
+		menu.findItem(R.id.action_create_lesson).setVisible(false);
+		menu.findItem(R.id.action_create_rental).setVisible(false);
+		menu.findItem(R.id.action_create_book).setVisible(false);
 		menu.findItem(R.id.action_add_restaurant).setVisible(false);
 		menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 	}

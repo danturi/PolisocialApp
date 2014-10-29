@@ -1,6 +1,5 @@
 package it.polimi.dima.polisocial.adapter;
 
-
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 import android.content.Context;
@@ -46,13 +45,13 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 			if (type == VIEW_LOADING) {
 				view = mInflater.inflate(R.layout.progress, parent, false);
 			} else {
-					view = mInflater.inflate(R.layout.book_row_item,
-							parent, false);
+				view = mInflater.inflate(R.layout.book_row_item, parent, false);
 				holder.title = (TextView) view.findViewById(R.id.title);
-				holder.authorNames = (TextView) view.findViewById(R.id.author_names);
+				holder.authorNames = (TextView) view
+						.findViewById(R.id.author_names);
 				holder.price = (TextView) view.findViewById(R.id.price);
 				holder.condition = (TextView) view.findViewById(R.id.condition);
-				
+
 			}
 			view.setTag(holder);
 		} else {
@@ -63,12 +62,15 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 			SecondHandBook item = getItem(position);
 			holder.title.setText(item.getTitle());
 			holder.authorNames.setText(item.getAuthorsBook().toString());
-			holder.condition.setText(item.getText());
-			holder.price.setText(item.getPrice().toString());
+			if (item.getText()==null) {
+				holder.condition.setText("Description not available");
+			} else {
+				holder.condition.setText("\"" + item.getText() + "\"");
+			}
+			holder.price.setText(item.getPrice().toString() + " €");
 		}
 		return view;
 	}
-
 
 	static class SpottedViewHolder {
 
@@ -76,7 +78,7 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 		TextView authorNames;
 		TextView price;
 		TextView condition;
-		
+
 	}
 
 }

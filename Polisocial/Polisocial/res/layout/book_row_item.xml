@@ -10,26 +10,32 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="@dimen/book_search_left_margin"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/author_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title" />
+            android:layout_below="@+id/title"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/author_names"  />
+            android:layout_below="@+id/author_names"
+            android:textStyle="italic"
+            android:textColor="@android:color/darker_gray"
+            android:maxLines="1"  />
     </RelativeLayout>
 
     <RelativeLayout
@@ -37,13 +43,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" >
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/book_search_left_margin" >
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </RelativeLayout>

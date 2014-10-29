@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class SecondHandBookFragment extends ListFragment implements
 		LoaderManager.LoaderCallbacks<CollectionResponseSecondHandBook> {
@@ -41,7 +42,10 @@ public class SecondHandBookFragment extends ListFragment implements
 	private ImageButton mSearchButton;
 	private EditText mBookTitle;
 	private EditText mBookAuthor;
+	
+	private TextView mBookResult;
 
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -78,9 +82,13 @@ public class SecondHandBookFragment extends ListFragment implements
 				mSuggestion=false;
 				mFirstDataSet=true;
 				loadData();
+				mBookResult.setText("Books found");
 			}
 		});
 		mList.addHeaderView(header);
+		View headerResult = View.inflate(getActivity(), R.layout.book_result_second_header, null);
+		mBookResult = (TextView) headerResult.findViewById(R.id.result_header);
+		mList.addHeaderView(headerResult);
 		mList.setAdapter(mAdapter);
 
 		mEndlessScrollListener = new EndlessScrollListener() {
@@ -105,6 +113,8 @@ public class SecondHandBookFragment extends ListFragment implements
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
+		menu.findItem(R.id.action_create_lesson).setVisible(false);
+		menu.findItem(R.id.action_create_rental).setVisible(false);
 		menu.findItem(R.id.action_create_event).setVisible(false);
 		menu.findItem(R.id.action_add_restaurant).setVisible(false);
 		menu.findItem(R.id.menu_filter_events).setVisible(false);
@@ -132,6 +142,11 @@ public class SecondHandBookFragment extends ListFragment implements
 	}
 
 	private void loadData() {
+		if(!mSuggestion){
+			if(mBookTitle.getText().toString().isEmpty()){
+				return;
+			}
+		}
 		getLoaderManager().restartLoader(0, null, this);
 	}
 

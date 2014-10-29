@@ -312,7 +312,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 				DateUtils.SECOND_IN_MILLIS);
 		holder.creationDate.setText("created " + timeAgo);
 		holder.description.setText(item.getText());
-		EventAdapter.makeTextViewResizable(holder.description, 3, "View More", true);
+		//EventAdapter.makeTextViewResizable(holder.description, 3, "View More", true);
 
 	}
 

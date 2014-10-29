@@ -9,7 +9,10 @@ import it.polimi.dima.polisocial.ProfileActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.SingleChoiceDialogFragm;
 import it.polimi.dima.polisocial.SingleChoiceDialogFragm.FacultyDialogListener;
+import it.polimi.dima.polisocial.creationActivities.NewBookActivity;
 import it.polimi.dima.polisocial.creationActivities.NewEventActivity;
+import it.polimi.dima.polisocial.creationActivities.NewPrivateLessonActivity;
+import it.polimi.dima.polisocial.creationActivities.NewRentalActivity;
 import it.polimi.dima.polisocial.creationActivities.NewSpottedPostActivity;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
@@ -307,6 +310,15 @@ public class TabActivity extends FragmentActivity implements
 			return true;
 		case R.id.action_create_event:
 			startActivity(new Intent(TabActivity.this, NewEventActivity.class));
+			return true;
+		case R.id.action_create_book:
+			startActivity(new Intent(TabActivity.this, NewBookActivity.class));
+			return true;
+		case R.id.action_create_lesson:
+			startActivity(new Intent(TabActivity.this, NewPrivateLessonActivity.class));
+			return true;
+		case R.id.action_create_rental:
+			startActivity(new Intent(TabActivity.this, NewRentalActivity.class));
 			return true;
 		case R.id.action_show_profile:
 			startActivity(new Intent(TabActivity.this, ProfileActivity.class));

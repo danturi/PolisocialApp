@@ -259,9 +259,9 @@ public final class R {
 		public static final int abc_textfield_searchview_right_holo_dark = 0x7f02005b;
 		public static final int abc_textfield_searchview_right_holo_light = 0x7f02005c;
 		public static final int ic_launcher = 0x7f0200c6;
-		public static final int shadow_bottom = 0x7f0200f3;
-		public static final int shadow_left = 0x7f0200f4;
-		public static final int shadow_right = 0x7f0200f6;
+		public static final int shadow_bottom = 0x7f0200f4;
+		public static final int shadow_left = 0x7f0200f5;
+		public static final int shadow_right = 0x7f0200f7;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f050034;
@@ -322,7 +322,7 @@ public final class R {
 		public static final int showTitle = 0x7f050006;
 		public static final int split_action_bar = 0x7f050036;
 		public static final int submit_area = 0x7f050051;
-		public static final int swipe = 0x7f0500ed;
+		public static final int swipe = 0x7f0500ef;
 		public static final int tabMode = 0x7f050002;
 		public static final int title = 0x7f050043;
 		public static final int top_action_bar = 0x7f050038;
@@ -358,8 +358,8 @@ public final class R {
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
 		public static final int abc_simple_decor = 0x7f030017;
-		public static final int support_simple_spinner_dropdown_item = 0x7f030053;
-		public static final int swipeback_layout = 0x7f030054;
+		public static final int support_simple_spinner_dropdown_item = 0x7f030057;
+		public static final int swipeback_layout = 0x7f030058;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0a0001;

@@ -5,11 +5,14 @@ import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
+import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -46,8 +49,6 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		this.userId = userId;
 		this.name = name;
 	}
-
-
 
 	@Override
 	public int getItemViewType(int position) {
@@ -106,7 +107,6 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 						.findViewById(R.id.numb_of_comments);
 
 			}
-			holder.type = type;
 			view.setTag(holder);
 		} else {
 			holder = (SpottedViewHolder) view.getTag();
@@ -170,6 +170,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 				holder.postImage.setVisibility(View.VISIBLE);
 
 				if (item.getBitmap() == null) {
+					holder.postImage.setImageResource(R.drawable.loading_animation);
 					// asynctask to retrieve post image
 					new AsyncTask<Object, Void, Boolean>() {
 						private SpottedViewHolder v;
@@ -213,7 +214,6 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 								ps.setBitmap(bitmap);
 								v.postImage
 										.setOnClickListener(new OnClickListener() {
-
 											@Override
 											public void onClick(View v) {
 												Intent showFullScreenPicIntent = new Intent(
@@ -225,11 +225,33 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 												context.startActivity(showFullScreenPicIntent);
 											}
 										});
+
 							}
 						}
 					}.execute(holder, item);
 				} else {
 					holder.postImage.setImageBitmap(item.getBitmap());
+					notifyDataSetChanged();
+
+					holder.postImage
+							.setOnClickListener(new BitmapParameterOnClickListener(
+									item.getBitmap()) {
+
+								@Override
+								public void onClick(View v) {
+									Intent showFullScreenPicIntent = new Intent(
+											context,
+											FullScreenPicActivity.class);
+									ByteArrayOutputStream stream = new ByteArrayOutputStream();
+									bitmap.compress(Bitmap.CompressFormat.PNG,
+											100, stream);
+									final byte[] byteArray = stream
+											.toByteArray();
+									showFullScreenPicIntent.putExtra(
+											"picInByte", byteArray);
+									context.startActivity(showFullScreenPicIntent);
+								}
+							});
 				}
 
 				// case with no post picture
@@ -266,11 +288,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		dialog.show(fm, "HitOnDialogFragm");
 	}
 
-	
 	static class SpottedViewHolder {
-
-		public int type;
-
 		TextView title;
 		TextView timestamp;
 		TextView statusMsg;

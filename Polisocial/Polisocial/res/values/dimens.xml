@@ -38,5 +38,7 @@
     <dimen name="profile_edit_right_margin">8dp</dimen>
     
     
+        <dimen name="book_search_left_margin">15dp</dimen>
+    
 
 </resources>

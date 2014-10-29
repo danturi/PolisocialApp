@@ -65,6 +65,16 @@
         android:icon="@drawable/ic_action_add_event"
         android:showAsAction="ifRoom"
         android:title="@string/action_create_book"/>
+        <item
+        android:id="@+id/action_create_rental"
+        android:icon="@drawable/ic_action_add_event"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_create_book"/>
+            <item
+        android:id="@+id/action_create_lesson"
+        android:icon="@drawable/ic_action_add_event"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_create_book"/>
     <item
         android:id="@+id/action_show_profile"
         android:icon="@drawable/ic_action_show_profile"

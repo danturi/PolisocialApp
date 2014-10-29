@@ -47,6 +47,8 @@
     <string name="action_logout">Logout</string>
     <string name="action_add_restaurant">Add restaurant</string>
     <string name="action_create_event">Create event</string>
+    <string name="action_create_lesson">Create lesson</string>
+    <string name="action_create_rental">Create rental</string>
     <string name="action_write_announcement">New announcement</string>
     <string name="menu_filter_events">Event filter</string>
     <string name="menu_filter_events_culture">Culture</string>
@@ -131,16 +133,13 @@
 
     <!-- Rental fragment -->
     <string name="changeViewRental">Go to rental list</string>
-
     <string name="action_create_book">Create book</string>
     <string name="book_fragment_title">Books</string>
     <string name="lesson_fragment_title">Private lessons</string>
     <string name="rental_fragment_title">Rentals</string>
-
-    
-        <string name="book_title_hint">book title (mandatory)</string>
+    <string name="book_title_hint">book title (mandatory)</string>
     <string name="book_authors_hint">book author</string>
-    
+
     <!-- New book activity -->
     <string name="title_activity_new_book">Create book</string>
     <string name="book_creation_hint">Type the ISBN code of your book and we\'ll retrieve all the needed data!</string>
@@ -164,5 +163,10 @@
         <item>Architettura e Società</item>
         <item>Architettura Civile</item>
     </string-array>
+
+    <string name="books_suggested">Books suggested</string>
+    <string name="books_found">Books found</string>
+    <string name="title_activity_new_rental">NewRentalActivity</string>
+    <string name="title_activity_new_private_lesson">NewPrivateLesson</string>
 
 </resources>
