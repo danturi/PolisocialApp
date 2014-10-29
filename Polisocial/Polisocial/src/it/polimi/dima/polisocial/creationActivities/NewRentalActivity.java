@@ -16,15 +16,12 @@ import it.polimi.dima.polisocial.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
@@ -33,18 +30,48 @@ import android.widget.Toast;
 
 public class NewRentalActivity extends Activity {
 
+	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+	
+	
+	
+	AutoCompleteTextView autoCompView;
+	/**TextWatcher watcher = new TextWatcher(){
+		  @Override
+		  public void afterTextChanged(Editable arg0) {
+		    // TODO Auto-generated method stub
+		  }
+		  @Override
+		  public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+		      int arg3) {
+		    // TODO Auto-generated method stub
+		  }
+		  @Override
+		  public void onTextChanged(CharSequence s, int a, int b, int c) {
+		    // TODO Auto-generated method stub
+		    autocomplete(s.toString());
+		  }};;
+	
+	**/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_rental);
 
-		AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
+		StrictMode.setThreadPolicy(policy); 
+		
+		autoCompView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
 		autoCompView.setAdapter(new PlacesAutoCompleteAdapter(this,
 				R.layout.list_item));
 			
+		//autoCompView.addTextChangedListener(watcher);
 
 	}
 
+	
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -130,13 +157,16 @@ public class NewRentalActivity extends Activity {
 			StringBuilder sb = new StringBuilder(PLACES_API_BASE
 					+ TYPE_AUTOCOMPLETE + OUT_JSON);
 			sb.append("?key=" + API_KEY);
-			sb.append("&components=country:uk");
+			sb.append("&components=country:it");
+			sb.append("&location=45.478178,9.228031");
+			sb.append("&radius=10000");
+			sb.append("&types=address");
 			sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
 			URL url = new URL(sb.toString());
 			conn = (HttpURLConnection) url.openConnection();
 			InputStreamReader in = new InputStreamReader(conn.getInputStream());
-
+			
 			// Load the results into a StringBuilder
 			int read;
 			char[] buff = new char[1024];
@@ -145,12 +175,9 @@ public class NewRentalActivity extends Activity {
 			}
 		} catch (MalformedURLException e) {
 			Log.e(LOG_TAG, "Error processing Places API URL", e);
-			Toast.makeText(getApplication(), "error processing api url", Toast.LENGTH_SHORT).show();
 			return resultList;
 		} catch (IOException e) {
 			Log.e(LOG_TAG, "Error connecting to Places API", e);
-			Toast.makeText(getApplication(), "error connecting to places api", Toast.LENGTH_SHORT).show();
-
 			return resultList;
 		} finally {
 			if (conn != null) {
@@ -168,13 +195,11 @@ public class NewRentalActivity extends Activity {
 			for (int i = 0; i < predsJsonArray.length(); i++) {
 				resultList.add(predsJsonArray.getJSONObject(i).getString(
 						"description"));
+				
 			}
 		} catch (JSONException e) {
 			Log.e(LOG_TAG, "Cannot process JSON results", e);
-			Toast.makeText(getApplication(), "cannot process json results", Toast.LENGTH_SHORT).show();
-
 		}
-
 		return resultList;
 	}
 
