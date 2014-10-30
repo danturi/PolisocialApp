@@ -107,7 +107,7 @@ public class NotificationFragment extends ListFragment implements
 		menu.findItem(R.id.action_create_book).setVisible(false);
 		menu.findItem(R.id.action_create_event).setVisible(false);
 		menu.findItem(R.id.action_add_restaurant).setVisible(false);
-		menu.findItem(R.id.menu_filter_events).setVisible(false);
+		//menu.findItem(R.id.menu_filter_events).setVisible(false);
 		menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 	}
 

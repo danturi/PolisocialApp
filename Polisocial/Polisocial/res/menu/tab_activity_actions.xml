@@ -25,7 +25,7 @@
             </group>
         </menu>
     </item>   
-    -->
+    
     <item
         android:id="@+id/menu_filter_events"
         android:icon="@drawable/ic_action_filter"
@@ -45,6 +45,8 @@
             </group>
         </menu>
     </item>
+    -->
+    
     <item
         android:id="@+id/action_write_spotted_post"
         android:icon="@drawable/ic_action_write_post"
@@ -62,19 +64,19 @@
         android:title="@string/action_create_event"/>
     <item
         android:id="@+id/action_create_book"
-        android:icon="@drawable/ic_action_add_event"
+        android:icon="@drawable/ic_action_add_book"
         android:showAsAction="ifRoom"
         android:title="@string/action_create_book"/>
         <item
         android:id="@+id/action_create_rental"
-        android:icon="@drawable/ic_action_add_event"
+        android:icon="@drawable/ic_action_add_rental"
         android:showAsAction="ifRoom"
-        android:title="@string/action_create_book"/>
+        android:title="@string/action_create_rental"/>
             <item
         android:id="@+id/action_create_lesson"
-        android:icon="@drawable/ic_action_add_event"
+        android:icon="@drawable/ic_action_add_lesson"
         android:showAsAction="ifRoom"
-        android:title="@string/action_create_book"/>
+        android:title="@string/action_create_lesson"/>
     <item
         android:id="@+id/action_show_profile"
         android:icon="@drawable/ic_action_show_profile"

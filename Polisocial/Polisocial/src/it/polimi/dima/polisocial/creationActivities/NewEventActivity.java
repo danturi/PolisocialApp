@@ -2,17 +2,13 @@ package it.polimi.dima.polisocial.creationActivities;
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
-import it.polimi.dima.polisocial.R.menu;
-import it.polimi.dima.polisocial.R.string;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
+import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,9 +21,6 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -39,7 +32,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -232,7 +224,9 @@ public class NewEventActivity extends Activity {
 				focusView.requestFocus();
 			} else {
 				// Show a progress spinner, and kick off a background task
-				showProgress(true);
+				ShowProgress.showProgress(true, mProgressView,
+						mEventCreationForm, getApplicationContext());
+
 				try {
 					if (pictureInBytes == null) {
 						mCreateEventTask = new CreateNewEventTask(title,
@@ -412,7 +406,8 @@ public class NewEventActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mEventCreationForm,
+					getApplicationContext());
 			if (result) {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						"DONE! New event created", Toast.LENGTH_SHORT);
@@ -434,45 +429,9 @@ public class NewEventActivity extends Activity {
 		@Override
 		protected void onCancelled() {
 			mCreateEventTask = null;
-			showProgress(false);
+			ShowProgress.showProgress(false, mProgressView, mEventCreationForm,
+					getApplicationContext());
 		}
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	public void showProgress(final boolean show) {
-		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-		// for very easy animations. If available, use these APIs to fade-in
-		// the progress spinner.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			int shortAnimTime = getResources().getInteger(
-					android.R.integer.config_shortAnimTime);
-
-			mEventCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
-			mEventCreationForm.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mEventCreationForm.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
-
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mProgressView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mProgressView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
-		} else {
-			// The ViewPropertyAnimator APIs are not available, so simply show
-			// and hide the relevant UI components.
-			mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mEventCreationForm.setVisibility(show ? View.GONE : View.VISIBLE);
-		}
-	}
 }

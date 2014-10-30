@@ -37,7 +37,23 @@ public class SpottedPostListLoader extends
 		build = CloudEndpointUtils.updateBuilder(build);
 		Commentendpoint commEndpoint = build.setApplicationName("polimisocial")
 				.build();
+		
+/**TODO		Likeendpoint.Builder build = new Likeendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+				null);
 
+		build = CloudEndpointUtils.updateBuilder(build);
+		Likeendpoint likeEndpoint = build.setApplicationName("polimisocial")
+				.build();
+		
+		DisLikeendpoint.Builder build = new DisLikeendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+				null);
+
+		build = CloudEndpointUtils.updateBuilder(build);
+		DisLikeendpoint disLikeEndpoint = build.setApplicationName("polimisocial")
+				.build();
+**/
 		CollectionResponsePostSpotted list = new CollectionResponsePostSpotted();
 		try {
 			if (cursor != null) {
@@ -53,6 +69,17 @@ public class SpottedPostListLoader extends
 							post.getId()).execute();
 					post.setNumOfComments(Integer.valueOf((String) count
 							.getObject()));
+				/**TODO
+					ResponseObject likeCount = likeEndpoint.getNumbPostLikes(
+							post.getId()).execute();
+					post.setNumOfLikes(Integer.valueOf((String) count
+							.getObject()));
+					
+					ResponseObject disLikeCount = commEndpoint.getNumbPostDisLikes(
+							post.getId()).execute();
+					post.setNumOfDisLikes(Integer.valueOf((String) count
+							.getObject()));
+				**/
 				}
 			}
 

@@ -23,164 +23,200 @@
         android:layout_height="fill_parent"
         android:fillViewport="true" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dip" >
+            android:layout_height="wrap_content" >
 
             <!-- Object/Location -->
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_creation_hint"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_isbn"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
-
             <RelativeLayout
+                android:id="@+id/isbn_panel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:id="@+id/book_hint_creation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_creation_hint"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/book_isbn_label"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/book_hint_creation"
+                    android:text="@string/book_isbn"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/isbn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/isbn_button"
+                    android:layout_below="@+id/book_isbn_label"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
-                    android:textColorHint="@color/timestamp"
                     android:inputType="text"
                     android:maxLength="60"
                     android:maxLines="1"
                     android:padding="5dip"
-                    android:singleLine="true" />
-
-                <Button
-                    android:id="@+id/isbn_button"
+                    android:singleLine="true"
+                    android:textColorHint="@color/timestamp" />
+                
+                                <ProgressBar
+                    android:id="@+id/progress_isbn"
+                    style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="Submit" />
+                    android:layout_below="@id/isbn"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_title"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/title"
+            <LinearLayout
+                android:id="@+id/not_isbn_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:hint="@string/book_title_example"
-                android:inputType="text"
-                android:maxLength="45"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
+                android:layout_below="@+id/isbn_panel"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/book_price"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_title"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_faculty"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/book_title_example"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
 
-            <Spinner
-                android:id="@+id/spinnerFaculty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:entries="@array/book_faculty_arrays" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/book_authors"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_publisher"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
+                                <EditText
+                    android:id="@+id/authors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/book_authors_hint"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/publisher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:inputType="text"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/book_price"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+                
+                <EditText
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_publication_date"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_faculty"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/publication_date"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/spinnerFaculty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/book_faculty_arrays" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/book_condition"
-                android:textColor="@color/Green"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_publisher"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/condition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:inputType="text"
-                android:maxLength="100"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
-            
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/publisher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_publication_date"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/publication_date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_condition"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/condition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

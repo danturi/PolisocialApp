@@ -169,4 +169,9 @@
     <string name="title_activity_new_rental">NewRentalActivity</string>
     <string name="title_activity_new_private_lesson">NewPrivateLesson</string>
 
+    
+    <string name="contact">Contact</string>
+        <string name="error_invalid_price">This is not a number. It should look like 10 or 10.50</string>
+            <string name="error_invalid_year">This is not a valid year</string>
+        
 </resources>

@@ -77,13 +77,43 @@
 
             <TextView
                 android:id="@+id/numb_of_comments"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:paddingBottom="@dimen/post_item_status_pad_top"
                 android:paddingLeft="@dimen/post_item_status_pad_left_right"
                 android:paddingRight="@dimen/post_item_status_pad_left_right"
                 android:paddingTop="@dimen/post_item_status_pad_top"
+                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                android:textSize="@dimen/post_item_numb_of_commments"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numb_of_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/numb_of_comments"
+                android:clickable="true"
+                android:paddingBottom="@dimen/post_item_status_pad_top"
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:paddingRight="@dimen/post_item_status_pad_left_right"
+                android:paddingTop="@dimen/post_item_status_pad_top"
+                android:text="like"
+                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                android:textSize="@dimen/post_item_numb_of_commments"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numb_of_dislikes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/numb_of_likes"
+                android:clickable="true"
+                android:paddingBottom="@dimen/post_item_status_pad_top"
+                android:paddingLeft="@dimen/post_item_status_pad_left_right"
+                android:paddingRight="@dimen/post_item_status_pad_left_right"
+                android:paddingTop="@dimen/post_item_status_pad_top"
+                android:text="dislike"
                 android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
                 android:textSize="@dimen/post_item_numb_of_commments"
                 android:textStyle="bold" />
@@ -106,9 +136,9 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:text="Like"
-                android:textSize="10dp" 
                 android:textColor="@color/post_button_text"
-                android:textStyle="bold"/>
+                android:textSize="10dp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/imageButton2"
@@ -121,8 +151,8 @@
                 android:paddingLeft="27dp"
                 android:paddingRight="27dp"
                 android:text="Dislike"
-                android:textSize="10dp"
                 android:textColor="@color/post_button_text"
+                android:textSize="10dp"
                 android:textStyle="bold" />
 
             <Button
@@ -132,13 +162,13 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="34"
                 android:background="@drawable/post_bottom_button"
-                android:drawableLeft="@drawable/comment_button_icon"
-                android:drawableStart="@drawable/comment_button_icon"
+                android:drawableLeft="@drawable/contact_button_icon"
+                android:drawableStart="@drawable/contact_button_icon"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:text="Comment"
-                android:textSize="10dp"
+                android:text="@string/contact"
                 android:textColor="@color/post_button_text"
+                android:textSize="10dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

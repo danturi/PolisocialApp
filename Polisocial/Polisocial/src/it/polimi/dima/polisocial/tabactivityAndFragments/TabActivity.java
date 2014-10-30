@@ -340,7 +340,7 @@ public class TabActivity extends FragmentActivity implements
 			sessionManager.logoutUser();
 			GCMIntentService.unregister(this);
 
-		case R.id.menu_filter_events_culture:
+		/**case R.id.menu_filter_events_culture:
 			item.setChecked(true);
 			// showProfile();
 		case R.id.menu_filter_events_fun:
@@ -350,7 +350,7 @@ public class TabActivity extends FragmentActivity implements
 			item.setChecked(true);
 			// showProfile();
 			return true;
-
+**/
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -655,8 +655,11 @@ public class TabActivity extends FragmentActivity implements
 		@Override
 		public void onPrepareOptionsMenu(Menu menu) {
 			super.onPrepareOptionsMenu(menu);
+			menu.findItem(R.id.action_create_lesson).setVisible(false);
+			menu.findItem(R.id.action_create_rental).setVisible(false);
+			menu.findItem(R.id.action_create_book).setVisible(false);
 			menu.findItem(R.id.action_create_event).setVisible(false);
-			menu.findItem(R.id.menu_filter_events).setVisible(false);
+			//menu.findItem(R.id.menu_filter_events).setVisible(false);
 			menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 		}
 
@@ -888,7 +891,7 @@ public class TabActivity extends FragmentActivity implements
 		public void onPrepareOptionsMenu(Menu menu) {
 			super.onPrepareOptionsMenu(menu);
 			menu.findItem(R.id.action_create_event).setVisible(false);
-			menu.findItem(R.id.menu_filter_events).setVisible(false);
+			//menu.findItem(R.id.menu_filter_events).setVisible(false);
 			menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 		}
 

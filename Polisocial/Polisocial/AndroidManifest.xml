@@ -177,7 +177,7 @@
             android:label="@string/title_activity_search" >
         </activity>
         <activity
-            android:name="it.polimi.dima.polisocial.creationActivities.NewRentalActivity"
+            android:name=".creationActivities.NewRentalActivity"
             android:label="@string/title_activity_new_rental"
             android:parentActivityName=".tabactivityAndFragments.TabActivity" >
             <meta-data
@@ -187,6 +187,14 @@
         <activity
             android:name="polimi.dima.polisocial.creationActivities.NewPrivateLessonActivity"
             android:label="@string/title_activity_new_private_lesson"
+            android:parentActivityName=".tabactivityAndFragments.TabActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity" />
+        </activity>
+        <activity
+            android:name="it.polimi.dima.polisocial.creationActivities.NewBookActivity"
+            android:label="@string/title_activity_new_book" 
             android:parentActivityName=".tabactivityAndFragments.TabActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
