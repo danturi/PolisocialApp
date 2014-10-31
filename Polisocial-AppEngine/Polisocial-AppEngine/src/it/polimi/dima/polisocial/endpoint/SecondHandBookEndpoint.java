@@ -375,7 +375,7 @@ public class SecondHandBookEndpoint {
 			}
 			JSONObject obj = (JSONObject) new JSONTokener(content.toString())
 					.nextValue();
-			System.out.println(obj);
+			//System.out.println(obj);
 			if (!obj.has("items")) {
 				throw new NotFoundException("Not found book");
 			}
@@ -389,14 +389,16 @@ public class SecondHandBookEndpoint {
 			for (int j = 0; j < authorsJson.length(); j++) {
 				authors.add(authorsJson.getString(j));
 			}
+			if(infoBook.has("publisher")){
 			String publisher = (String) infoBook.get("publisher");
+			book.setPublisher(publisher);
+			}
 			String publishedDate = (String) infoBook.get("publishedDate");
 
 			book.setAuthorsBook(authors);
 			book.setTitle(title);
-			book.setPublisher(publisher);
-			book.setPublishedDate(new SimpleDateFormat("yyyy-MM-dd")
-					.parse(publishedDate));
+			
+			book.setPublishedDate(Integer.valueOf(publishedDate));
 			book.setIsbn(isbn);
 
 		} catch (MalformedURLException e) {
@@ -405,10 +407,9 @@ public class SecondHandBookEndpoint {
 			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 
+	
 		return book;
 	}
 

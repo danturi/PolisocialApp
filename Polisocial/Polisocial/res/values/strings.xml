@@ -138,7 +138,8 @@
     <string name="lesson_fragment_title">Private lessons</string>
     <string name="rental_fragment_title">Rentals</string>
     <string name="book_title_hint">book title (mandatory)</string>
-    <string name="book_authors_hint">book author</string>
+    <string name="book_authors_hint">author1,author2,&#8230;</string>
+    <string name="book_authors_hint2">book author</string>
 
     <!-- New book activity -->
     <string name="title_activity_new_book">Create book</string>
@@ -150,7 +151,8 @@
     <string name="book_location_example">ex. Bramanti, Pagani, Salsa</string>
     <string name="book_price">Price*</string>
     <string name="book_faculty">Faculty for this book</string>
-    <string name="book_publication_date">Publication date</string>
+    <string name="book_publication_date">Publication year</string>
+    <string name="book_publicationDate_hint">ex. 2014</string>
     <string name="book_publisher">Publisher</string>
     <string name="book_condition">Condition</string>
     <string name="book_condition_example">Underlined / never used etc&#8230;</string>
@@ -168,10 +170,9 @@
     <string name="books_found">Books found</string>
     <string name="title_activity_new_rental">NewRentalActivity</string>
     <string name="title_activity_new_private_lesson">NewPrivateLesson</string>
-
-    
     <string name="contact">Contact</string>
-        <string name="error_invalid_price">This is not a number. It should look like 10 or 10.50</string>
-            <string name="error_invalid_year">This is not a valid year</string>
-        
+    <string name="error_invalid_price">This is not a number. It should look like 10 or 10.50</string>
+    <string name="error_invalid_year">This is not a valid year</string>
+	<string name="error_invalid_isbn">This is not a valid isbn code</string>
+	<string name="error_field_authors">Author names separate by comma</string>
 </resources>

@@ -52,22 +52,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "deviceinfoendpoint.updateDeviceInfo" : {
-      "path" : "deviceinfo",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.updateDeviceInfo",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "deviceinfoendpoint.sendToUserHitOn" : {
       "path" : "sendToUserHitOn/{postId}",
       "httpMethod" : "POST",
@@ -87,6 +71,22 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "deviceinfoendpoint.updateDeviceInfo" : {
+      "path" : "deviceinfo",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.updateDeviceInfo",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "deviceinfoendpoint.getDeviceInfo" : {
@@ -225,6 +225,8 @@
           "$ref" : "CollectionResponse_DeviceInfo"
         }
       },
+      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUserHitOn" : {
+      },
       "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.updateDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
@@ -232,8 +234,6 @@
         "response" : {
           "$ref" : "DeviceInfo"
         }
-      },
-      "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.sendToUserHitOn" : {
       },
       "it.polimi.dima.polisocial.endpoint.DeviceInfoEndpoint.getDeviceInfo" : {
         "response" : {

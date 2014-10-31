@@ -37,7 +37,7 @@
             android:layout_below="@id/book_title"
             android:layout_margin="7dp"
             android:background="@drawable/rect_text_edit_book_search_panel"
-            android:hint="@string/book_authors_hint"
+            android:hint="@string/book_authors_hint2"
             android:maxLength="30"
             android:maxLines="1"
             android:singleLine="true"

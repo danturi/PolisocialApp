@@ -1,34 +1,39 @@
 package it.polimi.dima.polisocial.creationActivities;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.Date;
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
-
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 public class NewBookActivity extends Activity {
 
@@ -40,6 +45,7 @@ public class NewBookActivity extends Activity {
 	private Spinner mSpinnerFaculty;
 	private EditText mBookPrice;
 	private EditText mBookAuthors;
+	private Button mIsbnButton;
 	private Double price;
 
 	private View mProgressViewFullScreen;
@@ -69,33 +75,53 @@ public class NewBookActivity extends Activity {
 		mBookTitle = (EditText) findViewById(R.id.title);
 		mBookPrice = (EditText) findViewById(R.id.price);
 		mIsbnCode = (EditText) findViewById(R.id.isbn);
-		// Attach TextWatcher to EditText
-		mIsbnCode.addTextChangedListener(new TextWatcher() {
+		mIsbnButton = (Button) findViewById(R.id.buttonIsbn);
+		mIsbnButton.setOnClickListener(new OnClickListener() {
 
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
+			@Override
+			public void onClick(View v) {
+				String inputCode = mIsbnCode.getText().toString();
+				if (inputCode.length() == 13 || inputCode.length() == 10) {
 
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-			}
-
-			public void afterTextChanged(Editable s) {
-				if (s.length() == 13) {
-					
-					double d;
-						try {
-							d = Double.parseDouble(mIsbnCode.getText().toString());
-						} catch (NumberFormatException e) {
-							mIsbnCode.setError(getString(R.string.error_invalid_year));
-							mBookPublicationDate.requestFocus();
-							return;
-						}
+					long l;
+					try {
+						l = Long.valueOf(inputCode);
+					} catch (NumberFormatException e) {
+						mIsbnCode
+								.setError(getString(R.string.error_invalid_isbn));
+						mBookPublicationDate.requestFocus();
+						return;
+					}
 					// TODO chiamata all asynctask che chiama book api
-					
+					new RetrieveBookInfo().execute(String.valueOf(l));
+				} else {
+					mIsbnCode.setError(getString(R.string.error_invalid_isbn));
+					mBookPublicationDate.requestFocus();
+					return;
 				}
 			}
 		});
+
+		// Attach TextWatcher to EditText
+		/*
+		 * mIsbnCode.addTextChangedListener(new TextWatcher() {
+		 * 
+		 * public void beforeTextChanged(CharSequence s, int start, int count,
+		 * int after) { }
+		 * 
+		 * public void onTextChanged(CharSequence s, int start, int before, int
+		 * count) { }
+		 * 
+		 * public void afterTextChanged(Editable s) { if (s.length() == 13) {
+		 * 
+		 * double d; try { d =
+		 * Double.parseDouble(mIsbnCode.getText().toString()); } catch
+		 * (NumberFormatException e) { mIsbnCode
+		 * .setError(getString(R.string.error_invalid_year));
+		 * mBookPublicationDate.requestFocus(); return; } // TODO chiamata all
+		 * asynctask che chiama book api new
+		 * RetrieveBookInfo().execute(String.valueOf(d)); } } });
+		 */
 
 	}
 
@@ -138,11 +164,17 @@ public class NewBookActivity extends Activity {
 			cancel = true;
 		}
 		String authors = mBookAuthors.getText().toString();
+		if(!authors.matches("[a-zA-Z]+(\\,[a-zA-Z]+)*")){
+			mBookAuthors.setError(getString(R.string.error_field_authors));
+			focusView = mBookAuthors;
+			cancel = true;
+		}
 		if (TextUtils.isEmpty(authors)) {
 			mBookAuthors.setError(getString(R.string.error_field_required));
 			focusView = mBookAuthors;
 			cancel = true;
 		}
+		
 		String priceString = mBookPrice.getText().toString();
 		if (TextUtils.isEmpty(priceString)) {
 			mBookPrice.setError(getString(R.string.error_field_required));
@@ -221,8 +253,19 @@ public class NewBookActivity extends Activity {
 			newBook = new SecondHandBook();
 			newBook.setIsbn(isbnCode);
 			newBook.setTitle(title);
-			// TODO newBook.setAuthorsBook(authors); e altri campi
-
+			ArrayList<String> authorsArray = new ArrayList<String>();
+			StringTokenizer tokenizer = new StringTokenizer(authors,",");
+			while(tokenizer.hasMoreElements()){
+				authorsArray.add((String) tokenizer.nextElement());
+			}
+			newBook.setAuthorsBook(authorsArray);
+			newBook.setPrice(price);
+			newBook.setText(condition);
+			newBook.setPublishedDate(publication_date);
+			newBook.setPublisher(publisher);
+			newBook.setFaculty(faculty);
+			newBook.setHavePicture(false);
+			
 			String id = sessionManager.getUserDetails().get(
 					SessionManager.KEY_USERID);
 			mUserId = Long.valueOf(id);
@@ -270,6 +313,134 @@ public class NewBookActivity extends Activity {
 				toast.show();
 			}
 
+		}
+
+	}
+
+	public class RetrieveBookInfo extends
+			AsyncTask<String, Void, SecondHandBook> {
+
+		@Override
+		protected SecondHandBook doInBackground(String... params) {
+
+			
+			String isbn = params[0];
+			
+			SecondHandBook book = null;
+			Secondhandbookendpoint.Builder builder = new Secondhandbookendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+
+			Secondhandbookendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+			try {
+				book = endpoint.getBookInfoFromISBN(isbn).execute();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+			return book;  
+			
+			/*
+			HttpClient client = new DefaultHttpClient();
+			 
+			String baseUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+			StringBuilder urlBuilder = new StringBuilder(baseUrl);
+			urlBuilder.append(isbn);
+			urlBuilder.append("&country=IT");
+			urlBuilder.append("&key=AIzaSyDbvAFfj1A5KLRrjPXiViT2DYdxC5fLIbo");
+			String url = urlBuilder.toString();
+			// System.out.println(url);
+			String line;
+			StringBuilder content = new StringBuilder();
+			HttpURLConnection connection = null;
+			SecondHandBook book = new SecondHandBook();
+			try {
+				 URL url2 = new URL(url);
+	                connection = (HttpURLConnection) url2.openConnection();
+	                connection.setRequestMethod("GET");
+				 //HttpGet httpget = new HttpGet(url);
+				 //HttpResponse httpResponse=client.execute(httpget);
+				 //InputStream inputStream = httpResponse.getEntity().getContent();
+				 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				 while (null != (line = reader.readLine())) {
+						content.append(line);
+					}
+				 System.out.println(content.toString());
+				 
+				JSONObject obj = (JSONObject) new JSONTokener(content.toString())
+						.nextValue();
+				//System.out.println(obj);
+				if (!obj.has("items")) {
+					return null;
+				}
+				JSONArray results = (JSONArray) obj.get("items");
+				obj = (JSONObject) results.get(0);
+
+				JSONObject infoBook = (JSONObject) obj.get("volumeInfo");
+				String title = (String) infoBook.get("title");
+				JSONArray authorsJson = (JSONArray) infoBook.get("authors");
+				ArrayList<String> authors = new ArrayList<String>();
+				for (int j = 0; j < authorsJson.length(); j++) {
+					authors.add(authorsJson.getString(j));
+				}
+				if(infoBook.has("publisher")){
+				String publisher = (String) infoBook.get("publisher");
+				book.setPublisher(publisher);
+				}
+				String publishedDate = (String) infoBook.get("publishedDate");
+
+				book.setAuthorsBook(authors);
+				book.setTitle(title);
+				
+				book.setPublishedDate(Integer.valueOf(publishedDate));
+				book.setIsbn(isbn);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (org.json.JSONException e) {
+				e.printStackTrace();
+			}
+				return book;
+			*/
+		}
+
+		@Override
+		protected void onPostExecute(SecondHandBook result) {
+			super.onPostExecute(result);
+			Toast toast;
+			if (result == null) {
+				toast = Toast.makeText(getApplicationContext(),
+						"Can't find book with this isbn.", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+			} else {
+
+				mBookTitle.setText(result.getTitle());
+
+				StringBuilder authors = new StringBuilder();
+				if(result.getAuthorsBook()!=null){
+				if (result.getAuthorsBook().size() > 1) {
+					Iterator<String> iterator = result.getAuthorsBook()
+							.iterator();
+					authors.append(iterator.next());
+					while (iterator.hasNext()) {
+						authors.append("," + iterator.next());
+					}
+				} else {
+					authors.append(result.getAuthorsBook().get(0));
+				}
+				}
+				mBookAuthors.setText(authors.toString());
+				System.out.println(result.getPublishedDate());
+				mBookPublicationDate.setText(String.valueOf(result.getPublishedDate()));
+				mBookPublisher.setText(result.getPublisher());
+			}
 		}
 
 	}

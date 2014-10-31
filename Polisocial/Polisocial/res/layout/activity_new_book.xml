@@ -59,6 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/book_isbn_label"
+                    android:layout_toStartOf="@+id/buttonIsbn"
+                    android:layout_toLeftOf="@+id/buttonIsbn"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
                     android:inputType="text"
@@ -76,6 +78,17 @@
                     android:layout_below="@id/isbn"
                     android:layout_marginBottom="8dp"
                     android:visibility="gone" />
+
+                                <Button
+                                    android:id="@+id/buttonIsbn"
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/isbn"
+                                    android:layout_alignRight="@+id/book_isbn_label"
+                                    android:layout_below="@+id/book_isbn_label"
+                                    android:text="search" />
+
             </RelativeLayout>
 
             <LinearLayout
@@ -101,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
+                    android:ems="10"
                     android:hint="@string/book_title_example"
                     android:inputType="text"
                     android:maxLength="45"
@@ -111,28 +125,31 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:text="@string/book_authors"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
-                                <EditText
+                <EditText
                     android:id="@+id/authors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
+                    android:ems="10"
+                    android:layout_marginBottom="10dp"
                     android:hint="@string/book_authors_hint"
                     android:inputType="text"
                     android:maxLength="45"
                     android:maxLines="1"
                     android:padding="5dip"
-                    android:singleLine="true" />
+                    android:singleLine="true" >
+
+                    <requestFocus />
+                </EditText>
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    
                     android:text="@string/book_price"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
@@ -189,13 +206,15 @@
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/publication_date"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/book_publicationDate_hint"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                    android:textStyle="bold" />
+                    android:inputType="text"
+                    android:padding="5dip"
+                    android:background="@drawable/rect_text_edit" />
 
                 <TextView
                     android:layout_width="fill_parent"

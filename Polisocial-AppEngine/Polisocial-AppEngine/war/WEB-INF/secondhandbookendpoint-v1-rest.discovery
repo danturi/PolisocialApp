@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/C1sHVaNJ0lR7U-onWb-fJ_GVgzM\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/QASSw4Fj-6c08XZUrFxY3ya3lD0\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -117,8 +117,8 @@
      "format": "double"
     },
     "publishedDate": {
-     "type": "string",
-     "format": "date-time"
+     "type": "integer",
+     "format": "int32"
     },
     "publisher": {
      "type": "string"

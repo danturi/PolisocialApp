@@ -126,10 +126,12 @@ public class TabActivity extends FragmentActivity implements
 
 	private Boolean gpsAdvice = true;
 	private Intent intentGcmNotifica = new Intent();
+	public Boolean annoucementFragment = false;
 
 	@Override
 	public void onBackPressed() {
 		// minimize
+		
 		moveTaskToBack(true);
 	}
 
@@ -467,6 +469,7 @@ public class TabActivity extends FragmentActivity implements
 							.commit();
 					mFragmentAtPos2 = new SecondHandBookFragment();
 					mFragmentAtPos2.setInitialSavedState(mFragmentBook);
+					
 				}
 
 				if (newFragmentName.equals("rental")) {
@@ -493,6 +496,7 @@ public class TabActivity extends FragmentActivity implements
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
 					mFragmentAtPos2 = new PrivateLessonFragment();
+					
 					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
 				}
 				

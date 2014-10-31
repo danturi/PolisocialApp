@@ -2,7 +2,6 @@ package it.polimi.dima.polisocial.entity;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.persistence.Entity;
 
@@ -15,7 +14,7 @@ public class SecondHandBook extends Post{
 	
 	private  String publisher;
 	
-	private Date publishedDate;
+	private Integer publishedYear;
 	
 	private String isbn;
 	
@@ -55,12 +54,12 @@ public class SecondHandBook extends Post{
 		this.authorsBook = authorsBook;
 	}
 
-	public Date getPublishedDate() {
-		return publishedDate;
+	public Integer getPublishedDate() {
+		return publishedYear;
 	}
 
-	public void setPublishedDate(Date publishedDate) {
-		this.publishedDate = publishedDate;
+	public void setPublishedDate(Integer publishedYear) {
+		this.publishedYear = publishedYear;
 	}
 
 	public Double getPrice() {
