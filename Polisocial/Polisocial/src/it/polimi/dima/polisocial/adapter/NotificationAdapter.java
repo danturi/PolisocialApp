@@ -2,7 +2,7 @@ package it.polimi.dima.polisocial.adapter;
 
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
 
 import java.util.List;
 
@@ -71,29 +71,29 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 		
 		String postType=item.getTypePost();
 		//depending on notification type and read flag, pick the appropriate icon
-    	if (postType.equals(NotificationCategory.SIMPLE_SPOTTED.toString())){
+    	if (postType.equals(PostType.SPOTTED.toString())){
     		if(item.getReadFlag()){
     			notificationTypeIcon.setImageResource(R.drawable.spotted_icon_normal);
     		}else{
     			notificationTypeIcon.setImageResource(R.drawable.spotted_icon_selected);
     		}
-    	}else if(postType.equals(NotificationCategory.EVENT.toString())){
+    	}else if(postType.equals(PostType.EVENT.toString())){
     		if(!item.getReadFlag()){
     			notificationTypeIcon.setImageResource(R.drawable.events_icon_normal);
     		}else{
     			notificationTypeIcon.setImageResource(R.drawable.events_icon_selected);
     		}
-    	}else if(postType.equals(NotificationCategory.HIT_ON.toString())){
+    	}else if(postType.equals(PostType.HIT_ON.toString())){
     		if(!item.getReadFlag()){
     			notificationTypeIcon.setImageResource(R.drawable.cupido_pressed);
     		}else{
     			notificationTypeIcon.setImageResource(R.drawable.cupido);
     		}
-    	}else if(postType.equals(NotificationCategory.SECOND_HAND_BOOK.toString())){
+    	}else if(postType.equals(PostType.SECOND_HAND_BOOK.toString())){
     		
-    	}else if(postType.equals(NotificationCategory.RENTAL.toString())){
+    	}else if(postType.equals(PostType.RENTAL.toString())){
     		
-    	}else if(postType.equals(NotificationCategory.PRIVATE_LESSON.toString())){
+    	}else if(postType.equals(PostType.PRIVATE_LESSON.toString())){
     		
     	} 	
 		

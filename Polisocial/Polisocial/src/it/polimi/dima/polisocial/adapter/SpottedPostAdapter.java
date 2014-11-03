@@ -10,7 +10,8 @@ import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -125,11 +126,11 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 									context, ShowRelatedCommentsActivity.class);
 							showRelativeCommentsIntent.putExtra("postId", id);
 							showRelativeCommentsIntent.putExtra("type",
-									NotificationCategory.SIMPLE_SPOTTED
+									PostType.SPOTTED
 											.toString());
 							showRelativeCommentsIntent.putExtra(
 									"notificationCategory",
-									NotificationCategory.NOT_FROM_NOTIFICATION
+									WhatToShow.ONLY_COMMENTS
 											.toString());
 							context.startActivity(showRelativeCommentsIntent);
 						}

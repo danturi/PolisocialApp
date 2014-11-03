@@ -175,4 +175,23 @@
     <string name="error_invalid_year">This is not a valid year</string>
 	<string name="error_invalid_isbn">This is not a valid isbn code</string>
 	<string name="error_field_authors">Author names separate by comma</string>
+	
+	<!-- New rental activity -->
+	<string name="error_autocomplete">You have to choose an item from the suggestions list!!</string>
+	<string name="autocomplete_hint">Type the complete address name </string>
+	<string name="rental_creation_hint">Insert the address name of the house/room, choosing it from the suggestions.</string>
+	<string name="rental_address">Address*</string>
+	<string name="rental_type">Rent type*</string>
+	<string name="rental_type_example">ex. Shared Room/House/Apartment</string>
+	<string name="rental_meter">Square meters*</string>
+	<string name="rental_price">Price (Monthly)*</string>
+	<string name="rental_description">Description</string>
+	<string name="rental_availability">Available from:*</string>
+	<string name="rental_date_hint">date</string>
+	<string name="rental_contact_hint">cell number/ email</string>
+	<string name="rental_contact">Contact*</string>
+	<string name="error_invalid_meters">This is not a number</string>
+	<string name="rental_title">Announce title*</string>
+	<string name="rental_street_number">Nr*</string>
+	
 </resources>

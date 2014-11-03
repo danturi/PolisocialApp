@@ -8,8 +8,9 @@ import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.adapter.NotificationAdapter;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
 import it.polimi.dima.polisocial.loader.NotificationListLoader;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
 import java.util.List;
 
@@ -172,37 +173,40 @@ public class NotificationFragment extends ListFragment implements
 		Notification notificationClicked = (Notification) getListView()
 				.getItemAtPosition(position);
 		long postId = notificationClicked.getPostId();
-		String notificationCategory = notificationClicked.getTypePost();
+		String postType = notificationClicked.getTypePost();
+		
 		Intent showRelativeCommentsIntent = new Intent(getActivity(),
 				ShowRelatedCommentsActivity.class);
 		showRelativeCommentsIntent.putExtra("postId", postId);
 		showRelativeCommentsIntent.putExtra("notificationCategory",
-				notificationCategory);
+				WhatToShow.FROM_NOTIFICATION.toString());
+		showRelativeCommentsIntent.putExtra("type",
+				postType);
 		showRelativeCommentsIntent.putExtra("notificationId",
 				notificationClicked.getId());
 
 		ImageView icon = (ImageView) v
 				.findViewById(R.id.notification_type_icon);
-
+		
 		// depending on notification type and read flag, pick the appropriate
 		// icon
-		if (notificationCategory.equals(NotificationCategory.SIMPLE_SPOTTED
+		if (postType.equals(PostType.SPOTTED
 				.toString())) {
 			icon.setImageResource(R.drawable.spotted_icon_normal);
-		} else if (notificationCategory.equals(NotificationCategory.EVENT
+		} else if (postType.equals(PostType.EVENT
 				.toString())) {
 			icon.setImageResource(R.drawable.events_icon_normal);
-		} else if (notificationCategory.equals(NotificationCategory.HIT_ON
+		} else if (postType.equals(PostType.HIT_ON
 				.toString())) {
 			icon.setImageResource(R.drawable.cupido_pressed);
-		} else if (notificationCategory
-				.equals(NotificationCategory.SECOND_HAND_BOOK.toString())) {
+		} else if (postType
+				.equals(PostType.SECOND_HAND_BOOK.toString())) {
 			icon.setImageResource(R.drawable.spotted_icon_normal);
-		} else if (notificationCategory.equals(NotificationCategory.RENTAL
+		} else if (postType.equals(PostType.RENTAL
 				.toString())) {
 			icon.setImageResource(R.drawable.spotted_icon_normal);
-		} else if (notificationCategory
-				.equals(NotificationCategory.PRIVATE_LESSON.toString())) {
+		} else if (postType
+				.equals(PostType.PRIVATE_LESSON.toString())) {
 
 		}
 

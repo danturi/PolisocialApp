@@ -115,22 +115,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "likeendpoint.updateLike" : {
-      "path" : "like",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.LikeEndpoint.updateLike",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "likeendpoint.insertLike" : {
       "path" : "like",
       "httpMethod" : "POST",
@@ -139,6 +123,22 @@
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "it.polimi.dima.polisocial.endpoint.LikeEndpoint.insertLike",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "likeendpoint.updateLike" : {
+      "path" : "like",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.LikeEndpoint.updateLike",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -218,7 +218,7 @@
           "$ref" : "CollectionResponse_Like"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.LikeEndpoint.updateLike" : {
+      "it.polimi.dima.polisocial.endpoint.LikeEndpoint.insertLike" : {
         "request" : {
           "$ref" : "Like"
         },
@@ -226,7 +226,7 @@
           "$ref" : "Like"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.LikeEndpoint.insertLike" : {
+      "it.polimi.dima.polisocial.endpoint.LikeEndpoint.updateLike" : {
         "request" : {
           "$ref" : "Like"
         },

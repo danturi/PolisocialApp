@@ -8,9 +8,311 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="it.polimi.dima.polisocial.creationActivities.NewRentalActivity" >
 
-    <AutoCompleteTextView
-        android:id="@+id/autocomplete"
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/rental_creation_form"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <!-- Object/Location -->
+
+            <RelativeLayout
+                android:id="@+id/address_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:id="@+id/address_hint_creation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental_creation_hint"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rental_address_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/address_hint_creation"
+                    android:layout_below="@+id/address_hint_creation"
+                    android:layout_toLeftOf="@+id/rental_street_number"
+                    android:text="@string/rental_address"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/rental_street_number"
+                    android:layout_alignLeft="@+id/rental_address_label"
+                    android:layout_alignRight="@+id/rental_address_label"
+                    android:layout_below="@+id/rental_address_label"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/autocomplete_hint"
+                    android:maxLength="60"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true"
+                    android:textColorHint="@color/timestamp" >
+                </AutoCompleteTextView>
+
+                <TextView
+                    android:id="@+id/rental_street_number_label"
+                    android:layout_width="56dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/address_hint_creation"
+                    android:layout_below="@+id/address_hint_creation"
+                    android:text="@string/rental_street_number"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rental_street_number"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/address_hint_creation"
+                    android:layout_below="@+id/rental_address_label"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/not_address_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/address_panel"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental_title"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rental_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental_type"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rental_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/rental_type_example"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true"
+                    android:textColorHint="@color/timestamp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/middle_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/not_address_panel"
+                android:layout_centerInParent="true"
+                android:gravity="left"
+                android:orientation="horizontal"
+                 >
+
+                <LinearLayout
+                    android:id="@+id/meters_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:id="@+id/rental_meter_label"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rental_meter"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/rental_meter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rect_text_edit"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:maxLength="45"
+                        android:maxLines="1"
+                        android:padding="5dip"
+                        android:singleLine="true" >
+                    </EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/price_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:id="@+id/rental_price_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/rental_price"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/rental_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_text_edit"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:maxLength="45"
+                        android:maxLines="1"
+                        android:padding="5dip"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/date_panel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:id="@+id/rental_date_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/rental_availability"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/rental_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/rect_text_edit"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/rental_date_hint"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:padding="5dip"
+                        android:singleLine="true"
+                        android:textColorHint="@color/timestamp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/description_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/middle_panel"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
+
+                <TextView
+                    android:id="@+id/rental_contact_label"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental_contact"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rental_contact"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rental_date_label"
+                    android:background="@drawable/rect_text_edit"
+                    android:ems="10"
+                    android:hint="@string/rental_contact_hint"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:padding="5dip"
+                    android:textColorHint="@color/timestamp" >
+                </EditText>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rental_description"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rental_description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:maxLines="20"
+                    android:padding="5dip" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

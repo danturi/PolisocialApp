@@ -7,9 +7,10 @@ import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 import it.polimi.dima.polisocial.loader.SecondHandBookListLoader;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -132,11 +133,11 @@ public class SecondHandBookFragment extends ListFragment implements
 		
 		showRelatedCommentsIntent.putExtra("postId", bookId);
 		showRelatedCommentsIntent.putExtra("type",
-				NotificationCategory.SECOND_HAND_BOOK
+				PostType.SECOND_HAND_BOOK
 						.toString());
 		showRelatedCommentsIntent.putExtra(
 				"notificationCategory",
-				NotificationCategory.NOT_FROM_NOTIFICATION
+				WhatToShow.DETAILS
 						.toString());
 		startActivity(showRelatedCommentsIntent);
 	}

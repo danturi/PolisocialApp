@@ -5,6 +5,7 @@ import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
+import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity.SwitchFragmentListener;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -15,7 +16,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -33,6 +37,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class RentalFragment extends Fragment {
 
+	private static SwitchFragmentListener listener;
 	GoogleMap map;
 	MapView mapView;
 	private RentalNearPoliAndPlotMapTask task;
@@ -43,6 +48,19 @@ public class RentalFragment extends Fragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		View v = inflater.inflate(R.layout.fragment_rental_map, container, false);
 
+		TextView listButton = (TextView) v.findViewById(R.id.button_view);
+		listButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (task != null) {
+					task.cancel(true);
+				}
+				listener.onSwitchFragmentName("rentalList");
+				
+			}
+		});
+		
 		mapView = (MapView) v.findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);
 		map = mapView.getMap();
@@ -86,6 +104,13 @@ public class RentalFragment extends Fragment {
 		super.onLowMemory();
 		mapView.onLowMemory();
 	}
+	
+	public static RentalFragment newInstance(
+			SwitchFragmentListener announcementsFragmentListener) {
+		RentalFragment rentalFragment = new RentalFragment();
+		listener = announcementsFragmentListener;
+		return rentalFragment;
+	}
 
 	public class RentalNearPoliAndPlotMapTask extends
 			AsyncTask<Void, Void, CollectionResponseRental> {
@@ -102,6 +127,7 @@ public class RentalFragment extends Fragment {
 
 		@Override
 		protected CollectionResponseRental doInBackground(Void... params) {
+		
 			Rentalendpoint.Builder builder = new Rentalendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 					null);
@@ -111,6 +137,7 @@ public class RentalFragment extends Fragment {
 
 			try {
 				collection = endpoint.listRental().execute();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;
@@ -143,6 +170,8 @@ public class RentalFragment extends Fragment {
 							.newLatLngZoom(milano, 10);
 					mapIn.animateCamera(cameraUpdate);
 
+					if (task.isCancelled())
+						return;
 					if (!result.isEmpty()) {
 						Iterator<Rental> iterator = result.getItems()
 								.iterator();

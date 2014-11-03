@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/lXDxwSKzPQSDjmDWaqRcTH3oxSs\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/DWRUe_cAKn7o4ExXMwr0N-uP7Q4\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -93,6 +93,13 @@
    "id": "Rental",
    "type": "object",
    "properties": {
+    "address": {
+     "type": "string"
+    },
+    "availability": {
+     "type": "string",
+     "format": "date-time"
+    },
     "havePicture": {
      "type": "boolean"
     },
@@ -112,6 +119,10 @@
      "type": "number",
      "format": "double"
     },
+    "squaredMeter": {
+     "type": "integer",
+     "format": "int32"
+    },
     "text": {
      "type": "string"
     },
@@ -120,6 +131,9 @@
      "format": "date-time"
     },
     "title": {
+     "type": "string"
+    },
+    "type": {
      "type": "string"
     },
     "userId": {

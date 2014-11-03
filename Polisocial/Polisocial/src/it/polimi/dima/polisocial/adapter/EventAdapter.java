@@ -34,7 +34,8 @@ import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
 public class EventAdapter extends EndlessListAdapter<Initiative> {
 
@@ -103,10 +104,10 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 							showRelativeCommentsIntent.putExtra("postId", id);
 							showRelativeCommentsIntent.putExtra(
 									"notificationCategory",
-									NotificationCategory.NOT_FROM_NOTIFICATION
+									WhatToShow.ONLY_COMMENTS
 											.toString());
 							showRelativeCommentsIntent.putExtra("type",
-									NotificationCategory.EVENT.toString());
+									PostType.EVENT.toString());
 							context.startActivity(showRelativeCommentsIntent);
 						}
 					});

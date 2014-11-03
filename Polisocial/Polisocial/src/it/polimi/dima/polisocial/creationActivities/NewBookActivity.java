@@ -145,7 +145,7 @@ public class NewBookActivity extends Activity {
 		String publicationYearString = mBookPublicationDate.getText()
 				.toString();
 		Integer publicationYear = null;
-		if (TextUtils.isEmpty(publicationYearString)) {
+		if (!TextUtils.isEmpty(publicationYearString)) {
 			try {
 				publicationYear = Integer.parseInt(publicationYearString);
 			} catch (NumberFormatException e) {

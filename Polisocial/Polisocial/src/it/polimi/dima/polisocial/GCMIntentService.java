@@ -19,7 +19,7 @@ package it.polimi.dima.polisocial;
 import it.polimi.dima.polisocial.deviceinfoendpoint.Deviceinfoendpoint;
 import it.polimi.dima.polisocial.deviceinfoendpoint.model.DeviceInfo;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
-import it.polimi.dima.polisocial.utilClasses.NotificationCategory;
+import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
@@ -266,7 +266,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	        String title = context.getString(R.string.app_name);
 	        String textNotif = "";
 	        int id = 0;
-	        if (message.equals(NotificationCategory.SIMPLE_SPOTTED.toString())){
+	        if (message.equals(PostType.SPOTTED.toString())){
 				textNotif="You have received new Spotted messages";
 	        	id=1;
 	        }

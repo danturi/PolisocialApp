@@ -482,7 +482,7 @@ public class TabActivity extends FragmentActivity implements
 					}
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
-					mFragmentAtPos2 = new RentalFragment();
+					mFragmentAtPos2 = RentalFragment.newInstance(listenerAnnouncement);
 					mFragmentAtPos2.setInitialSavedState(mFragmentRental);
 				}
 				if (newFragmentName.equals("lesson")) {
@@ -499,6 +499,13 @@ public class TabActivity extends FragmentActivity implements
 					
 					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
 				}
+				
+				if(newFragmentName.equals("rentalList")){
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+					.commit();
+					mFragmentAtPos2 = RentalFragmentList.newInstance(listenerAnnouncement);
+				}
+				
 				
 				if(newFragmentName.equals("announcements")){
 					if (mFragmentAtPos2 instanceof SecondHandBookFragment) {
