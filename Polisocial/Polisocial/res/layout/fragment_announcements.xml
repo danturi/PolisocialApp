@@ -3,25 +3,32 @@
    	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
-		<ImageButton 
+		
+		<Button 
 		    android:id="@+id/imageButton1"
 		    android:layout_width="match_parent" 
 			android:layout_height="0dp"
 			android:layout_weight="33"
-			android:src="@drawable/ic_announcements_lesson"
-/>
-		<ImageButton 
+			android:drawableLeft="@drawable/ic_announcements_lessons"
+                android:drawableStart="@drawable/ic_announcements_lessons"
+  android:text="@string/private_lessons"/>
+		<Button 
 		    android:id="@+id/imageButton2"
 		    android:layout_width="match_parent" 
 			android:layout_height="0dp"
 			android:layout_weight="33"
-			android:src="@drawable/ic_announcements_books"
-/>
-		<ImageButton 
+			android:drawableLeft="@drawable/ic_announcements_books"
+                android:drawableStart="@drawable/ic_announcements_books"
+  android:text="@string/second_hand_books"/>
+		<Button 
 		    android:id="@+id/imageButton3"
 		    android:layout_width="match_parent" 
 			android:layout_height="0dp"
 			android:layout_weight="34"
-			android:src="@drawable/ic_announcements_rents"
+			android:drawableLeft="@drawable/ic_announcements_rents"
+                android:drawableStart="@drawable/ic_announcements_rents"
+                android:text="@string/rental_homes"
 />
 </LinearLayout>
+
+

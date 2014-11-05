@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -52,7 +53,7 @@
                     android:shadowDy="0.0"
                     android:shadowRadius="2.0"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/post_item_profile_name"/>
+                    android:textSize="@dimen/post_item_profile_name" />
 
                 <TextView
                     android:id="@+id/bar2"
@@ -74,8 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/month"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp" >
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp" >
 
                     <ImageView
                         android:id="@+id/event_picture"
@@ -146,20 +147,37 @@
                     android:textSize="@dimen/post_item_timestamp"
                     android:textStyle="normal" />
 
-                <TextView
-                    android:id="@+id/numb_of_comments"
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-					android:layout_marginLeft="15dp"
-					android:layout_marginBottom="7dp"
-                    android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                    android:textSize="@dimen/post_item_numb_of_commments"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/numb_of_comments"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                        android:textSize="@dimen/post_item_numb_of_commments"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/numb_of_participants"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:text="@string/going"
+                        android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
+                        android:textSize="@dimen/post_item_numb_of_commments"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content" >
 
                     <Button
                         android:id="@+id/imageButton1"
@@ -172,7 +190,7 @@
                         android:drawableStart="@drawable/like_button_icon"
                         android:paddingLeft="30dp"
                         android:paddingRight="30dp"
-                        android:text="Like"
+                        android:text="@string/like"
                         android:textColor="@color/post_button_text"
                         android:textSize="8dp"
                         android:textStyle="bold" />
@@ -183,20 +201,15 @@
                         android:layout_height="24dp"
                         android:layout_weight="50"
                         android:background="@drawable/event_left_bottom_button"
-                        android:drawableLeft="@drawable/dislike_button_icon"
-                        android:drawableStart="@drawable/dislike_button_icon"
                         android:paddingLeft="27dp"
                         android:paddingRight="27dp"
-                        android:text="Dislike"
+                        android:text="@string/join"
                         android:textColor="@color/post_button_text"
                         android:textSize="8dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 </LinearLayout>

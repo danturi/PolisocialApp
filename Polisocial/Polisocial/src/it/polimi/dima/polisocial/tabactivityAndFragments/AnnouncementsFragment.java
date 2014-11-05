@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 public class AnnouncementsFragment extends Fragment {
 
@@ -21,11 +20,11 @@ public class AnnouncementsFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_announcements, null);
 
 		// button
-		ImageButton lessonButton = (ImageButton) v
+		Button lessonButton = (Button) v
 				.findViewById(R.id.imageButton1);
-		ImageButton bookButton = (ImageButton) v
+		Button bookButton = (Button) v
 				.findViewById(R.id.imageButton2);
-		ImageButton rentButton = (ImageButton) v
+		Button rentButton = (Button) v
 				.findViewById(R.id.imageButton3);
 
 		// listener button

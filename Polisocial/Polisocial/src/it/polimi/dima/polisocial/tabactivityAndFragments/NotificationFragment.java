@@ -211,7 +211,6 @@ public class NotificationFragment extends ListFragment implements
 		}
 
 		startActivity(showRelativeCommentsIntent);
-		// Insert desired behaviour here.
 	}
 
 	@Override

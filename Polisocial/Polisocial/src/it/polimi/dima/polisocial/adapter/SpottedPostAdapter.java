@@ -9,6 +9,7 @@ import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint.GetRental;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
@@ -261,7 +262,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 			}
 
 			holder.numbOfComments
-					.setText(item.getNumOfComments() + " comments");
+					.setText(item.getNumOfComments() + " " + getContext().getResources().getString(R.string.comments));
 			if (getItemViewType(position) == VIEW_CUPIDO) {
 
 				holder.hitOnButton

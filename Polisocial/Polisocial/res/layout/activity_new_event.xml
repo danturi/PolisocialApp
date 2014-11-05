@@ -23,138 +23,197 @@
         android:layout_height="fill_parent"
         android:fillViewport="true" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dip" >
+            android:layout_height="wrap_content" >
 
-            <!-- Object/Location -->
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/event_title"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/title"
+            <LinearLayout
+                android:id="@+id/titleLocationPanel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:hint="@string/event_title_example"
-                android:inputType="text"
-                android:maxLength="45"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/event_location"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
+                <!-- Object/Location -->
 
-            <EditText
-                android:id="@+id/location"
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/event_title"
+                    android:textColor="#45a700"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/event_title_example"
+                    android:inputType="text"
+                    android:maxLength="45"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/event_location"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rect_text_edit"
+                    android:hint="@string/event_location_example"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="5dip"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dateTimePanel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rect_text_edit"
-                android:hint="@string/event_location_example"
-                android:inputType="text"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="5dip"
-                android:singleLine="true" />
+                android:layout_below="@+id/titleLocationPanel"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:baselineAligned="false" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/event_date"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/datePanel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dip" >
 
-            <TextView
-                android:id="@+id/start_date"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/event_date"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/event_start_time"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/start_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:background="@drawable/rect_text_edit"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:padding="5dip"
+                        android:singleLine="true"
+                        android:textColorHint="@color/timestamp" />
+                    
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/start_time"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@drawable/bg_text_numbofcomments_clickable_color"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/timePanel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dip" >
 
-            <!-- Spinner category -->
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/event_start_time"
+                        android:textColor="@color/Green"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/post_category"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:background="@drawable/rect_text_edit"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="date"
+                        android:maxLines="1"
+                        android:padding="5dip"
+                        android:singleLine="true"
+                        android:textColorHint="@color/timestamp" />
+                    
+                </LinearLayout>
+                <!-- Spinner category -->
+            </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinnerCategory"
+            <LinearLayout
+                android:id="@+id/categoryDescriptionPanel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:entries="@array/event_category_arrays" />
+                android:layout_height="match_parent"
+                android:layout_below="@+id/dateTimePanel"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dip" >
 
-            <ImageView
-                android:id="@+id/pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post_category"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/picture_taken_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="#45a700"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/event_category_arrays" />
 
-            <!-- Text -->
+                <ImageView
+                    android:id="@+id/pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/event_description"
-                android:textColor="#45a700"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/picture_taken_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-            <EditText
-                android:id="@+id/event_description"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:background="@drawable/rect_text_edit"
-                android:gravity="top"
-                android:hint="@string/event_description_hint"
-                android:inputType="textMultiLine"
-                android:maxLines="20"
-                android:padding="5dip" />
-        </LinearLayout>
+                <!-- Text -->
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/event_description"
+                    android:textColor="@color/Green"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/event_description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rect_text_edit"
+                    android:gravity="top"
+                    android:hint="@string/event_description_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLines="20"
+                    android:padding="5dip" />
+            </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

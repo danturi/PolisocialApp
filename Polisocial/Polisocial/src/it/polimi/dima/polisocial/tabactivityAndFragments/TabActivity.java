@@ -93,8 +93,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 
 public class TabActivity extends FragmentActivity implements
-		ActionBar.TabListener, HitOnDialogListener,
-		FacultyDialogListener,
+		ActionBar.TabListener, HitOnDialogListener, FacultyDialogListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 
@@ -131,8 +130,17 @@ public class TabActivity extends FragmentActivity implements
 	@Override
 	public void onBackPressed() {
 		// minimize
-		
-		moveTaskToBack(true);
+		int item = mViewPager.getCurrentItem();
+		Fragment currentFragm = mAppSectionsPagerAdapter.mFragmentAtPos2;
+		if ((item == 2) && !(currentFragm instanceof AnnouncementsFragment)) {
+			mAppSectionsPagerAdapter.mFragmentManager.beginTransaction().remove(currentFragm)
+					.commit();
+			mAppSectionsPagerAdapter.mFragmentAtPos2 = AnnouncementsFragment.newInstance(mAppSectionsPagerAdapter.listenerAnnouncement);
+			mAppSectionsPagerAdapter.notifyDataSetChanged();
+
+		} else {
+			moveTaskToBack(true);
+		}
 	}
 
 	@Override
@@ -159,13 +167,13 @@ public class TabActivity extends FragmentActivity implements
 			title = getString(R.string.second_tab_title);
 			break;
 		case 2:
-			if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof SecondHandBookFragment){
+			if (mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof SecondHandBookFragment) {
 				title = getString(R.string.book_fragment_title);
-			}else if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof RentalFragment){
+			} else if (mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof RentalFragment) {
 				title = getString(R.string.rental_fragment_title);
-			}else if(mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof PrivateLessonFragment){
+			} else if (mAppSectionsPagerAdapter.mFragmentAtPos2 instanceof PrivateLessonFragment) {
 				title = getString(R.string.lesson_fragment_title);
-			}else{
+			} else {
 				title = getString(R.string.third_tab_title);
 			}
 			break;
@@ -182,14 +190,14 @@ public class TabActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-		
-		//ask for faculty at the first user login
-		
-		if(getIntent().getBooleanExtra("firstLogin", false)){
+
+		// ask for faculty at the first user login
+
+		if (getIntent().getBooleanExtra("firstLogin", false)) {
 			showNoticeDialog();
-			
+
 		}
-		
+
 		sessionManager = new SessionManager(getApplicationContext());
 
 		servicesConnected();
@@ -286,7 +294,6 @@ public class TabActivity extends FragmentActivity implements
 			actionBar.setSelectedNavigationItem(4);
 		}
 
-		
 	}
 
 	@Override
@@ -317,7 +324,8 @@ public class TabActivity extends FragmentActivity implements
 			startActivity(new Intent(TabActivity.this, NewBookActivity.class));
 			return true;
 		case R.id.action_create_lesson:
-			startActivity(new Intent(TabActivity.this, NewPrivateLessonActivity.class));
+			startActivity(new Intent(TabActivity.this,
+					NewPrivateLessonActivity.class));
 			return true;
 		case R.id.action_create_rental:
 			startActivity(new Intent(TabActivity.this, NewRentalActivity.class));
@@ -342,17 +350,13 @@ public class TabActivity extends FragmentActivity implements
 			sessionManager.logoutUser();
 			GCMIntentService.unregister(this);
 
-		/**case R.id.menu_filter_events_culture:
-			item.setChecked(true);
-			// showProfile();
-		case R.id.menu_filter_events_fun:
-			item.setChecked(true);
-			// showProfile();
-		case R.id.menu_filter_events_various:
-			item.setChecked(true);
-			// showProfile();
-			return true;
-**/
+			/**
+			 * case R.id.menu_filter_events_culture: item.setChecked(true); //
+			 * showProfile(); case R.id.menu_filter_events_fun:
+			 * item.setChecked(true); // showProfile(); case
+			 * R.id.menu_filter_events_various: item.setChecked(true); //
+			 * showProfile(); return true;
+			 **/
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -369,6 +373,7 @@ public class TabActivity extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+
 	}
 
 	@Override
@@ -403,7 +408,7 @@ public class TabActivity extends FragmentActivity implements
 			public void onSwitchFragment() {
 
 				if (mFragmentAtPos3 instanceof GoogleMapFragment) {
-					
+
 					if (mFragmentAtpos3List == null || update == true) {
 						mFragmentManager.beginTransaction()
 								.remove(mFragmentAtPos3).commit();
@@ -453,7 +458,7 @@ public class TabActivity extends FragmentActivity implements
 			public void onSwitchFragment() {
 			}
 
-			//utilizza il parametro per scegliere quale fragm sostituire
+			// utilizza il parametro per scegliere quale fragm sostituire
 			@Override
 			public void onSwitchFragmentName(String newFragmentName) {
 
@@ -469,7 +474,7 @@ public class TabActivity extends FragmentActivity implements
 							.commit();
 					mFragmentAtPos2 = new SecondHandBookFragment();
 					mFragmentAtPos2.setInitialSavedState(mFragmentBook);
-					
+
 				}
 
 				if (newFragmentName.equals("rental")) {
@@ -482,7 +487,8 @@ public class TabActivity extends FragmentActivity implements
 					}
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
-					mFragmentAtPos2 = RentalFragment.newInstance(listenerAnnouncement);
+					mFragmentAtPos2 = RentalFragment
+							.newInstance(listenerAnnouncement);
 					mFragmentAtPos2.setInitialSavedState(mFragmentRental);
 				}
 				if (newFragmentName.equals("lesson")) {
@@ -496,31 +502,31 @@ public class TabActivity extends FragmentActivity implements
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
 					mFragmentAtPos2 = new PrivateLessonFragment();
-					
+
 					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
 				}
-				
-				if(newFragmentName.equals("rentalList")){
+
+				if (newFragmentName.equals("rentalList")) {
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
-					.commit();
-					mFragmentAtPos2 = RentalFragmentList.newInstance(listenerAnnouncement);
+							.commit();
+					mFragmentAtPos2 = RentalFragmentList
+							.newInstance(listenerAnnouncement);
 				}
-				
-				
-				if(newFragmentName.equals("announcements")){
+
+				if (newFragmentName.equals("announcements")) {
 					if (mFragmentAtPos2 instanceof SecondHandBookFragment) {
 						mFragmentBook = mFragmentManager
 								.saveFragmentInstanceState(mFragmentAtPos2);
-					} else if (mFragmentAtPos2 instanceof RentalFragment){
+					} else if (mFragmentAtPos2 instanceof RentalFragment) {
 						mFragmentRental = mFragmentManager
 								.saveFragmentInstanceState(mFragmentAtPos2);
-					}else if (mFragmentAtPos2 instanceof PrivateLessonFragment){
+					} else if (mFragmentAtPos2 instanceof PrivateLessonFragment) {
 						mFragmentLesson = mFragmentManager
 								.saveFragmentInstanceState(mFragmentAtPos2);
 					}
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
-					mFragmentAtPos2 = new AnnouncementsFragment();
+					mFragmentAtPos2 = AnnouncementsFragment.newInstance(listenerAnnouncement);
 				}
 
 				notifyDataSetChanged();
@@ -597,10 +603,13 @@ public class TabActivity extends FragmentActivity implements
 			if (object instanceof PrivateLessonFragment
 					&& !(mFragmentAtPos2 instanceof PrivateLessonFragment))
 				return POSITION_NONE;
+			if (object instanceof RentalFragment
+					&& !(mFragmentAtPos2 instanceof RentalFragment))
+				return POSITION_NONE;
 			if (object instanceof AnnouncementsFragment
 					&& !(mFragmentAtPos2 instanceof AnnouncementsFragment))
 				return POSITION_NONE;
-			
+
 			return POSITION_UNCHANGED;
 
 		}
@@ -636,7 +645,8 @@ public class TabActivity extends FragmentActivity implements
 				Bundle savedInstanceState) {
 
 			super.onCreateView(inflater, container, savedInstanceState);
-			View v = inflater.inflate(R.layout.fragment_venues_map, container, false);
+			View v = inflater.inflate(R.layout.fragment_venues_map, container,
+					false);
 
 			// location =
 			// lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -670,7 +680,7 @@ public class TabActivity extends FragmentActivity implements
 			menu.findItem(R.id.action_create_rental).setVisible(false);
 			menu.findItem(R.id.action_create_book).setVisible(false);
 			menu.findItem(R.id.action_create_event).setVisible(false);
-			//menu.findItem(R.id.menu_filter_events).setVisible(false);
+			// menu.findItem(R.id.menu_filter_events).setVisible(false);
 			menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 		}
 
@@ -902,7 +912,7 @@ public class TabActivity extends FragmentActivity implements
 		public void onPrepareOptionsMenu(Menu menu) {
 			super.onPrepareOptionsMenu(menu);
 			menu.findItem(R.id.action_create_event).setVisible(false);
-			//menu.findItem(R.id.menu_filter_events).setVisible(false);
+			// menu.findItem(R.id.menu_filter_events).setVisible(false);
 			menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 		}
 
@@ -1137,15 +1147,16 @@ public class TabActivity extends FragmentActivity implements
 		DialogFragment dialog = new SingleChoiceDialogFragm();
 		dialog.show(getFragmentManager(), "SingleChoiceDialogFragm");
 	}
-	
-	//dialog faculty
+
+	// dialog faculty
 	@Override
 	public void onFacultyDialogPositiveClick(String faculty) {
-		new UpdateFacultyPoliUser(Long.valueOf(sessionManager.getUserDetails().get(SessionManager.KEY_USERID))).execute(faculty);
-		
+		new UpdateFacultyPoliUser(Long.valueOf(sessionManager.getUserDetails()
+				.get(SessionManager.KEY_USERID))).execute(faculty);
+
 	}
-	
-	//dialog HitOn
+
+	// dialog HitOn
 	@Override
 	public void onHitOnDialogPositiveClick(String message, Bundle bundle) {
 		long userId = bundle.getLong("userId");
@@ -1155,23 +1166,25 @@ public class TabActivity extends FragmentActivity implements
 
 	}
 
-	public class UpdateFacultyPoliUser extends AsyncTask<String, Void, String>{
+	public class UpdateFacultyPoliUser extends AsyncTask<String, Void, String> {
 
 		private Long userId;
-		
+
 		public UpdateFacultyPoliUser(Long userId) {
-			this.userId=userId;
+			this.userId = userId;
 		}
 
 		@Override
 		protected String doInBackground(String... params) {
-			
+
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
-					AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
-			
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
 			builder = CloudEndpointUtils.updateBuilder(builder);
-			Poliuserendpoint endpoint = builder.setApplicationName("polimisocial").build();
-			
+			Poliuserendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+
 			try {
 				endpoint.updateFacultyPoliUser(params[0], userId).execute();
 			} catch (IOException e) {
@@ -1185,10 +1198,9 @@ public class TabActivity extends FragmentActivity implements
 			super.onPostExecute(faculty);
 			sessionManager.setFaculty(faculty);
 		}
-		
+
 	}
-	
-	
+
 	// creo hitOn e lo inserisco nel db
 	public class InsertHitOn extends AsyncTask<Long, Void, Boolean> {
 
@@ -1453,7 +1465,5 @@ public class TabActivity extends FragmentActivity implements
 	public void setNotificationIntent(Intent intent) {
 		intentGcmNotifica = intent;
 	}
-
-	
 
 }

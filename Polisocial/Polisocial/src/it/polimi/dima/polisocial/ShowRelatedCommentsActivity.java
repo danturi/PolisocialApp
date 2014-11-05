@@ -458,7 +458,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 												FullScreenPicActivity.class);
 										showFullScreenPicIntent.putExtra(
 												"picInByte", byteArrayImage);
-										getBaseContext().startActivity(
+										startActivity(
 												showFullScreenPicIntent);
 									}
 								});
@@ -473,7 +473,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		String dateTime = item.getBeginningDate().toString();
 		String dateString = EventAdapter.composeDateString(
 				dateTime.substring(0, 4), dateTime.substring(5, 7),
-				dateTime.substring(8, 10));
+				dateTime.substring(8, 10),null,null);
 		String time = dateTime.substring(11, Math.min(dateTime.length(), 16));
 
 		headerBeginningDate.setText(dateString + " at " + time);

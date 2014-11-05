@@ -11,21 +11,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.R;
@@ -82,9 +74,11 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 						.findViewById(R.id.event_picture);
 				holder.numbOfComments = (TextView) view
 						.findViewById(R.id.numb_of_comments);
+				holder.month = (TextView) view.findViewById(R.id.month);
+				holder.day = (TextView) view.findViewById(R.id.day);
 
 			} else {
-				view = mInflater.inflate(R.layout.progress, parent, false);
+				view = mInflater.inflate(R.layout.progress_white, parent, false);
 			}
 			view.setTag(holder);
 		} else {
@@ -104,8 +98,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 							showRelativeCommentsIntent.putExtra("postId", id);
 							showRelativeCommentsIntent.putExtra(
 									"notificationCategory",
-									WhatToShow.ONLY_COMMENTS
-											.toString());
+									WhatToShow.ONLY_COMMENTS.toString());
 							showRelativeCommentsIntent.putExtra("type",
 									PostType.EVENT.toString());
 							context.startActivity(showRelativeCommentsIntent);
@@ -205,8 +198,10 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 			holder.location.setText(item.getLocation());
 
 			String dateTime = item.getBeginningDate().toString();
+
 			String dateString = composeDateString(dateTime.substring(0, 4),
-					dateTime.substring(5, 7), dateTime.substring(8, 10));
+					dateTime.substring(5, 7), dateTime.substring(8, 10),
+					holder.month, holder.day);
 			String time = dateTime.substring(11,
 					Math.min(dateTime.length(), 16));
 
@@ -225,7 +220,8 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		return view;
 	}
 
-	public static String composeDateString(String year, String month, String day) {
+	public static String composeDateString(String year, String month,
+			String day, TextView monthView, TextView dayView) {
 		String stringMonth;
 		switch (month) {
 		case "01":
@@ -267,7 +263,10 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		default:
 			stringMonth = "error";
 		}
-
+		if (monthView != null)
+			monthView.setText(stringMonth.toUpperCase());
+		if (dayView != null)
+			dayView.setText(day);
 		return day + " " + stringMonth + " " + year;
 	}
 
@@ -277,6 +276,8 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		ImageView eventPicture;
 		TextView numbOfComments;
 		TextView beginningDate;
+		TextView month;
+		TextView day;
 	}
 
 }

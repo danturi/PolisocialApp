@@ -1,10 +1,15 @@
 package it.polimi.dima.polisocial.tabactivityAndFragments;
 
 import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.adapter.EventAdapter;
 import it.polimi.dima.polisocial.customListeners.EndlessScrollListener;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.loader.EventListLoader;
+import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -22,8 +27,7 @@ public class EventsFragment extends ListFragment implements
 	private boolean refreshRequest = false;
 	private EventAdapter mAdapter;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private View mProgressView;
-	private ListView mList;
+	//private View mProgressView;
 	private String mCursor = null;
 	private EndlessScrollListener mEndlessScrollListener;
 
@@ -43,8 +47,8 @@ public class EventsFragment extends ListFragment implements
 		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new EventAdapter(getActivity());
 		setListAdapter(mAdapter);
-		mList = getListView();
-		mList.setAdapter(mAdapter);
+		
+		setListAdapter(mAdapter);
 
 		mEndlessScrollListener = new EndlessScrollListener() {
 			@Override
@@ -53,9 +57,9 @@ public class EventsFragment extends ListFragment implements
 				loadData();
 			}
 		};
-		mList.setOnScrollListener(mEndlessScrollListener);
+		getListView().setOnScrollListener(mEndlessScrollListener);
 		// Start out with a progress indicator.
-		mProgressView = getView().findViewById(R.id.progress_bar);
+		//mProgressView = getView().findViewById(R.id.progress_bar);
 
 		mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(
 				R.id.swipe_container);
@@ -89,7 +93,19 @@ public class EventsFragment extends ListFragment implements
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// Insert desired behaviour here.
+		super.onListItemClick(l, v, position, id);
+		Initiative eventClicked = (Initiative) getListView().getItemAtPosition(
+				position);
+		long postId = eventClicked.getId();
+		String postType = PostType.EVENT.toString();
+
+		Intent showRelativeCommentsIntent = new Intent(getActivity(),
+				ShowRelatedCommentsActivity.class);
+		showRelativeCommentsIntent.putExtra("postId", postId);
+		showRelativeCommentsIntent.putExtra("notificationCategory",
+				WhatToShow.DETAILS.toString());
+		showRelativeCommentsIntent.putExtra("type", postType);
+		startActivity(showRelativeCommentsIntent);
 	}
 
 	private void loadData() {
@@ -123,10 +139,10 @@ public class EventsFragment extends ListFragment implements
 				mAdapter.addAll(data.getItems());
 			}
 			mEndlessScrollListener.setLoading(false);
-			
-			if(data.getItems().size()==10){
+
+			if (data.getItems().size() == 10) {
 				mEndlessScrollListener.setLoading(false);
-			}else{
+			} else {
 				mAdapter.setLoading_row(0);
 				mAdapter.notifyDataSetChanged();
 			}

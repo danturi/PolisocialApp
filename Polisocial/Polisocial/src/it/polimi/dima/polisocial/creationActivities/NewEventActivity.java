@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -23,8 +24,9 @@ import com.google.api.client.util.DateTime;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -52,27 +54,23 @@ import android.widget.Toast;
 public class NewEventActivity extends Activity {
 
 	private static final int RESULT_LOAD_PICTURE = 1;
-	private static final int DATE_DIALOG_ID = 2;
-	private static final int TIME_DIALOG_ID = 3;
 
 	private byte[] pictureInBytes;
 	private CreateNewEventTask mCreateEventTask = null;
 	private EditText mTitleView;
 	private EditText mLocationView;
 	private EditText mEventDescriptionView;
-	private TextView mEventDateView;
-	private TextView mEventTimeView;
+	private EditText mEventDateView;
+	private EditText mEventTimeView;
 	private Spinner mSpinnerView;
 	private View mProgressView;
 	private View mEventCreationForm;
 
-	private int year, month, day;
-	private int hour, minute;
+	private int mYear, mMonth, mDay;
+	private int mHour, mMinute;
 
 	private SessionManager sessionManager;
 
-	private String INITIAL_TEXT_DATE = "Tap to set event date";
-	private String INITIAL_TEXT_TIME = "Tap to set event time";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,88 +78,65 @@ public class NewEventActivity extends Activity {
 		setContentView(R.layout.activity_new_event);
 		getActionBar().setIcon(R.drawable.logo_login);
 		sessionManager = new SessionManager(getApplicationContext());
-		setCurrentDate();
 		mTitleView = (EditText) findViewById(R.id.title);
 		mLocationView = (EditText) findViewById(R.id.location);
 		mEventDescriptionView = (EditText) findViewById(R.id.event_description);
-		mEventDateView = (TextView) findViewById(R.id.start_date);
-		mEventTimeView = (TextView) findViewById(R.id.start_time);
+		mEventDateView = (EditText) findViewById(R.id.start_date);
+		mEventTimeView = (EditText) findViewById(R.id.start_time);
 		mSpinnerView = (Spinner) findViewById(R.id.spinnerCategory);
 		mEventCreationForm = findViewById(R.id.event_creation_form);
 		mProgressView = findViewById(R.id.progress);
 
-		mEventDateView.setText(INITIAL_TEXT_DATE);
-		mEventTimeView.setText(INITIAL_TEXT_TIME);
-
 		mEventDateView.setOnClickListener(new OnClickListener() {
-			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
-				showDialog(DATE_DIALOG_ID);
+				Calendar mcurrentDate = Calendar.getInstance();
+				int year = mcurrentDate.get(Calendar.YEAR);
+				int month = mcurrentDate.get(Calendar.MONTH);
+				int day = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+				DatePickerDialog mDatePicker = new DatePickerDialog(
+						NewEventActivity.this, new OnDateSetListener() {
+
+							@Override
+							public void onDateSet(DatePicker view, int year,
+									int monthOfYear, int dayOfMonth) {
+								mEventDateView.setText(dayOfMonth + "/"
+										+ (++monthOfYear) + "/" + year);
+								mYear=year;
+								mMonth=monthOfYear;
+								mDay=dayOfMonth;
+							}
+						}, year, month, day);
+				mDatePicker.setTitle("Start date:");
+				mDatePicker.show();
 			}
 		});
 		mEventTimeView.setOnClickListener(new OnClickListener() {
-			@SuppressWarnings("deprecation")
+
 			@Override
 			public void onClick(View v) {
-				showDialog(TIME_DIALOG_ID);
+				Calendar mcurrentDate = Calendar.getInstance();
+				int hour = mcurrentDate.get(Calendar.HOUR);
+				int minute = mcurrentDate.get(Calendar.MINUTE);
+				TimePickerDialog mTimePicker = new TimePickerDialog(
+						NewEventActivity.this, new OnTimeSetListener() {
+
+							@Override
+							public void onTimeSet(TimePicker view, int hour,
+									int minute) {
+								mEventTimeView.setText(hour + ":" + minute);
+								mHour = hour;
+								mMinute = minute;
+							}
+						}, hour, minute, true);
+				mTimePicker.setTitle("Start time:");
+				mTimePicker.show();
 			}
 		});
 	}
 
-	// display current date both on the text view and the Date Picker
-	public void setCurrentDate() {
-		final Calendar calendar = Calendar.getInstance();
-		year = calendar.get(Calendar.YEAR);
-		month = calendar.get(Calendar.MONTH);
-		day = calendar.get(Calendar.DAY_OF_MONTH);
-	}
-
-	@Override
-	protected Dialog onCreateDialog(int id) {
-
-		switch (id) {
-		case DATE_DIALOG_ID:
-			// set date picker as current date
-			return new DatePickerDialog(this, datePickerListener, year, month,
-					day);
-		case TIME_DIALOG_ID:
-			return new TimePickerDialog(this, timePickerListener, 12, 0, true);
-		}
-		// set time picker a
-		return null;
-	}
-
-	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-		// when dialog box is closed, below method will be called.
-		public void onDateSet(DatePicker view, int selectedYear,
-				int selectedMonth, int selectedDay) {
-			year = selectedYear - 1900;
-			month = selectedMonth;
-			day = selectedDay;
-
-			// set selected date into Text View
-			mEventDateView.setText(new StringBuilder().append(month + 1)
-					.append("-").append(day).append("-").append(year)
-					.append(" "));
-		}
-	};
-
-	private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
-
-		@Override
-		public void onTimeSet(TimePicker view, int selectedHour,
-				int selectedMinute) {
-			hour = selectedHour;
-			minute = selectedMinute;
-
-			mEventTimeView.setText(new StringBuilder().append(hour)
-					.append(" : ").append(minute));
-
-		}
-	};
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -193,15 +168,15 @@ public class NewEventActivity extends Activity {
 			}
 
 			String date = mEventDateView.getText().toString();
-			if (date.equals(INITIAL_TEXT_DATE)) {
+			if (TextUtils.isEmpty(date)) {
 				mEventDateView
 						.setError(getString(R.string.error_field_required));
 				focusView = mEventDateView;
 				cancel = true;
 			}
-
+			
 			String time = mEventTimeView.getText().toString();
-			if (time.equals(INITIAL_TEXT_TIME)) {
+			if (TextUtils.isEmpty(time)) {
 				mEventTimeView
 						.setError(getString(R.string.error_field_required));
 				focusView = mEventTimeView;
@@ -217,9 +192,8 @@ public class NewEventActivity extends Activity {
 			}
 
 			String category = mSpinnerView.getSelectedItem().toString();
-			@SuppressWarnings("deprecation")
-			DateTime dateAndTime = new DateTime(new Date(year, month, day,
-					hour, minute));
+			DateTime dateAndTime = new DateTime(new GregorianCalendar(mYear, mMonth-1, mDay,
+					mHour+1, mMinute).getTime());
 			if (cancel) {
 				focusView.requestFocus();
 			} else {
