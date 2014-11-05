@@ -1,17 +1,25 @@
 package it.polimi.dima.polisocial.creationActivities;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.RegistrationActivity;
+import it.polimi.dima.polisocial.adapter.GridViewPictureAdapter;
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
+import it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage;
+import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
+import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,25 +31,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.internal.mc;
-import com.google.android.gms.internal.md;
-import com.google.api.client.util.DateTime;
-import com.google.api.client.util.Sleeper;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.test.RenamingDelegatingContext;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
+import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +67,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.internal.mf;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 public class NewRentalActivity extends Activity {
 
@@ -78,6 +96,12 @@ public class NewRentalActivity extends Activity {
 	private SessionManager sessionManager;
 	private EditText mDescriptionView;
 	private EditText mStreetNumView;
+	private GridView gridView;
+	private GridViewPictureAdapter customGridAdapter;
+	private ArrayList<Bitmap> imageArray = new ArrayList<Bitmap>();
+	private ArrayList<byte[]> byteArray = new ArrayList<byte[]>();
+	private TextView textPictureView;
+	CreateNewRentalTask task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +110,7 @@ public class NewRentalActivity extends Activity {
 
 		StrictMode.setThreadPolicy(policy);
 		sessionManager = new SessionManager(getApplicationContext());
-		
+
 		autoCompView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
 		autoCompView.setAdapter(new PlacesAutoCompleteAdapter(this,
 				R.layout.list_item));
@@ -127,26 +151,26 @@ public class NewRentalActivity extends Activity {
 				if (!isAutoCompChoice && !hasFocus) {
 					autoCompView
 							.setError(getString(R.string.error_autocomplete));
-					
+
 				}
 
 			}
 		});
-		
-		
+
 		autoCompView.setOnKeyListener(new OnKeyListener() {
-			
+
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				 EditText eText = (EditText)v;
+				EditText eText = (EditText) v;
 
-		            // remove error sign
-		            eText.setError(null);
-		            
+				// remove error sign
+				eText.setError(null);
+
 				return false;
 			}
-	    });
-		
+		});
+
+		mProgressViewFullScreen = (ProgressBar) findViewById(R.id.progress_rental);
 		mTitle = (EditText) findViewById(R.id.rental_title);
 		mPriceView = (EditText) findViewById(R.id.rental_price);
 		mTypeView = (EditText) findViewById(R.id.rental_type);
@@ -156,6 +180,21 @@ public class NewRentalActivity extends Activity {
 		mRentalCreation = findViewById(R.id.rental_creation_form);
 		mDescriptionView = (EditText) findViewById(R.id.rental_description);
 		mStreetNumView = (EditText) findViewById(R.id.rental_street_number);
+		gridView = (GridView) findViewById(R.id.gridView);
+		textPictureView = (TextView) findViewById(R.id.rental_picture_text);
+
+		customGridAdapter = new GridViewPictureAdapter(this, R.layout.row_grid,
+				imageArray,byteArray, textPictureView);
+		gridView.setAdapter(customGridAdapter);
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				gridView.setBackgroundColor(Color.RED);
+
+			}
+		});
 
 		mAvailabilityView.setOnClickListener(new OnClickListener() {
 
@@ -193,6 +232,32 @@ public class NewRentalActivity extends Activity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == RESULT_LOAD_PICTURE && resultCode == RESULT_OK
+				&& data != null) {
+			Uri selectedImage = data.getData();
+			String[] filePath = { MediaStore.Images.Media.DATA };
+			Cursor c = getContentResolver().query(selectedImage, filePath,
+					null, null, null);
+			c.moveToFirst();
+			int columnIndex = c.getColumnIndex(filePath[0]);
+			String picturePath = c.getString(columnIndex);
+			c.close();
+			byte[] pictureInBytes = PictureEditing.compressPicture(picturePath);
+			byteArray.add(pictureInBytes);
+			Bitmap bitmap = BitmapFactory.decodeByteArray(pictureInBytes, 0,
+					pictureInBytes.length);
+			imageArray.add(bitmap);
+			customGridAdapter.notifyDataSetChanged();
+			textPictureView.setVisibility(View.VISIBLE);
+			gridView.setVisibility(View.VISIBLE);
+
+		}
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -203,19 +268,20 @@ public class NewRentalActivity extends Activity {
 			boolean cancel = false;
 
 			String streetNumber = mStreetNumView.getText().toString();
-			if(TextUtils.isEmpty(streetNumber)){
-				mStreetNumView.setError(getString(R.string.error_field_required));
+			if (TextUtils.isEmpty(streetNumber)) {
+				mStreetNumView
+						.setError(getString(R.string.error_field_required));
 				focusView = mStreetNumView;
 				cancel = true;
 			}
-			
+
 			String title = mTitle.getText().toString();
-			if(TextUtils.isEmpty(title)){
+			if (TextUtils.isEmpty(title)) {
 				mTitle.setError(getString(R.string.error_field_required));
 				focusView = mTitle;
 				cancel = true;
 			}
-			
+
 			// price control
 			String priceString = mPriceView.getText().toString();
 			if (TextUtils.isEmpty(priceString)) {
@@ -268,36 +334,43 @@ public class NewRentalActivity extends Activity {
 				// Show a progress spinner, and kick off a background task
 				ShowProgress.showProgress(true, mProgressViewFullScreen,
 						mRentalCreation, getApplicationContext());
-			
-				
+
 				Integer squareMeters = Integer.valueOf(meters);
 				Integer streetNum = Integer.valueOf(streetNumber);
 				Double price = Double.valueOf(priceString);
 				Date availableDate = null;
 				try {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					SimpleDateFormat dateFormat = new SimpleDateFormat(
+							"dd/MM/yyyy");
 					dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 					availableDate = dateFormat.parse(date);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
-				
+
 				String description = mDescriptionView.getText().toString();
-				if (description.isEmpty()){
+				if (description.isEmpty()) {
 					description = null;
 				}
-				new CreateNewRentalTask(title,autoCompView.getText().toString(),streetNum,price,squareMeters,contact,availableDate,type,description).execute();
+				task = new CreateNewRentalTask(title, autoCompView.getText()
+						.toString(), streetNum, price, squareMeters, contact,
+						availableDate, type, description, imageArray);
+				task.execute();
 			}
 			return true;
 		}
 		if (id == R.id.action_take_picture) {
-			Intent i = new Intent(
-					Intent.ACTION_PICK,
-					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			if (!(imageArray.size() == 4)) {
+				Intent i = new Intent(
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-			startActivityForResult(i, RESULT_LOAD_PICTURE);
-			return true;
+				startActivityForResult(i, RESULT_LOAD_PICTURE);
+				return true;
+			} else {
+				Toast.makeText(this, "You can add only 4 pictures!",
+						Toast.LENGTH_LONG).show();
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -426,9 +499,12 @@ public class NewRentalActivity extends Activity {
 		private final String type;
 		private final String contact;
 		private final Integer streetNum;
+		private ArrayList<Bitmap> bitmapArray;
 
-		public CreateNewRentalTask(String title, String address, Integer streetNum, Double price,
-				Integer squareMeters, String contact, Date availableDate, String type, String description) {
+		public CreateNewRentalTask(String title, String address,
+				Integer streetNum, Double price, Integer squareMeters,
+				String contact, Date availableDate, String type,
+				String description, ArrayList<Bitmap> imageArray) {
 			this.address = address;
 			this.title = title;
 			this.description = description;
@@ -438,33 +514,109 @@ public class NewRentalActivity extends Activity {
 			this.availabilityDate = availableDate;
 			this.type = type;
 			this.streetNum = streetNum;
-			
+			this.bitmapArray = imageArray;
+
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			
+
 			String id = sessionManager.getUserDetails().get(
 					SessionManager.KEY_USERID);
 			mUserId = Long.valueOf(id);
-			
+
 			StringBuilder addressCompat = new StringBuilder();
 			addressCompat.append(streetNum);
-			addressCompat.append(","+address);
+			addressCompat.append("," + address);
+			
 			Rental rental = new Rental();
 			rental.setPrice(price);
 			rental.setText(description);
 			rental.setTitle(title);
 			rental.setUserId(mUserId);
+			rental.setAddress(addressCompat.toString());
+			rental.setAvailability(new DateTime(availabilityDate));
+			rental.setType(type);
+			rental.setSquaredMeter(squareMeters);
+			rental.setContact(contact);
+			
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 			rental.setTimestamp(new DateTime(now));
-			//rental.setPicture();
 			
-			//TODO chiamare metodo per trovare coordinate
-			//endpoint.find...
+			if(!bitmapArray.isEmpty()){
+				rental.setHavePicture(true);
+			}else {
+				rental.setHavePicture(false);
+			}
+
 			
-			return null;
+
+			Rentalendpoint.Builder builder = new Rentalendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Rentalendpoint endpoint = builder
+					.setApplicationName("polimisocial").build();
+			try {
+				rental = endpoint.findLocationAndAddRental(rental).execute();
+				
+				if (!bitmapArray.isEmpty()) {
+					Postimageendpoint.Builder builderPostImage = new Postimageendpoint.Builder(
+							AndroidHttp.newCompatibleTransport(),
+							new JacksonFactory(), null);
+					 builderPostImage = CloudEndpointUtils.updateBuilder( builderPostImage);
+					Postimageendpoint imageEndpoint =  builderPostImage.setApplicationName(
+							"polimisocial").build();
+					
+						for (byte[] img : byteArray) {
+							PostImage postImage = new PostImage();
+							postImage.setPostId(rental.getId());
+							
+							//conversion to string */
+							postImage.setImage(Base64.encodeToString(img, Base64.DEFAULT));
+							//save to server
+							imageEndpoint.insertPostImage(postImage).execute();
+						}
+					
+
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+
+			return true;
+		}
+		
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			ShowProgress.showProgress(false, mProgressViewFullScreen, mRentalCreation,
+					getApplicationContext());
+			if (result) {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"DONE! New rental announcement created", Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+				finish();
+			} else {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						"Can't perform operation. Please retry",
+						Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER_VERTICAL,
+						Gravity.CENTER_HORIZONTAL, 0);
+				toast.show();
+			}
+
+		}
+		
+		@Override
+		protected void onCancelled() {
+			task.cancel(true);
+			ShowProgress.showProgress(false, mProgressViewFullScreen, mRentalCreation,
+					getApplicationContext());
 		}
 	}
 

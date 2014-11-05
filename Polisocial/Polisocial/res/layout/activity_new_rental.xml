@@ -9,7 +9,7 @@
     tools:context="it.polimi.dima.polisocial.creationActivities.NewRentalActivity" >
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progress_rental"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
             <!-- Object/Location -->
 
@@ -98,6 +98,33 @@
                     android:maxLines="1"
                     android:padding="5dip"
                     android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/rental_picture_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/autocomplete"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/rental_picture_added"
+                    android:textColor="#FF0000"
+                    android:textStyle="bold" 
+                    android:visibility="gone"/>
+                
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rental_picture_text"
+                    android:layout_marginTop="2dp"
+                    android:columnWidth="60dp"
+                    android:drawSelectorOnTop="true"
+                    android:gravity="center"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="3dp" 
+                    android:visibility="gone"
+                    >
+                </GridView>
             </RelativeLayout>
 
             <LinearLayout
@@ -158,8 +185,7 @@
                 android:layout_below="@+id/not_address_panel"
                 android:layout_centerInParent="true"
                 android:gravity="left"
-                android:orientation="horizontal"
-                 >
+                android:orientation="horizontal" >
 
                 <LinearLayout
                     android:id="@+id/meters_panel"
@@ -261,7 +287,6 @@
                         android:textColorHint="@color/timestamp" />
                 </LinearLayout>
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/description_panel"

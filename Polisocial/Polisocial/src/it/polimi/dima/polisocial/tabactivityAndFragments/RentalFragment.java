@@ -172,7 +172,7 @@ public class RentalFragment extends Fragment {
 
 					if (task.isCancelled())
 						return;
-					if (!result.isEmpty()) {
+					if (!(result.getItems()==null) ) {
 						Iterator<Rental> iterator = result.getItems()
 								.iterator();
 						Rental rental = null;

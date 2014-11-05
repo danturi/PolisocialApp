@@ -179,7 +179,7 @@
 	<!-- New rental activity -->
 	<string name="error_autocomplete">You have to choose an item from the suggestions list!!</string>
 	<string name="autocomplete_hint">Type the complete address name </string>
-	<string name="rental_creation_hint">Insert the address name of the house/room, choosing it from the suggestions.</string>
+	<string name="rental_creation_hint">Insert the complete address name of the house/room, choosing it from the suggestions.</string>
 	<string name="rental_address">Address*</string>
 	<string name="rental_type">Rent type*</string>
 	<string name="rental_type_example">ex. Shared Room/House/Apartment</string>
@@ -193,5 +193,6 @@
 	<string name="error_invalid_meters">This is not a number</string>
 	<string name="rental_title">Announce title*</string>
 	<string name="rental_street_number">Nr*</string>
+	<string name="rental_picture_added">Pictures added:</string>
 	
 </resources>

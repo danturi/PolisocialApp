@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/DWRUe_cAKn7o4ExXMwr0N-uP7Q4\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/u6kHOa1idkqL__kLGJya1uTzSXU\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -98,6 +98,9 @@
      "type": "string",
      "format": "date-time"
     },
+    "contact": {
+     "type": "string"
+    },
     "havePicture": {
      "type": "boolean"
     },
@@ -142,6 +145,23 @@
   }
  },
  "methods": {
+  "rentalendpoint.findLocationAndAddRental": {
+   "id": "rentalendpoint.findLocationAndAddRental",
+   "parameters": {
+    "resource": {
+     "$ref": "Rental"
+    }
+   },
+   "parameterOrder": [
+    "resource"
+   ],
+   "returns": {
+    "$ref": "Rental"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "rentalendpoint.getRental": {
    "id": "rentalendpoint.getRental",
    "allowGet": true,

@@ -120,27 +120,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "secondhandbookendpoint.deleteIndexBookById" : {
-      "path" : "deleteIndexBookById",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.deleteIndexBookById",
-      "request" : {
-        "parameters" : {
-          "bookId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "secondhandbookendpoint.searchBookByTitleOrAuthor" : {
       "path" : "searchBookByTitleOrAuthor/{title}",
       "httpMethod" : "POST",
@@ -174,17 +153,17 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "secondhandbookendpoint.getSecondHandBook" : {
-      "path" : "secondhandbook/{id}",
-      "httpMethod" : "GET",
+    "secondhandbookendpoint.deleteIndexBookById" : {
+      "path" : "deleteIndexBookById",
+      "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.deleteIndexBookById",
       "request" : {
         "parameters" : {
-          "id" : {
+          "bookId" : {
             "type" : "int64",
             "required" : true
           }
@@ -192,7 +171,7 @@
         "body" : "empty"
       },
       "response" : {
-        "body" : "autoTemplate(backendResponse)"
+        "body" : "empty"
       }
     },
     "secondhandbookendpoint.removeSecondHandBook" : {
@@ -214,6 +193,27 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "secondhandbookendpoint.getSecondHandBook" : {
+      "path" : "secondhandbook/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     },
     "secondhandbookendpoint.searchFullTextBook" : {
@@ -345,19 +345,19 @@
           "$ref" : "SecondHandBook"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.deleteIndexBookById" : {
-      },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchBookByTitleOrAuthor" : {
         "response" : {
           "$ref" : "CollectionResponse_SecondHandBook"
         }
       },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.deleteIndexBookById" : {
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
+      },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook" : {
         "response" : {
           "$ref" : "SecondHandBook"
         }
-      },
-      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchFullTextBook" : {
         "response" : {

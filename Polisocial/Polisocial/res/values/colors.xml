@@ -30,5 +30,6 @@
 
      <color name="calendar_color">#a0a3a7</color>
      <color name="com_facebook_blue">#3B5999</color>
+     <color name="Red">#FF0000 </color>
     
 </resources>

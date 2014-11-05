@@ -15,6 +15,7 @@ public class Rental extends Post {
 	private String type;
 	private Integer squaredMeter;
 	private Date availability;
+	private String contact;
 
 	public Double getLatitude() {
 		return latitude;
@@ -71,5 +72,13 @@ public class Rental extends Post {
 
 	public void setAvailability(Date availability) {
 		this.availability = availability;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 }

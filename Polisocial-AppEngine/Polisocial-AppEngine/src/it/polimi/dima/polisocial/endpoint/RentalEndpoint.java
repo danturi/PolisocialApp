@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.annotation.Nullable;
 import javax.inject.Named;
@@ -30,6 +31,8 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.mortbay.log.Log;
 
 @Api(name = "rentalendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class RentalEndpoint {
@@ -166,13 +169,23 @@ public class RentalEndpoint {
 		}
 	}
 
-	@ApiMethod(name = "findLocationAndAddRental", path = "findLocationAndAddRental", httpMethod = HttpMethod.GET)
-	public Rental findLocationAndAddRental(@Named("userId") Long userId, Rental rental) throws NotFoundException {
+	/**
+	 * This method is used for instert entity. It uses HTTP PUT
+	 * method.
+	 * 
+	 * @param rental
+	 *            the entity to be inserted.
+	 * @return The inserted entity.
+	 */
+	@ApiMethod(name = "findLocationAndAddRental")
+	public Rental findLocationAndAddRental(Rental rental) throws NotFoundException {
 
 		// find coordinates from address via Google Web service
 		String baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 		StringBuilder urlBuilder = new StringBuilder(baseUrl);
-		urlBuilder.append(rental.getAddress());
+		
+		System.out.println(rental.getAddress().replaceAll("\\s",""));
+		urlBuilder.append(rental.getAddress().replaceAll("\\s",""));
 		urlBuilder.append("&key=" + Constants.GOOGLE_API_SERVER_KEY);
 		String url = urlBuilder.toString();
 		URL addressUrl;
