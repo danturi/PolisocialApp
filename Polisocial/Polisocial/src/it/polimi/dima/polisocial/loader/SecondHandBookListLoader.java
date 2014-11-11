@@ -18,7 +18,6 @@ public class SecondHandBookListLoader extends
 	private String bookTitle;
 	private String authorName;
 	private String userFaculty;
-	private int userAge;
 	private boolean mSuggestion;
 
 	public SecondHandBookListLoader(Context context, String cursor,
@@ -30,10 +29,9 @@ public class SecondHandBookListLoader extends
 	}
 
 	public SecondHandBookListLoader(Context context, String cursor,
-			String userFaculty, int userAge, boolean suggestion) {
+			String userFaculty, boolean suggestion) {
 		super(context, cursor);
 		this.userFaculty = userFaculty;
-		this.userAge = userAge;
 		this.mSuggestion = suggestion;
 	}
 
@@ -49,14 +47,14 @@ public class SecondHandBookListLoader extends
 
 		CollectionResponseSecondHandBook list = new CollectionResponseSecondHandBook();
 
-		// TODO differenziare le query in base al contenuto
+		// differenziare le query in base al contenuto
 		if (mSuggestion) {
-			// query suggested book depending on user age and faculty
+			// query suggested book depending on user faculty
 			try {
 				if (cursor != null) { 
-					list =endpoint.listSecondHandBook().setLimit(10) .setCursor(cursor).execute();
+					list =endpoint.listSecondHandBook(userFaculty).setLimit(10) .setCursor(cursor).execute();
 				} else { 
-					list = endpoint.listSecondHandBook().setLimit(10).execute(); 
+					list = endpoint.listSecondHandBook(userFaculty).setLimit(10).execute(); 
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

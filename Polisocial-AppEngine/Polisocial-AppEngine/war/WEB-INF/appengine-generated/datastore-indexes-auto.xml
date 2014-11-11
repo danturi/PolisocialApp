@@ -1,4 +1,10 @@
 <!-- Indices written at Sun, 2 Nov 2014 16:16:31 CET -->
 
-<datastore-indexes/>
+<datastore-indexes>
+    <datastore-index kind="SecondHandBook" ancestor="false"
+	source="manual">
+	<property name="faculty" direction="asc" />
+	<property name="timestamp" direction="desc" />
+</datastore-index>
+</datastore-indexes>
 

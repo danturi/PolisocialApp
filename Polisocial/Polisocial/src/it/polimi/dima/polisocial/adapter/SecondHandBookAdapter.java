@@ -43,7 +43,7 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 		if (view == null) {
 			holder = new SpottedViewHolder();
 			if (type == VIEW_LOADING) {
-				view = mInflater.inflate(R.layout.progress, parent, false);
+				view = mInflater.inflate(R.layout.progress_white, parent, false);
 			} else {
 				view = mInflater.inflate(R.layout.book_row_item, parent, false);
 				holder.title = (TextView) view.findViewById(R.id.title);

@@ -66,10 +66,11 @@ public class SecondHandBookEndpoint {
 	 *         persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
-	@ApiMethod(name = "listSecondHandBook")
+	@ApiMethod(name = "listSecondHandBook",path="listSecondHandBook")
 	public CollectionResponse<SecondHandBook> listSecondHandBook(
 			@Nullable @Named("cursor") String cursorString,
-			@Nullable @Named("limit") Integer limit) {
+			@Nullable @Named("limit") Integer limit,
+			@Named("faculty") String faculty) {
 
 		EntityManager mgr = null;
 		Cursor cursor = null;
@@ -78,7 +79,8 @@ public class SecondHandBookEndpoint {
 		try {
 			mgr = getEntityManager();
 			Query query = mgr
-					.createQuery("select from SecondHandBook as SecondHandBook");
+					.createQuery("select s from SecondHandBook s where s.faculty=?1 ORDER BY s.timestamp DESC");
+			query.setParameter(1, faculty);
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -144,10 +146,11 @@ public class SecondHandBookEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(secondhandbook);
-			addDocumentIndex(secondhandbook);
+			
 		} finally {
 			mgr.close();
 		}
+		addDocumentIndex(secondhandbook);
 		return secondhandbook;
 	}
 

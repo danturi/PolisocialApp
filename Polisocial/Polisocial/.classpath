@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="endpoint-libs/libdislikeendpoint-v1/dislikeendpoint/dislikeendpoint-v1-generated-source"/>
+	<classpathentry kind="src" path="endpoint-libs/liblikeendpoint-v1/likeendpoint/likeendpoint-v1-generated-source"/>
 	<classpathentry kind="src" path="endpoint-libs/libpostimageendpoint-v1/postimageendpoint/postimageendpoint-v1-generated-source"/>
 	<classpathentry kind="src" path="endpoint-libs/libhitonendpoint-v1/hitonendpoint/hitonendpoint-v1-generated-source"/>
 	<classpathentry kind="src" path="endpoint-libs/libfoursquareendpoint-v1/foursquareendpoint/foursquareendpoint-v1-generated-source"/>

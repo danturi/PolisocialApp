@@ -9,7 +9,6 @@ import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
-import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint.GetRental;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
@@ -107,6 +106,8 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 						.findViewById(R.id.postImage);
 				holder.numbOfComments = (TextView) view
 						.findViewById(R.id.numb_of_comments);
+				holder.numbOfLikes = (TextView)view.findViewById(R.id.numb_of_likes);
+				holder.numbOfDisLikes = (TextView)view.findViewById(R.id.numb_of_dislikes);
 
 			}
 			view.setTag(holder);
@@ -263,6 +264,9 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 
 			holder.numbOfComments
 					.setText(item.getNumOfComments() + " " + getContext().getResources().getString(R.string.comments));
+			holder.numbOfLikes.setText(item.getNumOfLikes() + " " + getContext().getResources().getString(R.string.likes));
+			holder.numbOfDisLikes.setText(item.getNumOfDisLikes() + " " + getContext().getResources().getString(R.string.dislikes));
+			
 			if (getItemViewType(position) == VIEW_CUPIDO) {
 
 				holder.hitOnButton
@@ -297,6 +301,8 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		ImageView profilePic;
 		ImageView postImage;
 		TextView numbOfComments;
+		TextView numbOfLikes;
+		TextView numbOfDisLikes;
 		ImageButton hitOnButton;
 	}
 

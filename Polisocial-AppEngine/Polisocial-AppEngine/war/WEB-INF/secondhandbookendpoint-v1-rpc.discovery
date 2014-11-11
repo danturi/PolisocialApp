@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/QASSw4Fj-6c08XZUrFxY3ya3lD0\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/5EvjdY4vKTLxRSuC3tJU_hlLNe8\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -224,11 +224,18 @@
     "cursor": {
      "type": "string"
     },
+    "faculty": {
+     "type": "string",
+     "required": true
+    },
     "limit": {
      "type": "integer",
      "format": "int32"
     }
    },
+   "parameterOrder": [
+    "faculty"
+   ],
    "returns": {
     "$ref": "CollectionResponse_SecondHandBook"
    },

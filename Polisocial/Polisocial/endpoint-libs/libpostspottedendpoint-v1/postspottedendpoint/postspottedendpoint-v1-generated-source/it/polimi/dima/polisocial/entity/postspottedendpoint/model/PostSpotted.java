@@ -32,7 +32,9 @@ import android.graphics.Bitmap;
  */
 @SuppressWarnings("javadoc")
 public final class PostSpotted extends com.google.api.client.json.GenericJson {
-
+	
+	private Integer numOfLikes;
+	private Integer numOfDisLikes;
 	private Bitmap bitmap;
 	private Integer numOfComments;
   /**
@@ -191,6 +193,22 @@ public final class PostSpotted extends com.google.api.client.json.GenericJson {
   public PostSpotted clone() {
     return (PostSpotted) super.clone();
   }
+
+public Integer getNumOfLikes() {
+	return numOfLikes;
+}
+
+public void setNumOfLikes(Integer numOfLikes) {
+	this.numOfLikes = numOfLikes;
+}
+
+public Integer getNumOfDisLikes() {
+	return numOfDisLikes;
+}
+
+public void setNumOfDisLikes(Integer numOfDisLikes) {
+	this.numOfDisLikes = numOfDisLikes;
+}
 
 public Bitmap getBitmap() {
 	return bitmap;

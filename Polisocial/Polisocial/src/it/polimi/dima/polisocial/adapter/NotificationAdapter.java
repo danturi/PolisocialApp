@@ -19,10 +19,10 @@ import android.widget.TextView;
 public class NotificationAdapter extends ArrayAdapter<Notification> {
 	private final LayoutInflater mInflater;
 	
-	private String notificationTextIntroduction = "The post you are following '"; //context.getString(R.string.notification_text_introduction_part);
-	private String notificationTextSection = "' in the section ";//context.getString(R.string.notification_text_section_part);
-	private String notificationTextCommented = " received a comment"; //context.getString(R.string.notification_text_comment_received_part);
-	private String notificationTextHit = "received an hit";//context.getString(R.string.notification_text_hit_received_part);
+	private String notificationTextIntroduction = getContext().getResources().getString(R.string.notification_text_introduction_part);
+	private String notificationTextSection = getContext().getResources().getString(R.string.notification_text_section_part);
+	private String notificationTextCommented = getContext().getResources().getString(R.string.notification_text_comment_received_part);
+	private String notificationTextHit = getContext().getResources().getString(R.string.notification_text_hit_received_part);
 	
     
 	public NotificationAdapter(Context context) {
@@ -63,10 +63,10 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 		
 		
 		
-		if(item.getTypePost()=="HitOn"){
-			text.setText(notificationTextIntroduction+item.getPostTitle()+notificationTextSection+item.getTypePost()+notificationTextHit);
+		if(item.getTypePost().equals(PostType.HIT_ON.toString())){
+			text.setText(notificationTextIntroduction+item.getPostTitle()+notificationTextSection+ " " + "spotted"+ " " +notificationTextHit);
 		}else{
-			text.setText(Html.fromHtml(notificationTextIntroduction+"<font color=blue>"+item.getPostTitle()+"</font>"+notificationTextSection+item.getTypePost()+notificationTextCommented));
+			text.setText(Html.fromHtml(notificationTextIntroduction+"<font color=blue>"+item.getPostTitle()+"</font>"+notificationTextSection+ " " +item.getTypePost()+ " " +notificationTextCommented));
 		}	
 		
 		String postType=item.getTypePost();
@@ -97,14 +97,10 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
     		
     	} 	
 		
-		//TODO: Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
 				item.getTimestamp().getValue(),
 				System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
-		
 		timestamp.setText(timeAgo);
-
-			
 		
 		return view;
     }

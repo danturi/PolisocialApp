@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,8 +71,9 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 				holder.location = (TextView) view.findViewById(R.id.location);
 				holder.eventPicture = (ImageView) view
 						.findViewById(R.id.event_picture);
-				holder.numbOfComments = (TextView) view
-						.findViewById(R.id.numb_of_comments);
+				holder.numbOfLikes = (TextView) view
+						.findViewById(R.id.numb_of_likes);
+				holder.numbOfGoing = (TextView) view.findViewById(R.id.numb_of_participants);
 				holder.month = (TextView) view.findViewById(R.id.month);
 				holder.day = (TextView) view.findViewById(R.id.day);
 
@@ -88,7 +88,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		if (type == VIEW_STANDARD) {
 
 			Initiative item = getItem(position);
-			holder.numbOfComments
+			holder.numbOfLikes
 					.setOnClickListener(new IdParameterOnClickListener(item
 							.getId()) {
 						@Override
@@ -207,13 +207,9 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 			holder.beginningDate.setText(dateString + " at " + time);
 
-			// Converting timestamp into time ago format
-			CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
-					.getTimestamp().getValue(), System.currentTimeMillis(),
-					DateUtils.SECOND_IN_MILLIS);
-
-			holder.numbOfComments
-					.setText(item.getNumOfComments() + " comments");
+			holder.numbOfLikes
+					.setText(item.getNumOfLikes() + " " + getContext().getResources().getString(R.string.likes));
+			holder.numbOfGoing.setText(item.getNumOfGoing() + " " + getContext().getResources().getString(R.string.going));
 
 		}
 
@@ -274,7 +270,8 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		TextView title;
 		TextView location;
 		ImageView eventPicture;
-		TextView numbOfComments;
+		TextView numbOfLikes;
+		TextView numbOfGoing;
 		TextView beginningDate;
 		TextView month;
 		TextView day;

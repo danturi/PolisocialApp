@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-index kind="SecondHandBook" ancestor="false"
+	source="manual">
+	<property name="faculty" direction="asc" />
+	<property name="timestamp" direction="desc" />
+</datastore-index>

@@ -57,6 +57,7 @@ public class NewBookActivity extends Activity {
 
 	private String INITIAL_PRICE = "Tap to set book price";
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,6 +77,7 @@ public class NewBookActivity extends Activity {
 		mBookPrice = (EditText) findViewById(R.id.price);
 		mIsbnCode = (EditText) findViewById(R.id.isbn);
 		mIsbnButton = (Button) findViewById(R.id.buttonIsbn);
+		mSpinnerFaculty = (Spinner) findViewById(R.id.spinnerFaculty);
 		mIsbnButton.setOnClickListener(new OnClickListener() {
 
 			@Override

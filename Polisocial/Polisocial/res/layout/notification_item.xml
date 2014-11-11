@@ -23,25 +23,26 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/comment_item_profile_info_padd" >
-
+            android:paddingLeft="@dimen/comment_item_profile_info_padd"
+            android:paddingStart="@dimen/comment_item_profile_info_padd" >
 
             <TextView
                 android:id="@+id/text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:textColor="@color/timestamp"
+                android:textSize="@dimen/comment_item_timestamp" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="@dimen/comment_item_timestamp_pad_left"
-        android:textColor="@color/timestamp"
-        android:textSize="@dimen/comment_item_timestamp" />
 
 </LinearLayout>

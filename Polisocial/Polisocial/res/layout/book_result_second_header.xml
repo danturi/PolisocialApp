@@ -10,7 +10,9 @@
         android:background="@color/post_bg"
         android:paddingLeft="@dimen/book_search_left_margin"
         android:text="@string/books_suggested"
+        android:textSize="14dp"
         android:textColor="@color/Green"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="5dp" />
 
 </LinearLayout>

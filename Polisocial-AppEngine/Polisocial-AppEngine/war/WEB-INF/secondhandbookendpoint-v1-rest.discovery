@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/QASSw4Fj-6c08XZUrFxY3ya3lD0\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/5EvjdY4vKTLxRSuC3tJU_hlLNe8\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -228,11 +228,16 @@
   },
   "listSecondHandBook": {
    "id": "secondhandbookendpoint.listSecondHandBook",
-   "path": "secondhandbook",
+   "path": "listSecondHandBook",
    "httpMethod": "GET",
    "parameters": {
     "cursor": {
      "type": "string",
+     "location": "query"
+    },
+    "faculty": {
+     "type": "string",
+     "required": true,
      "location": "query"
     },
     "limit": {
@@ -241,6 +246,9 @@
      "location": "query"
     }
    },
+   "parameterOrder": [
+    "faculty"
+   ],
    "response": {
     "$ref": "CollectionResponse_SecondHandBook"
    },

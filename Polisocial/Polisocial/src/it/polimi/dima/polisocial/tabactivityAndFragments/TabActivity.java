@@ -232,7 +232,7 @@ public class TabActivity extends FragmentActivity implements
 		// user swipes between sections.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-		mViewPager.setOffscreenPageLimit(4); // mantiene memoria delle tab
+		mViewPager.setOffscreenPageLimit(2); // mantiene memoria delle tab
 		mViewPager
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
@@ -608,6 +608,9 @@ public class TabActivity extends FragmentActivity implements
 				return POSITION_NONE;
 			if (object instanceof AnnouncementsFragment
 					&& !(mFragmentAtPos2 instanceof AnnouncementsFragment))
+				return POSITION_NONE;
+			if (object instanceof RentalFragmentList
+					&& !(mFragmentAtPos2 instanceof RentalFragmentList))
 				return POSITION_NONE;
 
 			return POSITION_UNCHANGED;

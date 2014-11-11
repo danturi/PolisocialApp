@@ -3,6 +3,8 @@ package it.polimi.dima.polisocial.loader;
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
+import it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
@@ -38,22 +40,22 @@ public class SpottedPostListLoader extends
 		Commentendpoint commEndpoint = build.setApplicationName("polimisocial")
 				.build();
 		
-/**TODO		Likeendpoint.Builder build = new Likeendpoint.Builder(
+		Likeendpoint.Builder build1 = new Likeendpoint.Builder(
 				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 				null);
 
-		build = CloudEndpointUtils.updateBuilder(build);
-		Likeendpoint likeEndpoint = build.setApplicationName("polimisocial")
+		build1 = CloudEndpointUtils.updateBuilder(build1);
+		Likeendpoint likeEndpoint = build1.setApplicationName("polimisocial")
 				.build();
 		
-		DisLikeendpoint.Builder build = new DisLikeendpoint.Builder(
+		Dislikeendpoint.Builder build2 = new Dislikeendpoint.Builder(
 				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 				null);
 
-		build = CloudEndpointUtils.updateBuilder(build);
-		DisLikeendpoint disLikeEndpoint = build.setApplicationName("polimisocial")
+		build2 = CloudEndpointUtils.updateBuilder(build2);
+		Dislikeendpoint disLikeEndpoint = build2.setApplicationName("polimisocial")
 				.build();
-**/
+
 		CollectionResponsePostSpotted list = new CollectionResponsePostSpotted();
 		try {
 			if (cursor != null) {
@@ -65,21 +67,22 @@ public class SpottedPostListLoader extends
 
 			if (list.getItems() != null) {
 				for (PostSpotted post : list.getItems()) {
+					/**post.setNumOfComments(0);
+					post.setNumOfLikes(0);
+					post.setNumOfDisLikes(0);**/
 					ResponseObject count = commEndpoint.getNumbPostComments(
 							post.getId()).execute();
 					post.setNumOfComments(Integer.valueOf((String) count
 							.getObject()));
-				/**TODO
-					ResponseObject likeCount = likeEndpoint.getNumbPostLikes(
+					it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject likeCount = likeEndpoint.getPostLike(
 							post.getId()).execute();
-					post.setNumOfLikes(Integer.valueOf((String) count
+					post.setNumOfLikes(Integer.valueOf((String) likeCount
 							.getObject()));
 					
-					ResponseObject disLikeCount = commEndpoint.getNumbPostDisLikes(
+					it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject disLikeCount = disLikeEndpoint.getPostDisLike(
 							post.getId()).execute();
-					post.setNumOfDisLikes(Integer.valueOf((String) count
+					post.setNumOfDisLikes(Integer.valueOf((String) disLikeCount
 							.getObject()));
-				**/
 				}
 			}
 

@@ -44,6 +44,8 @@
     <string name="join">Join</string>
     <string name="going">going</string>
     <string name="comments">comments</string>
+    <string name="likes">likes</string>
+    <string name="dislikes">dislikes</string>
 
     <!-- Action bar actions and filter -->
     <string name="action_write_spotted_post">New post</string>
@@ -88,7 +90,7 @@
     <string name="notification_text_introduction_part"> The post you are following "</string>
     <string name="notification_text_section_part"> " in the section </string>
     <string name="notification_text_comment_received_part"> received a comment.</string>
-    <string name="notification_text_hit_received_part"> received an hit.</string>
+    <string name="notification_text_hit_received_part"> received a private message.</string>
     <string name="title_activity_new_event">Create event</string>
 
     <!-- New event creation -->
@@ -173,6 +175,7 @@
 
     <string name="books_suggested">Books suggested</string>
     <string name="books_found">Books found</string>
+    <string name="no_books_found">SORRY, NO BOOKS FOUND</string>
     <string name="title_activity_new_rental">NewRentalActivity</string>
     <string name="title_activity_new_private_lesson">NewPrivateLesson</string>
     <string name="contact">Contact</string>
@@ -196,7 +199,7 @@
     <string name="rental_contact_hint">cell number/ email</string>
     <string name="rental_contact">Contact*</string>
     <string name="error_invalid_meters">This is not a number</string>
-    <string name="rental_title">Announce title*</string>
+    <string name="rental_title">Announcement title*</string>
     <string name="rental_street_number">Nr*</string>
     <string name="rental_picture_added">Pictures added:</string>
 
@@ -204,5 +207,6 @@
     <string name="rental_homes">Rental homes</string>
     <string name="private_lessons">Private lessons</string>
     <string name="second_hand_books">2nd hand books</string>
+    
 
 </resources>

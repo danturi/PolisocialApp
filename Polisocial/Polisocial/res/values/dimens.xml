@@ -10,7 +10,7 @@
     <dimen name="post_item_profile_info_padd">10dp</dimen>
     <dimen name="post_item_profile_name">15dp</dimen>
     <dimen name="post_item_timestamp">12dp</dimen>
-    <dimen name="post_item_numb_of_commments">13dp</dimen>
+    <dimen name="post_item_numb_of_commments">12dp</dimen>
     <dimen name="post_item_status_pad_left_right">15dp</dimen>
     <dimen name="post_item_status_pad_top">8dp</dimen>
     <dimen name="post_item_corner_radius">3dp</dimen>

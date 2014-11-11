@@ -11,20 +11,25 @@ import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SecondHandBookFragment extends ListFragment implements
 		LoaderManager.LoaderCallbacks<CollectionResponseSecondHandBook> {
@@ -38,7 +43,7 @@ public class SecondHandBookFragment extends ListFragment implements
 	private boolean mSuggestion=true;
 	private boolean mFirstDataSet=true;
 	private String mUserFaculty;
-	private String mUserAge;
+	
 	//header components
 	private ImageButton mSearchButton;
 	private EditText mBookTitle;
@@ -57,17 +62,18 @@ public class SecondHandBookFragment extends ListFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+	    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+		
 		((TabActivity) getActivity()).getActionBar().setTitle(getString(R.string.book_fragment_title));
 
 		setHasOptionsMenu(true);
-		//TODO  retrieve age and faculty of the current user so that we can show
+		//retrieve faculty of the current user so that we can show
 		// books that may interest him
-		/**
-		 * session = new SessionManager(getActivity().getApplicationContext());
-		 * Long userId = Long.valueOf(session.getUserDetails().get(
-		 * SessionManager.KEY_FACULTY)); String name =
-		 * session.getUserDetails().get(SessionManager.KEY_AGE);
-		 **/
+		
+		 session = new SessionManager(getActivity().getApplicationContext());
+		 mUserFaculty= session.getUserDetails().get(SessionManager.KEY_FACULTY); 
+		
 		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new SecondHandBookAdapter(getActivity());
 		mList = getListView();
@@ -79,11 +85,24 @@ public class SecondHandBookFragment extends ListFragment implements
 			
 			@Override
 			public void onClick(View v) {
+				String title = mBookTitle.getText().toString();
+				if(TextUtils.isEmpty(title)){
+					mBookTitle.setError(getString(R.string.error_field_required));
+					mBookTitle.requestFocus();
+					return;
+				}
 				mCursor=null;
 				mSuggestion=false;
 				mFirstDataSet=true;
+				mAdapter.clear();
+				mAdapter.setLoading_row(1);
+				mAdapter.notifyDataSetChanged();
 				loadData();
-				mBookResult.setText("Books found");
+				mBookResult.setText(getResources().getString(R.string.books_found));
+				mBookResult.setPadding(5, 5, 5, 5);
+				mBookResult.setTextSize(14);
+				mBookResult.setGravity(Gravity.NO_GRAVITY);
+				imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 			}
 		});
 		mList.addHeaderView(header);
@@ -159,7 +178,7 @@ public class SecondHandBookFragment extends ListFragment implements
 		if(!mSuggestion){
 			return new SecondHandBookListLoader(getActivity(), mCursor, mBookTitle.getText().toString(), mBookAuthor.getText().toString(), mSuggestion);
 		}else{
-			return new SecondHandBookListLoader(getActivity(), mCursor, mUserFaculty, mUserAge, mSuggestion);
+			return new SecondHandBookListLoader(getActivity(), mCursor, mUserFaculty, mSuggestion);
 		}
 	}
 
@@ -171,16 +190,17 @@ public class SecondHandBookFragment extends ListFragment implements
 			if (mFirstDataSet) {
 				mAdapter.setData(data.getItems());
 				mAdapter.notifyDataSetChanged();
-				mAdapter.setLoading_row(1);
-				mAdapter.notifyDataSetChanged();
+				
 			} else {
 				mAdapter.addAll(data.getItems());
 			}
-			mEndlessScrollListener.setLoading(false);
 		
 			if(data.getItems().size()==10){
 				mEndlessScrollListener.setLoading(false);
+				mAdapter.setLoading_row(1);
+				mAdapter.notifyDataSetChanged();
 			}else{
+				mEndlessScrollListener.setLoading(true);
 				mAdapter.setLoading_row(0);
 				mAdapter.notifyDataSetChanged();
 			}
@@ -189,6 +209,10 @@ public class SecondHandBookFragment extends ListFragment implements
 		} else {
 			// tell the adapter to dismiss the progress bar cause there are no
 			// more data
+			mBookResult.setPadding(5, 30, 5, 30);
+			mBookResult.setTextSize(20);
+			mBookResult.setGravity(Gravity.CENTER);
+			mBookResult.setText(getResources().getString(R.string.no_books_found));
 			mAdapter.setLoading_row(0);
 			mAdapter.notifyDataSetChanged();
 		}
