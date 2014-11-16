@@ -48,27 +48,6 @@
         "body" : "empty"
       }
     },
-    "dislikeendpoint.getDisLike" : {
-      "path" : "dislike/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "dislikeendpoint.insertDisLike" : {
       "path" : "dislike/{postType}",
       "httpMethod" : "POST",
@@ -86,6 +65,27 @@
         },
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "dislikeendpoint.getDisLike" : {
+      "path" : "dislike/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -209,15 +209,15 @@
     "methods" : {
       "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.removeDisLike" : {
       },
-      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike" : {
-        "response" : {
-          "$ref" : "DisLike"
-        }
-      },
       "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.insertDisLike" : {
         "request" : {
           "$ref" : "DisLike"
         },
+        "response" : {
+          "$ref" : "DisLike"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.DisLikeEndpoint.getDisLike" : {
         "response" : {
           "$ref" : "DisLike"
         }

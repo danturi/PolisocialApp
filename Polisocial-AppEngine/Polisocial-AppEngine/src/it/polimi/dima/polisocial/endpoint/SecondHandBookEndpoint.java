@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,9 +56,9 @@ import com.google.appengine.labs.repackaged.org.json.JSONTokener;
 @Api(name = "secondhandbookendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class SecondHandBookEndpoint {
 
-	
 	private static final Logger log = Logger
 			.getLogger(FoursquarePolisocialAPI.class.getName());
+
 	/**
 	 * This method lists all the entities inserted in datastore. It uses HTTP
 	 * GET method and paging support.
@@ -66,7 +67,7 @@ public class SecondHandBookEndpoint {
 	 *         persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
-	@ApiMethod(name = "listSecondHandBook",path="listSecondHandBook")
+	@ApiMethod(name = "listSecondHandBook", path = "listSecondHandBook")
 	public CollectionResponse<SecondHandBook> listSecondHandBook(
 			@Nullable @Named("cursor") String cursorString,
 			@Nullable @Named("limit") Integer limit,
@@ -146,7 +147,7 @@ public class SecondHandBookEndpoint {
 				throw new EntityExistsException("Object already exists");
 			}
 			mgr.persist(secondhandbook);
-			
+
 		} finally {
 			mgr.close();
 		}
@@ -173,8 +174,16 @@ public class SecondHandBookEndpoint {
 								.setNumber(secondhandbook.getPrice()));
 
 		for (String author : secondhandbook.getAuthorsBook()) {
-			builder.addField(Field.newBuilder().setName("author")
-					.setText(author));
+			StringTokenizer tokenizer = new StringTokenizer(author, " ");
+			if (!tokenizer.hasMoreElements()) {
+				builder.addField(Field.newBuilder().setName("author")
+						.setText(author));
+			}else {
+				while(tokenizer.hasMoreElements()){
+					builder.addField(Field.newBuilder().setName("author")
+							.setText((String) tokenizer.nextElement()));
+				}
+			}
 		}
 
 		Document document = builder.build();
@@ -187,45 +196,46 @@ public class SecondHandBookEndpoint {
 		index.put(document);
 
 	}
-	
-	@ApiMethod(name="deleteIndexBookById", path="deleteIndexBookById")
-	public void deleteIndexBookById(@Named("bookId") Long bookId){
-		
+
+	@ApiMethod(name = "deleteIndexBookById", path = "deleteIndexBookById")
+	public void deleteIndexBookById(@Named("bookId") Long bookId) {
+
 		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
 				.build();
 		Index index = SearchServiceFactory.getSearchService().getIndex(
 				indexSpec);
 		index.delete(bookId.toString());
 	}
-	
-	@ApiMethod(name="deleteAllIndexBook", path="deleteAllIndexBook")
-	public void deleteAllIndexBook(){
+
+	@ApiMethod(name = "deleteAllIndexBook", path = "deleteAllIndexBook")
+	public void deleteAllIndexBook() {
 		try {
-		    // looping because getRange by default returns up to 100 documents at a time
-		    while (true) {
-		        List<String> docIds = new ArrayList<String>();
-		        IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
-						.build();
+			// looping because getRange by default returns up to 100 documents
+			// at a time
+			while (true) {
+				List<String> docIds = new ArrayList<String>();
+				IndexSpec indexSpec = IndexSpec.newBuilder()
+						.setName("SecondHandBook").build();
 				Index index = SearchServiceFactory.getSearchService().getIndex(
 						indexSpec);
-		        // Return a set of doc_ids.
-		        GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
-		        GetResponse<Document> response = index.getRange(request);
-		        if (response.getResults().isEmpty()) {
-		            break;
-		        }
-		        for (Document doc : response) {
-		            docIds.add(doc.getId());
-		        }
-		        index.delete(docIds);
-		    }
+				// Return a set of doc_ids.
+				GetRequest request = GetRequest.newBuilder()
+						.setReturningIdsOnly(true).build();
+				GetResponse<Document> response = index.getRange(request);
+				if (response.getResults().isEmpty()) {
+					break;
+				}
+				for (Document doc : response) {
+					docIds.add(doc.getId());
+				}
+				index.delete(docIds);
+			}
 		} catch (RuntimeException e) {
-		    log.info("Failed to delete documents");
+			log.info("Failed to delete documents");
 		}
 
 	}
-	
-	
+
 	@ApiMethod(name = "searchFullTextBook", path = "searchFullTextBook")
 	public CollectionResponse<SecondHandBook> searchFullTextBook(
 			@Named("title") String title,
@@ -235,7 +245,7 @@ public class SecondHandBookEndpoint {
 
 		List<SecondHandBook> listBooks = new ArrayList<SecondHandBook>();
 		com.google.appengine.api.search.Cursor cursor;
-		
+
 		IndexSpec indexSpec = IndexSpec.newBuilder().setName("SecondHandBook")
 				.build();
 		Index index = SearchServiceFactory.getSearchService().getIndex(
@@ -250,65 +260,69 @@ public class SecondHandBookEndpoint {
 										SortExpression.SortDirection.ASCENDING)
 								.setDefaultValueNumeric(99999)).build();
 		try {
-			if(cursorString != null && cursorString != ""){
-				cursor = com.google.appengine.api.search.Cursor.newBuilder().build(cursorString);
-			}else {
-		    // create the initial cursor
-				cursor = com.google.appengine.api.search.Cursor.newBuilder().build();
+			if (cursorString != null && cursorString != "") {
+				cursor = com.google.appengine.api.search.Cursor.newBuilder()
+						.build(cursorString);
+			} else {
+				// create the initial cursor
+				cursor = com.google.appengine.api.search.Cursor.newBuilder()
+						.build();
 			}
-		        // build options and query
-		        QueryOptions options = QueryOptions.newBuilder()
-		            .setCursor(cursor)
-		            .setSortOptions(sortOptions)
-		            .setLimit(20)
-		            .build();
-		        String queryString;
-		        if(author!="" || !author.isEmpty()){
-		        	queryString = "bookTitle: "+title+" AND author: "+author;
-		        }else {
-		        	queryString = "bookTitle: "+title;
-		        }
-		        com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(queryString);
-		        
-		        // search at least once
-		        Results<ScoredDocument> result = index.search(query);
-		        int numberRetrieved = result.getNumberReturned();
-		        cursor = result.getCursor();
+			// build options and query
+			QueryOptions options = QueryOptions.newBuilder().setCursor(cursor)
+					.setSortOptions(sortOptions).setLimit(20).build();
+			String queryString;
+			if (author != "" || !author.isEmpty()) {
+				queryString = "bookTitle: " + title + " AND author: " + author;
+			} else {
+				queryString = "bookTitle: " + title;
+			}
+			com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
+					.newBuilder().setOptions(options).build(queryString);
 
-		        if (cursor != null){
-					cursorString = cursor.toWebSafeString();
-		        }else {
-		        	cursorString = null;
-		        }
-		        if (numberRetrieved > 0) {
-		        	log.info("book found");
-		            // process the matched docs
-		        	for (ScoredDocument doc :result.getResults()){
-		        		SecondHandBook book = new SecondHandBook();
-		        		ArrayList<String> authors = new ArrayList<String>();
-		        		book.setId(Long.valueOf(doc.getId()));
-		        		book.setTitle(doc.getOnlyField("bookTitle").getText());
-		        		book.setFaculty(doc.getOnlyField("faculty").getText());
-		        		book.setPrice(doc.getOnlyField("price").getNumber());
-		        		book.setPublisher(doc.getOnlyField("publisher").getText());
-		        		Iterator<Field> iter = doc.getFields("author").iterator();
-		        		while (iter.hasNext()){
-		        			authors.add(iter.next().getText());
-		        		}
-		        		book.setAuthorsBook(authors);
-		        		listBooks.add(book);
-		        	}
-		        }else {
-		        	throw new NotFoundException("Not found book");
-		        }
-		    
+			// search at least once
+			Results<ScoredDocument> result = index.search(query);
+			int numberRetrieved = result.getNumberReturned();
+			cursor = result.getCursor();
+
+			if (cursor != null) {
+				cursorString = cursor.toWebSafeString();
+			} else {
+				cursorString = null;
+			}
+			if (numberRetrieved > 0) {
+				log.info("book found");
+				// process the matched docs
+				for (ScoredDocument doc : result.getResults()) {
+					SecondHandBook book = getSecondHandBook(Long.valueOf(doc.getId()));
+					/**
+					SecondHandBook book = new SecondHandBook();
+					ArrayList<String> authors = new ArrayList<String>();
+					book.setId(Long.valueOf(doc.getId()));
+					book.setTitle(doc.getOnlyField("bookTitle").getText());
+					book.setFaculty(doc.getOnlyField("faculty").getText());
+					book.setPrice(doc.getOnlyField("price").getNumber());
+					book.setPublisher(doc.getOnlyField("publisher").getText());
+					Iterator<Field> iter = doc.getFields("author").iterator();
+					while (iter.hasNext()) {
+						authors.add(iter.next().getText());
+					}
+					book.setAuthorsBook(authors);
+					
+					**/
+					listBooks.add(book);
+				}
+			} else {
+				throw new NotFoundException("Not found book");
+			}
+
 		} catch (SearchException e) {
-		    // handle exception...
+			// handle exception...
 			e.printStackTrace();
 		}
 
-		return CollectionResponse.<SecondHandBook> builder().setItems(listBooks)
-				.setNextPageToken(cursorString).build();
+		return CollectionResponse.<SecondHandBook> builder()
+				.setItems(listBooks).setNextPageToken(cursorString).build();
 	}
 
 	/**
@@ -378,7 +392,7 @@ public class SecondHandBookEndpoint {
 			}
 			JSONObject obj = (JSONObject) new JSONTokener(content.toString())
 					.nextValue();
-			//System.out.println(obj);
+			// System.out.println(obj);
 			if (!obj.has("items")) {
 				throw new NotFoundException("Not found book");
 			}
@@ -392,15 +406,15 @@ public class SecondHandBookEndpoint {
 			for (int j = 0; j < authorsJson.length(); j++) {
 				authors.add(authorsJson.getString(j));
 			}
-			if(infoBook.has("publisher")){
-			String publisher = (String) infoBook.get("publisher");
-			book.setPublisher(publisher);
+			if (infoBook.has("publisher")) {
+				String publisher = (String) infoBook.get("publisher");
+				book.setPublisher(publisher);
 			}
 			String publishedDate = (String) infoBook.get("publishedDate");
 
 			book.setAuthorsBook(authors);
 			book.setTitle(title);
-			
+
 			book.setPublishedDate(Integer.valueOf(publishedDate));
 			book.setIsbn(isbn);
 
@@ -412,7 +426,6 @@ public class SecondHandBookEndpoint {
 			e.printStackTrace();
 		}
 
-	
 		return book;
 	}
 
@@ -437,7 +450,7 @@ public class SecondHandBookEndpoint {
 			} else {
 				query = mgr
 						.createQuery("select s from SecondHandBook s where s.bookTitle like :string and :author member of s.authorsBook");
-				query.setParameter("string",title + "%");
+				query.setParameter("string", title + "%");
 				query.setParameter("author", author);
 			}
 

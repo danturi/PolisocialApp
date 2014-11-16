@@ -6,6 +6,7 @@ import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdHolderParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
@@ -89,7 +90,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
-		final SpottedViewHolder holder;
+		SpottedViewHolder holder;
 		int type = getItemViewType(position);
 		final SessionManager session = new SessionManager(cont);
 
@@ -134,7 +135,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		}
 
 		if (getItemViewType(position) != VIEW_LOADING) {
-			final PostSpotted item = getItem(position);
+			PostSpotted item = getItem(position);
 
 			holder.numbOfComments
 					.setOnClickListener(new IdParameterOnClickListener(item
@@ -300,12 +301,13 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 					}
 				}
 			}
-			holder.likeButton.setOnClickListener(new OnClickListener() {
+			holder.likeButton.setOnClickListener(new IdHolderParameterOnClickListener(item.getId(),holder) {
 
 				@Override
 				public void onClick(View v) {
-					new AddLikeOrDisLikeTask(item.getId(), holder, v)
+					new AddLikeOrDisLikeTask(id,(SpottedViewHolder) object, v)
 							.execute("like");
+					notifyDataSetChanged();
 
 				}
 			});
@@ -323,12 +325,13 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 					}
 				}
 			}
-			holder.disLikeButton.setOnClickListener(new OnClickListener() {
+			holder.disLikeButton.setOnClickListener(new IdHolderParameterOnClickListener(item.getId(),holder) {
 
 				@Override
 				public void onClick(View v) {
-					new AddLikeOrDisLikeTask(item.getId(), holder, v)
+					new AddLikeOrDisLikeTask(id,(SpottedViewHolder) object, v)
 							.execute("dislike");
+					
 				}
 			});
 
@@ -462,6 +465,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 					holder.disLikeButton.setEnabled(false);
 					holder.disLikeButton.setBackgroundColor(v.getResources()
 							.getColor(R.color.post_button_pressed));
+					notifyDataSetChanged();
 					session.setDisLike(post);
 				}
 

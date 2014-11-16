@@ -127,6 +127,7 @@ public class SpottedPostListFragment extends ListFragment implements
 				mAdapter.notifyDataSetChanged();
 			} else {
 				mAdapter.addAll(data.getItems());
+				mAdapter.notifyDataSetChanged();
 			}
 			if(data.getItems().size()==10){
 				mEndlessScrollListener.setLoading(false);

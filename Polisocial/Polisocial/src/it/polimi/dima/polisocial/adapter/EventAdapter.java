@@ -426,6 +426,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 					holder.likeButton.setBackgroundColor(v.getResources()
 							.getColor(R.color.post_button_pressed));
 					session.setLikeEvent(post);
+					notifyDataSetChanged();
 				} else {
 					Toast.makeText(context, "You'are going to this event!",
 							Toast.LENGTH_SHORT).show();
@@ -434,6 +435,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 					holder.goingButton.setBackgroundColor(v.getResources()
 							.getColor(R.color.post_button_pressed));
 					session.setGoing(post);
+					notifyDataSetChanged();
 				}
 			} else {
 				Toast.makeText(context,

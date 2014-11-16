@@ -166,7 +166,7 @@ public class NewBookActivity extends Activity {
 			cancel = true;
 		}
 		String authors = mBookAuthors.getText().toString();
-		if(!authors.matches("[a-zA-Z]+(\\,[a-zA-Z]+)*")){
+		if(!authors.matches("[a-zA-Z][a-zA-Z\\s]*(\\,[a-zA-Z][a-zA-Z\\s]*)*")){
 			mBookAuthors.setError(getString(R.string.error_field_authors));
 			focusView = mBookAuthors;
 			cancel = true;

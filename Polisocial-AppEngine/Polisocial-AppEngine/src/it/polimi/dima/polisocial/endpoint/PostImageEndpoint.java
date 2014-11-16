@@ -92,8 +92,8 @@ public class PostImageEndpoint {
 	}
 
 	@SuppressWarnings("unchecked")
-	@ApiMethod(name = "getImageFromPostId", path = "getImageFromPostId")
-	public CollectionResponse<PostImage> getImageFromPostId(@Named("postId") Long postId)
+	@ApiMethod(name = "getImagesFromPostId", path = "getImagesFromPostId")
+	public CollectionResponse<PostImage> getImagesFromPostId(@Named("postId") Long postId)
 			throws NotFoundException {
 		EntityManager mgr = getEntityManager();
 		List<PostImage> results; 
@@ -109,6 +109,25 @@ public class PostImageEndpoint {
 			mgr.close();
 		}
 		return CollectionResponse.<PostImage> builder().setItems(results).build();
+	}
+	
+	@ApiMethod(name = "getImageFromPostId", path = "getImageFromPostId")
+	public PostImage getImageFromPostId(@Named("postId") Long postId)
+			throws NotFoundException {
+		EntityManager mgr = getEntityManager();
+		List<PostImage> results; 
+		try {
+			Query query = mgr
+					.createQuery("SELECT i FROM PostImage i WHERE i.postId =?1");
+			query.setParameter(1, postId);
+			results = query.getResultList();
+			if (results.isEmpty())
+				throw new NotFoundException("Not Found Image");
+			
+		} finally {
+			mgr.close();
+		}
+		return results.get(0);
 	}
 
 	/**
