@@ -27,6 +27,27 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
+    "initiativeendpoint.addLikePostEvent" : {
+      "path" : "addLikePostEvent",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.addLikePostEvent",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "initiativeendpoint.listInitiative" : {
       "path" : "initiative",
       "httpMethod" : "GET",
@@ -66,6 +87,27 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "initiativeendpoint.addGoing" : {
+      "path" : "addGoing",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.addGoing",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "initiativeendpoint.getInitiative" : {
@@ -178,11 +220,19 @@
           },
           "location" : {
             "type" : "string"
+          },
+          "numOfLikes" : {
+            "type" : "integer"
+          },
+          "numOfGoing" : {
+            "type" : "integer"
           }
         }
       }
     },
     "methods" : {
+      "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.addLikePostEvent" : {
+      },
       "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.listInitiative" : {
         "response" : {
           "$ref" : "CollectionResponse_Initiative"
@@ -195,6 +245,8 @@
         "response" : {
           "$ref" : "Initiative"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.addGoing" : {
       },
       "it.polimi.dima.polisocial.endpoint.InitiativeEndpoint.getInitiative" : {
         "response" : {

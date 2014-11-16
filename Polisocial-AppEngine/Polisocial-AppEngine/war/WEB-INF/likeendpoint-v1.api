@@ -132,7 +132,7 @@
       }
     },
     "likeendpoint.insertLike" : {
-      "path" : "like",
+      "path" : "like/{postType}",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -140,6 +140,12 @@
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "it.polimi.dima.polisocial.endpoint.LikeEndpoint.insertLike",
       "request" : {
+        "parameters" : {
+          "postType" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
       },

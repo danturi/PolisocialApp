@@ -84,6 +84,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "postspottedendpoint.addLikePostSpotted" : {
+      "path" : "addLikePostSpotted",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.addLikePostSpotted",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "postspottedendpoint.getPostSpotted" : {
       "path" : "postspotted/{id}",
       "httpMethod" : "GET",
@@ -103,6 +124,27 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postspottedendpoint.addDisLikePostSpotted" : {
+      "path" : "addDisLikePostSpotted",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.addDisLikePostSpotted",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "postspottedendpoint.removePostSpotted" : {
@@ -171,6 +213,12 @@
           },
           "postCategory" : {
             "type" : "string"
+          },
+          "numberLike" : {
+            "type" : "integer"
+          },
+          "numberDislike" : {
+            "type" : "integer"
           }
         }
       }
@@ -197,10 +245,14 @@
           "$ref" : "PostSpotted"
         }
       },
+      "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.addLikePostSpotted" : {
+      },
       "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.getPostSpotted" : {
         "response" : {
           "$ref" : "PostSpotted"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.addDisLikePostSpotted" : {
       },
       "it.polimi.dima.polisocial.endpoint.PostSpottedEndpoint.removePostSpotted" : {
       }

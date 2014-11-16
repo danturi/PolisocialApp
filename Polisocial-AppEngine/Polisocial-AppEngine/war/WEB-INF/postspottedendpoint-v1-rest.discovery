@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/TSAnqKtLDevmsI9rfqAwT3jZa1g\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/Ikj4kDRsOUnBdX7ffBKn39UjAnM\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",
@@ -100,6 +100,14 @@
      "type": "string",
      "format": "int64"
     },
+    "numberDislike": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "numberLike": {
+     "type": "integer",
+     "format": "int32"
+    },
     "postCategory": {
      "type": "string"
     },
@@ -121,6 +129,44 @@
   }
  },
  "methods": {
+  "addDisLikePostSpotted": {
+   "id": "postspottedendpoint.addDisLikePostSpotted",
+   "path": "addDisLikePostSpotted",
+   "httpMethod": "POST",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "addLikePostSpotted": {
+   "id": "postspottedendpoint.addLikePostSpotted",
+   "path": "addLikePostSpotted",
+   "httpMethod": "POST",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "query"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "getPostSpotted": {
    "id": "postspottedendpoint.getPostSpotted",
    "path": "postspotted/{id}",

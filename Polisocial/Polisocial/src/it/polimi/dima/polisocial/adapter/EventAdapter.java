@@ -1,10 +1,25 @@
 package it.polimi.dima.polisocial.adapter;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
+import it.polimi.dima.polisocial.FullScreenPicActivity;
+import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
+import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
+import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
+import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
+import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
+import it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint;
+import it.polimi.dima.polisocial.entity.likeendpoint.model.Like;
+import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
+import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,26 +30,23 @@ import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import it.polimi.dima.polisocial.CloudEndpointUtils;
-import it.polimi.dima.polisocial.FullScreenPicActivity;
-import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
-import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
-import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
-import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
-import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
-import it.polimi.dima.polisocial.utilClasses.PostType;
-import it.polimi.dima.polisocial.utilClasses.WhatToShow;
+import android.widget.Toast;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 	private final int VIEW_STANDARD = 0;
 	private final int VIEW_LOADING = 1;
+	private Context cont;
 
 	public EventAdapter(Context context) {
 		super(context, R.layout.event_item);
+		this.cont = context;
 	}
 
 	@Override
@@ -57,8 +69,9 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
-		EventViewHolder holder;
+		final EventViewHolder holder;
 		int type = getItemViewType(position);
+		final SessionManager session = new SessionManager(cont);
 
 		if (view == null) {
 			holder = new EventViewHolder();
@@ -73,12 +86,18 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 						.findViewById(R.id.event_picture);
 				holder.numbOfLikes = (TextView) view
 						.findViewById(R.id.numb_of_likes);
-				holder.numbOfGoing = (TextView) view.findViewById(R.id.numb_of_participants);
+				holder.numbOfGoing = (TextView) view
+						.findViewById(R.id.numb_of_participants);
 				holder.month = (TextView) view.findViewById(R.id.month);
 				holder.day = (TextView) view.findViewById(R.id.day);
+				holder.likeButton = (Button) view
+						.findViewById(R.id.imageButtonEventLike);
+				holder.goingButton = (Button) view
+						.findViewById(R.id.imageButtonEventGoing);
 
 			} else {
-				view = mInflater.inflate(R.layout.progress_white, parent, false);
+				view = mInflater
+						.inflate(R.layout.progress_white, parent, false);
 			}
 			view.setTag(holder);
 		} else {
@@ -87,7 +106,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 		if (type == VIEW_STANDARD) {
 
-			Initiative item = getItem(position);
+			final Initiative item = getItem(position);
 			holder.numbOfLikes
 					.setOnClickListener(new IdParameterOnClickListener(item
 							.getId()) {
@@ -207,9 +226,55 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 			holder.beginningDate.setText(dateString + " at " + time);
 
-			holder.numbOfLikes
-					.setText(item.getNumOfLikes() + " " + getContext().getResources().getString(R.string.likes));
-			holder.numbOfGoing.setText(item.getNumOfGoing() + " " + getContext().getResources().getString(R.string.going));
+			holder.numbOfLikes.setText(item.getNumOfLikes() + " "
+					+ getContext().getResources().getString(R.string.likes));
+
+			ArrayList<Long> postsLike = session.loadArrayLikeEvent();
+
+			if (postsLike != null && !postsLike.isEmpty()) {
+				Iterator<Long> iter = postsLike.iterator();
+				while (iter.hasNext()) {
+					if (iter.next().compareTo(item.getId()) == 0) {
+						holder.likeButton.setEnabled(false);
+						holder.likeButton.setBackgroundColor(cont
+								.getResources().getColor(
+										R.color.post_button_pressed));
+						break;
+					}
+				}
+			}
+			holder.likeButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					new AddLikeOrGoingTask(item.getId(), holder, v)
+							.execute("like");
+				}
+			});
+			holder.numbOfGoing.setText(item.getNumOfGoing() + " "
+					+ getContext().getResources().getString(R.string.going));
+
+			ArrayList<Long> postsGoing = session.loadArrayGoing();
+			if (postsGoing != null && !postsGoing.isEmpty()) {
+				Iterator<Long> iter = postsGoing.iterator();
+				while (iter.hasNext()) {
+					if (iter.next().compareTo(item.getId()) == 0) {
+						holder.goingButton.setEnabled(false);
+						holder.goingButton.setBackgroundColor(cont
+								.getResources().getColor(
+										R.color.post_button_pressed));
+						break;
+					}
+				}
+			}
+			holder.goingButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					new AddLikeOrGoingTask(item.getId(), holder, v)
+							.execute("going");
+				}
+			});
 
 		}
 
@@ -275,6 +340,107 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		TextView beginningDate;
 		TextView month;
 		TextView day;
+		Button likeButton;
+		Button goingButton;
 	}
 
+	public class AddLikeOrGoingTask extends AsyncTask<String, Void, Boolean> {
+
+		private Long post;
+		private String type;
+		private EventViewHolder holder;
+		private View v;
+
+		public AddLikeOrGoingTask(Long postId, EventViewHolder holder, View v) {
+			this.post = postId;
+			this.holder = holder;
+			this.v = v;
+		}
+
+		@Override
+		protected Boolean doInBackground(String... params) {
+
+			if (params == null)
+				return false;
+			SessionManager session = new SessionManager(cont);
+			type = params[0];
+
+			if (type.equals("like")) {
+
+				Likeendpoint.Builder build1 = new Likeendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+
+				build1 = CloudEndpointUtils.updateBuilder(build1);
+				Likeendpoint likeEndpoint = build1.setApplicationName(
+						"polimisocial").build();
+
+				Like like = new Like();
+				like.setUserId(Long.valueOf(session.getUserDetails().get(
+						SessionManager.KEY_USERID)));
+				like.setPostId(post);
+				try {
+					likeEndpoint.insertLike("initiative",like).execute();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
+				return true;
+			}
+
+			if (type.equals("going")) {
+
+				Dislikeendpoint.Builder build2 = new Dislikeendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+
+				build2 = CloudEndpointUtils.updateBuilder(build2);
+				Dislikeendpoint disLikeEndpoint = build2.setApplicationName(
+						"polimisocial").build();
+
+				DisLike disLike = new DisLike();
+				disLike.setUserId(Long.valueOf(session.getUserDetails().get(
+						SessionManager.KEY_USERID)));
+				disLike.setPostId(post);
+				try {
+					disLikeEndpoint.insertDisLike("initiative",disLike).execute();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
+				return true;
+			}
+
+			return false;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			if (result) {
+				SessionManager session = new SessionManager(cont);
+				if (type.equals("like")) {
+					Toast.makeText(context, "You liked this event!",
+							Toast.LENGTH_SHORT).show();
+					holder.likeButton.setEnabled(false);
+					holder.likeButton.setBackgroundColor(v.getResources()
+							.getColor(R.color.post_button_pressed));
+					session.setLikeEvent(post);
+				} else {
+					Toast.makeText(context, "You'are going to this event!",
+							Toast.LENGTH_SHORT).show();
+
+					holder.goingButton.setEnabled(false);
+					holder.goingButton.setBackgroundColor(v.getResources()
+							.getColor(R.color.post_button_pressed));
+					session.setGoing(post);
+				}
+			} else {
+				Toast.makeText(context,
+						"Can't perform this operation.Retry later",
+						Toast.LENGTH_LONG).show();
+			}
+		}
+
+	}
 }

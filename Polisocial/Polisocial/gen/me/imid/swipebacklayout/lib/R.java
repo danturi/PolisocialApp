@@ -26,7 +26,7 @@ public final class R {
 		public static final int bottom = 0x7f080016;
 		public static final int left = 0x7f080014;
 		public static final int right = 0x7f080015;
-		public static final int swipe = 0x7f080117;
+		public static final int swipe = 0x7f08011c;
 	}
 	public static final class layout {
 		public static final int swipeback_layout = 0x7f03005a;

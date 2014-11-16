@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/uFsv1zdOGp3UznHQUEVhO9_lEwg\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/iHTMEquANvxUGb6VK9kJVDAGd68\"",
  "discoveryVersion": "v1",
  "id": "likeendpoint:v1",
  "name": "likeendpoint",
@@ -166,12 +166,17 @@
   "likeendpoint.insertLike": {
    "id": "likeendpoint.insertLike",
    "parameters": {
+    "postType": {
+     "type": "string",
+     "required": true
+    },
     "resource": {
      "$ref": "Like"
     }
    },
    "parameterOrder": [
-    "resource"
+    "resource",
+    "postType"
    ],
    "returns": {
     "$ref": "Like"

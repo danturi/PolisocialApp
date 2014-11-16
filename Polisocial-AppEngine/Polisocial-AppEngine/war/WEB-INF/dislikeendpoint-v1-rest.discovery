@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/y6VqZtzfhfBIJDPk6S-FYtRH6aw\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/Hw-Ehe8GuKn3yR-czyb9o3752-I\"",
  "discoveryVersion": "v1",
  "id": "dislikeendpoint:v1",
  "name": "dislikeendpoint",
@@ -171,8 +171,18 @@
   },
   "insertDisLike": {
    "id": "dislikeendpoint.insertDisLike",
-   "path": "dislike",
+   "path": "dislike/{postType}",
    "httpMethod": "POST",
+   "parameters": {
+    "postType": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "postType"
+   ],
    "request": {
     "$ref": "DisLike",
     "parameterName": "resource"

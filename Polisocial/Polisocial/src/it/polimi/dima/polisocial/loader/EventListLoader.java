@@ -29,30 +29,6 @@ public class EventListLoader extends
 		Initiativeendpoint endpoint = builder
 				.setApplicationName("polimisocial").build();
 
-/**		Commentendpoint.Builder build = new Commentendpoint.Builder(
-				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-				null);
-
-		build = CloudEndpointUtils.updateBuilder(build);
-		Commentendpoint commEndpoint = build.setApplicationName("polimisocial")
-				.build();
-**/
-		Likeendpoint.Builder build1 = new Likeendpoint.Builder(
-				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-				null);
-
-		build1 = CloudEndpointUtils.updateBuilder(build1);
-		Likeendpoint likeEndpoint = build1.setApplicationName("polimisocial")
-				.build();
-		
-		Dislikeendpoint.Builder build2 = new Dislikeendpoint.Builder(
-				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-				null);
-
-		build2 = CloudEndpointUtils.updateBuilder(build2);
-		Dislikeendpoint disLikeEndpoint = build2.setApplicationName("polimisocial")
-				.build();
-
 		
 		CollectionResponseInitiative list = new CollectionResponseInitiative();
 		try {
@@ -69,15 +45,9 @@ public class EventListLoader extends
 							post.getId()).execute();
 					post.setNumOfComments(Integer.valueOf((String) count
 							.getObject()));**/
-					it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject likeCount = likeEndpoint.getPostLike(
-							post.getId()).execute();
-					post.setNumOfLikes(Integer.valueOf((String) likeCount
-							.getObject()));
 					
-					it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject disLikeCount = disLikeEndpoint.getPostDisLike(
-							post.getId()).execute();
-					post.setNumOfGoing(Integer.valueOf((String) disLikeCount
-							.getObject()));
+					post.setNumOfLikes(post.getNumOfLikes());
+					post.setNumOfGoing(post.getNumOfGoing());
 				}
 			}
 

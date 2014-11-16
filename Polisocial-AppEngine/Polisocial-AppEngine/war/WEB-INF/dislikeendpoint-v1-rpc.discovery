@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/y6VqZtzfhfBIJDPk6S-FYtRH6aw\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/Hw-Ehe8GuKn3yR-czyb9o3752-I\"",
  "discoveryVersion": "v1",
  "id": "dislikeendpoint:v1",
  "name": "dislikeendpoint",
@@ -166,12 +166,17 @@
   "dislikeendpoint.insertDisLike": {
    "id": "dislikeendpoint.insertDisLike",
    "parameters": {
+    "postType": {
+     "type": "string",
+     "required": true
+    },
     "resource": {
      "$ref": "DisLike"
     }
    },
    "parameterOrder": [
-    "resource"
+    "resource",
+    "postType"
    ],
    "returns": {
     "$ref": "DisLike"

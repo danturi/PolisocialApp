@@ -18,11 +18,15 @@ import javax.inject.Named;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
+import javax.persistence.PostRemove;
 import javax.persistence.Query;
 
 @Api(name = "likeendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class LikeEndpoint {
 
+	
+	PostSpottedEndpoint postSpottedEndpoint = new PostSpottedEndpoint();
+	InitiativeEndpoint initiativeEndpoint = new InitiativeEndpoint();
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -116,7 +120,7 @@ public class LikeEndpoint {
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertLike")
-	public Like insertLike(Like like) {
+	public Like insertLike(Like like,@Named("postType")String postType) {
 		EntityManager mgr = getEntityManager();
 		try {
 			if (containsLike(like)) {
@@ -126,6 +130,12 @@ public class LikeEndpoint {
 		} finally {
 			mgr.close();
 		}
+		if(postType.equals("spotted")){
+		postSpottedEndpoint.addLikePostSpotted(like.getPostId());
+		}
+		if(postType.equals("initiative")){
+			initiativeEndpoint.addLikePostEvent(like.getPostId());
+			}
 		return like;
 	}
 
@@ -172,6 +182,8 @@ public class LikeEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
+			if(like.getId()==null)
+				return false;
 			Like item = mgr.find(Like.class, like.getId());
 			if (item == null) {
 				contains = false;

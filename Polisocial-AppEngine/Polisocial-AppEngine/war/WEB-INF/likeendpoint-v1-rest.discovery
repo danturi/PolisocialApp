@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/uFsv1zdOGp3UznHQUEVhO9_lEwg\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/iHTMEquANvxUGb6VK9kJVDAGd68\"",
  "discoveryVersion": "v1",
  "id": "likeendpoint:v1",
  "name": "likeendpoint",
@@ -171,8 +171,18 @@
   },
   "insertLike": {
    "id": "likeendpoint.insertLike",
-   "path": "like",
+   "path": "like/{postType}",
    "httpMethod": "POST",
+   "parameters": {
+    "postType": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "postType"
+   ],
    "request": {
     "$ref": "Like",
     "parameterName": "resource"

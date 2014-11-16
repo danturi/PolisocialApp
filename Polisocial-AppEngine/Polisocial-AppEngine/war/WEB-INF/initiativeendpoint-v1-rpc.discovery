@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/cJqVpiSNMI6qMtdTt1y7v2VsW3k\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/ayZIpaLJzxQVyABB9gJtIObGn9o\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -108,6 +108,14 @@
     "location": {
      "type": "string"
     },
+    "numOfGoing": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "numOfLikes": {
+     "type": "integer",
+     "format": "int32"
+    },
     "text": {
      "type": "string"
     },
@@ -126,6 +134,38 @@
   }
  },
  "methods": {
+  "initiativeendpoint.addGoing": {
+   "id": "initiativeendpoint.addGoing",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "initiativeendpoint.addLikePostEvent": {
+   "id": "initiativeendpoint.addLikePostEvent",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "initiativeendpoint.getInitiative": {
    "id": "initiativeendpoint.getInitiative",
    "allowGet": true,

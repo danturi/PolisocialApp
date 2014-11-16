@@ -23,6 +23,9 @@ import javax.persistence.Query;
 @Api(name = "dislikeendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath = "dima.polisocial.entity"))
 public class DisLikeEndpoint {
 
+	private PostSpottedEndpoint postSpottedEndpoint = new PostSpottedEndpoint();
+	private InitiativeEndpoint initiativeEndpoint= new InitiativeEndpoint();
+
 	/**
 	 * This method lists all the entities inserted in datastore.
 	 * It uses HTTP GET method and paging support.
@@ -116,7 +119,7 @@ public class DisLikeEndpoint {
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertDisLike")
-	public DisLike insertDisLike(DisLike dislike) {
+	public DisLike insertDisLike(DisLike dislike,@Named("postType")String postType) {
 		EntityManager mgr = getEntityManager();
 		try {
 			if (containsDisLike(dislike)) {
@@ -126,6 +129,12 @@ public class DisLikeEndpoint {
 		} finally {
 			mgr.close();
 		}
+		if(postType.equals("spotted")){
+		postSpottedEndpoint .addDisLikePostSpotted(dislike.getPostId());
+		}
+		if(postType.equals("initiative")){
+			initiativeEndpoint.addGoing(dislike.getPostId());
+			}
 		return dislike;
 	}
 
@@ -172,6 +181,8 @@ public class DisLikeEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
+			if (dislike.getId()==null)
+				return false;
 			DisLike item = mgr.find(DisLike.class, dislike.getId());
 			if (item == null) {
 				contains = false;

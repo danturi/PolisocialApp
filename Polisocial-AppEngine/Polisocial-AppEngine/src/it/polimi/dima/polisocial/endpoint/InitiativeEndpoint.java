@@ -2,6 +2,7 @@ package it.polimi.dima.polisocial.endpoint;
 
 import it.polimi.dima.polisocial.entity.EMF;
 import it.polimi.dima.polisocial.entity.Initiative;
+import it.polimi.dima.polisocial.entity.PostSpotted;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -143,6 +144,32 @@ public class InitiativeEndpoint {
     try {
       Initiative initiative = mgr.find(Initiative.class, id);
       mgr.remove(initiative);
+    } finally {
+      mgr.close();
+    }
+  }
+  
+  @ApiMethod(name = "addLikePostEvent",path="addLikePostEvent")
+  public void addLikePostEvent(@Named("id") Long id) {
+    EntityManager mgr = getEntityManager();
+    try {
+      Initiative event = mgr.find(Initiative.class, id);
+      event.setNumOfLikes(event.getNumOfLikes()+1);
+      mgr.merge(event);
+      
+    } finally {
+      mgr.close();
+    }
+  }
+  
+  @ApiMethod(name = "addGoing",path="addGoing")
+  public void addGoing(@Named("id") Long id) {
+    EntityManager mgr = getEntityManager();
+    try {
+    	Initiative event = mgr.find(Initiative.class, id);
+      event.setNumOfGoing(event.getNumOfGoing()+1);
+      mgr.merge(event);
+      
     } finally {
       mgr.close();
     }

@@ -22,6 +22,7 @@ import javax.persistence.Query;
 @Api(name = "postspottedendpoint", namespace = @ApiNamespace(ownerDomain = "polimi.it", ownerName = "polimi.it", packagePath="dima.polisocial.entity"))
 public class PostSpottedEndpoint {
 
+	
   /**
    * This method lists all the entities inserted in datastore.
    * It uses HTTP GET method and paging support.
@@ -148,6 +149,33 @@ public class PostSpottedEndpoint {
       mgr.close();
     }
   }
+  
+  @ApiMethod(name = "addLikePostSpotted",path="addLikePostSpotted")
+  public void addLikePostSpotted(@Named("id") Long id) {
+    EntityManager mgr = getEntityManager();
+    try {
+      PostSpotted postspotted = mgr.find(PostSpotted.class, id);
+      postspotted.setNumberLike(postspotted.getNumberLike()+1);
+      mgr.merge(postspotted);
+      
+    } finally {
+      mgr.close();
+    }
+  }
+  
+  @ApiMethod(name = "addDisLikePostSpotted",path="addDisLikePostSpotted")
+  public void addDisLikePostSpotted(@Named("id") Long id) {
+    EntityManager mgr = getEntityManager();
+    try {
+      PostSpotted postspotted = mgr.find(PostSpotted.class, id);
+      postspotted.setNumberDislike(postspotted.getNumberDislike()+1);
+      mgr.merge(postspotted);
+      
+    } finally {
+      mgr.close();
+    }
+  }
+  
 
   private boolean containsPostSpotted(PostSpotted postspotted) {
     EntityManager mgr = getEntityManager();

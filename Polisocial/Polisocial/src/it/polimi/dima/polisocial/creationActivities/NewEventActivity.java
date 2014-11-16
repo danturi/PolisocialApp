@@ -330,6 +330,8 @@ public class NewEventActivity extends Activity {
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();
 			newEventPost.setTimestamp(new DateTime(now));
+			newEventPost.setNumOfGoing(0);
+			newEventPost.setNumOfLikes(0);
 
 			if (pic != null) {
 				newEventPost.setHavePicture(true);
