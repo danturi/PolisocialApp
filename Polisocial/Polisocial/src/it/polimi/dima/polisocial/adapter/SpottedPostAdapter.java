@@ -6,7 +6,7 @@ import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
-import it.polimi.dima.polisocial.customListeners.IdHolderParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
@@ -22,7 +22,6 @@ import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.DialogFragment;
 import android.app.FragmentManager;
@@ -37,6 +36,8 @@ import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,16 +52,26 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 	private final int VIEW_CUPIDO = 1;
 	private final int VIEW_NO_CUPIDO = 0;
 	private final int VIEW_LOADING = 2;
+	
+	final Animation animRotate = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anim);
+	
 
 	private Long userId;
 	private String name;
 	private Context cont;
+
+	ArrayList<Long> postsLike = new ArrayList<>();
+	ArrayList<Long> postsDisLike = new ArrayList<>();
+	final SessionManager session;
 
 	public SpottedPostAdapter(Context context, Long userId, String name) {
 		super(context, R.layout.spotted_post_item);
 		this.userId = userId;
 		this.name = name;
 		this.cont = context;
+		session = new SessionManager(cont);
+		postsLike = session.loadArrayLikeSpotted();
+		postsDisLike = session.loadArrayDisLike();
 	}
 
 	@Override
@@ -92,7 +103,6 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		View view = convertView;
 		SpottedViewHolder holder;
 		int type = getItemViewType(position);
-		final SessionManager session = new SessionManager(cont);
 
 		if (view == null) {
 			holder = new SpottedViewHolder();
@@ -287,54 +297,61 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 			holder.numbOfDisLikes.setText(item.getNumberDislike() + " "
 					+ getContext().getResources().getString(R.string.dislikes));
 
-			ArrayList<Long> postsLike = session.loadArrayLikeSpotted();
-
+			holder.likeButton.setSelected(false);
+			holder.likeButton.setEnabled(true);
 			if (postsLike != null && !postsLike.isEmpty()) {
-				Iterator<Long> iter = postsLike.iterator();
-				while (iter.hasNext()) {
-					if (iter.next().compareTo(item.getId()) == 0) {
+				for(Long postId : postsLike){
+					if(postId.compareTo(item.getId()) == 0){
 						holder.likeButton.setEnabled(false);
-						holder.likeButton.setBackgroundColor(cont
-								.getResources().getColor(
-										R.color.post_button_pressed));
+						holder.likeButton.setSelected(true);
 						break;
 					}
 				}
 			}
-			holder.likeButton.setOnClickListener(new IdHolderParameterOnClickListener(item.getId(),holder) {
+			
+			holder.likeButton
+					.setOnClickListener(new IdButtonParameterOnClickListener(
+							item.getId(), holder.likeButton) {
 
-				@Override
-				public void onClick(View v) {
-					new AddLikeOrDisLikeTask(id,(SpottedViewHolder) object, v)
-							.execute("like");
-					notifyDataSetChanged();
+						@Override
+						public void onClick(View v) {
+							v.startAnimation(animRotate);
+							button.setEnabled(false);
+							button.setSelected(true);							
+							new AddLikeOrDisLikeTask(id,
+									button)
+									.execute("like");
+						}
+					});
 
-				}
-			});
-
-			ArrayList<Long> postsDisLike = session.loadArrayDisLike();
+			
+			holder.disLikeButton.setSelected(false);
+			holder.disLikeButton.setEnabled(true);
 			if (postsDisLike != null && !postsDisLike.isEmpty()) {
-				Iterator<Long> iter = postsDisLike.iterator();
-				while (iter.hasNext()) {
-					if (iter.next().compareTo(item.getId()) == 0) {
+				for(Long postId : postsDisLike){
+					if(postId.compareTo(item.getId()) == 0){
 						holder.disLikeButton.setEnabled(false);
-						holder.disLikeButton.setBackgroundColor(cont
-								.getResources().getColor(
-										R.color.post_button_pressed));
+						holder.disLikeButton.setSelected(true);
 						break;
 					}
 				}
 			}
-			holder.disLikeButton.setOnClickListener(new IdHolderParameterOnClickListener(item.getId(),holder) {
+			
+			holder.disLikeButton
+					.setOnClickListener(new IdButtonParameterOnClickListener(
+							item.getId(), holder.disLikeButton) {
 
-				@Override
-				public void onClick(View v) {
-					new AddLikeOrDisLikeTask(id,(SpottedViewHolder) object, v)
-							.execute("dislike");
-					
-				}
-			});
-
+						@Override
+						public void onClick(View v) {
+							v.startAnimation(animRotate);
+							button.setEnabled(false);
+							button.setSelected(true);							
+							new AddLikeOrDisLikeTask(id,
+									button)
+									.execute("dislike");
+						}
+					});
+			
 			if (getItemViewType(position) == VIEW_CUPIDO) {
 
 				holder.hitOnButton
@@ -362,7 +379,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		dialog.show(fm, "HitOnDialogFragm");
 	}
 
-	static class SpottedViewHolder {
+	public static class SpottedViewHolder {
 		TextView title;
 		TextView timestamp;
 		TextView statusMsg;
@@ -381,19 +398,16 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 
 		private Long post;
 		private String type;
-		private SpottedViewHolder holder;
-		private View v;
+		private Button button;
 
-		public AddLikeOrDisLikeTask(Long postId, SpottedViewHolder holder,
-				View v) {
+		public AddLikeOrDisLikeTask(Long postId, Button button) {
 			this.post = postId;
-			this.holder = holder;
-			this.v = v;
+			this.button = button;
 		}
 
 		@Override
-		protected Boolean doInBackground(String... params) {
-
+		protected Boolean doInBackground(String... params) {		
+			
 			if (params == null)
 				return false;
 
@@ -450,26 +464,22 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
 			if (result) {
-				SessionManager session = new SessionManager(cont);
 				if (type.equals("like")) {
 					Toast.makeText(context, "You liked this post!",
 							Toast.LENGTH_SHORT).show();
-					holder.likeButton.setEnabled(false);
-					holder.likeButton.setBackgroundColor(v.getResources()
-							.getColor(R.color.post_button_pressed));
 					session.setLikeSpotted(post);
+					postsLike.add(post);
 				} else {
 					Toast.makeText(context, "You disliked this post!",
 							Toast.LENGTH_SHORT).show();
-
-					holder.disLikeButton.setEnabled(false);
-					holder.disLikeButton.setBackgroundColor(v.getResources()
-							.getColor(R.color.post_button_pressed));
-					notifyDataSetChanged();
+					
 					session.setDisLike(post);
+					postsDisLike.add(post);
 				}
 
 			} else {
+					button.setEnabled(true);
+					button.setSelected(false);
 				Toast.makeText(context,
 						"Can't perform this operation.Retry later",
 						Toast.LENGTH_LONG).show();

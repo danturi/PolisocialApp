@@ -2,17 +2,18 @@ package it.polimi.dima.polisocial.customListeners;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
-public class IdHolderParameterOnClickListener implements OnClickListener{
+public class IdButtonParameterOnClickListener implements OnClickListener{
 
 	protected long id;
-	protected Object object;
+	protected Button button;
 
-	public IdHolderParameterOnClickListener(long id,Object obj)
+	public IdButtonParameterOnClickListener(long id,Button button)
 	{
 	    this.id = id;
-	    this.object=obj;
+	    this.button=button;
 	}
 
 	@Override
