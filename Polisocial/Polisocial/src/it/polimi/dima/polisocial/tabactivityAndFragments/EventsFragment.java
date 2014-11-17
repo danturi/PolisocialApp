@@ -8,6 +8,7 @@ import it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionRespo
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.loader.EventListLoader;
 import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ public class EventsFragment extends ListFragment implements
 	//private View mProgressView;
 	private String mCursor = null;
 	private EndlessScrollListener mEndlessScrollListener;
+	private SessionManager session;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,9 +46,11 @@ public class EventsFragment extends ListFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
-
+		session = new SessionManager(getActivity().getApplicationContext());
+		Long userId = Long.valueOf(session.getUserDetails().get(
+				SessionManager.KEY_USERID));		
 		// Create an empty adapter we will use to display the loaded data.
-		mAdapter = new EventAdapter(getActivity());
+		mAdapter = new EventAdapter(getActivity(), userId);
 		setListAdapter(mAdapter);
 		
 		setListAdapter(mAdapter);

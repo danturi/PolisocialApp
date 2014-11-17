@@ -178,27 +178,6 @@
         "body" : "empty"
       }
     },
-    "secondhandbookendpoint.removeSecondHandBook" : {
-      "path" : "secondhandbook/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "secondhandbookendpoint.getSecondHandBook" : {
       "path" : "secondhandbook/{id}",
       "httpMethod" : "GET",
@@ -218,6 +197,27 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "secondhandbookendpoint.removeSecondHandBook" : {
+      "path" : "secondhandbook/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "secondhandbookendpoint.searchFullTextBook" : {
@@ -356,12 +356,12 @@
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.deleteIndexBookById" : {
       },
-      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
-      },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.getSecondHandBook" : {
         "response" : {
           "$ref" : "SecondHandBook"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.removeSecondHandBook" : {
       },
       "it.polimi.dima.polisocial.endpoint.SecondHandBookEndpoint.searchFullTextBook" : {
         "response" : {

@@ -5,6 +5,7 @@ import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
@@ -19,7 +20,6 @@ import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +29,8 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,11 +44,21 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 	private final int VIEW_STANDARD = 0;
 	private final int VIEW_LOADING = 1;
-	private Context cont;
+	
+	final Animation animRotate = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anim);
+	
+	private Long userId;
+	
+	ArrayList<Long> postsLike = new ArrayList<>();
+	ArrayList<Long> postsDisLike = new ArrayList<>();
+	final SessionManager session;
+	
 
-	public EventAdapter(Context context) {
+	public EventAdapter(Context context, Long userId) {
 		super(context, R.layout.event_item);
-		this.cont = context;
+		session = new SessionManager(context);
+		postsLike = session.loadArrayLikeSpotted();
+		postsDisLike = session.loadArrayDisLike();
 	}
 
 	@Override
@@ -71,7 +83,6 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		View view = convertView;
 		final EventViewHolder holder;
 		int type = getItemViewType(position);
-		final SessionManager session = new SessionManager(cont);
 
 		if (view == null) {
 			holder = new EventViewHolder();
@@ -228,53 +239,63 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 			holder.numbOfLikes.setText(item.getNumOfLikes() + " "
 					+ getContext().getResources().getString(R.string.likes));
-
-			ArrayList<Long> postsLike = session.loadArrayLikeEvent();
-
-			if (postsLike != null && !postsLike.isEmpty()) {
-				Iterator<Long> iter = postsLike.iterator();
-				while (iter.hasNext()) {
-					if (iter.next().compareTo(item.getId()) == 0) {
-						holder.likeButton.setEnabled(false);
-						holder.likeButton.setBackgroundColor(cont
-								.getResources().getColor(
-										R.color.post_button_pressed));
-						break;
-					}
-				}
-			}
-			holder.likeButton.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					new AddLikeOrGoingTask(item.getId(), holder, v)
-							.execute("like");
-				}
-			});
 			holder.numbOfGoing.setText(item.getNumOfGoing() + " "
 					+ getContext().getResources().getString(R.string.going));
-
-			ArrayList<Long> postsGoing = session.loadArrayGoing();
-			if (postsGoing != null && !postsGoing.isEmpty()) {
-				Iterator<Long> iter = postsGoing.iterator();
-				while (iter.hasNext()) {
-					if (iter.next().compareTo(item.getId()) == 0) {
-						holder.goingButton.setEnabled(false);
-						holder.goingButton.setBackgroundColor(cont
-								.getResources().getColor(
-										R.color.post_button_pressed));
+			
+			holder.likeButton.setSelected(false);
+			holder.likeButton.setEnabled(true);
+			if (postsLike != null && !postsLike.isEmpty()) {
+				for(Long postId : postsLike){
+					if(postId.compareTo(item.getId()) == 0){
+						holder.likeButton.setEnabled(false);
+						holder.likeButton.setSelected(true);
 						break;
 					}
 				}
 			}
-			holder.goingButton.setOnClickListener(new OnClickListener() {
+			
+			holder.likeButton
+					.setOnClickListener(new IdButtonParameterOnClickListener(
+							item.getId(), holder.likeButton) {
 
-				@Override
-				public void onClick(View v) {
-					new AddLikeOrGoingTask(item.getId(), holder, v)
-							.execute("going");
+						@Override
+						public void onClick(View v) {
+							v.startAnimation(animRotate);
+							button.setEnabled(false);
+							button.setSelected(true);							
+							new AddLikeOrDisLikeTask(id,
+									button)
+									.execute("like");
+						}
+					});
+
+			
+			holder.goingButton.setSelected(false);
+			holder.goingButton.setEnabled(true);
+			if (postsDisLike != null && !postsDisLike.isEmpty()) {
+				for(Long postId : postsDisLike){
+					if(postId.compareTo(item.getId()) == 0){
+						holder.goingButton.setEnabled(false);
+						holder.goingButton.setSelected(true);
+						break;
+					}
 				}
-			});
+			}
+			
+			holder.goingButton
+					.setOnClickListener(new IdButtonParameterOnClickListener(
+							item.getId(), holder.goingButton) {
+
+						@Override
+						public void onClick(View v) {
+							v.startAnimation(animRotate);
+							button.setEnabled(false);
+							button.setSelected(true);							
+							new AddLikeOrDisLikeTask(id,
+									button)
+									.execute("dislike");
+						}
+					});
 
 		}
 
@@ -344,25 +365,24 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		Button goingButton;
 	}
 
-	public class AddLikeOrGoingTask extends AsyncTask<String, Void, Boolean> {
+	
+	public class AddLikeOrDisLikeTask extends AsyncTask<String, Void, Boolean> {
 
 		private Long post;
 		private String type;
-		private EventViewHolder holder;
-		private View v;
+		private Button button;
 
-		public AddLikeOrGoingTask(Long postId, EventViewHolder holder, View v) {
+		public AddLikeOrDisLikeTask(Long postId, Button button) {
 			this.post = postId;
-			this.holder = holder;
-			this.v = v;
+			this.button = button;
 		}
 
 		@Override
-		protected Boolean doInBackground(String... params) {
-
+		protected Boolean doInBackground(String... params) {		
+			
 			if (params == null)
 				return false;
-			SessionManager session = new SessionManager(cont);
+
 			type = params[0];
 
 			if (type.equals("like")) {
@@ -376,11 +396,10 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 						"polimisocial").build();
 
 				Like like = new Like();
-				like.setUserId(Long.valueOf(session.getUserDetails().get(
-						SessionManager.KEY_USERID)));
+				like.setUserId(userId);
 				like.setPostId(post);
 				try {
-					likeEndpoint.insertLike("initiative",like).execute();
+					likeEndpoint.insertLike("initiative", like).execute();
 				} catch (IOException e) {
 					e.printStackTrace();
 					return false;
@@ -388,7 +407,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 				return true;
 			}
 
-			if (type.equals("going")) {
+			if (type.equals("dislike")) {
 
 				Dislikeendpoint.Builder build2 = new Dislikeendpoint.Builder(
 						AndroidHttp.newCompatibleTransport(),
@@ -399,11 +418,10 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 						"polimisocial").build();
 
 				DisLike disLike = new DisLike();
-				disLike.setUserId(Long.valueOf(session.getUserDetails().get(
-						SessionManager.KEY_USERID)));
+				disLike.setUserId(userId);
 				disLike.setPostId(post);
 				try {
-					disLikeEndpoint.insertDisLike("initiative",disLike).execute();
+					disLikeEndpoint.insertDisLike("initiative", disLike).execute();
 				} catch (IOException e) {
 					e.printStackTrace();
 					return false;
@@ -418,26 +436,22 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
 			if (result) {
-				SessionManager session = new SessionManager(cont);
 				if (type.equals("like")) {
 					Toast.makeText(context, "You liked this event!",
 							Toast.LENGTH_SHORT).show();
-					holder.likeButton.setEnabled(false);
-					holder.likeButton.setBackgroundColor(v.getResources()
-							.getColor(R.color.post_button_pressed));
-					session.setLikeEvent(post);
-					notifyDataSetChanged();
+					session.setLikeSpotted(post);
+					postsLike.add(post);
 				} else {
 					Toast.makeText(context, "You'are going to this event!",
 							Toast.LENGTH_SHORT).show();
-
-					holder.goingButton.setEnabled(false);
-					holder.goingButton.setBackgroundColor(v.getResources()
-							.getColor(R.color.post_button_pressed));
-					session.setGoing(post);
-					notifyDataSetChanged();
+					
+					session.setDisLike(post);
+					postsDisLike.add(post);
 				}
+
 			} else {
+					button.setEnabled(true);
+					button.setSelected(false);
 				Toast.makeText(context,
 						"Can't perform this operation.Retry later",
 						Toast.LENGTH_LONG).show();
@@ -445,4 +459,6 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		}
 
 	}
+	
+	
 }

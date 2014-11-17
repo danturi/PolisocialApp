@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/PURrOtnw2xj3TBPUmIMnJlHYlPQ\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/CG5IQKf2GC0BwaPYHxIzrR2GnCo\"",
  "discoveryVersion": "v1",
  "id": "postimageendpoint:v1",
  "name": "postimageendpoint",
@@ -122,6 +122,26 @@
    ],
    "returns": {
     "$ref": "PostImage"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "postimageendpoint.getImagesFromPostId": {
+   "id": "postimageendpoint.getImagesFromPostId",
+   "allowGet": true,
+   "parameters": {
+    "postId": {
+     "type": "string",
+     "required": true,
+     "format": "int64"
+    }
+   },
+   "parameterOrder": [
+    "postId"
+   ],
+   "returns": {
+    "$ref": "CollectionResponse_PostImage"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

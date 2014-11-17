@@ -58,7 +58,6 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 
 	private Long userId;
 	private String name;
-	private Context cont;
 
 	ArrayList<Long> postsLike = new ArrayList<>();
 	ArrayList<Long> postsDisLike = new ArrayList<>();
@@ -68,8 +67,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		super(context, R.layout.spotted_post_item);
 		this.userId = userId;
 		this.name = name;
-		this.cont = context;
-		session = new SessionManager(cont);
+		session = new SessionManager(context);
 		postsLike = session.loadArrayLikeSpotted();
 		postsDisLike = session.loadArrayDisLike();
 	}
