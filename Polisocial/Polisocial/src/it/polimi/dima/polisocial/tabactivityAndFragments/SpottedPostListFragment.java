@@ -44,6 +44,7 @@ public class SpottedPostListFragment extends ListFragment implements
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		session = new SessionManager(getActivity().getApplicationContext());
+		session.checkLogin();
 		Long userId = Long.valueOf(session.getUserDetails().get(
 				SessionManager.KEY_USERID));
 		String name = session.getUserDetails().get(SessionManager.KEY_NAME);

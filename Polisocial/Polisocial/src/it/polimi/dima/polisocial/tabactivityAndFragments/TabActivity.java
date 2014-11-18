@@ -20,6 +20,7 @@ import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 import it.polimi.dima.polisocial.utilClasses.VenueItem;
@@ -133,9 +134,10 @@ public class TabActivity extends FragmentActivity implements
 		int item = mViewPager.getCurrentItem();
 		Fragment currentFragm = mAppSectionsPagerAdapter.mFragmentAtPos2;
 		if ((item == 2) && !(currentFragm instanceof AnnouncementsFragment)) {
-			mAppSectionsPagerAdapter.mFragmentManager.beginTransaction().remove(currentFragm)
-					.commit();
-			mAppSectionsPagerAdapter.mFragmentAtPos2 = AnnouncementsFragment.newInstance(mAppSectionsPagerAdapter.listenerAnnouncement);
+			mAppSectionsPagerAdapter.mFragmentManager.beginTransaction()
+					.remove(currentFragm).commit();
+			mAppSectionsPagerAdapter.mFragmentAtPos2 = AnnouncementsFragment
+					.newInstance(mAppSectionsPagerAdapter.listenerAnnouncement);
 			mAppSectionsPagerAdapter.notifyDataSetChanged();
 
 		} else {
@@ -199,6 +201,7 @@ public class TabActivity extends FragmentActivity implements
 		}
 
 		sessionManager = new SessionManager(getApplicationContext());
+		sessionManager.checkLogin();
 
 		servicesConnected();
 		mLocationClient = new LocationClient(this, this, this);
@@ -347,8 +350,8 @@ public class TabActivity extends FragmentActivity implements
 				session.close();
 				session.closeAndClearTokenInformation();
 			}
-			sessionManager.logoutUser();
 			GCMIntentService.unregister(this);
+			sessionManager.logoutUser();
 
 			/**
 			 * case R.id.menu_filter_events_culture: item.setChecked(true); //
@@ -526,7 +529,8 @@ public class TabActivity extends FragmentActivity implements
 					}
 					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
 							.commit();
-					mFragmentAtPos2 = AnnouncementsFragment.newInstance(listenerAnnouncement);
+					mFragmentAtPos2 = AnnouncementsFragment
+							.newInstance(listenerAnnouncement);
 				}
 
 				notifyDataSetChanged();
@@ -1430,8 +1434,25 @@ public class TabActivity extends FragmentActivity implements
 	@Override
 	protected void onNewIntent(Intent intent) {
 		intentGcmNotifica = intent;
-		if (intent.getBooleanExtra("gcmNotification", false)) {
+		Bundle bundle = intent.getExtras();
+		if (bundle.getBoolean("gcmNotification", false)) {
 			actionBar.setSelectedNavigationItem(4);
+			String typeNotif = bundle
+					.getString("type");
+
+			if (typeNotif.equals(PostType.EVENT.toString())) {
+				GCMIntentService.countEvent = 1;
+			}
+			if (typeNotif.equals(PostType.HIT_ON.toString())) {
+				GCMIntentService.countHitOn = 1;
+			}
+			if (typeNotif.equals(PostType.SPOTTED.toString())) {
+				GCMIntentService.countSpotted = 1;
+			}
+			if (typeNotif.equals("announcement")) {
+				GCMIntentService.countAnnouncement = 1;
+			}
+
 		}
 		super.onNewIntent(intent);
 	}

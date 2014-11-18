@@ -39,7 +39,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,10 +111,10 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 							parent, false);
 
 				} else {
-					view = mInflater.inflate(R.layout.spotted_post_item_cupido,
+					view = mInflater.inflate(R.layout.spotted_post_item,
 							parent, false);
-					holder.hitOnButton = (ImageButton) view
-							.findViewById(R.id.hitOnButton);
+					holder.hitOnButton = (Button) view
+							.findViewById(R.id.imageContactButton);
 				}
 
 				holder.title = (TextView) view.findViewById(R.id.title);
@@ -386,10 +385,9 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 		TextView numbOfComments;
 		TextView numbOfLikes;
 		TextView numbOfDisLikes;
-		ImageButton hitOnButton;
+		Button hitOnButton;
 		Button likeButton;
 		Button disLikeButton;
-		Button contactButton;
 	}
 
 	public class AddLikeOrDisLikeTask extends AsyncTask<String, Void, Boolean> {

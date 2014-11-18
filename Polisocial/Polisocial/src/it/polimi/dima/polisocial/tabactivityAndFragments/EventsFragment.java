@@ -47,6 +47,7 @@ public class EventsFragment extends ListFragment implements
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 		session = new SessionManager(getActivity().getApplicationContext());
+		session.checkLogin();
 		Long userId = Long.valueOf(session.getUserDetails().get(
 				SessionManager.KEY_USERID));		
 		// Create an empty adapter we will use to display the loaded data.

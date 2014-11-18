@@ -16,10 +16,10 @@ public final class R {
 		public static final int shadow_right = 0x7f010003;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f0200d5;
-		public static final int shadow_bottom = 0x7f02010b;
-		public static final int shadow_left = 0x7f02010c;
-		public static final int shadow_right = 0x7f02010e;
+		public static final int ic_launcher = 0x7f0200cd;
+		public static final int shadow_bottom = 0x7f0200fd;
+		public static final int shadow_left = 0x7f0200fe;
+		public static final int shadow_right = 0x7f020100;
 	}
 	public static final class id {
 		public static final int all = 0x7f050003;

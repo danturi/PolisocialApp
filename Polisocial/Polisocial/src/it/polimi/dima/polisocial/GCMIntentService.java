@@ -24,6 +24,7 @@ import it.polimi.dima.polisocial.utilClasses.SessionManager;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Random;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -31,6 +32,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -46,6 +48,14 @@ import com.google.api.client.util.DateTime;
 public class GCMIntentService extends GCMBaseIntentService {
 	private final Deviceinfoendpoint endpoint;
 	private Long userId;
+	final static String GROUP_KEY_SPOTTED = "group_key_spotted";
+	final static String GROUP_KEY_ANNOUNCEMENT = "group_key_announcement";
+	final static String GROUP_KEY_EVENT = "group_key_event";
+	final static String GROUP_KEY_HITON = "group_key_hiton";
+	public static int countSpotted = 1;
+	public static int countEvent = 1;
+	public static int countAnnouncement = 1;
+	public static int countHitOn = 1;
 
 	public static final String PROJECT_NUMBER = "617518383250";
 
@@ -263,59 +273,182 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		int icon = R.drawable.logo_login;
 		long when = System.currentTimeMillis();
+		String group = null;
+		
 
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		String title = context.getString(R.string.app_name);
-		String textNotif = "";
-		int id = 0;
-		if (message.equals(PostType.SPOTTED.toString())) {
-			textNotif = "You have received new Spotted comments";
-			id = 1;
-		}
-		if (message.equals(PostType.RENTAL.toString())
-				|| message.equals(PostType.SECOND_HAND_BOOK.toString())
-				|| message.equals(PostType.PRIVATE_LESSON.toString())) {
-			textNotif = "You have received new Announcement comments";
-			id = 2;
-		}
-		if (message.equals(PostType.EVENT.toString())) {
-			textNotif = "You have received new Initiative comments";
-			id = 3;
-		}
-		
-		if (message.equals(PostType.HIT_ON.toString())) {
-			textNotif = "You have received new HitOn messages";
-			id = 4;
-		}
-
+		String title = " messages";
 		Intent notificationIntent = new Intent(context, TabActivity.class);
 		// set intent so it does not start a new activity
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		notificationIntent.putExtra("gcmNotification", true);
-		PendingIntent intent = PendingIntent.getActivity(context, 0,
-				notificationIntent, 0);
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("gcmNotification", true);
+		//notificationIntent.putExtra("gcmNotification", true);
+
+		
 		// notifica di android non la nostra...
-		Notification notification = new Notification.Builder(context)
-				.setContentIntent(intent).setContentTitle(title)
-				.setContentText(textNotif).setSmallIcon(icon).setWhen(when)
+		Notification notification = null;
+		
+		
+		//tipo spotted
+		if (message.equals(PostType.SPOTTED.toString())) {
+			group=GROUP_KEY_SPOTTED;
+			bundle.putString("type", PostType.SPOTTED.toString());
+			notificationIntent.putExtras(bundle);
+			PendingIntent intent = PendingIntent.getActivity(context, 1,
+					notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			if(countSpotted>1){
+				notification = new NotificationCompat.Builder(context)
+				.setContentIntent(intent).setContentTitle("MyOwl Spotted")
+				.setContentText(countSpotted + title).setSmallIcon(icon).setWhen(when).setGroup(group)
 				.build();
+				countSpotted++;
+			}else {
+			
+			// Create an InboxStyle notification
+					notification = new NotificationCompat.Builder(context)
+					        .setContentTitle("MyOwl Spotted")
+					        .setSmallIcon(R.drawable.logo_login)
+					        .setContentIntent(intent)
+					        .setStyle(new NotificationCompat.InboxStyle()
+					                .addLine("1 message")
+					                .setBigContentTitle("MyOwl Spotted"))
+					        .setGroup(group)
+					        .setGroupSummary(true)
+					        .build();
+					countSpotted++;
 
-		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			}	
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.defaults |= Notification.DEFAULT_SOUND;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+			notificationManager.notify(1, notification);
+		}
+		
+		
+		//tipo announcement
+		if (message.equals(PostType.RENTAL.toString())
+				|| message.equals(PostType.SECOND_HAND_BOOK.toString())
+				|| message.equals(PostType.PRIVATE_LESSON.toString())) {
+			group=GROUP_KEY_ANNOUNCEMENT;
+			bundle.putString("type", "announcement");
+			notificationIntent.putExtras(bundle);
+			PendingIntent intent = PendingIntent.getActivity(context, 2,
+					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			if(countAnnouncement>1){
+				notification = new NotificationCompat.Builder(context)
+				.setContentIntent(intent).setContentTitle("MyOwl Announcement")
+				.setContentText(countAnnouncement + title).setSmallIcon(icon).setWhen(when).setGroup(group)
+				.build();
+				countAnnouncement++;
+			}else {
+			
+			// Create an InboxStyle notification
+					notification = new NotificationCompat.Builder(context)
+					        .setContentTitle("MyOwl Announcement")
+					        .setSmallIcon(R.drawable.logo_login)
+					        .setContentIntent(intent)
+					        .setStyle(new NotificationCompat.InboxStyle()
+					                .addLine("1 message")
+					                .setBigContentTitle("MyOwl Announcement"))
+					        .setGroup(group)
+					        .setGroupSummary(true)
+					        .build();
+					countAnnouncement++;
 
-		// Play default notification sound
-		notification.defaults |= Notification.DEFAULT_SOUND;
+			}	
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.defaults |= Notification.DEFAULT_SOUND;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+			notificationManager.notify(2, notification);
+		}
+		
+		
+		
+		if (message.equals(PostType.EVENT.toString())) {
+			group=GROUP_KEY_EVENT;
+			bundle.putString("type", PostType.EVENT.toString());
+			notificationIntent.putExtras(bundle);
+			PendingIntent intent = PendingIntent.getActivity(context, 3,
+					notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+			if(countEvent>1){
+				notification = new NotificationCompat.Builder(context)
+				.setContentIntent(intent).setContentTitle("MyOwl Initiative")
+				.setContentText(countEvent + title).setSmallIcon(icon).setWhen(when).setGroup(group)
+				.build();
+				countEvent++;
+			}else {
+			
+			// Create an InboxStyle notification
+					notification = new NotificationCompat.Builder(context)
+					        .setContentTitle("MyOwl Initiative")
+					        .setSmallIcon(R.drawable.logo_login)
+					        .setContentIntent(intent)
+					        .setStyle(new NotificationCompat.InboxStyle()
+					                .addLine("1 message")
+					                .setBigContentTitle("MyOwl Initiative"))
+					        .setGroup(group)
+					        .setGroupSummary(true)
+					        .build();
+					countEvent++;
 
-		/*
-		 * notification.sound = Uri.parse( "android.resource://" +
-		 * context.getPackageName() + "your_sound_file_name.mp3");
-		 */
+			}	
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.defaults |= Notification.DEFAULT_SOUND;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+			notificationManager.notify(3, notification);
+		}
+		
+		
+		
+		
+		
+		if (message.equals(PostType.HIT_ON.toString())) {
+			group=GROUP_KEY_HITON;
+			bundle.putString("type", PostType.HIT_ON.toString());
+			notificationIntent.putExtras(bundle);
+			PendingIntent intent = PendingIntent.getActivity(context, 4,
+					notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+			if(countHitOn>1){
+				notification = new NotificationCompat.Builder(context)
+				.setContentIntent(intent).setContentTitle("MyOwl HitOn")
+				.setContentText(countHitOn + title).setSmallIcon(icon).setWhen(when).setGroup(group)
+				.build();
+				countHitOn++;
+			}else {
+			
+			// Create an InboxStyle notification
+					notification = new NotificationCompat.Builder(context)
+					        .setContentTitle("MyOwl HitOn")
+					        .setSmallIcon(R.drawable.logo_login)
+					        .setContentIntent(intent)
+					        .setStyle(new NotificationCompat.InboxStyle()
+					                .addLine("1 message")
+					                .setBigContentTitle("MyOwl HitOn"))
+					        .setGroup(group)
+					        .setGroupSummary(true)
+					        .build();
+					countHitOn++;
 
-		// Vibrate if vibrate is enabled
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		notificationManager.notify(id, notification);
+			}	
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.defaults |= Notification.DEFAULT_SOUND;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+			notificationManager.notify(4, notification);
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
 
 	}
 

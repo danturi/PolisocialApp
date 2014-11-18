@@ -279,9 +279,8 @@ public class SessionManager {
 	 * */
 	public void logoutUser() {
 		// Clearing all data from Shared Preferences
-		editor.remove(KEY_EMAIL);
-		editor.remove(KEY_NAME);
-		editor.remove(KEY_USERID);
+		editor.remove(KEY_NAME).remove(KEY_EMAIL).remove(KEY_USERID);
+		editor.putBoolean(IS_LOGIN, false);
 		editor.commit();
 
 		// After logout redirect user to Loing Activity
@@ -294,6 +293,7 @@ public class SessionManager {
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		// Staring Login Activity
 		_context.startActivity(i);
+	
 	}
 
 	/**
