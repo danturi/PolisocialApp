@@ -191,6 +191,7 @@ public class MessageEndpoint {
 			//se la notifica è stata letta, aggiorna come non letta
 			if (notif.getReadFlag()){
 				notif.setReadFlag(false);
+				notif.setTimestamp(new Date(System.currentTimeMillis()));
 				endpointNotification.updateNotification(notif);
 			}
 		}
@@ -200,19 +201,24 @@ public class MessageEndpoint {
 		try {
 			PoliUser userNotifing = new PoliUser();
 			userNotifing = endpointUser.getPoliUser(user);
-			if (postType.equals("spotted") && userNotifing.getNotifySpotted()
-					&& notif!=null && notif.getReadFlag()) {
+			//primo caso notifica esistente, secondo caso notifica non esistente
+			if ((postType.equals("spotted") && userNotifing.getNotifySpotted()
+					&& notif!=null && notif.getReadFlag())	||	(postType.equals("spotted") && userNotifing.getNotifySpotted() && notif==null)) {
 				doSendViaGcm("spotted", sender, device);
 				//userNotifing.setNotifiedSpotted(true);
-			} else if ((postType.equals("rental")
-					|| postType.equals("secondHandBook") || postType
-						.equals("privateLesson"))
+			} else if (((postType.equals("rental")
+					|| postType.equals("secondHandBook") 
+					|| postType.equals("privateLesson"))
 					&& userNotifing.getNotifyAnnouncement()
-					&& notif!=null && notif.getReadFlag()) {
+					&& notif!=null && notif.getReadFlag())	||	((postType.equals("rental")
+							|| postType.equals("secondHandBook") 
+							|| postType.equals("privateLesson"))
+							&& userNotifing.getNotifyAnnouncement()
+							&& notif==null)) {
 				doSendViaGcm("announcement", sender, device);
 				//userNotifing.setNotifiedAnnouncement(true);
-			} else if ((postType.equals("event"))
-					&& notif!=null && notif.getReadFlag()) {
+			} else if ((postType.equals("event") && userNotifing.getNotifyEvent()
+					&& notif!=null && notif.getReadFlag())	|| (postType.equals("event") && userNotifing.getNotifyEvent() && notif==null)) {
 				doSendViaGcm("event", sender, device);
 				//userNotifing.setNotifiedEvent(true);
 			}
@@ -228,6 +234,7 @@ public class MessageEndpoint {
 			DeviceInfo device, @Named("postId") Long postId,@Named("postTitle") String postTitle) {
 
 		Sender sender = new Sender(API_KEY);
+		Notification notif = null;
 		// controllo se utente ha già una notifica per quel post
 		ResponseObject response = endpointNotification
 				.haveHitOnNotificationForPost(postId, user);
@@ -251,15 +258,13 @@ public class MessageEndpoint {
 		
 		PoliUser userNotifing = new PoliUser();
 		userNotifing = endpointUser.getPoliUser(user);
-		if (!userNotifing.getNotifiedHitOn()) {
+		if ((userNotifing.getNotifySpotted()
+				&& notif!=null && notif.getReadFlag())	||	(userNotifing.getNotifySpotted() && notif==null)) {
 			try {
 				doSendViaGcm("hit_on", sender, device);
-				userNotifing.setNotifiedHitOn(true);
-				endpointUser.updatePoliUser(userNotifing);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		}
 	}
 

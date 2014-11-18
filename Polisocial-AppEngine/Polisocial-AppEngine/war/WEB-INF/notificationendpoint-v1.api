@@ -27,31 +27,6 @@
   "ownerName" : "polimi.it",
   "packagePath" : "dima.polisocial.entity",
   "methods" : {
-    "notificationendpoint.getNotificationForPost" : {
-      "path" : "getNotificationForPost",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotificationForPost",
-      "request" : {
-        "parameters" : {
-          "postId" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "userId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "notificationendpoint.getUserNotification" : {
       "path" : "collectionresponse_notification/{userId}",
       "httpMethod" : "GET",
@@ -81,17 +56,21 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "notificationendpoint.getNotification" : {
-      "path" : "notification/{id}",
+    "notificationendpoint.getNotificationForPost" : {
+      "path" : "getNotificationForPost",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification",
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotificationForPost",
       "request" : {
         "parameters" : {
-          "id" : {
+          "postId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "userId" : {
             "type" : "int64",
             "required" : true
           }
@@ -113,6 +92,27 @@
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "notificationendpoint.getNotification" : {
+      "path" : "notification/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -180,31 +180,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "notificationendpoint.getCountUnreadTypeNotificationForUser" : {
-      "path" : "getCountUnreadTypeNotificationForUser",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getCountUnreadTypeNotificationForUser",
-      "request" : {
-        "parameters" : {
-          "userId" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "type" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "notificationendpoint.haveHitOnNotificationForPost" : {
       "path" : "haveHitOnNotificationForPost/{postId}/{userId}",
       "httpMethod" : "POST",
@@ -221,6 +196,31 @@
           },
           "userId" : {
             "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "notificationendpoint.getCountUnreadTypeNotificationForUser" : {
+      "path" : "getCountUnreadTypeNotificationForUser",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getCountUnreadTypeNotificationForUser",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "type" : {
+            "type" : "string",
             "required" : true
           }
         },
@@ -258,6 +258,21 @@
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_Notification" : {
+        "id" : "CollectionResponse_Notification",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Notification"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "Notification" : {
         "id" : "Notification",
         "type" : "object",
@@ -289,21 +304,6 @@
           }
         }
       },
-      "CollectionResponse_Notification" : {
-        "id" : "CollectionResponse_Notification",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Notification"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "ResponseObject" : {
         "id" : "ResponseObject",
         "type" : "object",
@@ -322,17 +322,12 @@
       }
     },
     "methods" : {
-      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotificationForPost" : {
-        "response" : {
-          "$ref" : "Notification"
-        }
-      },
       "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getUserNotification" : {
         "response" : {
           "$ref" : "CollectionResponse_Notification"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification" : {
+      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotificationForPost" : {
         "response" : {
           "$ref" : "Notification"
         }
@@ -341,6 +336,11 @@
         "request" : {
           "$ref" : "Notification"
         },
+        "response" : {
+          "$ref" : "Notification"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getNotification" : {
         "response" : {
           "$ref" : "Notification"
         }
@@ -360,12 +360,12 @@
           "$ref" : "Notification"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getCountUnreadTypeNotificationForUser" : {
+      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.haveHitOnNotificationForPost" : {
         "response" : {
           "$ref" : "ResponseObject"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.haveHitOnNotificationForPost" : {
+      "it.polimi.dima.polisocial.endpoint.NotificationEndpoint.getCountUnreadTypeNotificationForUser" : {
         "response" : {
           "$ref" : "ResponseObject"
         }

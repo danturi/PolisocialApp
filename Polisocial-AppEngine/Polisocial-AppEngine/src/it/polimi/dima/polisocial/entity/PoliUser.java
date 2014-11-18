@@ -47,11 +47,6 @@ public class PoliUser {
 	private Boolean notifySpotted;
 	private Boolean notifyAnnouncement;
 	private Boolean notifyEvent;	
-	//flag per le notifiche già ricevute
-	private Boolean notifiedSpotted;
-	private Boolean notifiedAnnouncement;
-	private Boolean notifiedEvent;
-	private Boolean notifiedHitOn;
 	
 	public Long getUserId() {
 		return userId;
@@ -169,36 +164,14 @@ public class PoliUser {
 	public void setFaculty(String faculty) {
 		this.faculty = faculty;
 	}
-	public Boolean getNotifiedSpotted() {
-		return notifiedSpotted;
-	}
-	public void setNotifiedSpotted(Boolean notifyed) {
-		this.notifiedSpotted = notifyed;
-	}
-	public Boolean getNotifiedAnnouncement() {
-		return notifiedAnnouncement;
-	}
-	public void setNotifiedAnnouncement(Boolean notifiedAnnouncement) {
-		this.notifiedAnnouncement = notifiedAnnouncement;
-	}
-	public Boolean getNotifiedEvent() {
-		return notifiedEvent;
-	}
-	public void setNotifiedEvent(Boolean notifiedEvent) {
-		this.notifiedEvent = notifiedEvent;
-	}
+	
 	public String getTokenFsq() {
 		return tokenFsq;
 	}
 	public void setTokenFsq(String tokenFsq) {
 		this.tokenFsq = tokenFsq;
 	}
-	public Boolean getNotifiedHitOn() {
-		return notifiedHitOn;
-	}
-	public void setNotifiedHitOn(Boolean notifiedHitOn) {
-		this.notifiedHitOn = notifiedHitOn;
-	}
+	
 	public Date getDatebirth() {
 		return datebirth;
 	}
