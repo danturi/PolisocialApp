@@ -196,7 +196,7 @@ public class TabActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-		
+
 		// ask for faculty at the first user login
 		if (getIntent().getBooleanExtra("firstLogin", false)) {
 			showNoticeDialog();
@@ -291,14 +291,14 @@ public class TabActivity extends FragmentActivity implements
 				.setIcon(R.drawable.restaurants_icon)
 				// .setText(mAppSectionsPagerAdapter.getPageTitle(i))
 				.setTabListener(this));
-		
-		//la metto normale all'inizio...così nel caso non deve aspettare asynctask che finisce
+
+		// la metto normale all'inizio...così nel caso non deve aspettare
+		// asynctask che finisce
 		tabNotif = actionBar.newTab();
-		tabNotif.setIcon(R.drawable.notifications_icon)
-				.setTabListener(this);
+		tabNotif.setIcon(R.drawable.notifications_icon).setTabListener(this);
 		actionBar.addTab(tabNotif);
-		
-		//nel caso verrà sovrascritta da asynctask
+
+		// nel caso verrà sovrascritta da asynctask
 		HaveNotificationPoliUser task = new HaveNotificationPoliUser(this);
 		task.execute();
 
@@ -377,9 +377,18 @@ public class TabActivity extends FragmentActivity implements
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
-		//quando va via dalla tab notifiche controlla se deve cambiare icona
-		if(tab.getPosition()==4){
-			new HaveNotificationPoliUser(this).execute();
+		// quando va via dalla tab notifiche cambio icona se diversa da quella senza pallino
+		if (tab.getPosition() == 4) {
+			if (!tabNotif.getIcon().equals(R.drawable.notifications_icon)) {
+				if (tabNotif == null) {
+					tabNotif = actionBar.newTab();
+					tabNotif.setIcon(R.drawable.notifications_icon)
+							.setTabListener(this);
+					actionBar.addTab(tabNotif);
+				} else {
+					tabNotif.setIcon(R.drawable.notifications_icon);
+				}
+			}
 		}
 	}
 
@@ -389,8 +398,9 @@ public class TabActivity extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
-		
-		//quando user entra in tab notifiche ,si resetta il flag notifica su server
+
+		// quando user entra in tab notifiche ,si resetta il flag notifica su
+		// server
 		if (tab.getPosition() == 4) {
 			new SetFlagNotificationPoliUser().execute();
 		}
