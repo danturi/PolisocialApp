@@ -9,7 +9,7 @@
     <!-- Body -->
     <item android:top="1dp" android:left="1px" android:right="1px">
         <shape>
-            <solid android:color="@color/post_button_pressed"></solid>
+            <solid android:color="@color/post_button_background"></solid>
         </shape> 
     </item>
 </layer-list>

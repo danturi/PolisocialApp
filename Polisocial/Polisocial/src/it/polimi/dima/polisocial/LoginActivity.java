@@ -257,10 +257,7 @@ import com.google.api.client.util.DateTime;
 							poliuser.setNotifyAnnouncement(true);
 							poliuser.setNotifyEvent(true);
 							poliuser.setNotifySpotted(true);
-							poliuser.setNotifiedAnnouncement(false);
-							poliuser.setNotifiedEvent(false);
-							poliuser.setNotifiedSpotted(false);
-							poliuser.setNotifiedHitOn(false);
+							poliuser.setHaveNotify(false);
 							new searchEmailForLoginFBTask().execute();
 						}
 					}

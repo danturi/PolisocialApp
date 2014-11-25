@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/BO0ZfObutDpFeEvw0DeCQRwi1iI\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/w5Ky0E4RW5A9rL1pKMgCE76QcMw\"",
  "discoveryVersion": "v1",
  "id": "poliuserendpoint:v1",
  "name": "poliuserendpoint",
@@ -133,6 +133,9 @@
     "fbaccount": {
      "type": "string"
     },
+    "haveNotify": {
+     "type": "boolean"
+    },
     "height": {
      "type": "integer",
      "format": "int32"
@@ -142,18 +145,6 @@
     },
     "nickname": {
      "type": "string"
-    },
-    "notifiedAnnouncement": {
-     "type": "boolean"
-    },
-    "notifiedEvent": {
-     "type": "boolean"
-    },
-    "notifiedHitOn": {
-     "type": "boolean"
-    },
-    "notifiedSpotted": {
-     "type": "boolean"
     },
     "notifyAnnouncement": {
      "type": "boolean"

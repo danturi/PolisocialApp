@@ -126,7 +126,7 @@ public class PostSpottedEndpoint {
       if(!containsPostSpotted(postspotted)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(postspotted);
+      mgr.merge(postspotted);
     } finally {
       mgr.close();
     }

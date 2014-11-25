@@ -272,10 +272,8 @@ public class RegistrationActivity extends Activity implements
 			newPoliUser.setNotifyAnnouncement(true);
 			newPoliUser.setNotifyEvent(true);
 			newPoliUser.setNotifySpotted(true);
-			newPoliUser.setNotifiedAnnouncement(false);
-			newPoliUser.setNotifiedEvent(false);
-			newPoliUser.setNotifiedSpotted(false);
-			newPoliUser.setNotifiedHitOn(false);
+			newPoliUser.setHaveNotify(false);
+			
 		}
 
 		@Override

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/3LNFpAk3yjxAiQOuT7mEVDIVHvw\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/WEadMcUtFc4EMx0-_QQFce2T0pw\"",
  "discoveryVersion": "v1",
  "id": "notificationendpoint:v1",
  "name": "notificationendpoint",
@@ -138,16 +138,11 @@
   }
  },
  "methods": {
-  "getCountUnreadTypeNotificationForUser": {
-   "id": "notificationendpoint.getCountUnreadTypeNotificationForUser",
-   "path": "getCountUnreadTypeNotificationForUser",
+  "getCountUnreadNotificationForUser": {
+   "id": "notificationendpoint.getCountUnreadNotificationForUser",
+   "path": "getCountUnreadNotificationForUser",
    "httpMethod": "GET",
    "parameters": {
-    "type": {
-     "type": "string",
-     "required": true,
-     "location": "query"
-    },
     "userId": {
      "type": "string",
      "required": true,
@@ -156,7 +151,6 @@
     }
    },
    "parameterOrder": [
-    "type",
     "userId"
    ],
    "response": {

@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-		
-		<Button 
-		    android:id="@+id/imageButton1"
-		    android:layout_width="match_parent" 
-			android:layout_height="0dp"
-			android:layout_weight="33"
-			android:drawableLeft="@drawable/ic_announcements_lessons"
-                android:drawableStart="@drawable/ic_announcements_lessons"
-  android:text="@string/private_lessons"/>
-		<Button 
-		    android:id="@+id/imageButton2"
-		    android:layout_width="match_parent" 
-			android:layout_height="0dp"
-			android:layout_weight="33"
-			android:drawableLeft="@drawable/ic_announcements_books"
-                android:drawableStart="@drawable/ic_announcements_books"
-  android:text="@string/second_hand_books"/>
-		<Button 
-		    android:id="@+id/imageButton3"
-		    android:layout_width="match_parent" 
-			android:layout_height="0dp"
-			android:layout_weight="34"
-			android:drawableLeft="@drawable/ic_announcements_rents"
-                android:drawableStart="@drawable/ic_announcements_rents"
-                android:text="@string/rental_homes"
-/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/imageButton1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="33"
+        android:background="@color/announc_button_bg"
+        android:drawableLeft="@drawable/ic_announcements_lessons"
+        android:drawableStart="@drawable/ic_announcements_lessons"
+        android:padding="20dp"
+        android:text="@string/private_lessons"
+        android:textColor="@drawable/announcement_button_text_color"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/imageButton2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="33"
+        android:background="@color/announc_button_bg"
+        android:drawableLeft="@drawable/ic_announcements_books"
+        android:drawableStart="@drawable/ic_announcements_books"
+        android:padding="20dp"
+        android:text="@string/second_hand_books"
+        android:textColor="@drawable/announcement_button_text_color"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/imageButton3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="33"
+        android:background="@color/announc_button_bg"
+        android:drawableLeft="@drawable/ic_announcements_rents"
+        android:drawableStart="@drawable/ic_announcements_rents"
+        android:padding="20dp"
+        android:text="@string/rental_homes"
+        android:textColor="@drawable/announcement_button_text_color"
+        android:textStyle="bold" />
+
 </LinearLayout>
-
-

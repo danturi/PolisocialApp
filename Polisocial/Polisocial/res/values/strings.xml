@@ -208,5 +208,6 @@
     <string name="private_lessons">Private lessons</string>
     <string name="second_hand_books">2nd hand books</string>
     
-
+    <string name="no_comment">Be the first to write a comment!</string>
+    
 </resources>

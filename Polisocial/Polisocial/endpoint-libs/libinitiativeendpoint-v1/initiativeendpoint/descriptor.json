@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/initiativeendpoint/v1/20141116163726/java/1.18.0-rc/polimi.it-initiativeendpoint-v1-20141116163726-java-1.18.0-rc-sources.jar", 
-      "path": "polimi.it-initiativeendpoint-v1-20141116163726-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/initiativeendpoint/v1/20141125022514/java/1.18.0-rc/polimi.it-initiativeendpoint-v1-20141125022514-java-1.18.0-rc-sources.jar", 
+      "path": "polimi.it-initiativeendpoint-v1-20141125022514-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-11-16 16:37"
+      "timestamp": "2014-11-25 02:25"
     }, 
     {
-      "path": "polimi.it-initiativeendpoint-v1-20141116163726-java-1.18.0-rc.jar.properties", 
+      "path": "polimi.it-initiativeendpoint-v1-20141125022514-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "dima.polisocial.entity", 
   "language_version": "1.18.0-rc", 
   "id": "initiativeendpoint:v1", 
-  "revision": 20141116163726
+  "revision": 20141125022514
 }

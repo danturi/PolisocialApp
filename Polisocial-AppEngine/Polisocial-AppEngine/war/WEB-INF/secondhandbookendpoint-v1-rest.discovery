@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/5EvjdY4vKTLxRSuC3tJU_hlLNe8\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/xuYB-AdLf20EiCg5z-ETErQzElo\"",
  "discoveryVersion": "v1",
  "id": "secondhandbookendpoint:v1",
  "name": "secondhandbookendpoint",
@@ -111,6 +111,10 @@
     },
     "isbn": {
      "type": "string"
+    },
+    "numOfComments": {
+     "type": "integer",
+     "format": "int32"
     },
     "price": {
      "type": "number",

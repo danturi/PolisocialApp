@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/ayZIpaLJzxQVyABB9gJtIObGn9o\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/cQN4sr9Wqj99kjLN1fJpUoyJl68\"",
  "discoveryVersion": "v1",
  "id": "initiativeendpoint:v1",
  "name": "initiativeendpoint",
@@ -107,6 +107,10 @@
     },
     "location": {
      "type": "string"
+    },
+    "numOfComments": {
+     "type": "integer",
+     "format": "int32"
     },
     "numOfGoing": {
      "type": "integer",

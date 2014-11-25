@@ -8,6 +8,8 @@ import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
+import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 import it.polimi.dima.polisocial.loader.CommentListLoader;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
@@ -32,11 +34,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -66,6 +71,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	ImageView headerPostImage;
 	TextView headerLocation;
 	TextView headerBeginningDate;
+	
+	ViewPager myPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -153,13 +160,24 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 			} else if (postType.equals(PostType.SECOND_HAND_BOOK.toString())) {
 
-				// TODO set-up header for book
+				header = View.inflate(getApplicationContext(),
+						R.layout.book_notification_header, null);
 
+				headerTitle = (TextView) header.findViewById(R.id.title);
 			} else if (postType.equals(PostType.PRIVATE_LESSON.toString())) {
 
 				// TODO set-up header for lesson
 
 			} else if (postType.equals(PostType.RENTAL.toString())) {
+
+				header = View.inflate(getApplicationContext(),
+						R.layout.rental_notification_header, null);
+
+				
+				myPager = (ViewPager) header.findViewById(R.id.pager);
+				
+
+				headerTitle = (TextView) header.findViewById(R.id.title);
 
 				// TODO set-up header for rental
 
@@ -167,7 +185,6 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 			mList.addHeaderView(header);
 
 		}
-
 
 		mList.setAdapter(mAdapter);
 		getSupportLoaderManager().initLoader(0, null, this);
@@ -205,8 +222,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 				} else if (postType
 						.equals(PostType.SECOND_HAND_BOOK.toString())) {
-
-					// TODO fill header for book
+					fillUpBookHeader((SecondHandBook) data.remove(0));
 
 				} else if (postType.equals(PostType.PRIVATE_LESSON.toString())) {
 
@@ -214,18 +230,31 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 				} else if (postType.equals(PostType.RENTAL.toString())) {
 
-					// TODO fill header for rental
+					fillUpRentalHeader((Rental) data.remove(0));
 
 				}
-				
+
 			}
 
 			mAdapter.setData(data);
 		} else {
-			TextView t = (TextView) findViewById(R.id.no_comments);
-			t.setText("There are no comments for this post yet");
+			TextView t = (TextView) findViewById(R.id.no_comment);
+			t.setVisibility(View.VISIBLE);
 		}
 
+	}
+
+	
+	private void fillUpBookHeader(SecondHandBook item) {
+		// TODO Auto-generated method stub
+		headerTitle.setText(item.getTitle());
+	}
+	
+	private void fillUpRentalHeader(Rental item) {
+		// TODO Auto-generated method stub
+		headerTitle.setText(item.getTitle());
+		RentalPagerAdapter adapter = new RentalPagerAdapter();
+		myPager.setAdapter(adapter);
 	}
 
 	@Override
@@ -458,8 +487,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 												FullScreenPicActivity.class);
 										showFullScreenPicIntent.putExtra(
 												"picInByte", byteArrayImage);
-										startActivity(
-												showFullScreenPicIntent);
+										startActivity(showFullScreenPicIntent);
 									}
 								});
 					}
@@ -473,7 +501,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		String dateTime = item.getBeginningDate().toString();
 		String dateString = EventAdapter.composeDateString(
 				dateTime.substring(0, 4), dateTime.substring(5, 7),
-				dateTime.substring(8, 10),null,null);
+				dateTime.substring(8, 10), null, null);
 		String time = dateTime.substring(11, Math.min(dateTime.length(), 16));
 
 		headerBeginningDate.setText(dateString + " at " + time);
@@ -485,4 +513,38 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		headerText.setText(item.getText());
 
 	}
+
+	private class RentalPagerAdapter extends PagerAdapter {
+		private int[] mImages = new int[] { R.drawable.logo_login,
+				R.drawable.logo_login, R.drawable.logo_login,
+				R.drawable.logo_login };
+
+		@Override
+		public int getCount() {
+			return mImages.length;
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			return view == ((ImageView) object);
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			ImageView imageView = new ImageView(ShowRelatedCommentsActivity.this);
+			int padding = getApplicationContext().getResources().getDimensionPixelSize(
+					R.dimen.post_item_margin);
+			imageView.setPadding(padding, padding, padding, padding);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+			imageView.setImageResource(mImages[position]);
+			((ViewPager) container).addView(imageView, 0);
+			return imageView;
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			((ViewPager) container).removeView((ImageView) object);
+		}
+	}
+
 }

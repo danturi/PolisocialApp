@@ -38,6 +38,7 @@ public abstract class Post {
 		
 		private Boolean havePicture;
 		
+		private Integer numOfComments;
 		
 		public Long getId(){
 			return id;
@@ -99,6 +100,14 @@ public abstract class Post {
 
 		public void setHavePicture(Boolean havePicture) {
 			this.havePicture = havePicture;
+		}
+
+		public Integer getNumOfComments() {
+			return numOfComments;
+		}
+
+		public void setNumOfComments(Integer numOfComments) {
+			this.numOfComments = numOfComments;
 		}
 
 

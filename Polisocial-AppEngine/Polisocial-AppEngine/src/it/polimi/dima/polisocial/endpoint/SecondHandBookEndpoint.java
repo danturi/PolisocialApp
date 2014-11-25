@@ -341,7 +341,7 @@ public class SecondHandBookEndpoint {
 			if (!containsSecondHandBook(secondhandbook)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(secondhandbook);
+			mgr.merge(secondhandbook);
 		} finally {
 			mgr.close();
 		}

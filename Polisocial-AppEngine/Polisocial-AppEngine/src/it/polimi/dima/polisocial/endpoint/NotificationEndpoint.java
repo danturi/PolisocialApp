@@ -152,16 +152,15 @@ public class NotificationEndpoint {
 		return notif;
 	}
   
-  @ApiMethod(name = "getCountUnreadTypeNotificationForUser",path="getCountUnreadTypeNotificationForUser")
- 	public ResponseObject getCountUnreadTypeNotificationForUser(@Named("userId") Long userId,@Named("type")String type) {
+  @ApiMethod(name = "getCountUnreadNotificationForUser",path="getCountUnreadNotificationForUser")
+ 	public ResponseObject getCountUnreadNotificationForUser(@Named("userId") Long userId) {
  		EntityManager mgr = getEntityManager();
  		Notification notif=null;
  		ResponseObject o = new ResponseObject();
  		
  		try {
  			mgr = getEntityManager();
- 			Query query = mgr.createQuery("SELECT COUNT(n.id) FROM Notification n WHERE n.postType =?1 AND n.userId =?2 AND n.readFlag=false");
- 			query.setParameter(1, type);
+ 			Query query = mgr.createQuery("SELECT COUNT(n.id) FROM Notification n WHERE n.userId =?2 AND n.readFlag=false");
  			query.setParameter(2, userId);
  			long count = (long)query.getSingleResult();
  			o.setObject(count);
@@ -253,7 +252,7 @@ public class NotificationEndpoint {
       if(!containsNotification(notification)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(notification);
+      mgr.merge(notification);
     } finally {
       mgr.close();
     }

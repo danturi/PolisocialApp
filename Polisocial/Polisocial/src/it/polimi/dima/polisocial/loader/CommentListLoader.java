@@ -11,6 +11,8 @@ import it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
+import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint;
+import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
@@ -29,6 +31,7 @@ public class CommentListLoader extends EndlessListAsyncTaskLoader<List<Object>> 
 	long postId;
 	private Postspottedendpoint spottedEnd;
 	private Initiativeendpoint initiativeEnd;
+	private Rentalendpoint rentalEnd;
 
 	public CommentListLoader(Context context, String cursor, String whatToShow,
 			String postType, long postId) {
@@ -86,9 +89,22 @@ public class CommentListLoader extends EndlessListAsyncTaskLoader<List<Object>> 
 				// TODO retrieve post needed as above
 			
 			}else if(postType.equals(PostType.RENTAL.toString())){
-				
-				//TODO retrieve post needed as above
-				
+				// retrieve from server event post identified by postId
+				Rentalendpoint.Builder builder = new Rentalendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				rentalEnd = builder.setApplicationName("polimisocial")
+						.build();
+				try {
+					Rental post = rentalEnd.getRental(postId)
+							.execute();
+					mItems.add(post);
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}				
 			}else if(postType.equals(PostType.SECOND_HAND_BOOK.toString())){
 				
 				//TODO retrieve post needed as above

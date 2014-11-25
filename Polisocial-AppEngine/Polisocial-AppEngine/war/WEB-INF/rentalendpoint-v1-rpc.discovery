@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/u6kHOa1idkqL__kLGJya1uTzSXU\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/-h8SYiec5kQudbUAeSzhkerWxJ8\"",
  "discoveryVersion": "v1",
  "id": "rentalendpoint:v1",
  "name": "rentalendpoint",
@@ -115,6 +115,10 @@
     "longitude": {
      "type": "number",
      "format": "double"
+    },
+    "numOfComments": {
+     "type": "integer",
+     "format": "int32"
     },
     "price": {
      "type": "number",

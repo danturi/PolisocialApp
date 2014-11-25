@@ -1,26 +1,31 @@
 package it.polimi.dima.polisocial.tabactivityAndFragments;
 
+import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
-import it.polimi.dima.polisocial.R.drawable;
-import it.polimi.dima.polisocial.R.id;
-import it.polimi.dima.polisocial.R.layout;
 import it.polimi.dima.polisocial.adapter.NotificationAdapter;
+import it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint;
 import it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
 import it.polimi.dima.polisocial.loader.NotificationListLoader;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -29,7 +34,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +63,7 @@ public class NotificationFragment extends ListFragment implements
 		session = new SessionManager(getActivity().getApplicationContext());
 		mTextView = (TextView) v.findViewById(R.id.no_notification);
 		mTextView.setVisibility(View.GONE);
+		
 		return v;
 	}
 
@@ -198,18 +203,20 @@ public class NotificationFragment extends ListFragment implements
 			icon.setImageResource(R.drawable.events_icon_normal);
 		} else if (postType.equals(PostType.HIT_ON
 				.toString())) {
-			icon.setImageResource(R.drawable.cupido_pressed);
+			icon.setImageResource(R.drawable.private_message_normal);
 		} else if (postType
 				.equals(PostType.SECOND_HAND_BOOK.toString())) {
-			icon.setImageResource(R.drawable.spotted_icon_normal);
+			icon.setImageResource(R.drawable.announcements_icon_normal);
 		} else if (postType.equals(PostType.RENTAL
 				.toString())) {
-			icon.setImageResource(R.drawable.spotted_icon_normal);
+			icon.setImageResource(R.drawable.announcements_icon_normal);
 		} else if (postType
 				.equals(PostType.PRIVATE_LESSON.toString())) {
-
+			icon.setImageResource(R.drawable.announcements_icon_normal);
 		}
-
+		if(!notificationClicked.getReadFlag()){
+			new SetReadFlagNotificationAsyncTask(notificationClicked).execute();
+		}
 		startActivity(showRelativeCommentsIntent);
 	}
 
@@ -258,4 +265,33 @@ public class NotificationFragment extends ListFragment implements
 		}
 		super.onResume();
 	}
+	
+	
+	public class SetReadFlagNotificationAsyncTask extends AsyncTask<Void, Void, Void>{
+
+		private Notification notif;
+
+		public SetReadFlagNotificationAsyncTask(Notification notificationClicked) {
+			this.notif = notificationClicked;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			
+			 Notificationendpoint.Builder builder = new Notificationendpoint.Builder(AndroidHttp.newCompatibleTransport(), new JacksonFactory(), null);
+		        builder = CloudEndpointUtils.updateBuilder(builder);
+		        Notificationendpoint endpointNotif = builder.setApplicationName("polimisocial").build();
+		        
+		        notif.setReadFlag(true);
+		        try {
+					endpointNotif.updateNotification(notif).execute();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			return null;
+		}
+		
+	}
+	
+
 }

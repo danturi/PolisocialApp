@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/sdJrHr44ch-Xkaf8CFHXvu_Gi60\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/VqeUFDHL1E5LPHTx-u7T_b-Wt8Y\"",
  "discoveryVersion": "v1",
  "id": "privatelessonendpoint:v1",
  "name": "privatelessonendpoint",
@@ -97,6 +97,10 @@
     "id": {
      "type": "string",
      "format": "int64"
+    },
+    "numOfComments": {
+     "type": "integer",
+     "format": "int32"
     },
     "text": {
      "type": "string"

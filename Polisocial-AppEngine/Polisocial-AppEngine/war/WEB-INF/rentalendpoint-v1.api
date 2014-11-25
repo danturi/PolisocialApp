@@ -69,22 +69,6 @@
         "body" : "empty"
       }
     },
-    "rentalendpoint.insertRental" : {
-      "path" : "rental",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "rentalendpoint.findLocationAndAddRental" : {
       "path" : "findLocationAndAddRental",
       "httpMethod" : "POST",
@@ -93,6 +77,22 @@
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.findLocationAndAddRental",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "rentalendpoint.insertRental" : {
+      "path" : "rental",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -170,6 +170,9 @@
           "havePicture" : {
             "type" : "boolean"
           },
+          "numOfComments" : {
+            "type" : "integer"
+          },
           "latitude" : {
             "type" : "number"
           },
@@ -221,7 +224,7 @@
       },
       "it.polimi.dima.polisocial.endpoint.RentalEndpoint.removeRental" : {
       },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental" : {
+      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.findLocationAndAddRental" : {
         "request" : {
           "$ref" : "Rental"
         },
@@ -229,7 +232,7 @@
           "$ref" : "Rental"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.findLocationAndAddRental" : {
+      "it.polimi.dima.polisocial.endpoint.RentalEndpoint.insertRental" : {
         "request" : {
           "$ref" : "Rental"
         },

@@ -46,7 +46,8 @@ public class PoliUser {
 	//flags per notifiche che si vuole ricevere
 	private Boolean notifySpotted;
 	private Boolean notifyAnnouncement;
-	private Boolean notifyEvent;	
+	private Boolean notifyEvent;
+	private Boolean haveNotify;
 	
 	public Long getUserId() {
 		return userId;
@@ -177,6 +178,12 @@ public class PoliUser {
 	}
 	public void setDatebirth(Date datebirth) {
 		this.datebirth = datebirth;
+	}
+	public Boolean getHaveNotify() {
+		return haveNotify;
+	}
+	public void setHaveNotify(Boolean haveNotify) {
+		this.haveNotify = haveNotify;
 	}
 	
 }

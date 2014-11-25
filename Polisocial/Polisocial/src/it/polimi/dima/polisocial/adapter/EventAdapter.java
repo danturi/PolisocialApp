@@ -45,7 +45,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 	private final int VIEW_STANDARD = 0;
 	private final int VIEW_LOADING = 1;
 	
-	final Animation animRotate = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anim);
+	final Animation animScale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_anim);
 	
 	private Long userId;
 	
@@ -118,7 +118,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 		if (type == VIEW_STANDARD) {
 
 			final Initiative item = getItem(position);
-			holder.numbOfLikes
+			/**holder.numbOfLikes
 					.setOnClickListener(new IdParameterOnClickListener(item
 							.getId()) {
 						@Override
@@ -134,7 +134,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 							context.startActivity(showRelativeCommentsIntent);
 						}
 					});
-
+**/
 			// Event image
 			if (item.getHavePicture()) {
 				// asynctask to retrieve post image
@@ -260,7 +260,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 						@Override
 						public void onClick(View v) {
-							v.startAnimation(animRotate);
+							v.startAnimation(animScale);
 							button.setEnabled(false);
 							button.setSelected(true);							
 							new AddLikeOrDisLikeTask(id,
@@ -288,7 +288,7 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 
 						@Override
 						public void onClick(View v) {
-							v.startAnimation(animRotate);
+							v.startAnimation(animScale);
 							button.setEnabled(false);
 							button.setSelected(true);							
 							new AddLikeOrDisLikeTask(id,

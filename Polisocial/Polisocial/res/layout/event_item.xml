@@ -191,8 +191,8 @@
                         android:paddingLeft="30dp"
                         android:paddingRight="30dp"
                         android:text="@string/like"
-                        android:textColor="@color/post_button_text"
-                        android:textSize="8dp"
+                        android:textColor="@drawable/color_selected_or_normal"
+                        android:textSize="10dp"
                         android:textStyle="bold" />
 
                     <Button
@@ -204,8 +204,8 @@
                         android:paddingLeft="27dp"
                         android:paddingRight="27dp"
                         android:text="@string/join"
-                        android:textColor="@color/post_button_text"
-                        android:textSize="9dp"
+                        android:textColor="@drawable/color_selected_or_normal"
+                        android:textSize="10dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>

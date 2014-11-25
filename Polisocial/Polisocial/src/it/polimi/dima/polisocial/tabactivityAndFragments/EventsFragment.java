@@ -53,8 +53,6 @@ public class EventsFragment extends ListFragment implements
 		// Create an empty adapter we will use to display the loaded data.
 		mAdapter = new EventAdapter(getActivity(), userId);
 		setListAdapter(mAdapter);
-		
-		setListAdapter(mAdapter);
 
 		mEndlessScrollListener = new EndlessScrollListener() {
 			@Override

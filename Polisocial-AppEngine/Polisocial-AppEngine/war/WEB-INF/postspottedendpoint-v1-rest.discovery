@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/Ikj4kDRsOUnBdX7ffBKn39UjAnM\"",
+ "etag": "\"9mnLCPwbyZOHH18t8ExzO2gqgTk/KMiLVGMo4KnebO1KgP-08FhJJTs\"",
  "discoveryVersion": "v1",
  "id": "postspottedendpoint:v1",
  "name": "postspottedendpoint",
@@ -99,6 +99,10 @@
     "id": {
      "type": "string",
      "format": "int64"
+    },
+    "numOfComments": {
+     "type": "integer",
+     "format": "int32"
     },
     "numberDislike": {
      "type": "integer",

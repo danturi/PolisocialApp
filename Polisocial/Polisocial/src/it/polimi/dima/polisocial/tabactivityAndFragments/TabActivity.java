@@ -16,8 +16,10 @@ import it.polimi.dima.polisocial.creationActivities.NewRentalActivity;
 import it.polimi.dima.polisocial.creationActivities.NewSpottedPostActivity;
 import it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
+import it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint;
 import it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject;
 import it.polimi.dima.polisocial.utilClasses.PostType;
@@ -35,8 +37,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -123,7 +127,7 @@ public class TabActivity extends FragmentActivity implements
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
 	ActionBar actionBar;
-
+	public Tab tabNotif = null;
 	private Boolean gpsAdvice = true;
 	private Intent intentGcmNotifica = new Intent();
 	public Boolean annoucementFragment = false;
@@ -192,9 +196,8 @@ public class TabActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab);
-
+		
 		// ask for faculty at the first user login
-
 		if (getIntent().getBooleanExtra("firstLogin", false)) {
 			showNoticeDialog();
 
@@ -235,7 +238,7 @@ public class TabActivity extends FragmentActivity implements
 		// user swipes between sections.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mAppSectionsPagerAdapter);
-		mViewPager.setOffscreenPageLimit(2); // mantiene memoria delle tab
+		mViewPager.setOffscreenPageLimit(5); // mantiene memoria delle tab
 		mViewPager
 				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
@@ -288,10 +291,16 @@ public class TabActivity extends FragmentActivity implements
 				.setIcon(R.drawable.restaurants_icon)
 				// .setText(mAppSectionsPagerAdapter.getPageTitle(i))
 				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab()
-				.setIcon(R.drawable.notifications_icon)
-				// .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-				.setTabListener(this));
+		
+		//la metto normale all'inizio...così nel caso non deve aspettare asynctask che finisce
+		tabNotif = actionBar.newTab();
+		tabNotif.setIcon(R.drawable.notifications_icon)
+				.setTabListener(this);
+		actionBar.addTab(tabNotif);
+		
+		//nel caso verrà sovrascritta da asynctask
+		HaveNotificationPoliUser task = new HaveNotificationPoliUser(this);
+		task.execute();
 
 		if (getIntent().getBooleanExtra("gcmNotification", false)) {
 			actionBar.setSelectedNavigationItem(4);
@@ -368,6 +377,10 @@ public class TabActivity extends FragmentActivity implements
 	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+		//quando va via dalla tab notifiche controlla se deve cambiare icona
+		if(tab.getPosition()==4){
+			new HaveNotificationPoliUser(this).execute();
+		}
 	}
 
 	@Override
@@ -376,12 +389,28 @@ public class TabActivity extends FragmentActivity implements
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
 		mViewPager.setCurrentItem(tab.getPosition());
+		
+		//quando user entra in tab notifiche ,si resetta il flag notifica su server
+		if (tab.getPosition() == 4) {
+			new SetFlagNotificationPoliUser().execute();
+		}
 
 	}
 
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+		if (tab.getPosition() == 4) {
+			new SetFlagNotificationPoliUser().execute();
+		}
+	}
+
+	@Override
+	protected void onResume() {
+
+		new HaveNotificationPoliUser(this).execute();
+
+		super.onResume();
 	}
 
 	/**
@@ -452,6 +481,12 @@ public class TabActivity extends FragmentActivity implements
 			@Override
 			public void onSwitchFragmentName(String newFragment) {
 			}
+
+			@Override
+			public void onSwitchFragmentRental(String newFragment,
+					List<Rental> rentals) {
+			}
+
 		}
 
 		private final class AnnouncementListener implements
@@ -459,6 +494,18 @@ public class TabActivity extends FragmentActivity implements
 
 			@Override
 			public void onSwitchFragment() {
+			}
+
+			@Override
+			public void onSwitchFragmentRental(String newFragmentName,
+					List<Rental> rentals) {
+				if (newFragmentName.equals("rentalList")) {
+					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+							.commit();
+					mFragmentAtPos2 = RentalFragmentList.newInstance(
+							listenerAnnouncement, rentals);
+					notifyDataSetChanged();
+				}
 			}
 
 			// utilizza il parametro per scegliere quale fragm sostituire
@@ -509,12 +556,12 @@ public class TabActivity extends FragmentActivity implements
 					mFragmentAtPos2.setInitialSavedState(mFragmentLesson);
 				}
 
-				if (newFragmentName.equals("rentalList")) {
-					mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
-							.commit();
-					mFragmentAtPos2 = RentalFragmentList
-							.newInstance(listenerAnnouncement);
-				}
+				/**
+				 * if (newFragmentName.equals("rentalList")) {
+				 * mFragmentManager.beginTransaction().remove(mFragmentAtPos2)
+				 * .commit(); mFragmentAtPos2 = RentalFragmentList
+				 * .newInstance(listenerAnnouncement); }
+				 **/
 
 				if (newFragmentName.equals("announcements")) {
 					if (mFragmentAtPos2 instanceof SecondHandBookFragment) {
@@ -627,6 +674,8 @@ public class TabActivity extends FragmentActivity implements
 		void onSwitchFragment();
 
 		void onSwitchFragmentName(String newFragment);
+
+		void onSwitchFragmentRental(String newFragment, List<Rental> rentals);
 	}
 
 	public static class GoogleMapFragment extends Fragment {
@@ -918,6 +967,9 @@ public class TabActivity extends FragmentActivity implements
 		@Override
 		public void onPrepareOptionsMenu(Menu menu) {
 			super.onPrepareOptionsMenu(menu);
+			menu.findItem(R.id.action_create_lesson).setVisible(false);
+			menu.findItem(R.id.action_create_rental).setVisible(false);
+			menu.findItem(R.id.action_create_book).setVisible(false);
 			menu.findItem(R.id.action_create_event).setVisible(false);
 			// menu.findItem(R.id.menu_filter_events).setVisible(false);
 			menu.findItem(R.id.action_write_spotted_post).setVisible(false);
@@ -1416,7 +1468,6 @@ public class TabActivity extends FragmentActivity implements
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -1437,8 +1488,7 @@ public class TabActivity extends FragmentActivity implements
 		Bundle bundle = intent.getExtras();
 		if (bundle.getBoolean("gcmNotification", false)) {
 			actionBar.setSelectedNavigationItem(4);
-			String typeNotif = bundle
-					.getString("type");
+			String typeNotif = bundle.getString("type");
 
 			if (typeNotif.equals(PostType.EVENT.toString())) {
 				GCMIntentService.countEvent = 1;
@@ -1488,6 +1538,104 @@ public class TabActivity extends FragmentActivity implements
 
 	public void setNotificationIntent(Intent intent) {
 		intentGcmNotifica = intent;
+	}
+
+	public class HaveNotificationPoliUser extends
+			AsyncTask<Void, Void, Boolean> {
+
+		private TabActivity activity;
+
+		public HaveNotificationPoliUser(TabActivity tabActivity) {
+			this.activity = tabActivity;
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+			try {
+				userSession = endpoint.getPoliUser(
+						Long.valueOf(sessionManager.getUserDetails().get(
+								SessionManager.KEY_USERID))).execute();
+
+				if (userSession.getHaveNotify()) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			if (result) {
+
+				if (tabNotif == null) {
+					// TODO mettere icona con bollino rosso qui
+					tabNotif = actionBar.newTab();
+					tabNotif.setIcon(R.drawable.spotted_icon).setTabListener(
+							activity);
+					actionBar.addTab(tabNotif);
+				} else {
+					// TODO mettere icona con bollino rosso qui
+					tabNotif.setIcon(R.drawable.spotted_icon);
+				}
+
+			} else {
+				if (tabNotif == null) {
+					tabNotif = actionBar.newTab();
+					tabNotif.setIcon(R.drawable.notifications_icon)
+							.setTabListener(activity);
+					actionBar.addTab(tabNotif);
+				} else {
+					tabNotif.setIcon(R.drawable.notifications_icon);
+				}
+
+			}
+
+		}
+
+	}
+
+	public class SetFlagNotificationPoliUser extends
+			AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			builder = CloudEndpointUtils.updateBuilder(builder);
+			Poliuserendpoint endpoint = builder.setApplicationName(
+					"polimisocial").build();
+			try {
+				PoliUser user = endpoint.getPoliUser(
+						Long.valueOf(sessionManager.getUserDetails().get(
+								SessionManager.KEY_USERID))).execute();
+				if (user.getHaveNotify()) {
+					user.setHaveNotify(false);
+					endpoint.updatePoliUser(user).execute();
+				}
+			} catch (NumberFormatException | IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
 	}
 
 }

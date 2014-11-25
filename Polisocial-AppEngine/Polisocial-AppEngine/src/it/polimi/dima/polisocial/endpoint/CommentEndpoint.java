@@ -3,7 +3,12 @@ package it.polimi.dima.polisocial.endpoint;
 import it.polimi.dima.polisocial.ResponseObject;
 import it.polimi.dima.polisocial.entity.Comment;
 import it.polimi.dima.polisocial.entity.EMF;
+import it.polimi.dima.polisocial.entity.Initiative;
 import it.polimi.dima.polisocial.entity.Post;
+import it.polimi.dima.polisocial.entity.PostSpotted;
+import it.polimi.dima.polisocial.entity.PrivateLesson;
+import it.polimi.dima.polisocial.entity.Rental;
+import it.polimi.dima.polisocial.entity.SecondHandBook;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -231,16 +236,31 @@ public class CommentEndpoint {
 		Long postId = comment.getPostId();
 		String type = comment.getType();
 		Post post = null;
-		if (type.equals("spotted"))
+		if (type.equals("spotted")){
 			post = spottedEndpoint.getPostSpotted(postId);
-		if (type.equals("rental"))
+			post.setNumOfComments(post.getNumOfComments()+1);
+			spottedEndpoint.updatePostSpotted((PostSpotted) post);
+		}
+		if (type.equals("rental")){
 			post = rentalEndpoint.getRental(postId);
-		if (type.equals("secondHandBook"))
+			post.setNumOfComments(post.getNumOfComments()+1);
+			rentalEndpoint.updateRental((Rental) post);
+		}
+		if (type.equals("secondHandBook")){
 			post = secondHandEndpoint.getSecondHandBook(postId);
-		if (type.equals("privateLesson"))
+			post.setNumOfComments(post.getNumOfComments()+1);
+			secondHandEndpoint.updateSecondHandBook((SecondHandBook) post);
+		}
+		if (type.equals("privateLesson")){
 			post = privateLessonEndpoint.getPrivateLesson(postId);
-		if (type.equals("event"))
+			post.setNumOfComments(post.getNumOfComments()+1);
+			privateLessonEndpoint.updatePrivateLesson((PrivateLesson) post);
+		}
+		if (type.equals("event")){
 			post = initiativeEndpoint.getInitiative(postId);
+			post.setNumOfComments(post.getNumOfComments()+1);
+			initiativeEndpoint.updateInitiative((Initiative) post);
+		}
 
 		// id autore del post commentato
 		Long idAuthorPost = post.getUserId();
@@ -276,6 +296,8 @@ public class CommentEndpoint {
 				deviceInfoEndpoint
 						.sendToUser(id, post.getId(), type, postTitle);
 		}
+		
+		
 	}
 
 	private static EntityManager getEntityManager() {

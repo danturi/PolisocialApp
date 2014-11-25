@@ -124,7 +124,7 @@ public class PrivateLessonEndpoint {
       if(!containsPrivateLesson(privatelesson)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(privatelesson);
+      mgr.merge(privatelesson);
     } finally {
       mgr.close();
     }
@@ -152,6 +152,8 @@ public class PrivateLessonEndpoint {
     EntityManager mgr = getEntityManager();
     boolean contains = true;
     try {
+    	if(privatelesson.getId()== null)
+    		return false;
       PrivateLesson item = mgr.find(PrivateLesson.class, privatelesson.getId());
       if(item == null) {
         contains = false;

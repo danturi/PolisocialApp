@@ -8,7 +8,9 @@ import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity.SwitchFragmentListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +20,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,26 +42,18 @@ public class RentalFragment extends Fragment {
 	GoogleMap map;
 	MapView mapView;
 	private RentalNearPoliAndPlotMapTask task;
+	private List<Rental> rentals = new ArrayList<>();
+	private TextView listButton;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		View v = inflater.inflate(R.layout.fragment_rental_map, container, false);
+		View v = inflater.inflate(R.layout.fragment_rental_map, container,
+				false);
 
-		TextView listButton = (TextView) v.findViewById(R.id.button_view);
-		listButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (task != null) {
-					task.cancel(true);
-				}
-				listener.onSwitchFragmentName("rentalList");
-				
-			}
-		});
-		
+		listButton = (TextView) v.findViewById(R.id.button_view);
+
 		mapView = (MapView) v.findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);
 		map = mapView.getMap();
@@ -72,7 +65,8 @@ public class RentalFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		((TabActivity) getActivity()).getActionBar().setTitle(getString(R.string.rental_fragment_title));
+		((TabActivity) getActivity()).getActionBar().setTitle(
+				getString(R.string.rental_fragment_title));
 		setHasOptionsMenu(true);
 	}
 
@@ -83,10 +77,10 @@ public class RentalFragment extends Fragment {
 		menu.findItem(R.id.action_create_book).setVisible(false);
 		menu.findItem(R.id.action_create_event).setVisible(false);
 		menu.findItem(R.id.action_add_restaurant).setVisible(false);
-		//menu.findItem(R.id.menu_filter_events).setVisible(false);
+		// menu.findItem(R.id.menu_filter_events).setVisible(false);
 		menu.findItem(R.id.action_write_spotted_post).setVisible(false);
 	}
-	
+
 	@Override
 	public void onResume() {
 		mapView.onResume();
@@ -104,7 +98,7 @@ public class RentalFragment extends Fragment {
 		super.onLowMemory();
 		mapView.onLowMemory();
 	}
-	
+
 	public static RentalFragment newInstance(
 			SwitchFragmentListener announcementsFragmentListener) {
 		RentalFragment rentalFragment = new RentalFragment();
@@ -127,7 +121,7 @@ public class RentalFragment extends Fragment {
 
 		@Override
 		protected CollectionResponseRental doInBackground(Void... params) {
-		
+
 			Rentalendpoint.Builder builder = new Rentalendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 					null);
@@ -172,7 +166,25 @@ public class RentalFragment extends Fragment {
 
 					if (task.isCancelled())
 						return;
-					if (!(result.getItems()==null) ) {
+					if (!(result.getItems() == null)) {
+						
+						//fill the List to pass to the listRentalFragment
+						rentals = result.getItems();
+						//only after data have been passed to listRentalFragment set onclicklistener, otherwise if the user click the textview
+						//before, there will be an empty list
+						listButton.setVisibility(View.VISIBLE);
+						listButton.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								if (task != null) {
+									task.cancel(true);
+								}
+								listener.onSwitchFragmentRental("rentalList", rentals);
+
+							}
+						});
+
 						Iterator<Rental> iterator = result.getItems()
 								.iterator();
 						Rental rental = null;

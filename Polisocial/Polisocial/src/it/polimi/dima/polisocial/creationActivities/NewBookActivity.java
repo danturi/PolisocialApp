@@ -267,6 +267,7 @@ public class NewBookActivity extends Activity {
 			newBook.setPublisher(publisher);
 			newBook.setFaculty(faculty);
 			newBook.setHavePicture(false);
+			newBook.setNumOfComments(0);
 			
 			String id = sessionManager.getUserDetails().get(
 					SessionManager.KEY_USERID);

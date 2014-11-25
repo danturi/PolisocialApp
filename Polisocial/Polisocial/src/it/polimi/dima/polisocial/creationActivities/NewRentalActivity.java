@@ -539,6 +539,7 @@ public class NewRentalActivity extends Activity {
 			rental.setType(type);
 			rental.setSquaredMeter(squareMeters);
 			rental.setContact(contact);
+			rental.setNumOfComments(0);
 			
 			Calendar calendar = Calendar.getInstance();
 			Date now = calendar.getTime();

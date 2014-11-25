@@ -125,7 +125,7 @@ public class InitiativeEndpoint {
       if(!containsInitiative(initiative)) {
         throw new EntityNotFoundException("Object does not exist");
       }
-      mgr.persist(initiative);
+      mgr.merge(initiative);
     } finally {
       mgr.close();
     }

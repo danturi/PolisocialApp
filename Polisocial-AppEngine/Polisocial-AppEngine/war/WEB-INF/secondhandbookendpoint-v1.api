@@ -296,6 +296,9 @@
           "havePicture" : {
             "type" : "boolean"
           },
+          "numOfComments" : {
+            "type" : "integer"
+          },
           "faculty" : {
             "type" : "string"
           },

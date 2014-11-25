@@ -48,31 +48,6 @@
         "body" : "empty"
       }
     },
-    "postimageendpoint.listPostImage" : {
-      "path" : "postimage",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "postimageendpoint.getImageFromPostId" : {
       "path" : "getImageFromPostId",
       "httpMethod" : "GET",
@@ -107,6 +82,31 @@
           "id" : {
             "type" : "int64",
             "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "postimageendpoint.listPostImage" : {
+      "path" : "postimage",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -171,21 +171,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_PostImage" : {
-        "id" : "CollectionResponse_PostImage",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "PostImage"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "PostImage" : {
         "id" : "PostImage",
         "type" : "object",
@@ -203,15 +188,25 @@
             "format" : "byte"
           }
         }
+      },
+      "CollectionResponse_PostImage" : {
+        "id" : "CollectionResponse_PostImage",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "PostImage"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.removePostImage" : {
-      },
-      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage" : {
-        "response" : {
-          "$ref" : "CollectionResponse_PostImage"
-        }
       },
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getImageFromPostId" : {
         "response" : {
@@ -221,6 +216,11 @@
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getPostImage" : {
         "response" : {
           "$ref" : "PostImage"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.listPostImage" : {
+        "response" : {
+          "$ref" : "CollectionResponse_PostImage"
         }
       },
       "it.polimi.dima.polisocial.endpoint.PostImageEndpoint.getImagesFromPostId" : {

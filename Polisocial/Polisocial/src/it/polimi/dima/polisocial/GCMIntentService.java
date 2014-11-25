@@ -271,7 +271,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 */
 	private static void generateNotification(Context context, String message) {
 
-		int icon = R.drawable.logo_login;
+		int icon = R.drawable.ic_gcm_notif;
 		long when = System.currentTimeMillis();
 		String group = null;
 		
@@ -312,7 +312,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			// Create an InboxStyle notification
 					notification = new NotificationCompat.Builder(context)
 					        .setContentTitle("MyOwl Spotted")
-					        .setSmallIcon(R.drawable.logo_login)
+					        .setSmallIcon(icon)
 					        .setContentIntent(intent)
 					        .setStyle(new NotificationCompat.InboxStyle()
 					                .addLine("1 message")
@@ -350,7 +350,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			// Create an InboxStyle notification
 					notification = new NotificationCompat.Builder(context)
 					        .setContentTitle("MyOwl Announcement")
-					        .setSmallIcon(R.drawable.logo_login)
+					        .setSmallIcon(icon)
 					        .setContentIntent(intent)
 					        .setStyle(new NotificationCompat.InboxStyle()
 					                .addLine("1 message")
@@ -386,7 +386,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			// Create an InboxStyle notification
 					notification = new NotificationCompat.Builder(context)
 					        .setContentTitle("MyOwl Initiative")
-					        .setSmallIcon(R.drawable.logo_login)
+					        .setSmallIcon(icon)
 					        .setContentIntent(intent)
 					        .setStyle(new NotificationCompat.InboxStyle()
 					                .addLine("1 message")
@@ -424,7 +424,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			// Create an InboxStyle notification
 					notification = new NotificationCompat.Builder(context)
 					        .setContentTitle("MyOwl HitOn")
-					        .setSmallIcon(R.drawable.logo_login)
+					        .setSmallIcon(icon)
 					        .setContentIntent(intent)
 					        .setStyle(new NotificationCompat.InboxStyle()
 					                .addLine("1 message")

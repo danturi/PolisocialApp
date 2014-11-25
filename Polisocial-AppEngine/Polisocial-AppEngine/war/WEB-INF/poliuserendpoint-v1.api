@@ -119,6 +119,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "poliuserendpoint.insertPoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.insertPoliUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "poliuserendpoint.getPictureUser" : {
       "path" : "getPictureUser",
       "httpMethod" : "GET",
@@ -135,22 +151,6 @@
           }
         },
         "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "poliuserendpoint.insertPoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.insertPoliUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -218,6 +218,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "poliuserendpoint.updatePoliUser" : {
+      "path" : "poliuser",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updatePoliUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "poliuserendpoint.removePoliUser" : {
       "path" : "poliuser/{id}",
       "httpMethod" : "DELETE",
@@ -237,22 +253,6 @@
       },
       "response" : {
         "body" : "empty"
-      }
-    },
-    "poliuserendpoint.updatePoliUser" : {
-      "path" : "poliuser",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updatePoliUser",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
       }
     },
     "poliuserendpoint.checkForDuplicateUsername" : {
@@ -345,6 +345,9 @@
             "type" : "boolean"
           },
           "notifyEvent" : {
+            "type" : "boolean"
+          },
+          "haveNotify" : {
             "type" : "boolean"
           },
           "fbaccount" : {
@@ -476,17 +479,17 @@
           "$ref" : "PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPictureUser" : {
-        "response" : {
-          "$ref" : "ResponseObject"
-        }
-      },
       "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.insertPoliUser" : {
         "request" : {
           "$ref" : "PoliUser"
         },
         "response" : {
           "$ref" : "PoliUser"
+        }
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.getPictureUser" : {
+        "response" : {
+          "$ref" : "ResponseObject"
         }
       },
       "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.searchPoliUser" : {
@@ -499,8 +502,6 @@
           "$ref" : "CollectionResponse_PoliUser"
         }
       },
-      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.removePoliUser" : {
-      },
       "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.updatePoliUser" : {
         "request" : {
           "$ref" : "PoliUser"
@@ -508,6 +509,8 @@
         "response" : {
           "$ref" : "PoliUser"
         }
+      },
+      "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.removePoliUser" : {
       },
       "it.polimi.dima.polisocial.endpoint.PoliUserEndpoint.checkForDuplicateUsername" : {
         "response" : {

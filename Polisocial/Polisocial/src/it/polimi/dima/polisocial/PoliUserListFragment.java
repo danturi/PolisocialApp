@@ -34,13 +34,13 @@ public class PoliUserListFragment extends ListFragment implements
 	private String mCursor = null;
 	private String username = null;
 
-
 	private View mProgressView;
 	private boolean refreshRequest = false;
 	private boolean firstRequest = true;
 	private boolean origList = false;
 	private List<UserDTO> listInitialUsers = new ArrayList<UserDTO>();
 	private String listInitialCursor = null;
+	private EndlessScrollListener mEndlessScrollListener;
 
 	final private OnQueryTextListener queryListener = new OnQueryTextListener() {
 
@@ -51,14 +51,14 @@ public class PoliUserListFragment extends ListFragment implements
 			statusMsg.setVisibility(View.GONE);
 			mList.setVisibility(View.VISIBLE);
 			if (TextUtils.isEmpty(newText)) {
-				origList=true;
+				origList = true;
 				getActivity().getActionBar().setSubtitle("Users");
 				if (getLoaderManager().hasRunningLoaders()) {
 					getLoaderManager().destroyLoader(0);
 				}
 				mAdapter.setData(listInitialUsers);
-				mCursor= listInitialCursor;
-				username=null;
+				mCursor = listInitialCursor;
+				username = null;
 
 				// mList.clearTextFilter();
 			} else {
@@ -67,7 +67,7 @@ public class PoliUserListFragment extends ListFragment implements
 				refreshRequest = true;
 				username = newText;
 				mCursor = null;
-				origList=false;
+				origList = false;
 				if (getLoaderManager().hasRunningLoaders()) {
 					getLoaderManager().destroyLoader(0);
 				}
@@ -118,7 +118,7 @@ public class PoliUserListFragment extends ListFragment implements
 		mList = getListView();
 		mList.setAdapter(mAdapter);
 		mList.setTextFilterEnabled(true);
-		mList.setOnScrollListener(new EndlessScrollListener() {
+		mEndlessScrollListener = new EndlessScrollListener() {
 			@Override
 			public void onLoadMore() {
 				// Triggered only when new data needs to be appended to the list
@@ -126,10 +126,11 @@ public class PoliUserListFragment extends ListFragment implements
 				addListPoliUserLoader();
 			}
 
-		});
+		};
+		mList.setOnScrollListener(mEndlessScrollListener);
 
 		// Start out with a progress indicator.
-		mProgressView = getView().findViewById(R.id.progress_bar);
+		mProgressView = getView().findViewById(R.id.progress_bar_user);
 		ShowProgress.showProgress(true, mProgressView, mList, getActivity());
 
 		Bundle bundle = new Bundle();
@@ -138,7 +139,6 @@ public class PoliUserListFragment extends ListFragment implements
 		getLoaderManager().initLoader(0, bundle, this);
 
 	}
-
 
 	private void addListPoliUserLoader() {
 		ShowProgress.showProgress(true, mProgressView, mList, getActivity());
@@ -160,6 +160,7 @@ public class PoliUserListFragment extends ListFragment implements
 			Bundle bundle) {
 		String cursor = (String) bundle.get("cursor");
 		String username = (String) bundle.get("username");
+		mEndlessScrollListener.setLoading(true);
 		return new UserListLoader(getActivity(), cursor, username);
 
 	}
@@ -167,37 +168,46 @@ public class PoliUserListFragment extends ListFragment implements
 	@Override
 	public void onLoadFinished(Loader<CollectionResponseUserDTO> arg0,
 			CollectionResponseUserDTO data) {
-		
+
 		mCursor = data.getNextPageToken();
 		TextView statusMsg = (TextView) getView().findViewById(R.id.no_user);
-		//ci sono nuovi user
+		// ci sono nuovi user
 		if (data.getItems() != null) {
 			statusMsg.setVisibility(View.GONE);
-			mList.setVisibility(View.VISIBLE);
 
-			//se è una richiesta nuova 
+			// se è una richiesta nuova
 			if (refreshRequest) {
 				if (firstRequest) {
 					listInitialUsers = data.getItems();
-					listInitialCursor= mCursor;
+					listInitialCursor = mCursor;
 					firstRequest = false;
 				}
 				mAdapter.setData(data.getItems());
 				refreshRequest = false;
-			}//se è una richiesta di aggiunta utenti nella lista 
+			}
+			// se è una richiesta di aggiunta utenti nella lista
 			else {
 				// se ci troviamo nella pagina utenti iniziale
-				if(origList){
+				if (origList) {
 					listInitialUsers.addAll(data.getItems());
-					listInitialCursor=mCursor;
+					listInitialCursor = mCursor;
 				}
 				mAdapter.addAll(data.getItems());
+			}
+			if (data.getItems().size() == 10) {
+				mEndlessScrollListener.setLoading(false);
+			} else {
+				mAdapter.setLoading_row(0);
+				mAdapter.notifyDataSetChanged();
 			}
 		} else {
 			if (refreshRequest && !origList) {
 				statusMsg.setVisibility(View.VISIBLE);
-				mList.setVisibility(View.GONE);
-			} 
+				mAdapter.setLoading_row(0);
+				mAdapter.notifyDataSetChanged();
+				// mList.setVisibility(View.GONE);
+
+			}
 		}
 
 		ShowProgress.showProgress(false, mProgressView, mList, getActivity());
@@ -209,8 +219,6 @@ public class PoliUserListFragment extends ListFragment implements
 		mAdapter.setData(null);
 
 	}
-
-	
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {

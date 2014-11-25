@@ -144,7 +144,7 @@ public class RentalEndpoint {
 			if (!containsRental(rental)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(rental);
+			mgr.merge(rental);
 		} finally {
 			mgr.close();
 		}

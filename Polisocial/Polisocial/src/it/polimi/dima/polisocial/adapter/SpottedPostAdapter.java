@@ -52,7 +52,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 	private final int VIEW_NO_CUPIDO = 0;
 	private final int VIEW_LOADING = 2;
 	
-	final Animation animRotate = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anim);
+	final Animation animScale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_anim);
 	
 
 	private Long userId;
@@ -312,7 +312,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 
 						@Override
 						public void onClick(View v) {
-							v.startAnimation(animRotate);
+							v.startAnimation(animScale);
 							button.setEnabled(false);
 							button.setSelected(true);							
 							new AddLikeOrDisLikeTask(id,
@@ -340,7 +340,7 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 
 						@Override
 						public void onClick(View v) {
-							v.startAnimation(animRotate);
+							v.startAnimation(animScale);
 							button.setEnabled(false);
 							button.setSelected(true);							
 							new AddLikeOrDisLikeTask(id,

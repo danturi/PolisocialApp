@@ -332,6 +332,7 @@ public class NewEventActivity extends Activity {
 			newEventPost.setTimestamp(new DateTime(now));
 			newEventPost.setNumOfGoing(0);
 			newEventPost.setNumOfLikes(0);
+			newEventPost.setNumOfComments(0);
 
 			if (pic != null) {
 				newEventPost.setHavePicture(true);

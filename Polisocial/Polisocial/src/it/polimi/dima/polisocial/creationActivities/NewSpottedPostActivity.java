@@ -239,6 +239,7 @@ public class NewSpottedPostActivity extends Activity {
 			newSpottedPost.setTimestamp(new DateTime(now));
 			newSpottedPost.setNumberLike(0);
 			newSpottedPost.setNumberDislike(0);
+			newSpottedPost.setNumOfComments(0);
 
 			if (pic != null) {
 				newSpottedPost.setHavePicture(true);
