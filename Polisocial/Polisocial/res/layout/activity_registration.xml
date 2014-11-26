@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dip"
                     android:layout_marginRight="60dip"
-                    android:text="Faculty"
+                    android:text="@string/prompt_faculty"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dip"
                     android:layout_marginRight="60dip"
-                    android:text="Birthdate"
+                    android:text="@string/prompt_birthdate"
                     android:textColor="@color/Green"
                     android:textStyle="bold" />
 				
@@ -169,7 +169,6 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="5dip"
-                    android:password="true"
                     android:singleLine="true" />
 
                 <!-- Confirm password Label -->
@@ -179,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dip"
                     android:layout_marginRight="60dip"
-                    android:text="Confirm password"
+                    android:text="@string/confirm_password"
                     android:textColor="#45a700"
                     android:textStyle="bold" />
 
@@ -196,7 +195,6 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="5dip"
-                    android:password="true"
                     android:singleLine="true" />
 
                 <!-- Registration button -->
@@ -212,7 +210,7 @@
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="Register!"
+                    android:text="@string/registration_button"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:textStyle="bold" />

@@ -106,7 +106,7 @@ public class RegistrationActivity extends Activity implements
 						
 					}
 				}, mYear, mMonth, mDay);
-	            mDatePicker.setTitle("Select your birthdate");                
+	            mDatePicker.setTitle(getResources().getString(R.string.select_faculty));                
 	            mDatePicker.show();  }
 				
 			

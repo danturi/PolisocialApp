@@ -584,7 +584,174 @@ android.support.v4.app.NoSaveStateFrameLayout -> android.support.v4.app.ag:
     android.view.ViewGroup wrap(android.view.View) -> a
     void dispatchSaveInstanceState(android.util.SparseArray) -> dispatchSaveInstanceState
     void dispatchRestoreInstanceState(android.util.SparseArray) -> dispatchRestoreInstanceState
-android.support.v4.app.SuperNotCalledException -> android.support.v4.app.ah:
+android.support.v4.app.NotificationBuilderWithActions -> android.support.v4.app.ah:
+    void addAction(android.support.v4.app.NotificationCompatBase$Action) -> a
+android.support.v4.app.NotificationBuilderWithBuilderAccessor -> android.support.v4.app.ai:
+    android.app.Notification$Builder getBuilder() -> a
+android.support.v4.app.NotificationCompat -> android.support.v4.app.aj:
+    android.support.v4.app.NotificationCompat$NotificationCompatImpl IMPL -> a
+    void addActionsToBuilder(android.support.v4.app.NotificationBuilderWithActions,java.util.ArrayList) -> b
+    void addStyleToBuilderJellybean(android.support.v4.app.NotificationBuilderWithBuilderAccessor,android.support.v4.app.NotificationCompat$Style) -> b
+    void access$000(android.support.v4.app.NotificationBuilderWithActions,java.util.ArrayList) -> a
+    void access$100(android.support.v4.app.NotificationBuilderWithBuilderAccessor,android.support.v4.app.NotificationCompat$Style) -> a
+    android.support.v4.app.NotificationCompat$NotificationCompatImpl access$200() -> a
+android.support.v4.app.NotificationCompat$Action -> android.support.v4.app.ak:
+    android.os.Bundle mExtras -> e
+    android.support.v4.app.RemoteInput[] mRemoteInputs -> f
+    int icon -> a
+    java.lang.CharSequence title -> b
+    android.app.PendingIntent actionIntent -> c
+    android.support.v4.app.NotificationCompatBase$Action$Factory FACTORY -> d
+    int getIcon() -> a
+    java.lang.CharSequence getTitle() -> b
+    android.app.PendingIntent getActionIntent() -> c
+    android.os.Bundle getExtras() -> d
+    android.support.v4.app.RemoteInput[] getRemoteInputs() -> e
+    android.support.v4.app.RemoteInputCompatBase$RemoteInput[] getRemoteInputs() -> f
+android.support.v4.app.NotificationCompat$Action$1 -> android.support.v4.app.al:
+android.support.v4.app.NotificationCompat$BigPictureStyle -> android.support.v4.app.am:
+    android.graphics.Bitmap mPicture -> a
+    android.graphics.Bitmap mBigLargeIcon -> b
+    boolean mBigLargeIconSet -> c
+android.support.v4.app.NotificationCompat$BigTextStyle -> android.support.v4.app.an:
+    java.lang.CharSequence mBigText -> a
+android.support.v4.app.NotificationCompat$Builder -> android.support.v4.app.ao:
+    android.content.Context mContext -> a
+    java.lang.CharSequence mContentTitle -> b
+    java.lang.CharSequence mContentText -> c
+    android.app.PendingIntent mContentIntent -> d
+    android.app.PendingIntent mFullScreenIntent -> e
+    android.widget.RemoteViews mTickerView -> f
+    android.graphics.Bitmap mLargeIcon -> g
+    java.lang.CharSequence mContentInfo -> h
+    int mNumber -> i
+    int mPriority -> j
+    boolean mUseChronometer -> k
+    android.support.v4.app.NotificationCompat$Style mStyle -> l
+    java.lang.CharSequence mSubText -> m
+    int mProgressMax -> n
+    int mProgress -> o
+    boolean mProgressIndeterminate -> p
+    java.lang.String mGroupKey -> q
+    boolean mGroupSummary -> r
+    java.lang.String mSortKey -> s
+    java.util.ArrayList mActions -> t
+    boolean mLocalOnly -> u
+    android.os.Bundle mExtras -> v
+    android.app.Notification mNotification -> w
+    android.support.v4.app.NotificationCompat$Builder setWhen(long) -> a
+    android.support.v4.app.NotificationCompat$Builder setSmallIcon(int) -> a
+    android.support.v4.app.NotificationCompat$Builder setContentTitle(java.lang.CharSequence) -> a
+    android.support.v4.app.NotificationCompat$Builder setContentText(java.lang.CharSequence) -> b
+    android.support.v4.app.NotificationCompat$Builder setContentIntent(android.app.PendingIntent) -> a
+    android.support.v4.app.NotificationCompat$Builder setGroup(java.lang.String) -> a
+    android.support.v4.app.NotificationCompat$Builder setGroupSummary(boolean) -> a
+    android.support.v4.app.NotificationCompat$Builder setStyle(android.support.v4.app.NotificationCompat$Style) -> a
+    android.app.Notification build() -> a
+android.support.v4.app.NotificationCompat$InboxStyle -> android.support.v4.app.ap:
+    java.util.ArrayList mTexts -> a
+    android.support.v4.app.NotificationCompat$InboxStyle setBigContentTitle(java.lang.CharSequence) -> a
+    android.support.v4.app.NotificationCompat$InboxStyle addLine(java.lang.CharSequence) -> b
+android.support.v4.app.NotificationCompat$NotificationCompatImpl -> android.support.v4.app.aq:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplApi20 -> android.support.v4.app.ar:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplBase -> android.support.v4.app.as:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplGingerbread -> android.support.v4.app.at:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplHoneycomb -> android.support.v4.app.au:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplIceCreamSandwich -> android.support.v4.app.av:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean -> android.support.v4.app.aw:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$NotificationCompatImplKitKat -> android.support.v4.app.ax:
+    android.app.Notification build(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompat$Style -> android.support.v4.app.ay:
+    android.support.v4.app.NotificationCompat$Builder mBuilder -> d
+    java.lang.CharSequence mBigContentTitle -> e
+    java.lang.CharSequence mSummaryText -> f
+    boolean mSummaryTextSet -> g
+    void setBuilder(android.support.v4.app.NotificationCompat$Builder) -> a
+android.support.v4.app.NotificationCompatApi20 -> android.support.v4.app.az:
+android.support.v4.app.NotificationCompatApi20$Builder -> android.support.v4.app.ba:
+    android.app.Notification$Builder b -> a
+    void addAction(android.support.v4.app.NotificationCompatBase$Action) -> a
+    android.app.Notification$Builder getBuilder() -> a
+    android.app.Notification build() -> b
+android.support.v4.app.NotificationCompatBase -> android.support.v4.app.bb:
+android.support.v4.app.NotificationCompatBase$Action -> android.support.v4.app.bc:
+    int getIcon() -> a
+    java.lang.CharSequence getTitle() -> b
+    android.app.PendingIntent getActionIntent() -> c
+    android.os.Bundle getExtras() -> d
+    android.support.v4.app.RemoteInputCompatBase$RemoteInput[] getRemoteInputs() -> f
+android.support.v4.app.NotificationCompatBase$Action$Factory -> android.support.v4.app.bd:
+android.support.v4.app.NotificationCompatGingerbread -> android.support.v4.app.be:
+    android.app.Notification add(android.app.Notification,android.content.Context,java.lang.CharSequence,java.lang.CharSequence,android.app.PendingIntent,android.app.PendingIntent) -> a
+android.support.v4.app.NotificationCompatHoneycomb -> android.support.v4.app.bf:
+    android.app.Notification add(android.content.Context,android.app.Notification,java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence,android.widget.RemoteViews,int,android.app.PendingIntent,android.app.PendingIntent,android.graphics.Bitmap) -> a
+android.support.v4.app.NotificationCompatIceCreamSandwich -> android.support.v4.app.bg:
+    android.app.Notification add(android.content.Context,android.app.Notification,java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence,android.widget.RemoteViews,int,android.app.PendingIntent,android.app.PendingIntent,android.graphics.Bitmap,int,int,boolean) -> a
+android.support.v4.app.NotificationCompatJellybean -> android.support.v4.app.bh:
+    java.lang.Object sExtrasLock -> a
+    java.lang.reflect.Field sExtrasField -> b
+    boolean sExtrasFieldAccessFailed -> c
+    java.lang.Object sActionsLock -> d
+    void addBigTextStyle(android.support.v4.app.NotificationBuilderWithBuilderAccessor,java.lang.CharSequence,boolean,java.lang.CharSequence,java.lang.CharSequence) -> a
+    void addBigPictureStyle(android.support.v4.app.NotificationBuilderWithBuilderAccessor,java.lang.CharSequence,boolean,java.lang.CharSequence,android.graphics.Bitmap,android.graphics.Bitmap,boolean) -> a
+    void addInboxStyle(android.support.v4.app.NotificationBuilderWithBuilderAccessor,java.lang.CharSequence,boolean,java.lang.CharSequence,java.util.ArrayList) -> a
+    android.util.SparseArray buildActionExtrasMap(java.util.List) -> a
+    android.os.Bundle getExtras(android.app.Notification) -> a
+    android.os.Bundle writeActionAndGetExtras(android.app.Notification$Builder,android.support.v4.app.NotificationCompatBase$Action) -> a
+android.support.v4.app.NotificationCompatJellybean$Builder -> android.support.v4.app.bi:
+    android.app.Notification$Builder b -> a
+    android.os.Bundle mExtras -> b
+    java.util.List mActionExtrasList -> c
+    void addAction(android.support.v4.app.NotificationCompatBase$Action) -> a
+    android.app.Notification$Builder getBuilder() -> a
+    android.app.Notification build() -> b
+android.support.v4.app.NotificationCompatKitKat -> android.support.v4.app.bj:
+android.support.v4.app.NotificationCompatKitKat$Builder -> android.support.v4.app.bk:
+    android.app.Notification$Builder b -> a
+    android.os.Bundle mExtras -> b
+    java.util.List mActionExtrasList -> c
+    void addAction(android.support.v4.app.NotificationCompatBase$Action) -> a
+    android.app.Notification$Builder getBuilder() -> a
+    android.app.Notification build() -> b
+android.support.v4.app.RemoteInput -> android.support.v4.app.bl:
+    java.lang.String mResultKey -> b
+    java.lang.CharSequence mLabel -> c
+    java.lang.CharSequence[] mChoices -> d
+    boolean mAllowFreeFormInput -> e
+    android.os.Bundle mExtras -> f
+    android.support.v4.app.RemoteInput$Impl IMPL -> g
+    android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory FACTORY -> a
+    java.lang.String getResultKey() -> a
+    java.lang.CharSequence getLabel() -> b
+    java.lang.CharSequence[] getChoices() -> c
+    boolean getAllowFreeFormInput() -> d
+    android.os.Bundle getExtras() -> e
+android.support.v4.app.RemoteInput$1 -> android.support.v4.app.bm:
+android.support.v4.app.RemoteInput$Impl -> android.support.v4.app.bn:
+android.support.v4.app.RemoteInput$ImplApi20 -> android.support.v4.app.bo:
+android.support.v4.app.RemoteInput$ImplBase -> android.support.v4.app.bp:
+android.support.v4.app.RemoteInput$ImplJellybean -> android.support.v4.app.bq:
+android.support.v4.app.RemoteInputCompatApi20 -> android.support.v4.app.br:
+    android.app.RemoteInput[] fromCompat(android.support.v4.app.RemoteInputCompatBase$RemoteInput[]) -> a
+android.support.v4.app.RemoteInputCompatBase -> android.support.v4.app.bs:
+android.support.v4.app.RemoteInputCompatBase$RemoteInput -> android.support.v4.app.bt:
+    java.lang.String getResultKey() -> a
+    java.lang.CharSequence getLabel() -> b
+    java.lang.CharSequence[] getChoices() -> c
+    boolean getAllowFreeFormInput() -> d
+    android.os.Bundle getExtras() -> e
+android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory -> android.support.v4.app.bu:
+android.support.v4.app.RemoteInputCompatJellybean -> android.support.v4.app.bv:
+    android.os.Bundle toBundle(android.support.v4.app.RemoteInputCompatBase$RemoteInput) -> a
+    android.os.Bundle[] toBundleArray(android.support.v4.app.RemoteInputCompatBase$RemoteInput[]) -> a
+android.support.v4.app.SuperNotCalledException -> android.support.v4.app.bw:
 android.support.v4.content.AsyncTaskLoader -> android.support.v4.a.a:
     android.support.v4.content.AsyncTaskLoader$LoadTask mTask -> a
     android.support.v4.content.AsyncTaskLoader$LoadTask mCancellingTask -> b
@@ -16392,20 +16559,13 @@ com.google.android.gms.maps.GoogleMap -> com.google.android.gms.maps.c:
     com.google.android.gms.maps.internal.IGoogleMapDelegate ain -> a
     void animateCamera(com.google.android.gms.maps.CameraUpdate) -> a
     com.google.android.gms.maps.model.Marker addMarker(com.google.android.gms.maps.model.MarkerOptions) -> a
-    void setOnMarkerClickListener(com.google.android.gms.maps.GoogleMap$OnMarkerClickListener) -> a
     void setOnInfoWindowClickListener(com.google.android.gms.maps.GoogleMap$OnInfoWindowClickListener) -> a
-com.google.android.gms.maps.GoogleMap$10 -> com.google.android.gms.maps.d:
-    com.google.android.gms.maps.GoogleMap$OnMarkerClickListener aiB -> a
-    com.google.android.gms.maps.GoogleMap aiq -> b
-    boolean a(com.google.android.gms.maps.model.internal.f) -> a
-com.google.android.gms.maps.GoogleMap$12 -> com.google.android.gms.maps.e:
+com.google.android.gms.maps.GoogleMap$12 -> com.google.android.gms.maps.d:
     com.google.android.gms.maps.GoogleMap$OnInfoWindowClickListener aiD -> a
     com.google.android.gms.maps.GoogleMap aiq -> b
     void e(com.google.android.gms.maps.model.internal.f) -> a
-com.google.android.gms.maps.GoogleMap$OnInfoWindowClickListener -> com.google.android.gms.maps.f:
+com.google.android.gms.maps.GoogleMap$OnInfoWindowClickListener -> com.google.android.gms.maps.e:
     void onInfoWindowClick(com.google.android.gms.maps.model.Marker) -> a
-com.google.android.gms.maps.GoogleMap$OnMarkerClickListener -> com.google.android.gms.maps.g:
-    boolean onMarkerClick(com.google.android.gms.maps.model.Marker) -> a
 com.google.android.gms.maps.GoogleMapOptions -> com.google.android.gms.maps.GoogleMapOptions:
     com.google.android.gms.maps.a CREATOR -> a
     int BR -> b
@@ -16457,7 +16617,7 @@ com.google.android.gms.maps.MapFragment -> com.google.android.gms.maps.MapFragme
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
     void setArguments(android.os.Bundle) -> setArguments
-com.google.android.gms.maps.MapFragment$a -> com.google.android.gms.maps.h:
+com.google.android.gms.maps.MapFragment$a -> com.google.android.gms.maps.f:
     android.app.Fragment Sj -> a
     com.google.android.gms.maps.internal.IMapFragmentDelegate aiS -> b
     void onInflate(android.app.Activity,android.os.Bundle,android.os.Bundle) -> a
@@ -16469,7 +16629,7 @@ com.google.android.gms.maps.MapFragment$a -> com.google.android.gms.maps.h:
     void onDestroy() -> d
     void onLowMemory() -> e
     void onSaveInstanceState(android.os.Bundle) -> b
-com.google.android.gms.maps.MapFragment$b -> com.google.android.gms.maps.i:
+com.google.android.gms.maps.MapFragment$b -> com.google.android.gms.maps.g:
     android.app.Fragment Sj -> b
     com.google.android.gms.dynamic.f aiT -> a
     android.app.Activity nr -> c
@@ -16485,7 +16645,7 @@ com.google.android.gms.maps.MapView -> com.google.android.gms.maps.MapView:
     void onResume() -> a
     void onDestroy() -> b
     void onLowMemory() -> c
-com.google.android.gms.maps.MapView$a -> com.google.android.gms.maps.j:
+com.google.android.gms.maps.MapView$a -> com.google.android.gms.maps.h:
     android.view.ViewGroup aiV -> a
     com.google.android.gms.maps.internal.IMapViewDelegate aiW -> b
     android.view.View aiX -> c
@@ -16499,14 +16659,14 @@ com.google.android.gms.maps.MapView$a -> com.google.android.gms.maps.j:
     void onLowMemory() -> e
     void onSaveInstanceState(android.os.Bundle) -> b
     com.google.android.gms.maps.internal.IMapViewDelegate mB() -> f
-com.google.android.gms.maps.MapView$b -> com.google.android.gms.maps.k:
+com.google.android.gms.maps.MapView$b -> com.google.android.gms.maps.i:
     android.view.ViewGroup aiY -> b
     android.content.Context mContext -> c
     com.google.android.gms.dynamic.f aiT -> a
     com.google.android.gms.maps.GoogleMapOptions aiZ -> d
     void a(com.google.android.gms.dynamic.f) -> a
     void mA() -> g
-com.google.android.gms.maps.MapsInitializer -> com.google.android.gms.maps.l:
+com.google.android.gms.maps.MapsInitializer -> com.google.android.gms.maps.j:
     int initialize(android.content.Context) -> a
     void a(com.google.android.gms.maps.internal.c) -> a
 com.google.android.gms.maps.StreetViewPanoramaOptions -> com.google.android.gms.maps.StreetViewPanoramaOptions:
@@ -16533,15 +16693,15 @@ com.google.android.gms.maps.StreetViewPanoramaOptions -> com.google.android.gms.
     com.google.android.gms.maps.model.LatLng getPosition() -> h
     java.lang.Integer getRadius() -> i
     java.lang.String getPanoramaId() -> j
-com.google.android.gms.maps.a -> com.google.android.gms.maps.m:
+com.google.android.gms.maps.a -> com.google.android.gms.maps.k:
     com.google.android.gms.maps.GoogleMapOptions cG(android.os.Parcel) -> a
     com.google.android.gms.maps.GoogleMapOptions[] ew(int) -> a
     void a(com.google.android.gms.maps.GoogleMapOptions,android.os.Parcel,int) -> a
     java.lang.Object[] newArray(int) -> newArray
     java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-com.google.android.gms.maps.b -> com.google.android.gms.maps.n:
+com.google.android.gms.maps.b -> com.google.android.gms.maps.l:
     void a(com.google.android.gms.maps.GoogleMapOptions,android.os.Parcel,int) -> a
-com.google.android.gms.maps.c -> com.google.android.gms.maps.o:
+com.google.android.gms.maps.c -> com.google.android.gms.maps.m:
     com.google.android.gms.maps.StreetViewPanoramaOptions cH(android.os.Parcel) -> a
     com.google.android.gms.maps.StreetViewPanoramaOptions[] ex(int) -> a
     void a(com.google.android.gms.maps.StreetViewPanoramaOptions,android.os.Parcel,int) -> a
@@ -17239,6 +17399,7 @@ com.google.android.gms.maps.model.MarkerOptions -> com.google.android.gms.maps.m
     com.google.android.gms.maps.model.MarkerOptions position(com.google.android.gms.maps.model.LatLng) -> a
     com.google.android.gms.maps.model.MarkerOptions icon(com.google.android.gms.maps.model.BitmapDescriptor) -> a
     com.google.android.gms.maps.model.MarkerOptions title(java.lang.String) -> a
+    com.google.android.gms.maps.model.MarkerOptions snippet(java.lang.String) -> b
     com.google.android.gms.maps.model.LatLng getPosition() -> c
     java.lang.String getTitle() -> d
     java.lang.String getSnippet() -> e
@@ -19983,8 +20144,12 @@ it.polimi.dima.polisocial.GCMActivity$State -> it.polimi.dima.polisocial.p:
     it.polimi.dima.polisocial.GCMActivity$State[] values() -> values
     it.polimi.dima.polisocial.GCMActivity$State valueOf(java.lang.String) -> valueOf
 it.polimi.dima.polisocial.GCMIntentService -> it.polimi.dima.polisocial.GCMIntentService:
-    it.polimi.dima.polisocial.deviceinfoendpoint.Deviceinfoendpoint endpoint -> a
-    java.lang.Long userId -> b
+    it.polimi.dima.polisocial.deviceinfoendpoint.Deviceinfoendpoint endpoint -> e
+    java.lang.Long userId -> f
+    int countSpotted -> a
+    int countEvent -> b
+    int countAnnouncement -> c
+    int countHitOn -> d
     void register(android.content.Context) -> a
     void unregister(android.content.Context) -> b
     void onError(android.content.Context,java.lang.String) -> b
@@ -20130,7 +20295,8 @@ it.polimi.dima.polisocial.PoliUserListFragment -> it.polimi.dima.polisocial.ag:
     boolean origList -> p
     java.util.List listInitialUsers -> q
     java.lang.String listInitialCursor -> r
-    android.widget.SearchView$OnQueryTextListener queryListener -> s
+    it.polimi.dima.polisocial.customListeners.EndlessScrollListener mEndlessScrollListener -> s
+    android.widget.SearchView$OnQueryTextListener queryListener -> t
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> onCreateOptionsMenu
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
@@ -20340,18 +20506,18 @@ it.polimi.dima.polisocial.SearchActivity -> it.polimi.dima.polisocial.SearchActi
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
 it.polimi.dima.polisocial.ShowRelatedCommentsActivity -> it.polimi.dima.polisocial.ShowRelatedCommentsActivity:
-    me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout -> u
-    it.polimi.dima.polisocial.adapter.CommentAdapter mAdapter -> v
-    long postId -> w
-    java.lang.String whatToShow -> x
-    java.lang.String postType -> y
-    android.widget.ListView mList -> z
-    android.view.View mProgressView -> A
-    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> B
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint endpoint -> C
-    android.view.View bottomControlBar -> D
-    android.view.View header -> E
-    java.lang.String mCursor -> F
+    me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout -> v
+    it.polimi.dima.polisocial.adapter.CommentAdapter mAdapter -> w
+    long postId -> x
+    java.lang.String whatToShow -> y
+    java.lang.String postType -> z
+    android.widget.ListView mList -> A
+    android.view.View mProgressView -> B
+    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> C
+    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint endpoint -> D
+    android.view.View bottomControlBar -> E
+    android.view.View header -> F
+    java.lang.String mCursor -> G
     android.widget.TextView headerTitle -> n
     android.widget.TextView headerTimestamp -> o
     android.widget.TextView headerText -> p
@@ -20359,9 +20525,12 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity -> it.polimi.dima.polisoci
     android.widget.ImageView headerPostImage -> r
     android.widget.TextView headerLocation -> s
     android.widget.TextView headerBeginningDate -> t
+    android.widget.LinearLayout rentalGallery -> u
     void onCreate(android.os.Bundle) -> onCreate
     android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
     void onLoadFinished(android.support.v4.content.Loader,java.util.List) -> a
+    void fillUpBookHeader(it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook) -> a
+    void fillUpRentalHeader(it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental) -> a
     void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
     void fillUpSpottedHeader(it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted) -> a
     void fillUpEventHeader(it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative) -> a
@@ -20479,16 +20648,19 @@ it.polimi.dima.polisocial.adapter.EndlessListAdapter -> it.polimi.dima.polisocia
     long getItemId(int) -> getItemId
     void setLoading_row(int) -> a
 it.polimi.dima.polisocial.adapter.EventAdapter -> it.polimi.dima.polisocial.a.i:
-    int VIEW_STANDARD -> d
-    int VIEW_LOADING -> e
+    int VIEW_STANDARD -> h
+    int VIEW_LOADING -> i
+    android.view.animation.Animation animScale -> d
+    java.lang.Long userId -> j
+    java.util.ArrayList postsLike -> e
+    java.util.ArrayList postsDisLike -> f
+    it.polimi.dima.polisocial.utilClasses.SessionManager session -> g
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     java.lang.String composeDateString(java.lang.String,java.lang.String,java.lang.String,android.widget.TextView,android.widget.TextView) -> a
+    java.lang.Long access$0(it.polimi.dima.polisocial.adapter.EventAdapter) -> a
 it.polimi.dima.polisocial.adapter.EventAdapter$1 -> it.polimi.dima.polisocial.a.j:
-    it.polimi.dima.polisocial.adapter.EventAdapter this$0 -> a
-    void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.EventAdapter$2 -> it.polimi.dima.polisocial.a.k:
     it.polimi.dima.polisocial.adapter.EventAdapter$EventViewHolder v -> b
     java.lang.String s -> c
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative ip -> d
@@ -20497,15 +20669,30 @@ it.polimi.dima.polisocial.adapter.EventAdapter$2 -> it.polimi.dima.polisocial.a.
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    it.polimi.dima.polisocial.adapter.EventAdapter access$2(it.polimi.dima.polisocial.adapter.EventAdapter$2) -> a
-it.polimi.dima.polisocial.adapter.EventAdapter$2$1 -> it.polimi.dima.polisocial.a.l:
-    it.polimi.dima.polisocial.adapter.EventAdapter$2 this$1 -> a
+    it.polimi.dima.polisocial.adapter.EventAdapter access$2(it.polimi.dima.polisocial.adapter.EventAdapter$1) -> a
+it.polimi.dima.polisocial.adapter.EventAdapter$1$1 -> it.polimi.dima.polisocial.a.k:
+    it.polimi.dima.polisocial.adapter.EventAdapter$1 this$1 -> a
     byte[] val$byteArrayImage -> b
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.adapter.EventAdapter$2 -> it.polimi.dima.polisocial.a.l:
+    it.polimi.dima.polisocial.adapter.EventAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
 it.polimi.dima.polisocial.adapter.EventAdapter$3 -> it.polimi.dima.polisocial.a.m:
     it.polimi.dima.polisocial.adapter.EventAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.EventAdapter$EventViewHolder -> it.polimi.dima.polisocial.a.n:
+it.polimi.dima.polisocial.adapter.EventAdapter$4 -> it.polimi.dima.polisocial.a.n:
+    it.polimi.dima.polisocial.adapter.EventAdapter this$0 -> a
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.adapter.EventAdapter$AddLikeOrDisLikeTask -> it.polimi.dima.polisocial.a.o:
+    java.lang.Long post -> b
+    java.lang.String type -> c
+    android.widget.Button button -> d
+    it.polimi.dima.polisocial.adapter.EventAdapter this$0 -> a
+    java.lang.Boolean doInBackground(java.lang.String[]) -> a
+    void onPostExecute(java.lang.Boolean) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.adapter.EventAdapter$EventViewHolder -> it.polimi.dima.polisocial.a.p:
     android.widget.TextView title -> a
     android.widget.TextView location -> b
     android.widget.ImageView eventPicture -> c
@@ -20514,7 +20701,9 @@ it.polimi.dima.polisocial.adapter.EventAdapter$EventViewHolder -> it.polimi.dima
     android.widget.TextView beginningDate -> f
     android.widget.TextView month -> g
     android.widget.TextView day -> h
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter -> it.polimi.dima.polisocial.a.o:
+    android.widget.Button likeButton -> i
+    android.widget.Button goingButton -> j
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter -> it.polimi.dima.polisocial.a.q:
     android.content.Context context -> a
     int layoutResourceId -> b
     java.util.ArrayList data -> c
@@ -20526,23 +20715,23 @@ it.polimi.dima.polisocial.adapter.GridViewPictureAdapter -> it.polimi.dima.polis
     java.util.ArrayList access$1(it.polimi.dima.polisocial.adapter.GridViewPictureAdapter) -> b
     java.util.ArrayList access$2(it.polimi.dima.polisocial.adapter.GridViewPictureAdapter) -> c
     android.widget.TextView access$3(it.polimi.dima.polisocial.adapter.GridViewPictureAdapter) -> d
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$1 -> it.polimi.dima.polisocial.a.p:
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$1 -> it.polimi.dima.polisocial.a.r:
     it.polimi.dima.polisocial.adapter.GridViewPictureAdapter this$0 -> a
     int val$position -> b
     boolean onLongClick(android.view.View) -> onLongClick
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$2 -> it.polimi.dima.polisocial.a.q:
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$2 -> it.polimi.dima.polisocial.a.s:
     it.polimi.dima.polisocial.adapter.GridViewPictureAdapter this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$3 -> it.polimi.dima.polisocial.a.r:
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$3 -> it.polimi.dima.polisocial.a.t:
     it.polimi.dima.polisocial.adapter.GridViewPictureAdapter this$0 -> a
     int val$position -> b
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$4 -> it.polimi.dima.polisocial.a.s:
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$4 -> it.polimi.dima.polisocial.a.u:
     it.polimi.dima.polisocial.adapter.GridViewPictureAdapter this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$ViewHolder -> it.polimi.dima.polisocial.a.t:
+it.polimi.dima.polisocial.adapter.GridViewPictureAdapter$ViewHolder -> it.polimi.dima.polisocial.a.v:
     android.widget.ImageView image -> a
-it.polimi.dima.polisocial.adapter.NotificationAdapter -> it.polimi.dima.polisocial.a.u:
+it.polimi.dima.polisocial.adapter.NotificationAdapter -> it.polimi.dima.polisocial.a.w:
     android.view.LayoutInflater mInflater -> a
     java.lang.String notificationTextIntroduction -> b
     java.lang.String notificationTextSection -> c
@@ -20550,31 +20739,45 @@ it.polimi.dima.polisocial.adapter.NotificationAdapter -> it.polimi.dima.polisoci
     java.lang.String notificationTextHit -> e
     void setData(java.util.List) -> a
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-it.polimi.dima.polisocial.adapter.SecondHandBookAdapter -> it.polimi.dima.polisocial.a.v:
+it.polimi.dima.polisocial.adapter.RentalAdapter -> it.polimi.dima.polisocial.a.x:
+    android.view.LayoutInflater mInflater -> a
+    void setData(java.util.List) -> a
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+it.polimi.dima.polisocial.adapter.RentalAdapter$RentalViewHolder -> it.polimi.dima.polisocial.a.y:
+    android.widget.TextView title -> a
+    android.widget.TextView address -> b
+    android.widget.TextView price -> c
+    android.widget.TextView typeAndSquareMeters -> d
+it.polimi.dima.polisocial.adapter.SecondHandBookAdapter -> it.polimi.dima.polisocial.a.z:
     int VIEW_BOOK -> d
     int VIEW_LOADING -> e
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-it.polimi.dima.polisocial.adapter.SecondHandBookAdapter$SpottedViewHolder -> it.polimi.dima.polisocial.a.w:
+it.polimi.dima.polisocial.adapter.SecondHandBookAdapter$SpottedViewHolder -> it.polimi.dima.polisocial.a.aa:
     android.widget.TextView title -> a
     android.widget.TextView authorNames -> b
     android.widget.TextView price -> c
     android.widget.TextView condition -> d
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter -> it.polimi.dima.polisocial.a.x:
-    int VIEW_CUPIDO -> d
-    int VIEW_NO_CUPIDO -> e
-    int VIEW_LOADING -> f
-    java.lang.Long userId -> g
-    java.lang.String name -> h
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter -> it.polimi.dima.polisocial.a.ab:
+    int VIEW_CUPIDO -> h
+    int VIEW_NO_CUPIDO -> i
+    int VIEW_LOADING -> j
+    android.view.animation.Animation animScale -> d
+    java.lang.Long userId -> k
+    java.lang.String name -> l
+    java.util.ArrayList postsLike -> e
+    java.util.ArrayList postsDisLike -> f
+    it.polimi.dima.polisocial.utilClasses.SessionManager session -> g
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void showNoticeDialog(long) -> a
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$1 -> it.polimi.dima.polisocial.a.y:
+    java.lang.Long access$0(it.polimi.dima.polisocial.adapter.SpottedPostAdapter) -> a
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$1 -> it.polimi.dima.polisocial.a.ac:
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2 -> it.polimi.dima.polisocial.a.z:
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2 -> it.polimi.dima.polisocial.a.ad:
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter$SpottedViewHolder v -> b
     java.lang.String s -> c
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted ps -> d
@@ -20584,17 +20787,32 @@ it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2 -> it.polimi.dima.polisoc
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter access$2(it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2) -> a
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2$1 -> it.polimi.dima.polisocial.a.aa:
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2$1 -> it.polimi.dima.polisocial.a.ae:
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter$2 this$1 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$3 -> it.polimi.dima.polisocial.a.ab:
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$3 -> it.polimi.dima.polisocial.a.af:
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$4 -> it.polimi.dima.polisocial.a.ac:
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$4 -> it.polimi.dima.polisocial.a.ag:
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.adapter.SpottedPostAdapter$SpottedViewHolder -> it.polimi.dima.polisocial.a.ad:
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$5 -> it.polimi.dima.polisocial.a.ah:
+    it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$6 -> it.polimi.dima.polisocial.a.ai:
+    it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$AddLikeOrDisLikeTask -> it.polimi.dima.polisocial.a.aj:
+    java.lang.Long post -> b
+    java.lang.String type -> c
+    android.widget.Button button -> d
+    it.polimi.dima.polisocial.adapter.SpottedPostAdapter this$0 -> a
+    java.lang.Boolean doInBackground(java.lang.String[]) -> a
+    void onPostExecute(java.lang.Boolean) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.adapter.SpottedPostAdapter$SpottedViewHolder -> it.polimi.dima.polisocial.a.ak:
     android.widget.TextView title -> a
     android.widget.TextView timestamp -> b
     android.widget.TextView statusMsg -> c
@@ -20603,15 +20821,17 @@ it.polimi.dima.polisocial.adapter.SpottedPostAdapter$SpottedViewHolder -> it.pol
     android.widget.TextView numbOfComments -> f
     android.widget.TextView numbOfLikes -> g
     android.widget.TextView numbOfDisLikes -> h
-    android.widget.ImageButton hitOnButton -> i
-it.polimi.dima.polisocial.adapter.UserAdapter -> it.polimi.dima.polisocial.a.ae:
+    android.widget.Button hitOnButton -> i
+    android.widget.Button likeButton -> j
+    android.widget.Button disLikeButton -> k
+it.polimi.dima.polisocial.adapter.UserAdapter -> it.polimi.dima.polisocial.a.al:
     android.view.LayoutInflater mInflater -> d
     int VIEW_USER -> e
     int VIEW_LOADING -> f
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
-it.polimi.dima.polisocial.adapter.UserAdapter$1 -> it.polimi.dima.polisocial.a.af:
+it.polimi.dima.polisocial.adapter.UserAdapter$1 -> it.polimi.dima.polisocial.a.am:
     it.polimi.dima.polisocial.adapter.UserAdapter$UserListViewHolder v -> b
     java.lang.String s -> c
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.UserDTO ud -> d
@@ -20620,7 +20840,7 @@ it.polimi.dima.polisocial.adapter.UserAdapter$1 -> it.polimi.dima.polisocial.a.a
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.adapter.UserAdapter$UserListViewHolder -> it.polimi.dima.polisocial.a.ag:
+it.polimi.dima.polisocial.adapter.UserAdapter$UserListViewHolder -> it.polimi.dima.polisocial.a.an:
     android.widget.TextView name -> a
     android.widget.ImageView profilePic -> b
 it.polimi.dima.polisocial.creationActivities.NewBookActivity -> it.polimi.dima.polisocial.creationActivities.NewBookActivity:
@@ -20890,14 +21110,18 @@ it.polimi.dima.polisocial.customListeners.EndlessScrollListener -> it.polimi.dim
     void setLoading(boolean) -> a
     void onLoadMore() -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
-it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener -> it.polimi.dima.polisocial.b.d:
+it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener -> it.polimi.dima.polisocial.b.d:
+    long id -> b
+    android.widget.Button button -> c
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener -> it.polimi.dima.polisocial.b.e:
     long id -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.customListeners.IdTextParametersOnClickListener -> it.polimi.dima.polisocial.b.e:
+it.polimi.dima.polisocial.customListeners.IdTextParametersOnClickListener -> it.polimi.dima.polisocial.b.f:
     long id -> b
     android.widget.TextView comment -> c
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener -> it.polimi.dima.polisocial.b.f:
+it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener -> it.polimi.dima.polisocial.b.g:
     java.lang.String fieldType -> b
     android.widget.TextView comment -> c
     void onClick(android.view.View) -> onClick
@@ -20960,8 +21184,7 @@ it.polimi.dima.polisocial.deviceinfoendpoint.model.DeviceInfo -> it.polimi.dima.
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint -> it.polimi.dima.polisocial.d.a.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments getNumbPostComments(java.lang.Long) -> a
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments getPostComments(java.lang.Long) -> b
+    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments getPostComments(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$InsertComment insertComment(it.polimi.dima.polisocial.entity.commentendpoint.model.Comment) -> a
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$SendNotification sendNotification(it.polimi.dima.polisocial.entity.commentendpoint.model.Comment) -> b
 it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$Builder -> it.polimi.dima.polisocial.d.a.b:
@@ -20974,25 +21197,20 @@ it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$Builder -> it.p
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setRootUrl(java.lang.String) -> d
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setGoogleClientRequestInitializer(com.google.api.client.googleapis.services.GoogleClientRequestInitializer) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setServicePath(java.lang.String) -> e
-it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments -> it.polimi.dima.polisocial.d.a.c:
-    java.lang.Long postId -> postId
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint this$0 -> c
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments set(java.lang.String,java.lang.Object) -> e
-    it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments -> it.polimi.dima.polisocial.d.a.d:
+it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments -> it.polimi.dima.polisocial.d.a.c:
     java.lang.Long postId -> postId
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$InsertComment -> it.polimi.dima.polisocial.d.a.e:
+it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$InsertComment -> it.polimi.dima.polisocial.d.a.d:
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$InsertComment set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$SendNotification -> it.polimi.dima.polisocial.d.a.f:
+it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$SendNotification -> it.polimi.dima.polisocial.d.a.e:
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$SendNotification set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest -> it.polimi.dima.polisocial.d.a.g:
+it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest -> it.polimi.dima.polisocial.d.a.f:
     java.lang.String alt -> alt
     java.lang.String fields -> fields
     java.lang.String key -> key
@@ -21037,17 +21255,9 @@ it.polimi.dima.polisocial.entity.commentendpoint.model.Comment -> it.polimi.dima
     it.polimi.dima.polisocial.entity.commentendpoint.model.Comment clone() -> i
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
-it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject -> it.polimi.dima.polisocial.d.a.a.c:
-    java.lang.String exception -> exception
-    java.lang.Object object__ -> object__
-    java.lang.Object getObject() -> a
-    it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject clone() -> e
-    com.google.api.client.json.GenericJson clone() -> b
-    com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint -> it.polimi.dima.polisocial.d.b.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
-    it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike getPostDisLike(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike insertDisLike(java.lang.String,it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike) -> a
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder -> it.polimi.dima.polisocial.d.b.b:
     it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint build() -> b
     it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setRootUrl(java.lang.String) -> g
@@ -21058,10 +21268,10 @@ it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder -> it.p
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setRootUrl(java.lang.String) -> d
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setGoogleClientRequestInitializer(com.google.api.client.googleapis.services.GoogleClientRequestInitializer) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setServicePath(java.lang.String) -> e
-it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike -> it.polimi.dima.polisocial.d.b.c:
-    java.lang.Long postId -> postId
+it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike -> it.polimi.dima.polisocial.d.b.c:
+    java.lang.String postType -> postType
     it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint this$0 -> c
-    it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest set(java.lang.String,java.lang.Object) -> f
 it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest -> it.polimi.dima.polisocial.d.b.d:
     java.lang.String alt -> alt
@@ -21077,12 +21287,14 @@ it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest -> it.po
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest setDisableGZipContent(boolean) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient getAbstractGoogleClient() -> f
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest set(java.lang.String,java.lang.Object) -> b
-it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject -> it.polimi.dima.polisocial.d.b.a.a:
-    java.lang.String exception -> exception
-    java.lang.Object object__ -> object__
-    java.lang.Object getObject() -> a
-    it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject clone() -> e
+it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike -> it.polimi.dima.polisocial.d.b.a.a:
+    java.lang.Long id -> id
+    java.lang.Long postId -> postId
+    java.lang.Long userId -> userId
+    it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike setPostId(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike setUserId(java.lang.Long) -> b
+    it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike set(java.lang.String,java.lang.Object) -> a
+    it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike clone() -> a
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint -> it.polimi.dima.polisocial.d.c.a:
@@ -21214,13 +21426,14 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInit
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative -> it.polimi.dima.polisocial.d.d.a.b:
     android.graphics.Bitmap bitmap -> c
-    java.lang.Integer numOfLikes -> d
-    java.lang.Integer numOfGoing -> e
     com.google.api.client.util.DateTime beginningDate -> beginningDate
     java.lang.String category -> category
     java.lang.Boolean havePicture -> havePicture
     java.lang.Long id -> id
     java.lang.String location -> location
+    java.lang.Integer numOfComments -> numOfComments
+    java.lang.Integer numOfGoing -> numOfGoing
+    java.lang.Integer numOfLikes -> numOfLikes
     java.lang.String text -> text
     com.google.api.client.util.DateTime timestamp -> timestamp
     java.lang.String title -> title
@@ -21233,26 +21446,27 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative -> it.polim
     java.lang.Long getId() -> f
     java.lang.String getLocation() -> h
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setLocation(java.lang.String) -> b
-    java.lang.String getText() -> i
+    it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setNumOfComments(java.lang.Integer) -> a
+    java.lang.Integer getNumOfGoing() -> i
+    it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setNumOfGoing(java.lang.Integer) -> b
+    java.lang.Integer getNumOfLikes() -> j
+    it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setNumOfLikes(java.lang.Integer) -> c
+    java.lang.String getText() -> k
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setText(java.lang.String) -> c
-    com.google.api.client.util.DateTime getTimestamp() -> j
+    com.google.api.client.util.DateTime getTimestamp() -> l
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setTimestamp(com.google.api.client.util.DateTime) -> b
-    java.lang.String getTitle() -> k
+    java.lang.String getTitle() -> m
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setTitle(java.lang.String) -> d
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setUserId(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative clone() -> l
-    android.graphics.Bitmap getBitmap() -> m
+    it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative clone() -> n
+    android.graphics.Bitmap getBitmap() -> o
     void setBitmap(android.graphics.Bitmap) -> a
-    java.lang.Integer getNumOfLikes() -> n
-    void setNumOfLikes(java.lang.Integer) -> a
-    java.lang.Integer getNumOfGoing() -> o
-    void setNumOfGoing(java.lang.Integer) -> b
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint -> it.polimi.dima.polisocial.d.e.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
-    it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike getPostLike(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike insertLike(java.lang.String,it.polimi.dima.polisocial.entity.likeendpoint.model.Like) -> a
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder -> it.polimi.dima.polisocial.d.e.b:
     it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint build() -> b
     it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setRootUrl(java.lang.String) -> g
@@ -21263,10 +21477,10 @@ it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder -> it.polimi.
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setRootUrl(java.lang.String) -> d
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setGoogleClientRequestInitializer(com.google.api.client.googleapis.services.GoogleClientRequestInitializer) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setServicePath(java.lang.String) -> e
-it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike -> it.polimi.dima.polisocial.d.e.c:
-    java.lang.Long postId -> postId
+it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike -> it.polimi.dima.polisocial.d.e.c:
+    java.lang.String postType -> postType
     it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint this$0 -> c
-    it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest set(java.lang.String,java.lang.Object) -> f
 it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest -> it.polimi.dima.polisocial.d.e.d:
     java.lang.String alt -> alt
@@ -21282,17 +21496,20 @@ it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest -> it.polimi.d
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest setDisableGZipContent(boolean) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient getAbstractGoogleClient() -> f
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest set(java.lang.String,java.lang.Object) -> b
-it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject -> it.polimi.dima.polisocial.d.e.a.a:
-    java.lang.String exception -> exception
-    java.lang.Object object__ -> object__
-    java.lang.Object getObject() -> a
-    it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject clone() -> e
+it.polimi.dima.polisocial.entity.likeendpoint.model.Like -> it.polimi.dima.polisocial.d.e.a.a:
+    java.lang.Long id -> id
+    java.lang.Long postId -> postId
+    java.lang.Long userId -> userId
+    it.polimi.dima.polisocial.entity.likeendpoint.model.Like setPostId(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.likeendpoint.model.Like setUserId(java.lang.Long) -> b
+    it.polimi.dima.polisocial.entity.likeendpoint.model.Like set(java.lang.String,java.lang.Object) -> a
+    it.polimi.dima.polisocial.entity.likeendpoint.model.Like clone() -> a
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint -> it.polimi.dima.polisocial.d.f.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
     it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification getUserNotification(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification updateNotification(it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification) -> a
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder -> it.polimi.dima.polisocial.d.f.b:
     it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint build() -> b
     it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setRootUrl(java.lang.String) -> g
@@ -21310,7 +21527,11 @@ it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUs
     it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest -> it.polimi.dima.polisocial.d.f.d:
+it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification -> it.polimi.dima.polisocial.d.f.d:
+    it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint this$0 -> c
+    it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest set(java.lang.String,java.lang.Object) -> f
+it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest -> it.polimi.dima.polisocial.d.f.e:
     java.lang.String alt -> alt
     java.lang.String fields -> fields
     java.lang.String key -> key
@@ -21344,6 +21565,7 @@ it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification -> it.p
     java.lang.Long getPostId() -> e
     java.lang.String getPostTitle() -> f
     java.lang.Boolean getReadFlag() -> h
+    it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setReadFlag(java.lang.Boolean) -> a
     com.google.api.client.util.DateTime getTimestamp() -> i
     java.lang.String getTypePost() -> j
     it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification set(java.lang.String,java.lang.Object) -> a
@@ -21458,13 +21680,10 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser -> it.polimi.di
     java.lang.String faculty -> faculty
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text favoriteBooksMoviesShowsMusic -> favoriteBooksMoviesShowsMusic
     java.lang.String fbaccount -> fbaccount
+    java.lang.Boolean haveNotify -> haveNotify
     java.lang.Integer height -> height
     java.lang.String imReallyGoodAt -> imReallyGoodAt
     java.lang.String nickname -> nickname
-    java.lang.Boolean notifiedAnnouncement -> notifiedAnnouncement
-    java.lang.Boolean notifiedEvent -> notifiedEvent
-    java.lang.Boolean notifiedHitOn -> notifiedHitOn
-    java.lang.Boolean notifiedSpotted -> notifiedSpotted
     java.lang.Boolean notifyAnnouncement -> notifyAnnouncement
     java.lang.Boolean notifyEvent -> notifyEvent
     java.lang.Boolean notifySpotted -> notifySpotted
@@ -21486,29 +21705,27 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser -> it.polimi.di
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFaculty(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text getFavoriteBooksMoviesShowsMusic() -> h
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFbaccount(java.lang.String) -> c
-    java.lang.String getImReallyGoodAt() -> i
-    java.lang.String getNickname() -> j
+    java.lang.Boolean getHaveNotify() -> i
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setHaveNotify(java.lang.Boolean) -> a
+    java.lang.String getImReallyGoodAt() -> j
+    java.lang.String getNickname() -> k
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNickname(java.lang.String) -> d
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifiedAnnouncement(java.lang.Boolean) -> a
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifiedEvent(java.lang.Boolean) -> b
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifiedHitOn(java.lang.Boolean) -> c
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifiedSpotted(java.lang.Boolean) -> d
-    java.lang.Boolean getNotifyAnnouncement() -> k
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyAnnouncement(java.lang.Boolean) -> e
-    java.lang.Boolean getNotifyEvent() -> l
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyEvent(java.lang.Boolean) -> f
-    java.lang.Boolean getNotifySpotted() -> m
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifySpotted(java.lang.Boolean) -> g
+    java.lang.Boolean getNotifyAnnouncement() -> l
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyAnnouncement(java.lang.Boolean) -> b
+    java.lang.Boolean getNotifyEvent() -> m
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyEvent(java.lang.Boolean) -> c
+    java.lang.Boolean getNotifySpotted() -> n
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifySpotted(java.lang.Boolean) -> d
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPassword(java.lang.String) -> e
-    java.lang.String getProfilePicture1() -> n
+    java.lang.String getProfilePicture1() -> o
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture1(java.lang.String) -> f
-    java.lang.String getSelfSummary() -> o
+    java.lang.String getSelfSummary() -> p
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSelfSummary(java.lang.String) -> g
-    java.lang.String getSixThingsWithout() -> p
-    java.lang.Long getUserId() -> q
-    java.lang.String getWhatImDoingWithMyLife() -> r
+    java.lang.String getSixThingsWithout() -> q
+    java.lang.Long getUserId() -> r
+    java.lang.String getWhatImDoingWithMyLife() -> s
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser clone() -> s
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser clone() -> t
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject -> it.polimi.dima.polisocial.d.g.a.d:
@@ -21652,12 +21869,12 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePos
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted -> it.polimi.dima.polisocial.d.i.a.b:
-    java.lang.Integer numOfLikes -> c
-    java.lang.Integer numOfDisLikes -> d
-    android.graphics.Bitmap bitmap -> e
-    java.lang.Integer numOfComments -> f
+    android.graphics.Bitmap bitmap -> c
     java.lang.Boolean havePicture -> havePicture
     java.lang.Long id -> id
+    java.lang.Integer numOfComments -> numOfComments
+    java.lang.Integer numberDislike -> numberDislike
+    java.lang.Integer numberLike -> numberLike
     java.lang.String postCategory -> postCategory
     java.lang.String text -> text
     com.google.api.client.util.DateTime timestamp -> timestamp
@@ -21666,31 +21883,32 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted -> it.pol
     java.lang.Boolean getHavePicture() -> a
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setHavePicture(java.lang.Boolean) -> a
     java.lang.Long getId() -> e
-    java.lang.String getPostCategory() -> f
+    java.lang.Integer getNumOfComments() -> f
+    it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setNumOfComments(java.lang.Integer) -> a
+    java.lang.Integer getNumberDislike() -> h
+    it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setNumberDislike(java.lang.Integer) -> b
+    java.lang.Integer getNumberLike() -> i
+    it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setNumberLike(java.lang.Integer) -> c
+    java.lang.String getPostCategory() -> j
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setPostCategory(java.lang.String) -> a
-    java.lang.String getText() -> h
+    java.lang.String getText() -> k
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setText(java.lang.String) -> b
-    com.google.api.client.util.DateTime getTimestamp() -> i
+    com.google.api.client.util.DateTime getTimestamp() -> l
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setTimestamp(com.google.api.client.util.DateTime) -> a
-    java.lang.String getTitle() -> j
+    java.lang.String getTitle() -> m
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setTitle(java.lang.String) -> c
-    java.lang.Long getUserId() -> k
+    java.lang.Long getUserId() -> n
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setUserId(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted clone() -> l
-    java.lang.Integer getNumOfLikes() -> m
-    void setNumOfLikes(java.lang.Integer) -> a
-    java.lang.Integer getNumOfDisLikes() -> n
-    void setNumOfDisLikes(java.lang.Integer) -> b
-    android.graphics.Bitmap getBitmap() -> o
+    it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted clone() -> o
+    android.graphics.Bitmap getBitmap() -> p
     void setBitmap(android.graphics.Bitmap) -> a
-    java.lang.Integer getNumOfComments() -> p
-    void setNumOfComments(java.lang.Integer) -> c
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint -> it.polimi.dima.polisocial.d.j.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$FindLocationAndAddRental findLocationAndAddRental(it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental) -> a
+    it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental getRental(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$ListRental listRental() -> i
 it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$Builder -> it.polimi.dima.polisocial.d.j.b:
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint build() -> b
@@ -21706,13 +21924,18 @@ it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$FindLocationAndAd
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$FindLocationAndAddRental set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$ListRental -> it.polimi.dima.polisocial.d.j.d:
+it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental -> it.polimi.dima.polisocial.d.j.d:
+    java.lang.Long id -> id
+    it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint this$0 -> c
+    it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest set(java.lang.String,java.lang.Object) -> f
+it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$ListRental -> it.polimi.dima.polisocial.d.j.e:
     java.lang.String cursor -> cursor
     java.lang.Integer limit -> limit
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$ListRental set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest -> it.polimi.dima.polisocial.d.j.e:
+it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest -> it.polimi.dima.polisocial.d.j.f:
     java.lang.String alt -> alt
     java.lang.String fields -> fields
     java.lang.String key -> key
@@ -21742,6 +21965,7 @@ it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental -> it.polimi.dima.p
     java.lang.Long id -> id
     java.lang.Double latitude -> latitude
     java.lang.Double longitude -> longitude
+    java.lang.Integer numOfComments -> numOfComments
     java.lang.Double price -> price
     java.lang.Integer squaredMeter -> squaredMeter
     java.lang.String text -> text
@@ -21749,27 +21973,34 @@ it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental -> it.polimi.dima.p
     java.lang.String title -> title
     java.lang.String type -> type
     java.lang.Long userId -> userId
+    java.lang.String getAddress() -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setAddress(java.lang.String) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setAvailability(com.google.api.client.util.DateTime) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setContact(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setHavePicture(java.lang.Boolean) -> a
-    java.lang.Long getId() -> a
-    java.lang.Double getLatitude() -> e
-    java.lang.Double getLongitude() -> f
+    java.lang.Long getId() -> e
+    java.lang.Double getLatitude() -> f
+    java.lang.Double getLongitude() -> h
+    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setNumOfComments(java.lang.Integer) -> a
+    java.lang.Double getPrice() -> i
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setPrice(java.lang.Double) -> a
-    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setSquaredMeter(java.lang.Integer) -> a
+    java.lang.Integer getSquaredMeter() -> j
+    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setSquaredMeter(java.lang.Integer) -> b
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setText(java.lang.String) -> c
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setTimestamp(com.google.api.client.util.DateTime) -> b
+    java.lang.String getTitle() -> k
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setTitle(java.lang.String) -> d
+    java.lang.String getType() -> l
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setType(java.lang.String) -> e
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setUserId(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental clone() -> h
+    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental clone() -> m
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint -> it.polimi.dima.polisocial.d.k.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetBookInfoFromISBN getBookInfoFromISBN(java.lang.String) -> c
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook getSecondHandBook(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook insertSecondHandBook(it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$ListSecondHandBook listSecondHandBook(java.lang.String) -> d
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchFullTextBook searchFullTextBook(java.lang.String) -> e
@@ -21788,11 +22019,16 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$G
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetBookInfoFromISBN set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook -> it.polimi.dima.polisocial.d.k.d:
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook -> it.polimi.dima.polisocial.d.k.d:
+    java.lang.Long id -> id
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint this$0 -> c
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest set(java.lang.String,java.lang.Object) -> f
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook -> it.polimi.dima.polisocial.d.k.e:
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$ListSecondHandBook -> it.polimi.dima.polisocial.d.k.e:
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$ListSecondHandBook -> it.polimi.dima.polisocial.d.k.f:
     java.lang.String faculty -> faculty
     java.lang.String cursor -> cursor
     java.lang.Integer limit -> limit
@@ -21801,7 +22037,7 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$L
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$ListSecondHandBook setLimit(java.lang.Integer) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$ListSecondHandBook set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchFullTextBook -> it.polimi.dima.polisocial.d.k.f:
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchFullTextBook -> it.polimi.dima.polisocial.d.k.g:
     java.lang.String title -> title
     java.lang.String cursor -> cursor
     java.lang.Integer limit -> limit
@@ -21811,7 +22047,7 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$S
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchFullTextBook setAuthor(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchFullTextBook set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest -> it.polimi.dima.polisocial.d.k.g:
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest -> it.polimi.dima.polisocial.d.k.h:
     java.lang.String alt -> alt
     java.lang.String fields -> fields
     java.lang.String key -> key
@@ -21840,6 +22076,7 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook -> 
     java.lang.Boolean havePicture -> havePicture
     java.lang.Long id -> id
     java.lang.String isbn -> isbn
+    java.lang.Integer numOfComments -> numOfComments
     java.lang.Double price -> price
     java.lang.Integer publishedDate -> publishedDate
     java.lang.String publisher -> publisher
@@ -21853,10 +22090,11 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook -> 
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setHavePicture(java.lang.Boolean) -> a
     java.lang.Long getId() -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setIsbn(java.lang.String) -> b
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setNumOfComments(java.lang.Integer) -> a
     java.lang.Double getPrice() -> f
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPrice(java.lang.Double) -> a
     java.lang.Integer getPublishedDate() -> h
-    it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPublishedDate(java.lang.Integer) -> a
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPublishedDate(java.lang.Integer) -> b
     java.lang.String getPublisher() -> i
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPublisher(java.lang.String) -> c
     java.lang.String getText() -> j
@@ -21931,6 +22169,8 @@ it.polimi.dima.polisocial.loader.CommentListLoader -> it.polimi.dima.polisocial.
     long postId -> h
     it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint spottedEnd -> k
     it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint initiativeEnd -> l
+    it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint rentalEnd -> m
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint bookEnd -> n
     java.util.List loadInBackground() -> e
     java.lang.Object loadInBackground() -> c
 it.polimi.dima.polisocial.loader.EndlessListAsyncTaskLoader -> it.polimi.dima.polisocial.f.b:
@@ -22057,6 +22297,7 @@ it.polimi.dima.polisocial.tabactivityAndFragments.EventsFragment -> it.polimi.di
     android.support.v4.widget.SwipeRefreshLayout mSwipeRefreshLayout -> k
     java.lang.String mCursor -> l
     it.polimi.dima.polisocial.customListeners.EndlessScrollListener mEndlessScrollListener -> m
+    it.polimi.dima.polisocial.utilClasses.SessionManager session -> n
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
@@ -22111,15 +22352,22 @@ it.polimi.dima.polisocial.tabactivityAndFragments.NotificationFragment$3 -> it.p
     it.polimi.dima.polisocial.tabactivityAndFragments.NotificationFragment this$0 -> a
     boolean val$show -> b
     void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-it.polimi.dima.polisocial.tabactivityAndFragments.PrivateLessonFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.l:
+it.polimi.dima.polisocial.tabactivityAndFragments.NotificationFragment$SetReadFlagNotificationAsyncTask -> it.polimi.dima.polisocial.tabactivityAndFragments.l:
+    it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification notif -> b
+    it.polimi.dima.polisocial.tabactivityAndFragments.NotificationFragment this$0 -> a
+    java.lang.Void doInBackground(java.lang.Void[]) -> a
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.tabactivityAndFragments.PrivateLessonFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.m:
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
-it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.m:
+it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.n:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener listener -> c
     com.google.android.gms.maps.GoogleMap map -> a
     com.google.android.gms.maps.MapView mapView -> b
     it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask task -> d
+    java.util.List rentals -> e
+    android.widget.TextView listButton -> f
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
@@ -22128,10 +22376,10 @@ it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment -> it.polimi.di
     void onLowMemory() -> onLowMemory
     it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment newInstance(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener) -> a
     it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask access$0(it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment) -> a
-    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener access$1() -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.n:
-    it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment this$0 -> a
-    void onClick(android.view.View) -> onClick
+    void access$1(it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment,java.util.List) -> a
+    android.widget.TextView access$2(it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment) -> b
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener access$3() -> a
+    java.util.List access$4(it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment) -> c
 it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask -> it.polimi.dima.polisocial.tabactivityAndFragments.o:
     it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment rentFrag -> a
     com.google.android.gms.maps.GoogleMap mapIn -> b
@@ -22141,15 +22389,23 @@ it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliA
     void onPostExecute(it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+    it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment access$2(it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask) -> a
 it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.p:
     it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask this$1 -> a
-    boolean onMarkerClick(com.google.android.gms.maps.model.Marker) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragmentList -> it.polimi.dima.polisocial.tabactivityAndFragments.q:
-    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener listener -> a
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.q:
+    it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragment$RentalNearPoliAndPlotMapTask this$1 -> a
+    void onInfoWindowClick(com.google.android.gms.maps.model.Marker) -> a
+it.polimi.dima.polisocial.tabactivityAndFragments.RentalFragmentList -> it.polimi.dima.polisocial.tabactivityAndFragments.r:
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener listener -> i
+    java.util.List rentals -> j
+    it.polimi.dima.polisocial.adapter.RentalAdapter mAdapter -> k
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    android.support.v4.app.Fragment newInstance(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.r:
+    android.support.v4.app.Fragment newInstance(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener,java.util.List) -> a
+    void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
+    void onListItemClick(android.widget.ListView,android.view.View,int,long) -> a
+it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.s:
     it.polimi.dima.polisocial.adapter.SecondHandBookAdapter mAdapter -> i
     android.view.View mProgressView -> j
     it.polimi.dima.polisocial.utilClasses.SessionManager session -> k
@@ -22179,14 +22435,14 @@ it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment -> it.p
     it.polimi.dima.polisocial.adapter.SecondHandBookAdapter access$5(it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment) -> b
     void access$6(it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment) -> c
     android.widget.TextView access$7(it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment) -> d
-it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.s:
+it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.t:
     it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment this$0 -> a
     android.view.inputmethod.InputMethodManager val$imm -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.t:
+it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.u:
     it.polimi.dima.polisocial.tabactivityAndFragments.SecondHandBookFragment this$0 -> a
     void onLoadMore() -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.u:
+it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.v:
     boolean refreshRequest -> i
     it.polimi.dima.polisocial.adapter.SpottedPostAdapter mAdapter -> j
     android.support.v4.widget.SwipeRefreshLayout mSwipeRefreshLayout -> k
@@ -22208,24 +22464,26 @@ it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment -> it.
     void access$1(it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment) -> a
     void access$2(it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment,boolean) -> a
     void access$3(it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment,java.lang.String) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.v:
+it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.w:
     it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment this$0 -> a
     void onLoadMore() -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.w:
+it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.x:
     it.polimi.dima.polisocial.tabactivityAndFragments.SpottedPostListFragment this$0 -> a
     void onRefresh() -> a
 it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity -> it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter mAppSectionsPagerAdapter -> n
     android.support.v4.view.ViewPager mViewPager -> o
-    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> p
-    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask task -> u
-    com.google.android.gms.location.LocationClient mLocationClient -> v
-    android.location.Location mCurrentLocation -> q
-    com.google.android.gms.location.LocationRequest mLocationRequest -> r
-    android.app.ActionBar actionBar -> s
-    java.lang.Boolean gpsAdvice -> w
-    android.content.Intent intentGcmNotifica -> x
-    java.lang.Boolean annoucementFragment -> t
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser userSession -> p
+    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> q
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask task -> w
+    com.google.android.gms.location.LocationClient mLocationClient -> x
+    android.location.Location mCurrentLocation -> r
+    com.google.android.gms.location.LocationRequest mLocationRequest -> s
+    android.app.ActionBar actionBar -> t
+    android.app.ActionBar$Tab tabNotif -> u
+    java.lang.Boolean gpsAdvice -> y
+    android.content.Intent intentGcmNotifica -> z
+    java.lang.Boolean annoucementFragment -> v
     void onBackPressed() -> onBackPressed
     void onStart() -> onStart
     void onStop() -> onStop
@@ -22236,6 +22494,7 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity -> it.polimi.dima.
     void onTabUnselected(android.app.ActionBar$Tab,android.app.FragmentTransaction) -> onTabUnselected
     void onTabSelected(android.app.ActionBar$Tab,android.app.FragmentTransaction) -> onTabSelected
     void onTabReselected(android.app.ActionBar$Tab,android.app.FragmentTransaction) -> onTabReselected
+    void onResume() -> onResume
     void showNoticeDialog() -> g
     void onFacultyDialogPositiveClick(java.lang.String) -> b_
     void onHitOnDialogPositiveClick(java.lang.String,android.os.Bundle) -> a
@@ -22253,16 +22512,16 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity -> it.polimi.dima.
     com.google.android.gms.location.LocationClient access$1(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity) -> b
     void access$2(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity) -> c
     void access$3(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity,java.lang.Boolean) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.x:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.y:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
     void onPageSelected(int) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.y:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.z:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$3 -> it.polimi.dima.polisocial.tabactivityAndFragments.z:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$3 -> it.polimi.dima.polisocial.tabactivityAndFragments.aa:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter -> it.polimi.dima.polisocial.tabactivityAndFragments.aa:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter -> it.polimi.dima.polisocial.tabactivityAndFragments.ab:
     android.support.v4.app.FragmentManager mFragmentManager -> c
     android.support.v4.app.Fragment mFragmentAtPos3 -> d
     android.support.v4.app.Fragment mFragmentAtPos0 -> e
@@ -22290,26 +22549,28 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAd
     android.support.v4.app.Fragment$SavedState access$6(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter) -> e
     void access$7(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> b
     android.support.v4.app.Fragment access$8(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter) -> f
-    void access$9(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> c
-    void access$10(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> d
-    void access$11(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment) -> b
+    void access$9(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment) -> b
+    void access$10(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> c
+    void access$11(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> d
     android.support.v4.app.Fragment$SavedState access$12(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter) -> g
     void access$13(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter,android.support.v4.app.Fragment$SavedState) -> e
     android.support.v4.app.Fragment$SavedState access$14(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter) -> h
     android.support.v4.app.Fragment$SavedState access$15(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter) -> i
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter$AnnouncementListener -> it.polimi.dima.polisocial.tabactivityAndFragments.ab:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter$AnnouncementListener -> it.polimi.dima.polisocial.tabactivityAndFragments.ac:
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter this$1 -> a
+    void onSwitchFragment() -> a
+    void onSwitchFragmentRental(java.lang.String,java.util.List) -> a
+    void onSwitchFragmentName(java.lang.String) -> a
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter$RestaurantsListener -> it.polimi.dima.polisocial.tabactivityAndFragments.ad:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter this$1 -> a
     void onSwitchFragment() -> a
     void onSwitchFragmentName(java.lang.String) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter$RestaurantsListener -> it.polimi.dima.polisocial.tabactivityAndFragments.ac:
-    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter this$1 -> a
-    void onSwitchFragment() -> a
-    void onSwitchFragmentName(java.lang.String) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ErrorDialogFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.ad:
+    void onSwitchFragmentRental(java.lang.String,java.util.List) -> a
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ErrorDialogFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.ae:
     android.app.Dialog mDialog -> a
     void setDialog(android.app.Dialog) -> a
     android.app.Dialog onCreateDialog(android.os.Bundle) -> onCreateDialog
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.ae:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.af:
     com.google.android.gms.maps.GoogleMap map -> a
     com.google.android.gms.maps.MapView mapView -> b
     java.util.ArrayList listVenuesName -> c
@@ -22322,10 +22583,10 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment 
     void onResume() -> onResume
     void onDestroy() -> onDestroy
     void onLowMemory() -> onLowMemory
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.af:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.ag:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask -> it.polimi.dima.polisocial.tabactivityAndFragments.ag:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask -> it.polimi.dima.polisocial.tabactivityAndFragments.ah:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment mapFrag -> a
     com.google.android.gms.maps.GoogleMap mapIn -> b
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment this$1 -> c
@@ -22334,11 +22595,18 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment access$2(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.ah:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.ai:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$GoogleMapFragment$VenuesNearPoliAndPlotMapTask this$2 -> a
     java.util.ArrayList val$venues -> b
     void onInfoWindowClick(com.google.android.gms.maps.model.Marker) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$InsertHitOn -> it.polimi.dima.polisocial.tabactivityAndFragments.ai:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$HaveNotificationPoliUser -> it.polimi.dima.polisocial.tabactivityAndFragments.aj:
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity activity -> b
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
+    java.lang.Boolean doInBackground(java.lang.Void[]) -> a
+    void onPostExecute(java.lang.Boolean) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$InsertHitOn -> it.polimi.dima.polisocial.tabactivityAndFragments.ak:
     it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint end -> c
     java.lang.String seducerName -> d
     java.lang.String message -> e
@@ -22348,7 +22616,7 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$InsertHitOn -> it.
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.aj:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment -> it.polimi.dima.polisocial.tabactivityAndFragments.al:
     android.widget.ListView listVenues -> a
     android.widget.ProgressBar progressBar -> b
     android.widget.ArrayAdapter adapter -> c
@@ -22359,10 +22627,10 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.ak:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.am:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues -> it.polimi.dima.polisocial.tabactivityAndFragments.al:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues -> it.polimi.dima.polisocial.tabactivityAndFragments.an:
     java.util.ArrayList listVenuesInfo -> a
     it.polimi.dima.polisocial.utilClasses.VenueItem venue -> b
     java.util.List list -> c
@@ -22373,30 +22641,35 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment access$2(it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.am:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$1 -> it.polimi.dima.polisocial.tabactivityAndFragments.ao:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues this$2 -> a
     int compare(it.polimi.dima.polisocial.utilClasses.VenueItem,it.polimi.dima.polisocial.utilClasses.VenueItem) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.an:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$2 -> it.polimi.dima.polisocial.tabactivityAndFragments.ap:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues this$2 -> a
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$3 -> it.polimi.dima.polisocial.tabactivityAndFragments.ao:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues$3 -> it.polimi.dima.polisocial.tabactivityAndFragments.aq:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$RetrieveDistanceVenues this$2 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$VenuesNearPoliTask -> it.polimi.dima.polisocial.tabactivityAndFragments.ap:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment$VenuesNearPoliTask -> it.polimi.dima.polisocial.tabactivityAndFragments.ar:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$ListVenuesFragment this$1 -> a
     it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject doInBackground(java.lang.Void[]) -> a
     void onPostExecute(it.polimi.dima.polisocial.foursquare.foursquareendpoint.model.ResponseObject) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SendHitOnNotification -> it.polimi.dima.polisocial.tabactivityAndFragments.aq:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SendHitOnNotification -> it.polimi.dima.polisocial.tabactivityAndFragments.as:
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
     java.lang.Void doInBackground(it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn[]) -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener -> it.polimi.dima.polisocial.tabactivityAndFragments.ar:
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SetFlagNotificationPoliUser -> it.polimi.dima.polisocial.tabactivityAndFragments.at:
+    it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
+    java.lang.Void doInBackground(java.lang.Void[]) -> a
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$SwitchFragmentListener -> it.polimi.dima.polisocial.tabactivityAndFragments.au:
     void onSwitchFragment() -> a
     void onSwitchFragmentName(java.lang.String) -> a
-it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$UpdateFacultyPoliUser -> it.polimi.dima.polisocial.tabactivityAndFragments.as:
+    void onSwitchFragmentRental(java.lang.String,java.util.List) -> a
+it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$UpdateFacultyPoliUser -> it.polimi.dima.polisocial.tabactivityAndFragments.av:
     java.lang.Long userId -> b
     it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity this$0 -> a
     java.lang.String doInBackground(java.lang.String[]) -> a
@@ -22479,9 +22752,16 @@ it.polimi.dima.polisocial.utilClasses.SessionManager -> it.polimi.dima.polisocia
     void createLoginSession(java.lang.String,java.lang.String) -> a
     void setId(java.lang.String) -> a
     void setFaculty(java.lang.String) -> b
-    java.util.HashMap getUserDetails() -> a
-    void logoutUser() -> b
-    boolean isLoggedIn() -> c
+    void setLikeSpotted(java.lang.Long) -> a
+    void setDisLike(java.lang.Long) -> b
+    boolean saveArrayLikeSpotted(java.util.ArrayList) -> a
+    boolean saveArrayDisLike(java.util.ArrayList) -> b
+    java.util.ArrayList loadArrayLikeSpotted() -> a
+    java.util.ArrayList loadArrayDisLike() -> b
+    void checkLogin() -> c
+    java.util.HashMap getUserDetails() -> d
+    void logoutUser() -> e
+    boolean isLoggedIn() -> f
 it.polimi.dima.polisocial.utilClasses.ShowProgress -> it.polimi.dima.polisocial.i.f:
     void showProgress(boolean,android.view.View,android.view.View,android.content.Context) -> a
 it.polimi.dima.polisocial.utilClasses.VenueItem -> it.polimi.dima.polisocial.i.g:

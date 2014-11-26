@@ -98,9 +98,9 @@
     <string name="event_location">Dove</string>
     <string name="event_location_example">ex. Aula magna sede Leonardo</string>
     <string name="event_date">Data evento</string>
-    <string name="event_start_time">Ora d\’inizio</string>
+    <string name="event_start_time">Ora d\&apos;inizio</string>
     <string name="event_description">Descrizione</string>
-    <string name="event_description_hint">Scrivi qui la descrizione dell\’evento</string>
+    <string name="event_description_hint">Scrivi qui la descrizione dell\&apos;evento</string>
 
     <string-array name="event_category_arrays">
         <item>Cultura</item>

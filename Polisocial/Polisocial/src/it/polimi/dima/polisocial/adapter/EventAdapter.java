@@ -3,19 +3,15 @@ package it.polimi.dima.polisocial.adapter;
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.FullScreenPicActivity;
 import it.polimi.dima.polisocial.R;
-import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
-import it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener;
-import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdButtonTextViewIntegerParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint;
 import it.polimi.dima.polisocial.entity.likeendpoint.model.Like;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
-import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
-import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,9 +25,9 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -255,20 +251,21 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 			}
 			
 			holder.likeButton
-					.setOnClickListener(new IdButtonParameterOnClickListener(
-							item.getId(), holder.likeButton) {
+			.setOnClickListener(new IdButtonTextViewIntegerParameterOnClickListener(
+					item.getId(), holder.likeButton,holder.numbOfLikes,item.getNumOfLikes()) {
 
-						@Override
-						public void onClick(View v) {
-							v.startAnimation(animScale);
-							button.setEnabled(false);
-							button.setSelected(true);							
-							new AddLikeOrDisLikeTask(id,
-									button)
-									.execute("like");
-						}
-					});
-
+				@Override
+				public void onClick(View v) {
+					v.startAnimation(animScale);
+					button.setEnabled(false);
+					button.setSelected(true);
+					number.setText((numOf+1) + " "
+							+ getContext().getResources().getString(R.string.likes));
+					new AddLikeOrDisLikeTask(id,
+							button)
+							.execute("like");
+				}
+			});
 			
 			holder.goingButton.setSelected(false);
 			holder.goingButton.setEnabled(true);
@@ -283,20 +280,21 @@ public class EventAdapter extends EndlessListAdapter<Initiative> {
 			}
 			
 			holder.goingButton
-					.setOnClickListener(new IdButtonParameterOnClickListener(
-							item.getId(), holder.goingButton) {
+			.setOnClickListener(new IdButtonTextViewIntegerParameterOnClickListener(
+					item.getId(), holder.goingButton, holder.numbOfGoing, item.getNumOfGoing()) {
 
-						@Override
-						public void onClick(View v) {
-							v.startAnimation(animScale);
-							button.setEnabled(false);
-							button.setSelected(true);							
-							new AddLikeOrDisLikeTask(id,
-									button)
-									.execute("dislike");
-						}
-					});
-
+				@Override
+				public void onClick(View v) {
+					v.startAnimation(animScale);
+					button.setEnabled(false);
+					button.setSelected(true);
+					number.setText((numOf+1) + " "
+							+ getContext().getResources().getString(R.string.going));
+					new AddLikeOrDisLikeTask(id,
+							button)
+							.execute("dislike");
+				}
+			});
 		}
 
 		return view;

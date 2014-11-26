@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to registration -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_faculty">Facoltà</string>
+      <string name="prompt_birthdate">Compleanno</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">Indirizzo email non valido</string>
+    <string name="error_invalid_password">Password troppo corta, almeno 4 caratteri</string>
+    <string name="error_passwords_dont_match">Le password non corrispondono</string>
+    <string name="error_incorrect_password">Password non corretta</string>
+    <string name="error_field_required">Questo campo è obbligatorio</string>
+    <string name="error_duplicate_email">Email già esistente</string>
+    <string name="error_duplicate_username">Username già esistente</string>
+    <string name="select_faculty">Seleziona la tua facoltà:</string>
+    <string name="registration_button">Registrati!</string>
+     <string name="confirm_password">Conferma password</string>
+  
+
+</resources>

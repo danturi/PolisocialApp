@@ -2574,6 +2574,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070020;
+        public static final int confirm_password=0x7f0700fe;
         public static final int connected_to_foursquare=0x7f070053;
         public static final int contact=0x7f0700d3;
         public static final int create_calendar_message=0x7f070005;
@@ -2668,12 +2669,14 @@ containing a value of this type.
         public static final int private_lessons=0x7f0700ea;
         public static final int prompt_birthdate=0x7f0700f2;
         /**  Strings related to login 
+ Strings related to registration 
          */
         public static final int prompt_email=0x7f0700ee;
         public static final int prompt_faculty=0x7f0700f1;
         public static final int prompt_password=0x7f0700ef;
         public static final int prompt_username=0x7f0700f0;
         public static final int register=0x7f07006c;
+        public static final int registration_button=0x7f0700fd;
         public static final int rental_address=0x7f0700db;
         public static final int rental_availability=0x7f0700e1;
         public static final int rental_contact=0x7f0700e4;
@@ -2699,6 +2702,7 @@ containing a value of this type.
         public static final int search_users=0x7f0700ae;
         public static final int second_hand_books=0x7f0700eb;
         public static final int second_tab_title=0x7f070061;
+        public static final int select_faculty=0x7f0700fc;
         /**  profile label 
  profile label 
          */

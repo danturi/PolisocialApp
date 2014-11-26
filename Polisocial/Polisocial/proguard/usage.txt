@@ -218,43 +218,231 @@ android.support.v4.app.NavUtils$NavUtilsImpl
 android.support.v4.app.NavUtils$NavUtilsImplBase
 android.support.v4.app.NavUtils$NavUtilsImplJB
 android.support.v4.app.NavUtilsJB
-android.support.v4.app.NotificationBuilderWithActions
-android.support.v4.app.NotificationBuilderWithBuilderAccessor
-android.support.v4.app.NotificationCompat
+android.support.v4.app.NotificationCompat:
+    public static final int DEFAULT_ALL
+    public static final int DEFAULT_SOUND
+    public static final int DEFAULT_VIBRATE
+    public static final int DEFAULT_LIGHTS
+    public static final int STREAM_DEFAULT
+    public static final int FLAG_SHOW_LIGHTS
+    public static final int FLAG_ONGOING_EVENT
+    public static final int FLAG_INSISTENT
+    public static final int FLAG_ONLY_ALERT_ONCE
+    public static final int FLAG_AUTO_CANCEL
+    public static final int FLAG_NO_CLEAR
+    public static final int FLAG_FOREGROUND_SERVICE
+    public static final int FLAG_HIGH_PRIORITY
+    public static final int FLAG_LOCAL_ONLY
+    public static final int FLAG_GROUP_SUMMARY
+    public static final int PRIORITY_DEFAULT
+    public static final int PRIORITY_LOW
+    public static final int PRIORITY_MIN
+    public static final int PRIORITY_HIGH
+    public static final int PRIORITY_MAX
+    public static final java.lang.String EXTRA_TITLE
+    public static final java.lang.String EXTRA_TITLE_BIG
+    public static final java.lang.String EXTRA_TEXT
+    public static final java.lang.String EXTRA_SUB_TEXT
+    public static final java.lang.String EXTRA_INFO_TEXT
+    public static final java.lang.String EXTRA_SUMMARY_TEXT
+    public static final java.lang.String EXTRA_SMALL_ICON
+    public static final java.lang.String EXTRA_LARGE_ICON
+    public static final java.lang.String EXTRA_LARGE_ICON_BIG
+    public static final java.lang.String EXTRA_PROGRESS
+    public static final java.lang.String EXTRA_PROGRESS_MAX
+    public static final java.lang.String EXTRA_PROGRESS_INDETERMINATE
+    public static final java.lang.String EXTRA_SHOW_CHRONOMETER
+    public static final java.lang.String EXTRA_PICTURE
+    public static final java.lang.String EXTRA_TEXT_LINES
+    public static final java.lang.String EXTRA_PEOPLE
+    40:1769:public NotificationCompat()
+    2379:2388:private static android.app.Notification[] getNotificationArrayFromBundle(android.os.Bundle,java.lang.String)
+    2397:2397:public static android.os.Bundle getExtras(android.app.Notification)
+    2405:2405:public static int getActionCount(android.app.Notification)
+    2415:2415:public static android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    2425:2425:public static boolean getLocalOnly(android.app.Notification)
+    2433:2433:public static java.lang.String getGroup(android.app.Notification)
+    2443:2443:public static boolean isGroupSummary(android.app.Notification)
+    2459:2459:public static java.lang.String getSortKey(android.app.Notification)
+    40:40:static synthetic android.app.Notification[] access$500(android.os.Bundle,java.lang.String)
 android.support.v4.app.NotificationCompat$1
-android.support.v4.app.NotificationCompat$Action
-android.support.v4.app.NotificationCompat$Action$1
+android.support.v4.app.NotificationCompat$Action:
+    1447:1448:public NotificationCompat$Action(int,java.lang.CharSequence,android.app.PendingIntent)
+    1451:1457:private NotificationCompat$Action(int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle,android.support.v4.app.RemoteInput[])
+    1428:1428:static synthetic android.os.Bundle access$300(android.support.v4.app.NotificationCompat$Action)
+    1428:1428:synthetic NotificationCompat$Action(int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle,android.support.v4.app.RemoteInput[],android.support.v4.app.NotificationCompat$1)
+android.support.v4.app.NotificationCompat$Action$1:
+    1705:1705:public android.support.v4.app.NotificationCompat$Action build(int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle,android.support.v4.app.RemoteInputCompatBase$RemoteInput[])
+    1711:1711:public android.support.v4.app.NotificationCompat$Action[] newArray(int)
+    1700:1700:public bridge synthetic android.support.v4.app.NotificationCompatBase$Action[] newArray(int)
+    1700:1700:public bridge synthetic android.support.v4.app.NotificationCompatBase$Action build(int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle,android.support.v4.app.RemoteInputCompatBase$RemoteInput[])
 android.support.v4.app.NotificationCompat$Action$Builder
 android.support.v4.app.NotificationCompat$Action$Extender
 android.support.v4.app.NotificationCompat$Action$WearableExtender
-android.support.v4.app.NotificationCompat$BigPictureStyle
-android.support.v4.app.NotificationCompat$BigTextStyle
-android.support.v4.app.NotificationCompat$Builder
+android.support.v4.app.NotificationCompat$BigPictureStyle:
+    1259:1261:public NotificationCompat$BigPictureStyle(android.support.v4.app.NotificationCompat$Builder)
+    1268:1269:public android.support.v4.app.NotificationCompat$BigPictureStyle setBigContentTitle(java.lang.CharSequence)
+    1276:1278:public android.support.v4.app.NotificationCompat$BigPictureStyle setSummaryText(java.lang.CharSequence)
+    1285:1286:public android.support.v4.app.NotificationCompat$BigPictureStyle bigPicture(android.graphics.Bitmap)
+    1293:1295:public android.support.v4.app.NotificationCompat$BigPictureStyle bigLargeIcon(android.graphics.Bitmap)
+android.support.v4.app.NotificationCompat$BigTextStyle:
+    1326:1328:public NotificationCompat$BigTextStyle(android.support.v4.app.NotificationCompat$Builder)
+    1335:1336:public android.support.v4.app.NotificationCompat$BigTextStyle setBigContentTitle(java.lang.CharSequence)
+    1343:1345:public android.support.v4.app.NotificationCompat$BigTextStyle setSummaryText(java.lang.CharSequence)
+    1353:1354:public android.support.v4.app.NotificationCompat$BigTextStyle bigText(java.lang.CharSequence)
+android.support.v4.app.NotificationCompat$Builder:
+    706:707:public android.support.v4.app.NotificationCompat$Builder setUsesChronometer(boolean)
+    733:735:public android.support.v4.app.NotificationCompat$Builder setSmallIcon(int,int)
+    764:765:public android.support.v4.app.NotificationCompat$Builder setSubText(java.lang.CharSequence)
+    774:775:public android.support.v4.app.NotificationCompat$Builder setNumber(int)
+    782:783:public android.support.v4.app.NotificationCompat$Builder setContentInfo(java.lang.CharSequence)
+    791:794:public android.support.v4.app.NotificationCompat$Builder setProgress(int,int,boolean)
+    801:802:public android.support.v4.app.NotificationCompat$Builder setContent(android.widget.RemoteViews)
+    826:827:public android.support.v4.app.NotificationCompat$Builder setDeleteIntent(android.app.PendingIntent)
+    844:846:public android.support.v4.app.NotificationCompat$Builder setFullScreenIntent(android.app.PendingIntent,boolean)
+    854:855:public android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence)
+    864:866:public android.support.v4.app.NotificationCompat$Builder setTicker(java.lang.CharSequence,android.widget.RemoteViews)
+    873:874:public android.support.v4.app.NotificationCompat$Builder setLargeIcon(android.graphics.Bitmap)
+    881:883:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri)
+    893:895:public android.support.v4.app.NotificationCompat$Builder setSound(android.net.Uri,int)
+    905:906:public android.support.v4.app.NotificationCompat$Builder setVibrate(long[])
+    915:921:public android.support.v4.app.NotificationCompat$Builder setLights(int,int,int)
+    936:937:public android.support.v4.app.NotificationCompat$Builder setOngoing(boolean)
+    945:946:public android.support.v4.app.NotificationCompat$Builder setOnlyAlertOnce(boolean)
+    956:957:public android.support.v4.app.NotificationCompat$Builder setAutoCancel(boolean)
+    967:968:public android.support.v4.app.NotificationCompat$Builder setLocalOnly(boolean)
+    982:986:public android.support.v4.app.NotificationCompat$Builder setDefaults(int)
+    990:995:private void setFlag(int,boolean)
+    1015:1016:public android.support.v4.app.NotificationCompat$Builder setPriority(int)
+    1060:1061:public android.support.v4.app.NotificationCompat$Builder setSortKey(java.lang.String)
+    1072:1079:public android.support.v4.app.NotificationCompat$Builder addExtras(android.os.Bundle)
+    1095:1096:public android.support.v4.app.NotificationCompat$Builder setExtras(android.os.Bundle)
+    1110:1113:public android.os.Bundle getExtras()
+    1133:1134:public android.support.v4.app.NotificationCompat$Builder addAction(int,java.lang.CharSequence,android.app.PendingIntent)
+    1152:1153:public android.support.v4.app.NotificationCompat$Builder addAction(android.support.v4.app.NotificationCompat$Action)
+    1179:1180:public android.support.v4.app.NotificationCompat$Builder extend(android.support.v4.app.NotificationCompat$Extender)
+    1188:1188:public android.app.Notification getNotification()
 android.support.v4.app.NotificationCompat$Extender
-android.support.v4.app.NotificationCompat$InboxStyle
-android.support.v4.app.NotificationCompat$NotificationCompatImpl
-android.support.v4.app.NotificationCompat$NotificationCompatImplApi20
-android.support.v4.app.NotificationCompat$NotificationCompatImplBase
-android.support.v4.app.NotificationCompat$NotificationCompatImplGingerbread
-android.support.v4.app.NotificationCompat$NotificationCompatImplHoneycomb
-android.support.v4.app.NotificationCompat$NotificationCompatImplIceCreamSandwich
-android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean
-android.support.v4.app.NotificationCompat$NotificationCompatImplKitKat
-android.support.v4.app.NotificationCompat$Style
+android.support.v4.app.NotificationCompat$InboxStyle:
+    1388:1390:public NotificationCompat$InboxStyle(android.support.v4.app.NotificationCompat$Builder)
+    1405:1407:public android.support.v4.app.NotificationCompat$InboxStyle setSummaryText(java.lang.CharSequence)
+android.support.v4.app.NotificationCompat$NotificationCompatImpl:
+    public abstract android.os.Bundle getExtras(android.app.Notification)
+    public abstract int getActionCount(android.app.Notification)
+    public abstract android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    public abstract android.support.v4.app.NotificationCompat$Action[] getActionsFromParcelableArrayList(java.util.ArrayList)
+    public abstract java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompat$Action[])
+    public abstract boolean getLocalOnly(android.app.Notification)
+    public abstract java.lang.String getGroup(android.app.Notification)
+    public abstract boolean isGroupSummary(android.app.Notification)
+    public abstract java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompat$NotificationCompatImplApi20:
+    525:525:public android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    532:532:public android.support.v4.app.NotificationCompat$Action[] getActionsFromParcelableArrayList(java.util.ArrayList)
+    539:539:public java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompat$Action[])
+    544:544:public boolean getLocalOnly(android.app.Notification)
+    549:549:public java.lang.String getGroup(android.app.Notification)
+    554:554:public boolean isGroupSummary(android.app.Notification)
+    559:559:public java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompat$NotificationCompatImplBase:
+    314:314:public android.os.Bundle getExtras(android.app.Notification)
+    319:319:public int getActionCount(android.app.Notification)
+    324:324:public android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    330:330:public android.support.v4.app.NotificationCompat$Action[] getActionsFromParcelableArrayList(java.util.ArrayList)
+    335:335:public java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompat$Action[])
+    340:340:public boolean getLocalOnly(android.app.Notification)
+    345:345:public java.lang.String getGroup(android.app.Notification)
+    350:350:public boolean isGroupSummary(android.app.Notification)
+    355:355:public java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompat$NotificationCompatImplJellybean:
+    410:410:public android.os.Bundle getExtras(android.app.Notification)
+    415:415:public int getActionCount(android.app.Notification)
+    420:420:public android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    427:427:public android.support.v4.app.NotificationCompat$Action[] getActionsFromParcelableArrayList(java.util.ArrayList)
+    434:434:public java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompat$Action[])
+    439:439:public boolean getLocalOnly(android.app.Notification)
+    444:444:public java.lang.String getGroup(android.app.Notification)
+    449:449:public boolean isGroupSummary(android.app.Notification)
+    454:454:public java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompat$NotificationCompatImplKitKat:
+    474:474:public android.os.Bundle getExtras(android.app.Notification)
+    479:479:public int getActionCount(android.app.Notification)
+    484:484:public android.support.v4.app.NotificationCompat$Action getAction(android.app.Notification,int)
+    490:490:public boolean getLocalOnly(android.app.Notification)
+    495:495:public java.lang.String getGroup(android.app.Notification)
+    500:500:public boolean isGroupSummary(android.app.Notification)
+    505:505:public java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompat$Style:
+    1223:1227:public android.app.Notification build()
 android.support.v4.app.NotificationCompat$WearableExtender
-android.support.v4.app.NotificationCompatApi20
-android.support.v4.app.NotificationCompatApi20$Builder
-android.support.v4.app.NotificationCompatBase
-android.support.v4.app.NotificationCompatBase$Action
-android.support.v4.app.NotificationCompatBase$Action$Factory
+android.support.v4.app.NotificationCompatApi20:
+    30:31:NotificationCompatApi20()
+    103:103:public static android.support.v4.app.NotificationCompatBase$Action getAction(android.app.Notification,int,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    109:111:private static android.support.v4.app.NotificationCompatBase$Action getActionCompatFromAction(android.app.Notification$Action,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    117:127:private static android.app.Notification$Action getActionFromActionCompat(android.support.v4.app.NotificationCompatBase$Action)
+    140:148:public static android.support.v4.app.NotificationCompatBase$Action[] getActionsFromParcelableArrayList(java.util.ArrayList,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    158:165:public static java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompatBase$Action[])
+    169:169:public static boolean getLocalOnly(android.app.Notification)
+    173:173:public static java.lang.String getGroup(android.app.Notification)
+    177:177:public static boolean isGroupSummary(android.app.Notification)
+    181:181:public static java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompatBase:
+    22:24:NotificationCompatBase()
+android.support.v4.app.NotificationCompatBase$Action:
+    24:31:public NotificationCompatBase$Action()
+android.support.v4.app.NotificationCompatBase$Action$Factory:
+    public abstract android.support.v4.app.NotificationCompatBase$Action build(int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle,android.support.v4.app.RemoteInputCompatBase$RemoteInput[])
+    public abstract android.support.v4.app.NotificationCompatBase$Action[] newArray(int)
 android.support.v4.app.NotificationCompatExtras
-android.support.v4.app.NotificationCompatGingerbread
-android.support.v4.app.NotificationCompatHoneycomb
-android.support.v4.app.NotificationCompatIceCreamSandwich
-android.support.v4.app.NotificationCompatJellybean
-android.support.v4.app.NotificationCompatJellybean$Builder
-android.support.v4.app.NotificationCompatKitKat
-android.support.v4.app.NotificationCompatKitKat$Builder
+android.support.v4.app.NotificationCompatGingerbread:
+    23:23:NotificationCompatGingerbread()
+android.support.v4.app.NotificationCompatHoneycomb:
+    25:25:NotificationCompatHoneycomb()
+android.support.v4.app.NotificationCompatIceCreamSandwich:
+    25:25:NotificationCompatIceCreamSandwich()
+android.support.v4.app.NotificationCompatJellybean:
+    public static final java.lang.String TAG
+    static final java.lang.String EXTRA_LOCAL_ONLY
+    static final java.lang.String EXTRA_ACTION_EXTRAS
+    static final java.lang.String EXTRA_REMOTE_INPUTS
+    static final java.lang.String EXTRA_GROUP_KEY
+    static final java.lang.String EXTRA_GROUP_SUMMARY
+    static final java.lang.String EXTRA_SORT_KEY
+    static final java.lang.String EXTRA_USE_SIDE_CHANNEL
+    private static final java.lang.String KEY_ICON
+    private static final java.lang.String KEY_TITLE
+    private static final java.lang.String KEY_ACTION_INTENT
+    private static final java.lang.String KEY_EXTRAS
+    private static final java.lang.String KEY_REMOTE_INPUTS
+    private static java.lang.Class sActionClass
+    private static java.lang.reflect.Field sActionsField
+    private static java.lang.reflect.Field sActionIconField
+    private static java.lang.reflect.Field sActionTitleField
+    private static java.lang.reflect.Field sActionIntentField
+    private static boolean sActionsAccessFailed
+    33:64:NotificationCompatJellybean()
+    247:253:public static android.support.v4.app.NotificationCompatBase$Action readAction(android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory,int,java.lang.CharSequence,android.app.PendingIntent,android.os.Bundle)
+    268:271:public static int getActionCount(android.app.Notification)
+    277:299:public static android.support.v4.app.NotificationCompatBase$Action getAction(android.app.Notification,int,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    303:314:private static java.lang.Object[] getActionObjectsLocked(android.app.Notification)
+    318:337:private static boolean ensureActionReflectionReadyLocked()
+    344:352:public static android.support.v4.app.NotificationCompatBase$Action[] getActionsFromParcelableArrayList(java.util.ArrayList,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    358:358:private static android.support.v4.app.NotificationCompatBase$Action getActionFromBundle(android.os.Bundle,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    370:377:public static java.util.ArrayList getParcelableArrayListForActions(android.support.v4.app.NotificationCompatBase$Action[])
+    381:388:private static android.os.Bundle getBundleForAction(android.support.v4.app.NotificationCompatBase$Action)
+    392:392:public static boolean getLocalOnly(android.app.Notification)
+    396:396:public static java.lang.String getGroup(android.app.Notification)
+    400:400:public static boolean isGroupSummary(android.app.Notification)
+    404:404:public static java.lang.String getSortKey(android.app.Notification)
+android.support.v4.app.NotificationCompatKitKat:
+    30:31:NotificationCompatKitKat()
+    113:113:public static android.os.Bundle getExtras(android.app.Notification)
+    117:117:public static int getActionCount(android.app.Notification)
+    123:130:public static android.support.v4.app.NotificationCompatBase$Action getAction(android.app.Notification,int,android.support.v4.app.NotificationCompatBase$Action$Factory,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    135:135:public static boolean getLocalOnly(android.app.Notification)
+    139:139:public static java.lang.String getGroup(android.app.Notification)
+    143:143:public static boolean isGroupSummary(android.app.Notification)
+    147:147:public static java.lang.String getSortKey(android.app.Notification)
 android.support.v4.app.NotificationCompatSideChannelService
 android.support.v4.app.NotificationCompatSideChannelService$1
 android.support.v4.app.NotificationCompatSideChannelService$NotificationSideChannelStub
@@ -271,18 +459,56 @@ android.support.v4.app.NotificationManagerCompat$SideChannelManager$ListenerReco
 android.support.v4.app.NotificationManagerCompat$Task
 android.support.v4.app.NotificationManagerCompatEclair
 android.support.v4.app.NotificationManagerCompatIceCreamSandwich
-android.support.v4.app.RemoteInput
-android.support.v4.app.RemoteInput$1
+android.support.v4.app.RemoteInput:
+    private static final java.lang.String TAG
+    public static final java.lang.String RESULTS_CLIP_LABEL
+    public static final java.lang.String EXTRA_RESULTS_DATA
+    44:50:RemoteInput(java.lang.String,java.lang.CharSequence,java.lang.CharSequence[],boolean,android.os.Bundle)
+    188:188:public static android.os.Bundle getResultsFromIntent(android.content.Intent)
+    204:205:public static void addResultsToIntent(android.support.v4.app.RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInput$1:
+    268:268:public android.support.v4.app.RemoteInput build(java.lang.String,java.lang.CharSequence,java.lang.CharSequence[],boolean,android.os.Bundle)
+    273:273:public android.support.v4.app.RemoteInput[] newArray(int)
+    263:263:public bridge synthetic android.support.v4.app.RemoteInputCompatBase$RemoteInput[] newArray(int)
+    263:263:public bridge synthetic android.support.v4.app.RemoteInputCompatBase$RemoteInput build(java.lang.String,java.lang.CharSequence,java.lang.CharSequence[],boolean,android.os.Bundle)
 android.support.v4.app.RemoteInput$Builder
-android.support.v4.app.RemoteInput$Impl
-android.support.v4.app.RemoteInput$ImplApi20
-android.support.v4.app.RemoteInput$ImplBase
-android.support.v4.app.RemoteInput$ImplJellybean
-android.support.v4.app.RemoteInputCompatApi20
-android.support.v4.app.RemoteInputCompatBase
-android.support.v4.app.RemoteInputCompatBase$RemoteInput
-android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory
-android.support.v4.app.RemoteInputCompatJellybean
+android.support.v4.app.RemoteInput$Impl:
+    public abstract android.os.Bundle getResultsFromIntent(android.content.Intent)
+    public abstract void addResultsToIntent(android.support.v4.app.RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInput$ImplApi20:
+    243:243:public android.os.Bundle getResultsFromIntent(android.content.Intent)
+    248:249:public void addResultsToIntent(android.support.v4.app.RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInput$ImplBase:
+    218:219:public android.os.Bundle getResultsFromIntent(android.content.Intent)
+    224:225:public void addResultsToIntent(android.support.v4.app.RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInput$ImplJellybean:
+    231:231:public android.os.Bundle getResultsFromIntent(android.content.Intent)
+    236:237:public void addResultsToIntent(android.support.v4.app.RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInputCompatApi20:
+    23:23:RemoteInputCompatApi20()
+    26:35:static android.support.v4.app.RemoteInputCompatBase$RemoteInput[] toCompat(android.app.RemoteInput[],android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    56:56:static android.os.Bundle getResultsFromIntent(android.content.Intent)
+    61:62:static void addResultsToIntent(android.support.v4.app.RemoteInputCompatBase$RemoteInput[],android.content.Intent,android.os.Bundle)
+android.support.v4.app.RemoteInputCompatBase:
+    21:23:RemoteInputCompatBase()
+android.support.v4.app.RemoteInputCompatBase$RemoteInput:
+    23:30:public RemoteInputCompatBase$RemoteInput()
+android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory:
+    public abstract android.support.v4.app.RemoteInputCompatBase$RemoteInput build(java.lang.String,java.lang.CharSequence,java.lang.CharSequence[],boolean,android.os.Bundle)
+    public abstract android.support.v4.app.RemoteInputCompatBase$RemoteInput[] newArray(int)
+android.support.v4.app.RemoteInputCompatJellybean:
+    public static final java.lang.String RESULTS_CLIP_LABEL
+    public static final java.lang.String EXTRA_RESULTS_DATA
+    private static final java.lang.String KEY_RESULT_KEY
+    private static final java.lang.String KEY_LABEL
+    private static final java.lang.String KEY_CHOICES
+    private static final java.lang.String KEY_ALLOW_FREE_FORM_INPUT
+    private static final java.lang.String KEY_EXTRAS
+    24:24:RemoteInputCompatJellybean()
+    39:39:static android.support.v4.app.RemoteInputCompatBase$RemoteInput fromBundle(android.os.Bundle,android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    58:65:static android.support.v4.app.RemoteInputCompatBase$RemoteInput[] fromBundleArray(android.os.Bundle[],android.support.v4.app.RemoteInputCompatBase$RemoteInput$Factory)
+    80:91:static android.os.Bundle getResultsFromIntent(android.content.Intent)
+    96:106:static void addResultsToIntent(android.support.v4.app.RemoteInputCompatBase$RemoteInput[],android.content.Intent,android.os.Bundle)
 android.support.v4.app.ServiceCompat
 android.support.v4.app.ShareCompat
 android.support.v4.app.ShareCompat$IntentBuilder
@@ -6614,6 +6840,7 @@ com.google.android.gms.maps.GoogleMap:
     public final void setOnCameraChangeListener(com.google.android.gms.maps.GoogleMap$OnCameraChangeListener)
     public final void setOnMapClickListener(com.google.android.gms.maps.GoogleMap$OnMapClickListener)
     public final void setOnMapLongClickListener(com.google.android.gms.maps.GoogleMap$OnMapLongClickListener)
+    public final void setOnMarkerClickListener(com.google.android.gms.maps.GoogleMap$OnMarkerClickListener)
     public final void setOnMarkerDragListener(com.google.android.gms.maps.GoogleMap$OnMarkerDragListener)
     public final void setInfoWindowAdapter(com.google.android.gms.maps.GoogleMap$InfoWindowAdapter)
     public final void setOnMyLocationChangeListener(com.google.android.gms.maps.GoogleMap$OnMyLocationChangeListener)
@@ -6623,6 +6850,7 @@ com.google.android.gms.maps.GoogleMap:
     public final void snapshot(com.google.android.gms.maps.GoogleMap$SnapshotReadyCallback,android.graphics.Bitmap)
     public final void setPadding(int,int,int,int)
 com.google.android.gms.maps.GoogleMap$1
+com.google.android.gms.maps.GoogleMap$10
 com.google.android.gms.maps.GoogleMap$11
 com.google.android.gms.maps.GoogleMap$13
 com.google.android.gms.maps.GoogleMap$2
@@ -6641,6 +6869,7 @@ com.google.android.gms.maps.GoogleMap$OnIndoorStateChangeListener
 com.google.android.gms.maps.GoogleMap$OnMapClickListener
 com.google.android.gms.maps.GoogleMap$OnMapLoadedCallback
 com.google.android.gms.maps.GoogleMap$OnMapLongClickListener
+com.google.android.gms.maps.GoogleMap$OnMarkerClickListener
 com.google.android.gms.maps.GoogleMap$OnMarkerDragListener
 com.google.android.gms.maps.GoogleMap$OnMyLocationButtonClickListener
 com.google.android.gms.maps.GoogleMap$OnMyLocationChangeListener
@@ -6727,6 +6956,8 @@ com.google.android.gms.maps.internal.j$a:
     public j$a()
 com.google.android.gms.maps.internal.k$a:
     public k$a()
+com.google.android.gms.maps.internal.l$a:
+    public l$a()
 com.google.android.gms.maps.internal.m$a:
     public m$a()
 com.google.android.gms.maps.internal.n$a:
@@ -6828,7 +7059,6 @@ com.google.android.gms.maps.model.Marker:
 com.google.android.gms.maps.model.MarkerOptions:
     public com.google.android.gms.maps.model.MarkerOptions anchor(float,float)
     public com.google.android.gms.maps.model.MarkerOptions infoWindowAnchor(float,float)
-    public com.google.android.gms.maps.model.MarkerOptions snippet(java.lang.String)
     public com.google.android.gms.maps.model.MarkerOptions draggable(boolean)
     public com.google.android.gms.maps.model.MarkerOptions visible(boolean)
     public com.google.android.gms.maps.model.MarkerOptions flat(boolean)
@@ -8625,8 +8855,12 @@ it.polimi.dima.polisocial.FullScreenPicActivity:
     private static final int HIDER_FLAGS
 it.polimi.dima.polisocial.GCMBroadcastReceiver
 it.polimi.dima.polisocial.GCMIntentService:
+    static final java.lang.String GROUP_KEY_SPOTTED
+    static final java.lang.String GROUP_KEY_ANNOUNCEMENT
+    static final java.lang.String GROUP_KEY_EVENT
+    static final java.lang.String GROUP_KEY_HITON
     public static final java.lang.String PROJECT_NUMBER
-    213:213:private java.lang.String getWebSampleUrl(java.lang.String)
+    228:228:private java.lang.String getWebSampleUrl(java.lang.String)
 it.polimi.dima.polisocial.LoginActivity$ProfileQuery:
     public static final int ADDRESS
     public static final int IS_PRIMARY
@@ -8656,9 +8890,10 @@ it.polimi.dima.polisocial.R$string
 it.polimi.dima.polisocial.R$style
 it.polimi.dima.polisocial.R$styleable
 it.polimi.dima.polisocial.RegistrationActivity:
-    445:491:private int calculateAge(java.util.Date)
+    443:489:private int calculateAge(java.util.Date)
 it.polimi.dima.polisocial.ShowRelatedCommentsActivity:
-    177:178:private void loadData()
+    196:197:private void loadData()
+    525:535:android.view.View insertPhoto(java.lang.String)
 it.polimi.dima.polisocial.adapter.CommentAdapter$CommentViewHolder:
     public int type
 it.polimi.dima.polisocial.adapter.EndlessListAdapter:
@@ -8790,6 +9025,7 @@ it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint:
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Commentendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
     129:131:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetComment getComment(java.lang.Long)
+    232:234:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments getNumbPostComments(java.lang.Long)
     514:516:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$ListComment listComment()
     630:632:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$RemoveComment removeComment(java.lang.Long)
     800:802:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$UpdateComment updateComment(it.polimi.dima.polisocial.entity.commentendpoint.model.Comment)
@@ -8805,26 +9041,7 @@ it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$Builder:
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressRequiredParameterChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
 it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetComment
-it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments:
-    private static final java.lang.String REST_PATH
-    260:260:public com.google.api.client.http.HttpResponse executeUsingHead()
-    265:265:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    270:270:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setAlt(java.lang.String)
-    275:275:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setFields(java.lang.String)
-    280:280:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setKey(java.lang.String)
-    285:285:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setOauthToken(java.lang.String)
-    290:290:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setPrettyPrint(java.lang.Boolean)
-    295:295:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setQuotaUser(java.lang.String)
-    300:300:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setUserIp(java.lang.String)
-    310:310:public java.lang.Long getPostId()
-    314:315:public it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments setPostId(java.lang.Long)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setAlt(java.lang.String)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setPrettyPrint(java.lang.Boolean)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setUserIp(java.lang.String)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setKey(java.lang.String)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setFields(java.lang.String)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setQuotaUser(java.lang.String)
-    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.commentendpoint.CommentendpointRequest setOauthToken(java.lang.String)
+it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetNumbPostComments
 it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint$GetPostComments:
     private static final java.lang.String REST_PATH
     363:363:public com.google.api.client.http.HttpResponse executeUsingHead()
@@ -8910,45 +9127,41 @@ it.polimi.dima.polisocial.entity.commentendpoint.model.Comment:
     153:154:public it.polimi.dima.polisocial.entity.commentendpoint.model.Comment setNumOfComponents(java.lang.Long)
     161:161:public java.lang.Long getPostId()
     191:191:public java.lang.String getType()
-it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject:
-    50:50:public java.lang.String getException()
-    57:58:public it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject setException(java.lang.String)
-    72:73:public it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject setObject(java.lang.Object)
+it.polimi.dima.polisocial.entity.commentendpoint.model.ResponseObject
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Dislikeendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
     129:131:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetDisLike getDisLike(java.lang.Long)
-    335:337:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike insertDisLike(it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike)
-    411:413:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$ListDisLike listDisLike()
-    527:529:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$RemoveDisLike removeDisLike(java.lang.Long)
-    620:622:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$UpdateDisLike updateDisLike(it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike)
+    232:234:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike getPostDisLike(java.lang.Long)
+    429:431:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$ListDisLike listDisLike()
+    545:547:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$RemoveDisLike removeDisLike(java.lang.Long)
+    638:640:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$UpdateDisLike updateDisLike(it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike)
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder:
-    748:748:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    758:758:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressPatternChecks(boolean)
-    763:763:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    768:768:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressAllChecks(boolean)
-    778:778:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setDislikeendpointRequestInitializer(it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequestInitializer)
+    766:766:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    776:776:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressPatternChecks(boolean)
+    781:781:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    786:786:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setSuppressAllChecks(boolean)
+    796:796:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$Builder setDislikeendpointRequestInitializer(it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressRequiredParameterChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetDisLike
-it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike:
+it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike
+it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike:
     private static final java.lang.String REST_PATH
-    260:260:public com.google.api.client.http.HttpResponse executeUsingHead()
-    265:265:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    270:270:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setAlt(java.lang.String)
-    275:275:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setFields(java.lang.String)
-    280:280:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setKey(java.lang.String)
-    285:285:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setOauthToken(java.lang.String)
-    290:290:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setPrettyPrint(java.lang.Boolean)
-    295:295:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setQuotaUser(java.lang.String)
-    300:300:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setUserIp(java.lang.String)
-    310:310:public java.lang.Long getPostId()
-    314:315:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike setPostId(java.lang.Long)
+    365:365:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setAlt(java.lang.String)
+    370:370:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setFields(java.lang.String)
+    375:375:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setKey(java.lang.String)
+    380:380:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setOauthToken(java.lang.String)
+    385:385:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setPrettyPrint(java.lang.Boolean)
+    390:390:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setQuotaUser(java.lang.String)
+    395:395:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setUserIp(java.lang.String)
+    405:405:public java.lang.String getPostType()
+    409:410:public it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike setPostType(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setUserIp(java.lang.String)
@@ -8956,7 +9169,6 @@ it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$GetPostDisLike:
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest setOauthToken(java.lang.String)
-it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$InsertDisLike
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$ListDisLike
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$RemoveDisLike
 it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint$UpdateDisLike
@@ -8980,11 +9192,12 @@ it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequest:
 it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointRequestInitializer
 it.polimi.dima.polisocial.entity.dislikeendpoint.DislikeendpointScopes
 it.polimi.dima.polisocial.entity.dislikeendpoint.model.CollectionResponseDisLike
-it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike
-it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject:
-    50:50:public java.lang.String getException()
-    57:58:public it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject setException(java.lang.String)
-    72:73:public it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject setObject(java.lang.Object)
+it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike:
+    56:56:public java.lang.Long getId()
+    63:64:public it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike setId(java.lang.Long)
+    71:71:public java.lang.Long getPostId()
+    86:86:public java.lang.Long getUserId()
+it.polimi.dima.polisocial.entity.dislikeendpoint.model.ResponseObject
 it.polimi.dima.polisocial.entity.hitonendpoint.Hitonendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
@@ -9097,14 +9310,18 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint:
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Initiativeendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    425:427:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$RemoveInitiative removeInitiative(java.lang.Long)
-    518:520:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$UpdateInitiative updateInitiative(it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative)
+    129:131:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$AddGoing addGoing(java.lang.Long)
+    222:224:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$AddLikePostEvent addLikePostEvent(java.lang.Long)
+    610:612:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$RemoveInitiative removeInitiative(java.lang.Long)
+    703:705:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$UpdateInitiative updateInitiative(it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative)
+it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$AddGoing
+it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$AddLikePostEvent
 it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder:
-    646:646:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    656:656:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressPatternChecks(boolean)
-    661:661:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    666:666:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressAllChecks(boolean)
-    676:676:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setInitiativeendpointRequestInitializer(it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequestInitializer)
+    831:831:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    841:841:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressPatternChecks(boolean)
+    846:846:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    851:851:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setSuppressAllChecks(boolean)
+    861:861:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder setInitiativeendpointRequestInitializer(it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
@@ -9112,17 +9329,17 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$Builder:
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
 it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative:
     private static final java.lang.String REST_PATH
-    158:158:public com.google.api.client.http.HttpResponse executeUsingHead()
-    163:163:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    168:168:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setAlt(java.lang.String)
-    173:173:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setFields(java.lang.String)
-    178:178:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setKey(java.lang.String)
-    183:183:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setOauthToken(java.lang.String)
-    188:188:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setPrettyPrint(java.lang.Boolean)
-    193:193:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setQuotaUser(java.lang.String)
-    198:198:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setUserIp(java.lang.String)
-    208:208:public java.lang.Long getId()
-    212:213:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setId(java.lang.Long)
+    343:343:public com.google.api.client.http.HttpResponse executeUsingHead()
+    348:348:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    353:353:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setAlt(java.lang.String)
+    358:358:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setFields(java.lang.String)
+    363:363:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setKey(java.lang.String)
+    368:368:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setOauthToken(java.lang.String)
+    373:373:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setPrettyPrint(java.lang.Boolean)
+    378:378:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setQuotaUser(java.lang.String)
+    383:383:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setUserIp(java.lang.String)
+    393:393:public java.lang.Long getId()
+    397:398:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitiative setId(java.lang.Long)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setUserIp(java.lang.String)
@@ -9132,13 +9349,13 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$GetInitia
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative:
     private static final java.lang.String REST_PATH
-    260:260:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setAlt(java.lang.String)
-    265:265:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setFields(java.lang.String)
-    270:270:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setKey(java.lang.String)
-    275:275:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setOauthToken(java.lang.String)
-    280:280:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setPrettyPrint(java.lang.Boolean)
-    285:285:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setQuotaUser(java.lang.String)
-    290:290:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setUserIp(java.lang.String)
+    445:445:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setAlt(java.lang.String)
+    450:450:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setFields(java.lang.String)
+    455:455:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setKey(java.lang.String)
+    460:460:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setOauthToken(java.lang.String)
+    465:465:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setPrettyPrint(java.lang.Boolean)
+    470:470:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setQuotaUser(java.lang.String)
+    475:475:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertInitiative setUserIp(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setUserIp(java.lang.String)
@@ -9148,17 +9365,17 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$InsertIni
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative:
     private static final java.lang.String REST_PATH
-    335:335:public com.google.api.client.http.HttpResponse executeUsingHead()
-    340:340:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    345:345:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setAlt(java.lang.String)
-    350:350:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setFields(java.lang.String)
-    355:355:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setKey(java.lang.String)
-    360:360:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setOauthToken(java.lang.String)
-    365:365:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setPrettyPrint(java.lang.Boolean)
-    370:370:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setQuotaUser(java.lang.String)
-    375:375:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setUserIp(java.lang.String)
-    385:385:public java.lang.String getCursor()
-    400:400:public java.lang.Integer getLimit()
+    520:520:public com.google.api.client.http.HttpResponse executeUsingHead()
+    525:525:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    530:530:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setAlt(java.lang.String)
+    535:535:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setFields(java.lang.String)
+    540:540:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setKey(java.lang.String)
+    545:545:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setOauthToken(java.lang.String)
+    550:550:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setPrettyPrint(java.lang.Boolean)
+    555:555:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setQuotaUser(java.lang.String)
+    560:560:public it.polimi.dima.polisocial.entity.initiativeendpoint.Initiativeendpoint$ListInitiative setUserIp(java.lang.String)
+    570:570:public java.lang.String getCursor()
+    585:585:public java.lang.Integer getLimit()
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.initiativeendpoint.InitiativeendpointRequest setUserIp(java.lang.String)
@@ -9191,44 +9408,44 @@ it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInit
     63:64:public it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative setItems(java.util.List)
     78:79:public it.polimi.dima.polisocial.entity.initiativeendpoint.model.CollectionResponseInitiative setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative:
-    112:112:public java.lang.String getCategory()
-    149:150:public it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setId(java.lang.Long)
-    217:217:public java.lang.Long getUserId()
+    128:128:public java.lang.String getCategory()
+    165:166:public it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative setId(java.lang.Long)
+    188:188:public java.lang.Integer getNumOfComments()
+    278:278:public java.lang.Long getUserId()
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Likeendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
     129:131:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetLike getLike(java.lang.Long)
-    333:335:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike insertLike(it.polimi.dima.polisocial.entity.likeendpoint.model.Like)
-    408:410:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$ListLike listLike()
-    523:525:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$RemoveLike removeLike(java.lang.Long)
-    615:617:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$UpdateLike updateLike(it.polimi.dima.polisocial.entity.likeendpoint.model.Like)
+    231:233:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike getPostLike(java.lang.Long)
+    426:428:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$ListLike listLike()
+    541:543:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$RemoveLike removeLike(java.lang.Long)
+    633:635:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$UpdateLike updateLike(it.polimi.dima.polisocial.entity.likeendpoint.model.Like)
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder:
-    743:743:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    753:753:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressPatternChecks(boolean)
-    758:758:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    763:763:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressAllChecks(boolean)
-    773:773:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setLikeendpointRequestInitializer(it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequestInitializer)
+    761:761:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    771:771:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressPatternChecks(boolean)
+    776:776:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    781:781:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setSuppressAllChecks(boolean)
+    791:791:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$Builder setLikeendpointRequestInitializer(it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressRequiredParameterChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetLike
-it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike:
+it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike
+it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike:
     private static final java.lang.String REST_PATH
-    259:259:public com.google.api.client.http.HttpResponse executeUsingHead()
-    264:264:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    269:269:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setAlt(java.lang.String)
-    274:274:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setFields(java.lang.String)
-    279:279:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setKey(java.lang.String)
-    284:284:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setOauthToken(java.lang.String)
-    289:289:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setPrettyPrint(java.lang.Boolean)
-    294:294:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setQuotaUser(java.lang.String)
-    299:299:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setUserIp(java.lang.String)
-    309:309:public java.lang.Long getPostId()
-    313:314:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike setPostId(java.lang.Long)
+    363:363:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setAlt(java.lang.String)
+    368:368:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setFields(java.lang.String)
+    373:373:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setKey(java.lang.String)
+    378:378:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setOauthToken(java.lang.String)
+    383:383:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setPrettyPrint(java.lang.Boolean)
+    388:388:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setQuotaUser(java.lang.String)
+    393:393:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setUserIp(java.lang.String)
+    403:403:public java.lang.String getPostType()
+    407:408:public it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike setPostType(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setUserIp(java.lang.String)
@@ -9236,7 +9453,6 @@ it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$GetPostLike:
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest setOauthToken(java.lang.String)
-it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$InsertLike
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$ListLike
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$RemoveLike
 it.polimi.dima.polisocial.entity.likeendpoint.Likeendpoint$UpdateLike
@@ -9260,56 +9476,56 @@ it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequest:
 it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointRequestInitializer
 it.polimi.dima.polisocial.entity.likeendpoint.LikeendpointScopes
 it.polimi.dima.polisocial.entity.likeendpoint.model.CollectionResponseLike
-it.polimi.dima.polisocial.entity.likeendpoint.model.Like
-it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject:
-    50:50:public java.lang.String getException()
-    57:58:public it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject setException(java.lang.String)
-    72:73:public it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject setObject(java.lang.Object)
+it.polimi.dima.polisocial.entity.likeendpoint.model.Like:
+    56:56:public java.lang.Long getId()
+    63:64:public it.polimi.dima.polisocial.entity.likeendpoint.model.Like setId(java.lang.Long)
+    71:71:public java.lang.Long getPostId()
+    86:86:public java.lang.Long getUserId()
+it.polimi.dima.polisocial.entity.likeendpoint.model.ResponseObject
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Notificationendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    131:133:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetCountUnreadTypeNotificationForUser getCountUnreadTypeNotificationForUser(java.lang.String,java.lang.Long)
-    251:253:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotification getNotification(java.lang.Long)
-    355:357:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotificationForPost getNotificationForPost(java.lang.Long,java.lang.Long)
-    609:611:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$HaveHitOnNotificationForPost haveHitOnNotificationForPost(java.lang.Long,java.lang.Long)
-    720:722:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$HaveNotificationForPost haveNotificationForPost(java.lang.Long,java.lang.Long)
-    830:832:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$InsertNotification insertNotification(it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification)
-    906:908:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$ListNotification listNotification()
-    1022:1024:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$RemoveNotification removeNotification(java.lang.Long)
-    1115:1117:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification updateNotification(it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification)
+    130:132:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetCountUnreadNotificationForUser getCountUnreadNotificationForUser(java.lang.Long)
+    233:235:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotification getNotification(java.lang.Long)
+    337:339:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotificationForPost getNotificationForPost(java.lang.Long,java.lang.Long)
+    591:593:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$HaveHitOnNotificationForPost haveHitOnNotificationForPost(java.lang.Long,java.lang.Long)
+    702:704:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$HaveNotificationForPost haveNotificationForPost(java.lang.Long,java.lang.Long)
+    812:814:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$InsertNotification insertNotification(it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification)
+    888:890:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$ListNotification listNotification()
+    1004:1006:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$RemoveNotification removeNotification(java.lang.Long)
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder:
-    1243:1243:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    1253:1253:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressPatternChecks(boolean)
-    1258:1258:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    1263:1263:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressAllChecks(boolean)
-    1273:1273:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setNotificationendpointRequestInitializer(it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequestInitializer)
+    1225:1225:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    1235:1235:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressPatternChecks(boolean)
+    1240:1240:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    1245:1245:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setSuppressAllChecks(boolean)
+    1255:1255:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$Builder setNotificationendpointRequestInitializer(it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressRequiredParameterChecks(boolean)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
-it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetCountUnreadTypeNotificationForUser
+it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetCountUnreadNotificationForUser
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotification
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetNotificationForPost
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification:
     private static final java.lang.String REST_PATH
-    503:503:public com.google.api.client.http.HttpResponse executeUsingHead()
-    508:508:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    513:513:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setAlt(java.lang.String)
-    518:518:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setFields(java.lang.String)
-    523:523:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setKey(java.lang.String)
-    528:528:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setOauthToken(java.lang.String)
-    533:533:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setPrettyPrint(java.lang.Boolean)
-    538:538:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setQuotaUser(java.lang.String)
-    543:543:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setUserIp(java.lang.String)
-    553:553:public java.lang.Long getUserId()
-    557:558:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setUserId(java.lang.Long)
-    568:568:public java.lang.String getCursor()
-    572:573:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setCursor(java.lang.String)
-    583:583:public java.lang.Integer getLimit()
-    587:588:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setLimit(java.lang.Integer)
+    485:485:public com.google.api.client.http.HttpResponse executeUsingHead()
+    490:490:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    495:495:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setAlt(java.lang.String)
+    500:500:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setFields(java.lang.String)
+    505:505:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setKey(java.lang.String)
+    510:510:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setOauthToken(java.lang.String)
+    515:515:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setPrettyPrint(java.lang.Boolean)
+    520:520:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setQuotaUser(java.lang.String)
+    525:525:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setUserIp(java.lang.String)
+    535:535:public java.lang.Long getUserId()
+    539:540:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setUserId(java.lang.Long)
+    550:550:public java.lang.String getCursor()
+    554:555:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setCursor(java.lang.String)
+    565:565:public java.lang.Integer getLimit()
+    569:570:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$GetUserNotification setLimit(java.lang.Integer)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setUserIp(java.lang.String)
@@ -9322,7 +9538,22 @@ it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$HaveN
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$InsertNotification
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$ListNotification
 it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$RemoveNotification
-it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification
+it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification:
+    private static final java.lang.String REST_PATH
+    1124:1124:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setAlt(java.lang.String)
+    1129:1129:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setFields(java.lang.String)
+    1134:1134:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setKey(java.lang.String)
+    1139:1139:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setOauthToken(java.lang.String)
+    1144:1144:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setPrettyPrint(java.lang.Boolean)
+    1149:1149:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setQuotaUser(java.lang.String)
+    1154:1154:public it.polimi.dima.polisocial.entity.notificationendpoint.Notificationendpoint$UpdateNotification setUserIp(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setAlt(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setPrettyPrint(java.lang.Boolean)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setUserIp(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setKey(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setFields(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setQuotaUser(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest:
     57:57:public java.lang.String getAlt()
     62:63:public it.polimi.dima.polisocial.entity.notificationendpoint.NotificationendpointRequest setAlt(java.lang.String)
@@ -9350,7 +9581,6 @@ it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification:
     87:88:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setId(java.lang.Long)
     102:103:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setPostId(java.lang.Long)
     117:118:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setPostTitle(java.lang.String)
-    132:133:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setReadFlag(java.lang.Boolean)
     147:148:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setTimestamp(com.google.api.client.util.DateTime)
     162:163:public it.polimi.dima.polisocial.entity.notificationendpoint.model.Notification setTypePost(java.lang.String)
     170:170:public java.lang.Long getUserId()
@@ -9580,31 +9810,27 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber:
     44:44:public java.lang.String getNumber()
     51:52:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber setNumber(java.lang.String)
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser:
-    240:241:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFavoriteBooksMoviesShowsMusic(it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text)
-    248:248:public java.lang.String getFbaccount()
-    263:263:public java.lang.Integer getHeight()
-    270:271:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setHeight(java.lang.Integer)
-    285:286:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setImReallyGoodAt(java.lang.String)
-    308:308:public java.lang.Boolean getNotifiedAnnouncement()
-    323:323:public java.lang.Boolean getNotifiedEvent()
-    338:338:public java.lang.Boolean getNotifiedHitOn()
-    353:353:public java.lang.Boolean getNotifiedSpotted()
-    413:413:public java.lang.String getPassword()
-    428:428:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber getPhoneNumber()
-    435:436:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPhoneNumber(it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber)
-    455:455:public byte[] decodeProfilePicture1()
-    478:479:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser encodeProfilePicture1(byte[])
-    487:487:public java.lang.String getProfilePicture2()
-    498:498:public byte[] decodeProfilePicture2()
-    506:507:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture2(java.lang.String)
-    521:522:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser encodeProfilePicture2(byte[])
-    551:552:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSixThingsWithout(java.lang.String)
-    559:559:public java.lang.String getTokenFsq()
-    566:567:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setTokenFsq(java.lang.String)
-    574:574:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.User getUserGoogleAccount()
-    581:582:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserGoogleAccount(it.polimi.dima.polisocial.entity.poliuserendpoint.model.User)
-    596:597:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserId(java.lang.Long)
-    611:612:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setWhatImDoingWithMyLife(java.lang.String)
+    222:223:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFavoriteBooksMoviesShowsMusic(it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text)
+    230:230:public java.lang.String getFbaccount()
+    260:260:public java.lang.Integer getHeight()
+    267:268:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setHeight(java.lang.Integer)
+    282:283:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setImReallyGoodAt(java.lang.String)
+    350:350:public java.lang.String getPassword()
+    365:365:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber getPhoneNumber()
+    372:373:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPhoneNumber(it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber)
+    392:392:public byte[] decodeProfilePicture1()
+    415:416:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser encodeProfilePicture1(byte[])
+    424:424:public java.lang.String getProfilePicture2()
+    435:435:public byte[] decodeProfilePicture2()
+    443:444:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture2(java.lang.String)
+    458:459:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser encodeProfilePicture2(byte[])
+    488:489:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSixThingsWithout(java.lang.String)
+    496:496:public java.lang.String getTokenFsq()
+    503:504:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setTokenFsq(java.lang.String)
+    511:511:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.User getUserGoogleAccount()
+    518:519:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserGoogleAccount(it.polimi.dima.polisocial.entity.poliuserendpoint.model.User)
+    533:534:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserId(java.lang.Long)
+    548:549:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setWhatImDoingWithMyLife(java.lang.String)
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject:
     50:50:public java.lang.String getException()
     57:58:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject setException(java.lang.String)
@@ -9636,16 +9862,17 @@ it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint:
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Postimageendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    233:235:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetPostImage getPostImage(java.lang.Long)
-    412:414:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$ListPostImage listPostImage()
-    528:530:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$RemovePostImage removePostImage(java.lang.Long)
-    621:623:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$UpdatePostImage updatePostImage(it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage)
+    233:235:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId getImagesFromPostId(java.lang.Long)
+    336:338:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetPostImage getPostImage(java.lang.Long)
+    515:517:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$ListPostImage listPostImage()
+    631:633:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$RemovePostImage removePostImage(java.lang.Long)
+    724:726:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$UpdatePostImage updatePostImage(it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage)
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder:
-    749:749:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    759:759:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressPatternChecks(boolean)
-    764:764:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    769:769:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressAllChecks(boolean)
-    779:779:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setPostimageendpointRequestInitializer(it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequestInitializer)
+    852:852:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    862:862:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressPatternChecks(boolean)
+    867:867:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    872:872:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setSuppressAllChecks(boolean)
+    882:882:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder setPostimageendpointRequestInitializer(it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
@@ -9671,16 +9898,17 @@ it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImageFro
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setOauthToken(java.lang.String)
+it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetPostImage
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage:
     private static final java.lang.String REST_PATH
-    363:363:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setAlt(java.lang.String)
-    368:368:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setFields(java.lang.String)
-    373:373:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setKey(java.lang.String)
-    378:378:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setOauthToken(java.lang.String)
-    383:383:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setPrettyPrint(java.lang.Boolean)
-    388:388:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setQuotaUser(java.lang.String)
-    393:393:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setUserIp(java.lang.String)
+    466:466:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setAlt(java.lang.String)
+    471:471:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setFields(java.lang.String)
+    476:476:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setKey(java.lang.String)
+    481:481:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setOauthToken(java.lang.String)
+    486:486:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setPrettyPrint(java.lang.Boolean)
+    491:491:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setQuotaUser(java.lang.String)
+    496:496:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage setUserIp(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setUserIp(java.lang.String)
@@ -9722,14 +9950,18 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint:
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Postspottedendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    425:427:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$RemovePostSpotted removePostSpotted(java.lang.Long)
-    518:520:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$UpdatePostSpotted updatePostSpotted(it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted)
+    130:132:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$AddDisLikePostSpotted addDisLikePostSpotted(java.lang.Long)
+    223:225:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$AddLikePostSpotted addLikePostSpotted(java.lang.Long)
+    611:613:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$RemovePostSpotted removePostSpotted(java.lang.Long)
+    704:706:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$UpdatePostSpotted updatePostSpotted(it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted)
+it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$AddDisLikePostSpotted
+it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$AddLikePostSpotted
 it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder:
-    646:646:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
-    656:656:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressPatternChecks(boolean)
-    661:661:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressRequiredParameterChecks(boolean)
-    666:666:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressAllChecks(boolean)
-    676:676:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setPostspottedendpointRequestInitializer(it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequestInitializer)
+    832:832:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
+    842:842:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressPatternChecks(boolean)
+    847:847:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressRequiredParameterChecks(boolean)
+    852:852:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setSuppressAllChecks(boolean)
+    862:862:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder setPostspottedendpointRequestInitializer(it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setHttpRequestInitializer(com.google.api.client.http.HttpRequestInitializer)
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient build()
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressAllChecks(boolean)
@@ -9737,17 +9969,17 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$Builder
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient$Builder setSuppressPatternChecks(boolean)
 it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted:
     private static final java.lang.String REST_PATH
-    158:158:public com.google.api.client.http.HttpResponse executeUsingHead()
-    163:163:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    168:168:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setAlt(java.lang.String)
-    173:173:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setFields(java.lang.String)
-    178:178:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setKey(java.lang.String)
-    183:183:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setOauthToken(java.lang.String)
-    188:188:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setPrettyPrint(java.lang.Boolean)
-    193:193:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setQuotaUser(java.lang.String)
-    198:198:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setUserIp(java.lang.String)
-    208:208:public java.lang.Long getId()
-    212:213:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setId(java.lang.Long)
+    344:344:public com.google.api.client.http.HttpResponse executeUsingHead()
+    349:349:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    354:354:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setAlt(java.lang.String)
+    359:359:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setFields(java.lang.String)
+    364:364:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setKey(java.lang.String)
+    369:369:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setOauthToken(java.lang.String)
+    374:374:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setPrettyPrint(java.lang.Boolean)
+    379:379:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setQuotaUser(java.lang.String)
+    384:384:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setUserIp(java.lang.String)
+    394:394:public java.lang.Long getId()
+    398:399:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPostSpotted setId(java.lang.Long)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setUserIp(java.lang.String)
@@ -9757,13 +9989,13 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$GetPost
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted:
     private static final java.lang.String REST_PATH
-    260:260:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setAlt(java.lang.String)
-    265:265:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setFields(java.lang.String)
-    270:270:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setKey(java.lang.String)
-    275:275:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setOauthToken(java.lang.String)
-    280:280:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setPrettyPrint(java.lang.Boolean)
-    285:285:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setQuotaUser(java.lang.String)
-    290:290:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setUserIp(java.lang.String)
+    446:446:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setAlt(java.lang.String)
+    451:451:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setFields(java.lang.String)
+    456:456:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setKey(java.lang.String)
+    461:461:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setOauthToken(java.lang.String)
+    466:466:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setPrettyPrint(java.lang.Boolean)
+    471:471:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setQuotaUser(java.lang.String)
+    476:476:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertPostSpotted setUserIp(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setUserIp(java.lang.String)
@@ -9773,17 +10005,17 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$InsertP
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted:
     private static final java.lang.String REST_PATH
-    335:335:public com.google.api.client.http.HttpResponse executeUsingHead()
-    340:340:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
-    345:345:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setAlt(java.lang.String)
-    350:350:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setFields(java.lang.String)
-    355:355:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setKey(java.lang.String)
-    360:360:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setOauthToken(java.lang.String)
-    365:365:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setPrettyPrint(java.lang.Boolean)
-    370:370:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setQuotaUser(java.lang.String)
-    375:375:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setUserIp(java.lang.String)
-    385:385:public java.lang.String getCursor()
-    400:400:public java.lang.Integer getLimit()
+    521:521:public com.google.api.client.http.HttpResponse executeUsingHead()
+    526:526:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    531:531:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setAlt(java.lang.String)
+    536:536:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setFields(java.lang.String)
+    541:541:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setKey(java.lang.String)
+    546:546:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setOauthToken(java.lang.String)
+    551:551:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setPrettyPrint(java.lang.Boolean)
+    556:556:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setQuotaUser(java.lang.String)
+    561:561:public it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint$ListPostSpotted setUserIp(java.lang.String)
+    571:571:public java.lang.String getCursor()
+    586:586:public java.lang.Integer getLimit()
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setAlt(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setPrettyPrint(java.lang.Boolean)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postspottedendpoint.PostspottedendpointRequest setUserIp(java.lang.String)
@@ -9816,7 +10048,7 @@ it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePos
     63:64:public it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted setItems(java.util.List)
     78:79:public it.polimi.dima.polisocial.entity.postspottedendpoint.model.CollectionResponsePostSpotted setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted:
-    108:109:public it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setId(java.lang.Long)
+    123:124:public it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted setId(java.lang.Long)
 it.polimi.dima.polisocial.entity.privatelessonendpoint.Privatelessonendpoint
 it.polimi.dima.polisocial.entity.privatelessonendpoint.Privatelessonendpoint$Builder
 it.polimi.dima.polisocial.entity.privatelessonendpoint.Privatelessonendpoint$GetPrivateLesson
@@ -9834,7 +10066,6 @@ it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint:
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Rentalendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    206:208:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental getRental(java.lang.Long)
     309:311:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$InsertRental insertRental(it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental)
     500:502:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$RemoveRental removeRental(java.lang.Long)
     593:595:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$UpdateRental updateRental(it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental)
@@ -9865,7 +10096,26 @@ it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$FindLocationAndAd
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setOauthToken(java.lang.String)
-it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental
+it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental:
+    private static final java.lang.String REST_PATH
+    234:234:public com.google.api.client.http.HttpResponse executeUsingHead()
+    239:239:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    244:244:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setAlt(java.lang.String)
+    249:249:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setFields(java.lang.String)
+    254:254:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setKey(java.lang.String)
+    259:259:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setOauthToken(java.lang.String)
+    264:264:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setPrettyPrint(java.lang.Boolean)
+    269:269:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setQuotaUser(java.lang.String)
+    274:274:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setUserIp(java.lang.String)
+    284:284:public java.lang.Long getId()
+    288:289:public it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$GetRental setId(java.lang.Long)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setAlt(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setPrettyPrint(java.lang.Boolean)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setUserIp(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setKey(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setFields(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setQuotaUser(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.rentalendpoint.RentalendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$InsertRental
 it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint$ListRental:
     private static final java.lang.String REST_PATH
@@ -9915,20 +10165,16 @@ it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental:
     71:71:public java.lang.String getNextPageToken()
     78:79:public it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental:
-    122:122:public java.lang.String getAddress()
-    137:137:public com.google.api.client.util.DateTime getAvailability()
-    152:152:public java.lang.String getContact()
-    167:167:public java.lang.Boolean getHavePicture()
-    189:190:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setId(java.lang.Long)
-    204:205:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLatitude(java.lang.Double)
-    219:220:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLongitude(java.lang.Double)
-    227:227:public java.lang.Double getPrice()
-    242:242:public java.lang.Integer getSquaredMeter()
-    257:257:public java.lang.String getText()
-    272:272:public com.google.api.client.util.DateTime getTimestamp()
-    287:287:public java.lang.String getTitle()
-    302:302:public java.lang.String getType()
-    317:317:public java.lang.Long getUserId()
+    143:143:public com.google.api.client.util.DateTime getAvailability()
+    158:158:public java.lang.String getContact()
+    173:173:public java.lang.Boolean getHavePicture()
+    195:196:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setId(java.lang.Long)
+    210:211:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLatitude(java.lang.Double)
+    225:226:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLongitude(java.lang.Double)
+    233:233:public java.lang.Integer getNumOfComments()
+    278:278:public java.lang.String getText()
+    293:293:public com.google.api.client.util.DateTime getTimestamp()
+    338:338:public java.lang.Long getUserId()
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
@@ -9936,7 +10182,6 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint:
     104:105:public Secondhandbookendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
     129:131:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$DeleteAllIndexBook deleteAllIndexBook()
     205:207:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$DeleteIndexBookById deleteIndexBookById(java.lang.Long)
-    401:403:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook getSecondHandBook(java.lang.Long)
     714:716:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$RemoveSecondHandBook removeSecondHandBook(java.lang.Long)
     807:809:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$SearchBookByTitleOrAuthor searchBookByTitleOrAuthor(java.lang.String)
     1083:1085:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$UpdateSecondHandBook updateSecondHandBook(it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook)
@@ -9973,7 +10218,26 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$G
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setOauthToken(java.lang.String)
-it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook
+it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook:
+    private static final java.lang.String REST_PATH
+    429:429:public com.google.api.client.http.HttpResponse executeUsingHead()
+    434:434:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    439:439:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setAlt(java.lang.String)
+    444:444:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setFields(java.lang.String)
+    449:449:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setKey(java.lang.String)
+    454:454:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setOauthToken(java.lang.String)
+    459:459:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setPrettyPrint(java.lang.Boolean)
+    464:464:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setQuotaUser(java.lang.String)
+    469:469:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setUserIp(java.lang.String)
+    479:479:public java.lang.Long getId()
+    483:484:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$GetSecondHandBook setId(java.lang.Long)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setAlt(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setPrettyPrint(java.lang.Boolean)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setUserIp(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setKey(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setFields(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setQuotaUser(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.secondhandbookendpoint.SecondhandbookendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook:
     private static final java.lang.String REST_PATH
     531:531:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint$InsertSecondHandBook setAlt(java.lang.String)
@@ -10060,12 +10324,13 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponse
     58:59:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook setItems(java.util.List)
     73:74:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook:
-    126:126:public java.lang.String getFaculty()
-    141:141:public java.lang.Boolean getHavePicture()
-    163:164:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setId(java.lang.Long)
-    171:171:public java.lang.String getIsbn()
-    246:246:public com.google.api.client.util.DateTime getTimestamp()
-    276:276:public java.lang.Long getUserId()
+    132:132:public java.lang.String getFaculty()
+    147:147:public java.lang.Boolean getHavePicture()
+    169:170:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setId(java.lang.Long)
+    177:177:public java.lang.String getIsbn()
+    192:192:public java.lang.Integer getNumOfComments()
+    267:267:public com.google.api.client.util.DateTime getTimestamp()
+    297:297:public java.lang.Long getUserId()
 it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint:
     public static final java.lang.String DEFAULT_ROOT_URL
     public static final java.lang.String DEFAULT_SERVICE_PATH
@@ -10267,7 +10532,6 @@ it.polimi.dima.polisocial.messageEndpoint.model.MessageData:
     86:86:public java.lang.Long getTimestamp()
     93:94:public it.polimi.dima.polisocial.messageEndpoint.model.MessageData setTimestamp(java.lang.Long)
 it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity:
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser userSession
     private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST
     private static final int MILLISECONDS_PER_SECOND
     private static final int UPDATE_INTERVAL_IN_SECONDS
@@ -10276,7 +10540,7 @@ it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity:
     private static final long FASTEST_INTERVAL
 it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity$AppSectionsPagerAdapter:
     static final int NUM_ITEMS
-    589:589:public java.lang.CharSequence getPageTitle(int)
+    650:650:public java.lang.CharSequence getPageTitle(int)
 it.polimi.dima.polisocial.util.SystemUiHider:
     public static final int FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES
     public static final int FLAG_FULLSCREEN
@@ -10292,7 +10556,14 @@ it.polimi.dima.polisocial.utilClasses.SessionManager:
     public static final java.lang.String KEY_EMAIL
     public static final java.lang.String KEY_USERID
     public static final java.lang.String KEY_FACULTY
-    84:97:public void checkLogin()
+    public static final java.lang.String KEY_LIKE
+    public static final java.lang.String KEY_DISLIKE
+    104:114:public void setLikeEvent(java.lang.Long)
+    132:142:public void setGoing(java.lang.Long)
+    161:168:public boolean saveArrayLikeEvent(java.util.ArrayList)
+    185:192:public boolean saveArrayGoing(java.util.ArrayList)
+    206:212:public java.util.ArrayList loadArrayLikeEvent()
+    226:232:public java.util.ArrayList loadArrayGoing()
 it.polimi.dima.polisocial.utilClasses.ShowProgress:
     10:10:public ShowProgress()
 javax.annotation.CheckForNull

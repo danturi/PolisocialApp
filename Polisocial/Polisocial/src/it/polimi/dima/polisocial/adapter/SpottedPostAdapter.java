@@ -6,7 +6,7 @@ import it.polimi.dima.polisocial.HitOnDialogFragment;
 import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
-import it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdButtonTextViewIntegerParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
@@ -301,20 +301,24 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 					if(postId.compareTo(item.getId()) == 0){
 						holder.likeButton.setEnabled(false);
 						holder.likeButton.setSelected(true);
+						
+						
 						break;
 					}
 				}
 			}
 			
 			holder.likeButton
-					.setOnClickListener(new IdButtonParameterOnClickListener(
-							item.getId(), holder.likeButton) {
+					.setOnClickListener(new IdButtonTextViewIntegerParameterOnClickListener(
+							item.getId(), holder.likeButton,holder.numbOfLikes,item.getNumberLike()) {
 
 						@Override
 						public void onClick(View v) {
 							v.startAnimation(animScale);
 							button.setEnabled(false);
-							button.setSelected(true);							
+							button.setSelected(true);
+							number.setText((numOf+1) + " "
+									+ getContext().getResources().getString(R.string.likes));
 							new AddLikeOrDisLikeTask(id,
 									button)
 									.execute("like");
@@ -335,14 +339,16 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 			}
 			
 			holder.disLikeButton
-					.setOnClickListener(new IdButtonParameterOnClickListener(
-							item.getId(), holder.disLikeButton) {
+					.setOnClickListener(new IdButtonTextViewIntegerParameterOnClickListener(
+							item.getId(), holder.disLikeButton, holder.numbOfDisLikes, item.getNumberDislike()) {
 
 						@Override
 						public void onClick(View v) {
 							v.startAnimation(animScale);
 							button.setEnabled(false);
-							button.setSelected(true);							
+							button.setSelected(true);
+							number.setText((numOf+1) + " "
+									+ getContext().getResources().getString(R.string.dislikes));
 							new AddLikeOrDisLikeTask(id,
 									button)
 									.execute("dislike");

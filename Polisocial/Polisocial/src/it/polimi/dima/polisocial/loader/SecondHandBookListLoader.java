@@ -5,7 +5,6 @@ import it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookend
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.CollectionResponseSecondHandBook;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 import android.content.Context;
 
