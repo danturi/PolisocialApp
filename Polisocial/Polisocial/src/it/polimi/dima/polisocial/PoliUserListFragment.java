@@ -200,17 +200,16 @@ public class PoliUserListFragment extends ListFragment implements
 				mAdapter.setLoading_row(0);
 				mAdapter.notifyDataSetChanged();
 			}
+			ShowProgress.showProgress(false, mProgressView, mList, getActivity());
 		} else {
 			if (refreshRequest && !origList) {
-				statusMsg.setVisibility(View.VISIBLE);
+				
 				mAdapter.setLoading_row(0);
 				mAdapter.notifyDataSetChanged();
-				// mList.setVisibility(View.GONE);
-
+				mList.setVisibility(View.GONE);
+				ShowProgress.showProgress(false, mProgressView, statusMsg, getActivity());
 			}
 		}
-
-		ShowProgress.showProgress(false, mProgressView, mList, getActivity());
 
 	}
 

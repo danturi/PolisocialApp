@@ -29,6 +29,7 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,11 +40,14 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,8 +76,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	TextView headerLocation;
 	TextView headerBeginningDate;
 	
-	ViewPager myPager;
-
+	 LinearLayout rentalGallery;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -173,9 +177,7 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 				header = View.inflate(getApplicationContext(),
 						R.layout.rental_notification_header, null);
 
-				
-				myPager = (ViewPager) header.findViewById(R.id.pager);
-				
+				rentalGallery = (LinearLayout)findViewById(R.id.rental_gallery);
 
 				headerTitle = (TextView) header.findViewById(R.id.title);
 
@@ -253,8 +255,10 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	private void fillUpRentalHeader(Rental item) {
 		// TODO Auto-generated method stub
 		headerTitle.setText(item.getTitle());
-		RentalPagerAdapter adapter = new RentalPagerAdapter();
-		myPager.setAdapter(adapter);
+		
+		/*for (Bitmap b : bitmaps ){
+	         rentalGallery.addView(insertPhoto(b));
+	        }*/   
 	}
 
 	@Override
@@ -513,38 +517,22 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		headerText.setText(item.getText());
 
 	}
-
-	private class RentalPagerAdapter extends PagerAdapter {
-		private int[] mImages = new int[] { R.drawable.logo_login,
-				R.drawable.logo_login, R.drawable.logo_login,
-				R.drawable.logo_login };
-
-		@Override
-		public int getCount() {
-			return mImages.length;
-		}
-
-		@Override
-		public boolean isViewFromObject(View view, Object object) {
-			return view == ((ImageView) object);
-		}
-
-		@Override
-		public Object instantiateItem(ViewGroup container, int position) {
-			ImageView imageView = new ImageView(ShowRelatedCommentsActivity.this);
-			int padding = getApplicationContext().getResources().getDimensionPixelSize(
-					R.dimen.post_item_margin);
-			imageView.setPadding(padding, padding, padding, padding);
-			imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-			imageView.setImageResource(mImages[position]);
-			((ViewPager) container).addView(imageView, 0);
-			return imageView;
-		}
-
-		@Override
-		public void destroyItem(ViewGroup container, int position, Object object) {
-			((ViewPager) container).removeView((ImageView) object);
-		}
-	}
+	
+	
+    View insertPhoto(String path){
+      //  Bitmap bm = decodeSampledBitmapFromUri(path, 220, 220);
+        
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setLayoutParams(new LayoutParams(250, 250));
+        layout.setGravity(Gravity.CENTER);
+        
+        ImageView imageView = new ImageView(getApplicationContext());
+        imageView.setLayoutParams(new LayoutParams(220, 220));
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+       // imageView.setImageBitmap(bm);
+        
+        layout.addView(imageView);
+        return layout;
+       }
 
 }

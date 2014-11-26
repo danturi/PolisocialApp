@@ -65,7 +65,7 @@
     <string name="menu_filter_spotted_hate">Complaint</string>
     <string name="menu_filter_spotted_advice">Advice</string>
     <string name="title_activity_show_relative_comments">ShowRelativeCommentsActivity</string>
-    <string name="title_activity_new_spotted_post">Write post</string>
+    <string name="title_activity_new_spotted_post">Nuovo post</string>
 
     <!-- New post creation -->
     <string name="location_and_title">Luogo / titolo</string>
@@ -77,10 +77,10 @@
     <string name="post_content_hint">Scrivi qui il contenuto del tuo post</string>
 
     <string-array name="category_arrays">
-        <item>Divertimento</item>
-        <item>Amore</item>
-        <item>Lamentela</item>
-        <item>Consiglio</item>
+        <item>Fun</item>
+        <item>Love</item>
+        <item>Complaint</item>
+        <item>Advice</item>
     </string-array>
 
     <string name="title_activity_error_gcm">ErrorGcmActivity</string>
@@ -142,7 +142,7 @@
     <string name="book_fragment_title">Libri</string>
     <string name="lesson_fragment_title">Ripetizioni</string>
     <string name="rental_fragment_title">Affitti</string>
-    <string name="book_title_hint">titolo del libro(obbligatorio)</string>
+    <string name="book_title_hint">titolo *</string>
     <string name="book_authors_hint">autore1,autore2,&#8230;</string>
     <string name="book_authors_hint2">autore</string>
 
@@ -185,7 +185,7 @@
     <!-- New rental activity -->
     <string name="error_autocomplete">Devi scegliere una delle opzioni della lista!!</string>
     <string name="autocomplete_hint">Scrivi l’indirizzo completo </string>
-    <string name="rental_creation_hint">Insert the complete address name of the house/room, choosing it from the suggestions.</string>
+    <string name="rental_creation_hint">Scrivi PER INTERO (es nome e cognome) l\'indirizzo, scegliendolo dai suggerimenti.</string>
     <string name="rental_address">Indirizzo*</string>
     <string name="rental_type">Tipo di location*</string>
     <string name="rental_type_example">ex. Stanza condivisa/singola, Appartamento</string>

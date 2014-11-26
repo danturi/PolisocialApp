@@ -144,7 +144,7 @@
     <string name="book_fragment_title">Books</string>
     <string name="lesson_fragment_title">Private lessons</string>
     <string name="rental_fragment_title">Rentals</string>
-    <string name="book_title_hint">book title (mandatory)</string>
+    <string name="book_title_hint">book title *</string>
     <string name="book_authors_hint">author1,author2,&#8230;</string>
     <string name="book_authors_hint2">book author</string>
 

@@ -1594,14 +1594,14 @@ public class TabActivity extends FragmentActivity implements
 			if (result) {
 
 				if (tabNotif == null) {
-					// TODO mettere icona con bollino rosso qui
+					// mettere icona con bollino rosso qui
 					tabNotif = actionBar.newTab();
-					tabNotif.setIcon(R.drawable.spotted_icon).setTabListener(
+					tabNotif.setIcon(R.drawable.notifications_icon_red).setTabListener(
 							activity);
 					actionBar.addTab(tabNotif);
 				} else {
-					// TODO mettere icona con bollino rosso qui
-					tabNotif.setIcon(R.drawable.spotted_icon);
+					// mettere icona con bollino rosso qui
+					tabNotif.setIcon(R.drawable.notifications_icon_red);
 				}
 
 			} else {

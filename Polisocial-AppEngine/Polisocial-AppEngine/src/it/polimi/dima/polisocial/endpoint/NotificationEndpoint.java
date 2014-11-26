@@ -106,7 +106,7 @@ public class NotificationEndpoint {
 
 			  try{
 				  mgr = getEntityManager();
-				  Query query = mgr.createQuery("select n from Notification n where n.userId=?1");
+				  Query query = mgr.createQuery("select n from Notification n where n.userId=?1 ORDER BY n.timestamp DESC");
 				  query.setParameter(1, userId);
 				  if (cursorString != null && cursorString != "") {
 					  cursor = Cursor.fromWebSafeString(cursorString);

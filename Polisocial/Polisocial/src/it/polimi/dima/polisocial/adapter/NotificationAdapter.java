@@ -86,7 +86,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 						.setImageResource(R.drawable.spotted_icon_selected);
 			}
 		} else if (postType.equals(PostType.EVENT.toString())) {
-			if (!item.getReadFlag()) {
+			if (item.getReadFlag()) {
 				notificationTypeIcon
 						.setImageResource(R.drawable.events_icon_normal);
 			} else {

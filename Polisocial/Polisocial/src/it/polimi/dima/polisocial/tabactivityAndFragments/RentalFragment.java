@@ -2,16 +2,20 @@ package it.polimi.dima.polisocial.tabactivityAndFragments;
 
 import it.polimi.dima.polisocial.CloudEndpointUtils;
 import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 import it.polimi.dima.polisocial.tabactivityAndFragments.TabActivity.SwitchFragmentListener;
+import it.polimi.dima.polisocial.utilClasses.PostType;
+import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +30,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -194,6 +199,7 @@ public class RentalFragment extends Fragment {
 									.position(
 											new LatLng(rental.getLatitude(),
 													rental.getLongitude()))
+													.title(rental.getTitle()).snippet(rental.getPrice()+"€")
 									.icon(BitmapDescriptorFactory
 											.fromResource(R.drawable.renticon));
 
@@ -201,22 +207,27 @@ public class RentalFragment extends Fragment {
 
 						}
 
-						mapIn.setOnMarkerClickListener(new OnMarkerClickListener() {
-
+						mapIn.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+							
 							@Override
-							public boolean onMarkerClick(Marker marker) {
+							public void onInfoWindowClick(Marker marker) {
 								LatLng pos = marker.getPosition();
 								for (Rental rentHouse : collection.getItems()) {
 									if (pos.equals(new LatLng(rentHouse
 											.getLatitude(), rentHouse
 											.getLongitude()))) {
-										rentHouse.getId();
-										// TODO passare id e tipo...
-										return true;
+										
+										Intent showRelativeCommentsIntent = new Intent(getActivity(),
+												ShowRelatedCommentsActivity.class);
+										showRelativeCommentsIntent.putExtra("postId", rentHouse.getId());
+										showRelativeCommentsIntent.putExtra("notificationCategory",
+												WhatToShow.DETAILS.toString());
+										showRelativeCommentsIntent.putExtra("type", PostType.RENTAL.toString());
+										startActivity(showRelativeCommentsIntent);
+										
 									}
 								}
-
-								return false;
+								
 							}
 						});
 					}

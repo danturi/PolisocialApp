@@ -13,6 +13,8 @@ import it.polimi.dima.polisocial.entity.postspottedendpoint.Postspottedendpoint;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
+import it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint;
+import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 import it.polimi.dima.polisocial.utilClasses.WhatToShow;
 
@@ -32,6 +34,7 @@ public class CommentListLoader extends EndlessListAsyncTaskLoader<List<Object>> 
 	private Postspottedendpoint spottedEnd;
 	private Initiativeendpoint initiativeEnd;
 	private Rentalendpoint rentalEnd;
+	private Secondhandbookendpoint bookEnd;
 
 	public CommentListLoader(Context context, String cursor, String whatToShow,
 			String postType, long postId) {
@@ -106,6 +109,22 @@ public class CommentListLoader extends EndlessListAsyncTaskLoader<List<Object>> 
 					e.printStackTrace();
 				}				
 			}else if(postType.equals(PostType.SECOND_HAND_BOOK.toString())){
+				
+				Secondhandbookendpoint.Builder builder = new Secondhandbookendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(),
+						new JacksonFactory(), null);
+
+				builder = CloudEndpointUtils.updateBuilder(builder);
+				bookEnd = builder.setApplicationName("polimisocial")
+						.build();
+				try {
+					SecondHandBook post = bookEnd.getSecondHandBook(postId)
+							.execute();
+					mItems.add(post);
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}				
 				
 				//TODO retrieve post needed as above
 				
