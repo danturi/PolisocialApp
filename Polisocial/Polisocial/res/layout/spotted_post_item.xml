@@ -67,10 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/desc_post_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/loading_animation"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/loading_animation"
             android:visibility="gone" />
 
         <RelativeLayout
@@ -122,56 +122,84 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp" >
+            android:layout_marginBottom="2dp" 
+        	android:layout_marginLeft="@dimen/post_item_margin"
+        	android:layout_marginRight="@dimen/post_item_margin"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/imageLikeButton"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="2dp"
-                android:layout_weight="33"
-                android:background="@drawable/post_bottom_button_normal"
-                android:drawableLeft="@drawable/like_button_icon"
-                android:drawableStart="@drawable/like_button_icon"
-                android:paddingLeft="27dp"
-                android:paddingRight="27dp"
-                android:text="@string/like"
-                android:textColor="@drawable/color_selected_or_normal"
-                android:textSize="10dp"
-                android:textStyle="bold" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-            <Button
-                android:id="@+id/imageDisLikeButton"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="33"
-                android:background="@drawable/post_bottom_button_normal_central"
-                android:drawableLeft="@drawable/dislike_button_icon"
-                android:drawableStart="@drawable/dislike_button_icon"
-                android:paddingLeft="27dp"
-                android:paddingRight="27dp"
-                android:text="@string/dislike"
-                android:textColor="@drawable/color_selected_or_normal"
-                android:textSize="10dp"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/imageLikeButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/post_bottom_button_normal"
+                    android:drawableLeft="@drawable/like_button_icon"
+                    android:drawableStart="@drawable/like_button_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:drawablePadding="2dip"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="26dp"
+                    android:singleLine="true"
+    				android:gravity="center"
+                    android:text="@string/like"
+                    android:textColor="@drawable/color_selected_or_normal"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/imageContactButton"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="2dp"
-                android:layout_weight="34"
-                android:background="@drawable/post_bottom_button_normal"
-                android:drawableLeft="@drawable/contact_button_icon"
-                android:drawableStart="@drawable/contact_button_icon"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:text="@string/contact"
-                android:textColor="@drawable/color_selected_or_normal"
-                android:textSize="10dp"
-                android:textStyle="bold" />
+               <LinearLayout
+               		android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/imageDisLikeButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/post_bottom_button_normal_central"
+                    android:drawableLeft="@drawable/dislike_button_icon"
+                    android:drawableStart="@drawable/dislike_button_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:drawablePadding="2dip"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="26dp"
+                    android:singleLine="true"
+    				android:gravity="center"
+                    android:text="@string/dislike"
+                    android:textColor="@drawable/color_selected_or_normal"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+               <LinearLayout
+                	android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                
+                <Button
+                    android:id="@+id/imageContactButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/post_bottom_button_normal"
+                    android:drawableLeft="@drawable/contact_button_icon"
+                    android:drawableStart="@drawable/contact_button_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:drawablePadding="2dip"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="26dp"
+                    android:singleLine="true"
+    				android:gravity="center"
+                    android:text="@string/contact"
+                    android:textColor="@drawable/color_selected_or_normal"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
