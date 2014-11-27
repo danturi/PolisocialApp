@@ -7,6 +7,8 @@ import it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint;
 import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
 import it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative;
 import it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint;
+import it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage;
+import it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage;
 import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 import it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook;
@@ -21,29 +23,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
-
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,6 +45,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 
 public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		LoaderManager.LoaderCallbacks<List<Object>> {
@@ -75,9 +73,9 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	ImageView headerPostImage;
 	TextView headerLocation;
 	TextView headerBeginningDate;
-	
-	 LinearLayout rentalGallery;
-	
+
+	LinearLayout rentalGallery;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -177,7 +175,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 				header = View.inflate(getApplicationContext(),
 						R.layout.rental_notification_header, null);
 
-				rentalGallery = (LinearLayout)findViewById(R.id.rental_gallery);
+				rentalGallery = (LinearLayout) header
+						.findViewById(R.id.rental_gallery);
 
 				headerTitle = (TextView) header.findViewById(R.id.title);
 
@@ -246,19 +245,16 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 	}
 
-	
 	private void fillUpBookHeader(SecondHandBook item) {
 		// TODO Auto-generated method stub
 		headerTitle.setText(item.getTitle());
 	}
-	
+
 	private void fillUpRentalHeader(Rental item) {
 		// TODO Auto-generated method stub
 		headerTitle.setText(item.getTitle());
-		
-		/*for (Bitmap b : bitmaps ){
-	         rentalGallery.addView(insertPhoto(b));
-	        }*/   
+
+		new RetrieveRentalPhotoTask().execute(item.getId());
 	}
 
 	@Override
@@ -517,22 +513,83 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		headerText.setText(item.getText());
 
 	}
-	
-	
-    View insertPhoto(String path){
-      //  Bitmap bm = decodeSampledBitmapFromUri(path, 220, 220);
-        
-        LinearLayout layout = new LinearLayout(getApplicationContext());
-        layout.setLayoutParams(new LayoutParams(250, 250));
-        layout.setGravity(Gravity.CENTER);
-        
-        ImageView imageView = new ImageView(getApplicationContext());
-        imageView.setLayoutParams(new LayoutParams(220, 220));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-       // imageView.setImageBitmap(bm);
-        
-        layout.addView(imageView);
-        return layout;
-       }
+
+	View insertPhoto(List<PostImage> list) {
+
+		LinearLayout layout = new LinearLayout(getApplicationContext());
+		layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+		layout.setHorizontalScrollBarEnabled(true);
+		layout.setGravity(Gravity.CENTER);
+
+		for (PostImage img : list) {
+			ImageView imageView = new ImageView(getApplicationContext());
+			imageView.setLayoutParams(new LayoutParams(450, 450));
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			imageView.setClickable(true);
+
+			final byte[] byteArrayImage = Base64.decode(img.getImage(),
+					Base64.DEFAULT);;
+
+			imageView.setImageBitmap(BitmapFactory.decodeByteArray(
+					byteArrayImage, 0, byteArrayImage.length));
+			layout.addView(imageView);
+			
+			imageView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent showFullScreenPicIntent = new Intent(
+							getBaseContext(),
+							FullScreenPicActivity.class);
+					showFullScreenPicIntent.putExtra(
+							"picInByte", byteArrayImage);
+					startActivity(showFullScreenPicIntent);
+					
+				}
+			});
+		}
+
+		return layout;
+	}
+
+	public class RetrieveRentalPhotoTask extends AsyncTask<Long, Void, Boolean> {
+
+		CollectionResponsePostImage arrayPostImage;
+
+		@Override
+		protected Boolean doInBackground(Long... params) {
+
+			Postimageendpoint.Builder imageBuilder = new Postimageendpoint.Builder(
+					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+					null);
+
+			imageBuilder = CloudEndpointUtils.updateBuilder(imageBuilder);
+
+			Postimageendpoint imageEndpoint = imageBuilder.setApplicationName(
+					"polimisocial").build();
+
+			try {
+				arrayPostImage = imageEndpoint.getImagesFromPostId(params[0])
+						.execute();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+
+			if (result) {
+				rentalGallery.addView(insertPhoto(arrayPostImage.getItems()));
+			} else {
+				rentalGallery.setVisibility(View.GONE);
+			}
+		}
+
+	}
 
 }

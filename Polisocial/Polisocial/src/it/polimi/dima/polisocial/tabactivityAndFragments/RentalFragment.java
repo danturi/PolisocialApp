@@ -199,7 +199,7 @@ public class RentalFragment extends Fragment {
 									.position(
 											new LatLng(rental.getLatitude(),
 													rental.getLongitude()))
-													.title(rental.getTitle()).snippet(rental.getPrice()+"€")
+													.title(rental.getType()).snippet(rental.getPrice()+"€")
 									.icon(BitmapDescriptorFactory
 											.fromResource(R.drawable.renticon));
 
