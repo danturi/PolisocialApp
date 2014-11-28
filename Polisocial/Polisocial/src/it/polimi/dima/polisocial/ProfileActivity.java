@@ -3,6 +3,7 @@ package it.polimi.dima.polisocial;
 import it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser;
+import it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text;
 import it.polimi.dima.polisocial.utilClasses.PictureEditing;
 import it.polimi.dima.polisocial.utilClasses.ProfileFieldType;
 import it.polimi.dima.polisocial.utilClasses.SessionManager;
@@ -46,6 +47,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 public class ProfileActivity extends SwipeBackActivity {
 
 	private static final int RESULT_LOAD_PICTURE = 1;
+	private static final int EDIT_PROFILE = 2;
 
 	private SwipeBackLayout mSwipeBackLayout;
 	private View mProgressView;
@@ -56,6 +58,8 @@ public class ProfileActivity extends SwipeBackActivity {
 	private ActionBar actionBar;
 	private SessionManager session;
 	private PoliUser poliuser;
+	private boolean editedFlag = false;
+	private boolean updateOK= false;
 
 	ImageView profilePic1;
 	TextView generalInfoText;
@@ -118,7 +122,6 @@ public class ProfileActivity extends SwipeBackActivity {
 			try {
 				new RetrieveProfileTask(mThisUserId).execute();
 			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			changePictureButton = (ImageButton) findViewById(R.id.change_picture_button);
@@ -183,14 +186,74 @@ public class ProfileActivity extends SwipeBackActivity {
 			String picturePath = c.getString(columnIndex);
 			c.close();
 			pictureInBytes = PictureEditing.compressPicture(picturePath);
-			// TODO:update pic on server
+			editedFlag = true;
 			showPicture();
-			try {
-				new UpdateProfilePictureTask(pictureInBytes).execute();
-			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+		}
+
+		// return from edit profile
+		if (requestCode == EDIT_PROFILE && resultCode == RESULT_OK) {
+			String fieldType = data.getStringExtra("fieldType");
+			String newFieldString = data.getStringExtra("newFieldString");
+			editedFlag = true;
+
+			if (fieldType.equals(ProfileFieldType.SELF_SUMMARY.toString())) {
+				selfSummaryText.setText(newFieldString);
+				findViewById(R.id.self_summary_panel).setVisibility(
+						View.VISIBLE);
+				poliuser.setSelfSummary(newFieldString);
 			}
+			if (fieldType.equals(ProfileFieldType.FAVORITE.toString())) {
+				favoriteText.setText(newFieldString);
+				poliuser.setFavoriteBooksMoviesShowsMusic(new Text()
+						.setValue(newFieldString));
+			}
+			if (fieldType.equals(ProfileFieldType.IM_REALLY_GOOD_AT.toString())) {
+				imReallyGoodAtText.setText(data.getStringExtra("newFieldText"));
+				findViewById(R.id.im_really_good_at_panel).setVisibility(
+						View.VISIBLE);
+				poliuser.setImReallyGoodAt(newFieldString);
+			}
+			if (fieldType
+					.equals(ProfileFieldType.SIX_THINGS_WITHOUT.toString())) {
+				sixThingsWithoutText.setText(newFieldString);
+				findViewById(R.id.six_things_without_panel).setVisibility(
+						View.VISIBLE);
+				poliuser.setSixThingsWithout(newFieldString);
+			}
+			if (fieldType.equals(ProfileFieldType.WHAT_IM_DOING.toString())) {
+				whatImDoingText.setText(newFieldString);
+				findViewById(R.id.what_im_doing_panel).setVisibility(
+						View.VISIBLE);
+				poliuser.setWhatImDoingWithMyLife(newFieldString);
+			}
+		}
+
+	}
+	
+	//salva profilo utente
+	public void saveProfile(){
+		showProgress(true);
+		// before closing the activity, update all the poliuser's fields only if user changed something
+		if (editedFlag) {
+			try {
+				new UpdateProfileTask(pictureInBytes).execute();
+			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+				updateOK=false;
+			}
+			//se va a buon fine chiudi...se no resta aperto
+			if(updateOK){
+				showProgress(false);
+				editedFlag=false;
+				
+			}else {
+				showProgress(false);
+				Toast.makeText(getApplicationContext(), "Error updating your profile.Retry!", Toast.LENGTH_SHORT).show();
+			}
+		}else {
+			showProgress(false);
+			
 		}
 	}
 
@@ -284,8 +347,8 @@ public class ProfileActivity extends SwipeBackActivity {
 				if (poliuser.getDatebirth() != null) {
 					age = calculateAge(new Date(poliuser.getDatebirth()
 							.getValue()));
-				}else{
-					age=99;
+				} else {
+					age = 99;
 				}
 				String faculty = poliuser.getFaculty();
 				String sex = "M";
@@ -313,7 +376,7 @@ public class ProfileActivity extends SwipeBackActivity {
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
-								.getFavoriteBooksMoviesShowsMusic().toString());
+								.getFavoriteBooksMoviesShowsMusic().getValue().toString());
 					}
 					if (poliuser.getSixThingsWithout() != null) {
 						sixThingsWithoutText.setText(poliuser
@@ -349,7 +412,7 @@ public class ProfileActivity extends SwipeBackActivity {
 											EditProfileFieldActivity.class);
 									intent.putExtra("text", text);
 									intent.putExtra("fieldType", fieldType);
-									startActivity(intent);
+									startActivityForResult(intent, EDIT_PROFILE);
 								}
 							});
 
@@ -360,6 +423,7 @@ public class ProfileActivity extends SwipeBackActivity {
 
 								@Override
 								public void onClick(View v) {
+
 									String text = whatImDoingText.getText()
 											.toString();
 									Intent intent = new Intent(
@@ -367,7 +431,7 @@ public class ProfileActivity extends SwipeBackActivity {
 											EditProfileFieldActivity.class);
 									intent.putExtra("text", text);
 									intent.putExtra("fieldType", fieldType);
-									startActivity(intent);
+									startActivityForResult(intent, EDIT_PROFILE);
 								}
 							});
 					editImReallyGoodAtButton
@@ -384,7 +448,7 @@ public class ProfileActivity extends SwipeBackActivity {
 											EditProfileFieldActivity.class);
 									intent.putExtra("text", text);
 									intent.putExtra("fieldType", fieldType);
-									startActivity(intent);
+									startActivityForResult(intent, EDIT_PROFILE);
 								}
 							});
 					editFavouriteButton
@@ -401,7 +465,7 @@ public class ProfileActivity extends SwipeBackActivity {
 											EditProfileFieldActivity.class);
 									intent.putExtra("text", text);
 									intent.putExtra("fieldType", fieldType);
-									startActivity(intent);
+									startActivityForResult(intent, EDIT_PROFILE);
 								}
 							});
 					editSixThingsWithoutButton
@@ -418,7 +482,7 @@ public class ProfileActivity extends SwipeBackActivity {
 											EditProfileFieldActivity.class);
 									intent.putExtra("text", text);
 									intent.putExtra("fieldType", fieldType);
-									startActivity(intent);
+									startActivityForResult(intent, EDIT_PROFILE);
 								}
 							});
 
@@ -447,7 +511,7 @@ public class ProfileActivity extends SwipeBackActivity {
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
-								.getFavoriteBooksMoviesShowsMusic().toString());
+								.getFavoriteBooksMoviesShowsMusic().getValue().toString());
 					} else {
 						findViewById(R.id.favorite_panel).setVisibility(
 								View.GONE);
@@ -499,20 +563,24 @@ public class ProfileActivity extends SwipeBackActivity {
 
 	}
 
-	public class UpdateProfilePictureTask extends
-			AsyncTask<Void, Void, Boolean> {
+	public class UpdateProfileTask extends AsyncTask<Void, Void, Boolean> {
 
 		private String mPicture;
 
-		UpdateProfilePictureTask(byte[] picture)
-				throws NoSuchAlgorithmException, UnsupportedEncodingException {
-			this.mPicture = Base64.encodeToString(picture, Base64.DEFAULT);
+		UpdateProfileTask(byte[] picture) throws NoSuchAlgorithmException,
+				UnsupportedEncodingException {
+			if (picture != null) {
+				this.mPicture = Base64.encodeToString(picture, Base64.DEFAULT);
+			}
+			this.mPicture = null;
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
 
-			poliuser.setProfilePicture1(mPicture);
+			if (mPicture != null) {
+				poliuser.setProfilePicture1(mPicture);
+			}
 
 			Poliuserendpoint.Builder builder = new Poliuserendpoint.Builder(
 					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
@@ -536,17 +604,9 @@ public class ProfileActivity extends SwipeBackActivity {
 		protected void onPostExecute(Boolean result) {
 			showProgress(false);
 			if (result) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						"DONE! You have just changed your photo",
-						Toast.LENGTH_SHORT);
-				toast.setGravity(Gravity.CENTER_VERTICAL,
-						Gravity.CENTER_HORIZONTAL, 0);
-				toast.show();
+				updateOK=true;
 			} else {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						"Can't perform operation. Please retry",
-						Toast.LENGTH_SHORT);
-				toast.show();
+				updateOK=false;
 			}
 
 		}
@@ -605,4 +665,5 @@ public class ProfileActivity extends SwipeBackActivity {
 
 		return years;
 	}
+
 }

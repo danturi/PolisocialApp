@@ -5,7 +5,7 @@
      <item
         android:id="@+id/action_save_field"
         android:showAsAction="always"
-        android:title="@string/save"/>
+        android:title="@string/done"/>
 
 
 </menu>

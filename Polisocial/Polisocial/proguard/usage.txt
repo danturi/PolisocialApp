@@ -8892,8 +8892,7 @@ it.polimi.dima.polisocial.R$styleable
 it.polimi.dima.polisocial.RegistrationActivity:
     443:489:private int calculateAge(java.util.Date)
 it.polimi.dima.polisocial.ShowRelatedCommentsActivity:
-    196:197:private void loadData()
-    525:535:android.view.View insertPhoto(java.lang.String)
+    195:196:private void loadData()
 it.polimi.dima.polisocial.adapter.CommentAdapter$CommentViewHolder:
     public int type
 it.polimi.dima.polisocial.adapter.EndlessListAdapter:
@@ -9862,7 +9861,6 @@ it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint:
     public static final java.lang.String DEFAULT_SERVICE_PATH
     public static final java.lang.String DEFAULT_BASE_URL
     104:105:public Postimageendpoint(com.google.api.client.http.HttpTransport,com.google.api.client.json.JsonFactory,com.google.api.client.http.HttpRequestInitializer)
-    233:235:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId getImagesFromPostId(java.lang.Long)
     336:338:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetPostImage getPostImage(java.lang.Long)
     515:517:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$ListPostImage listPostImage()
     631:633:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$RemovePostImage removePostImage(java.lang.Long)
@@ -9898,7 +9896,26 @@ it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImageFro
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setFields(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setQuotaUser(java.lang.String)
     1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setOauthToken(java.lang.String)
-it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId
+it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId:
+    private static final java.lang.String REST_PATH
+    261:261:public com.google.api.client.http.HttpResponse executeUsingHead()
+    266:266:public com.google.api.client.http.HttpRequest buildHttpRequestUsingHead()
+    271:271:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setAlt(java.lang.String)
+    276:276:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setFields(java.lang.String)
+    281:281:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setKey(java.lang.String)
+    286:286:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setOauthToken(java.lang.String)
+    291:291:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setPrettyPrint(java.lang.Boolean)
+    296:296:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setQuotaUser(java.lang.String)
+    301:301:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setUserIp(java.lang.String)
+    311:311:public java.lang.Long getPostId()
+    315:316:public it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId setPostId(java.lang.Long)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setAlt(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setPrettyPrint(java.lang.Boolean)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setUserIp(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setKey(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setFields(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setQuotaUser(java.lang.String)
+    1:1:public bridge synthetic it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest setOauthToken(java.lang.String)
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetPostImage
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage:
     private static final java.lang.String REST_PATH
@@ -9938,7 +9955,10 @@ it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest:
     1:1:public bridge synthetic com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest setRequestHeaders(com.google.api.client.http.HttpHeaders)
 it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequestInitializer
 it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointScopes
-it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage
+it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage:
+    63:64:public it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage setItems(java.util.List)
+    71:71:public java.lang.String getNextPageToken()
+    78:79:public it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage:
     56:56:public java.lang.Long getId()
     63:64:public it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage setId(java.lang.Long)

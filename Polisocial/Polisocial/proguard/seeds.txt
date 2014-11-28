@@ -7784,6 +7784,7 @@ it.polimi.dima.polisocial.R$string: int common_google_play_services_update_title
 it.polimi.dima.polisocial.R$string: int common_open_on_phone
 it.polimi.dima.polisocial.R$string: int common_signin_button_text
 it.polimi.dima.polisocial.R$string: int common_signin_button_text_long
+it.polimi.dima.polisocial.R$string: int confirm_password
 it.polimi.dima.polisocial.R$string: int connected_to_foursquare
 it.polimi.dima.polisocial.R$string: int contact
 it.polimi.dima.polisocial.R$string: int create_calendar_message
@@ -7867,6 +7868,7 @@ it.polimi.dima.polisocial.R$string: int prompt_faculty
 it.polimi.dima.polisocial.R$string: int prompt_password
 it.polimi.dima.polisocial.R$string: int prompt_username
 it.polimi.dima.polisocial.R$string: int register
+it.polimi.dima.polisocial.R$string: int registration_button
 it.polimi.dima.polisocial.R$string: int rental_address
 it.polimi.dima.polisocial.R$string: int rental_availability
 it.polimi.dima.polisocial.R$string: int rental_contact
@@ -7889,6 +7891,7 @@ it.polimi.dima.polisocial.R$string: int search_hint
 it.polimi.dima.polisocial.R$string: int search_users
 it.polimi.dima.polisocial.R$string: int second_hand_books
 it.polimi.dima.polisocial.R$string: int second_tab_title
+it.polimi.dima.polisocial.R$string: int select_faculty
 it.polimi.dima.polisocial.R$string: int self_summary
 it.polimi.dima.polisocial.R$string: int self_summary_hint
 it.polimi.dima.polisocial.R$string: int six_things_without

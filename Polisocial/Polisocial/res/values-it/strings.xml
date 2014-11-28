@@ -130,6 +130,7 @@
     <string name="title_activity_edit_profile_field">EditProfileFieldActivity</string>
     <string name="type_here">Scrivi qui &#8230;</string>
     <string name="save">SALVA</string>
+    <string name="done">FATTO</string>
     <string name="title_activity_full_screen_pic">MyOwlCampus gallery mode</string>
     <string name="new_to_myowlcampus">Sei nuovo in myOwlCampus?</string>
     <string name="title_activity_search">SearchActivity</string>

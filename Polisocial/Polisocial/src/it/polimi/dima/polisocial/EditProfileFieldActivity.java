@@ -8,9 +8,6 @@ import it.polimi.dima.polisocial.utilClasses.SessionManager;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.jackson2.JacksonFactory;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -25,6 +22,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
 public class EditProfileFieldActivity extends Activity {
 
 	
@@ -33,7 +33,7 @@ public class EditProfileFieldActivity extends Activity {
 	View mEditForm;
 	String fieldType;
 	private EditText editField;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,8 +67,13 @@ public class EditProfileFieldActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_save_field) {
-			showProgress(true);
-			// call asynk task that store the new content in the appropriate field
+			
+			//return to activity
+			Intent data = new Intent();
+			data.putExtra("newFieldString", editField.getText().toString());
+			data.putExtra("fieldType", fieldType);
+			setResult(RESULT_OK, data);
+			finish();
 
 			return true;
 		}

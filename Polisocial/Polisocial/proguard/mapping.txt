@@ -20534,6 +20534,7 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity -> it.polimi.dima.polisoci
     void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
     void fillUpSpottedHeader(it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted) -> a
     void fillUpEventHeader(it.polimi.dima.polisocial.entity.initiativeendpoint.model.Initiative) -> a
+    android.view.View insertPhoto(java.util.List) -> a
     void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
     it.polimi.dima.polisocial.utilClasses.SessionManager access$1(it.polimi.dima.polisocial.ShowRelatedCommentsActivity) -> a
     java.lang.String access$2(it.polimi.dima.polisocial.ShowRelatedCommentsActivity) -> b
@@ -20570,7 +20571,11 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3$1 -> it.polimi.dima.poli
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3 this$1 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.polimi.dima.polisocial.bg:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$4 -> it.polimi.dima.polisocial.bg:
+    it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
+    byte[] val$byteArrayImage -> b
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.polimi.dima.polisocial.bh:
     java.lang.Long postId -> a
     it.polimi.dima.polisocial.entity.commentendpoint.model.Comment comment -> b
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> c
@@ -20578,13 +20583,20 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.po
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$SendNotificationTask -> it.polimi.dima.polisocial.bh:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$RetrieveRentalPhotoTask -> it.polimi.dima.polisocial.bi:
+    it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage arrayPostImage -> a
+    it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> b
+    java.lang.Boolean doInBackground(java.lang.Long[]) -> a
+    void onPostExecute(java.lang.Boolean) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$SendNotificationTask -> it.polimi.dima.polisocial.bj:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     java.lang.Void doInBackground(it.polimi.dima.polisocial.entity.commentendpoint.model.Comment[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.bi:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.bk:
     java.lang.String faculty -> a
     java.util.ArrayList faculty_list -> d
     it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener mListener -> b
@@ -20592,13 +20604,13 @@ it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.b
     void onAttach(android.app.Activity) -> onAttach
     android.app.Dialog onCreateDialog(android.os.Bundle) -> onCreateDialog
     java.util.ArrayList access$0(it.polimi.dima.polisocial.SingleChoiceDialogFragm) -> a
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$1 -> it.polimi.dima.polisocial.bj:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$1 -> it.polimi.dima.polisocial.bl:
     it.polimi.dima.polisocial.SingleChoiceDialogFragm this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$2 -> it.polimi.dima.polisocial.bk:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$2 -> it.polimi.dima.polisocial.bm:
     it.polimi.dima.polisocial.SingleChoiceDialogFragm this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener -> it.polimi.dima.polisocial.bl:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener -> it.polimi.dima.polisocial.bn:
     void onFacultyDialogPositiveClick(java.lang.String) -> b_
 it.polimi.dima.polisocial.adapter.CommentAdapter -> it.polimi.dima.polisocial.a.a:
     int VIEW_ONLY_COMMENTS -> a
@@ -21110,9 +21122,11 @@ it.polimi.dima.polisocial.customListeners.EndlessScrollListener -> it.polimi.dim
     void setLoading(boolean) -> a
     void onLoadMore() -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
-it.polimi.dima.polisocial.customListeners.IdButtonParameterOnClickListener -> it.polimi.dima.polisocial.b.d:
+it.polimi.dima.polisocial.customListeners.IdButtonTextViewIntegerParameterOnClickListener -> it.polimi.dima.polisocial.b.d:
     long id -> b
     android.widget.Button button -> c
+    android.widget.TextView number -> d
+    java.lang.Integer numOf -> e
     void onClick(android.view.View) -> onClick
 it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener -> it.polimi.dima.polisocial.b.e:
     long id -> b
@@ -21768,6 +21782,7 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.UserDTO -> it.polimi.dim
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint -> it.polimi.dima.polisocial.d.h.a:
     void initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest) -> a
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImageFromPostId getImageFromPostId(java.lang.Long) -> a
+    it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId getImagesFromPostId(java.lang.Long) -> b
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage insertPostImage(it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage) -> a
 it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$Builder -> it.polimi.dima.polisocial.d.h.b:
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint build() -> b
@@ -21784,11 +21799,16 @@ it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImageFro
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImageFromPostId set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage -> it.polimi.dima.polisocial.d.h.d:
+it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId -> it.polimi.dima.polisocial.d.h.d:
+    java.lang.Long postId -> postId
+    it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint this$0 -> c
+    it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$GetImagesFromPostId set(java.lang.String,java.lang.Object) -> e
+    it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest set(java.lang.String,java.lang.Object) -> f
+it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage -> it.polimi.dima.polisocial.d.h.e:
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint this$0 -> c
     it.polimi.dima.polisocial.entity.postimageendpoint.Postimageendpoint$InsertPostImage set(java.lang.String,java.lang.Object) -> e
     it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest set(java.lang.String,java.lang.Object) -> f
-it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest -> it.polimi.dima.polisocial.d.h.e:
+it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest -> it.polimi.dima.polisocial.d.h.f:
     java.lang.String alt -> alt
     java.lang.String fields -> fields
     java.lang.String key -> key
@@ -21802,7 +21822,15 @@ it.polimi.dima.polisocial.entity.postimageendpoint.PostimageendpointRequest -> i
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest setDisableGZipContent(boolean) -> b
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient getAbstractGoogleClient() -> f
     com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest set(java.lang.String,java.lang.Object) -> b
-it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage -> it.polimi.dima.polisocial.d.h.a.a:
+it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage -> it.polimi.dima.polisocial.d.h.a.a:
+    java.util.List items -> items
+    java.lang.String nextPageToken -> nextPageToken
+    java.util.List getItems() -> a
+    it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage set(java.lang.String,java.lang.Object) -> a
+    it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage clone() -> e
+    com.google.api.client.json.GenericJson clone() -> b
+    com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
+it.polimi.dima.polisocial.entity.postimageendpoint.model.PostImage -> it.polimi.dima.polisocial.d.h.a.b:
     java.lang.Long id -> id
     java.lang.String image -> image
     java.lang.Long postId -> postId
