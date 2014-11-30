@@ -133,7 +133,7 @@
     <string name="done">FATTO</string>
     <string name="title_activity_full_screen_pic">MyOwlCampus gallery mode</string>
     <string name="new_to_myowlcampus">Sei nuovo in myOwlCampus?</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search">Ricerca utenti</string>
     <string name="no_user_search">Nessun utente trovato</string>
     <string name="edit">modifica</string>
 
@@ -208,4 +208,7 @@
     <string name="second_hand_books">Libri</string>
     
     <string name="no_comment">Scrivi il primo commento!</string>
+    <string name="post_author">Autore del post</string>
+    <string name="created">creato</string>
+     <string name="available_from">Disponibile dal:</string>
 </resources>

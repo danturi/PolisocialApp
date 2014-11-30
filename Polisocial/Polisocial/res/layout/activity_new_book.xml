@@ -63,7 +63,7 @@
                     android:layout_toLeftOf="@+id/buttonIsbn"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLength="60"
                     android:maxLines="1"
                     android:padding="5dip"
@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rect_text_edit"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="5dip"
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/book_publicationDate_hint"
                     android:layout_marginBottom="10dp"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:padding="5dip"
                     android:background="@drawable/rect_text_edit" />
 

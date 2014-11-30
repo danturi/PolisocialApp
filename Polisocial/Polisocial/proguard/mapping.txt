@@ -20058,22 +20058,13 @@ it.polimi.dima.polisocial.EditProfileFieldActivity -> it.polimi.dima.polisocial.
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    void showProgress(boolean) -> a
-it.polimi.dima.polisocial.EditProfileFieldActivity$1 -> it.polimi.dima.polisocial.d:
-    it.polimi.dima.polisocial.EditProfileFieldActivity this$0 -> a
-    boolean val$show -> b
-    void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-it.polimi.dima.polisocial.EditProfileFieldActivity$2 -> it.polimi.dima.polisocial.e:
-    it.polimi.dima.polisocial.EditProfileFieldActivity this$0 -> a
-    boolean val$show -> b
-    void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
 it.polimi.dima.polisocial.ErrorGcmActivity -> it.polimi.dima.polisocial.ErrorGcmActivity:
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void onNewIntent(android.content.Intent) -> onNewIntent
     void showDialog(java.lang.String) -> a
-it.polimi.dima.polisocial.ErrorGcmActivity$1 -> it.polimi.dima.polisocial.f:
+it.polimi.dima.polisocial.ErrorGcmActivity$1 -> it.polimi.dima.polisocial.d:
     it.polimi.dima.polisocial.ErrorGcmActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 it.polimi.dima.polisocial.FullScreenPicActivity -> it.polimi.dima.polisocial.FullScreenPicActivity:
@@ -20086,19 +20077,19 @@ it.polimi.dima.polisocial.FullScreenPicActivity -> it.polimi.dima.polisocial.Ful
     void delayedHide(int) -> a
     void access$0(it.polimi.dima.polisocial.FullScreenPicActivity,int) -> a
     it.polimi.dima.polisocial.util.SystemUiHider access$1(it.polimi.dima.polisocial.FullScreenPicActivity) -> a
-it.polimi.dima.polisocial.FullScreenPicActivity$1 -> it.polimi.dima.polisocial.g:
+it.polimi.dima.polisocial.FullScreenPicActivity$1 -> it.polimi.dima.polisocial.e:
     it.polimi.dima.polisocial.FullScreenPicActivity this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-it.polimi.dima.polisocial.FullScreenPicActivity$2 -> it.polimi.dima.polisocial.h:
+it.polimi.dima.polisocial.FullScreenPicActivity$2 -> it.polimi.dima.polisocial.f:
     it.polimi.dima.polisocial.FullScreenPicActivity this$0 -> a
     void run() -> run
-it.polimi.dima.polisocial.FullScreenPicActivity$3 -> it.polimi.dima.polisocial.i:
+it.polimi.dima.polisocial.FullScreenPicActivity$3 -> it.polimi.dima.polisocial.g:
     int mControlsHeight -> a
     int mShortAnimTime -> b
     it.polimi.dima.polisocial.FullScreenPicActivity this$0 -> c
     android.view.View val$controlsView -> d
     void onVisibilityChange(boolean) -> a
-it.polimi.dima.polisocial.FullScreenPicActivity$4 -> it.polimi.dima.polisocial.j:
+it.polimi.dima.polisocial.FullScreenPicActivity$4 -> it.polimi.dima.polisocial.h:
     it.polimi.dima.polisocial.FullScreenPicActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 it.polimi.dima.polisocial.GCMActivity -> it.polimi.dima.polisocial.GCMActivity:
@@ -20114,19 +20105,19 @@ it.polimi.dima.polisocial.GCMActivity -> it.polimi.dima.polisocial.GCMActivity:
     void access$0(it.polimi.dima.polisocial.GCMActivity,java.lang.String) -> a
     void access$1(it.polimi.dima.polisocial.GCMActivity,it.polimi.dima.polisocial.GCMActivity$State) -> a
     int[] $SWITCH_TABLE$it$polimi$dima$polisocial$GCMActivity$State() -> a
-it.polimi.dima.polisocial.GCMActivity$1 -> it.polimi.dima.polisocial.k:
+it.polimi.dima.polisocial.GCMActivity$1 -> it.polimi.dima.polisocial.i:
     it.polimi.dima.polisocial.GCMActivity this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-it.polimi.dima.polisocial.GCMActivity$2 -> it.polimi.dima.polisocial.l:
+it.polimi.dima.polisocial.GCMActivity$2 -> it.polimi.dima.polisocial.j:
     it.polimi.dima.polisocial.GCMActivity this$0 -> a
     boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-it.polimi.dima.polisocial.GCMActivity$3 -> it.polimi.dima.polisocial.m:
+it.polimi.dima.polisocial.GCMActivity$3 -> it.polimi.dima.polisocial.k:
     it.polimi.dima.polisocial.GCMActivity this$0 -> a
     void initialize(com.google.api.client.http.HttpRequest) -> a
-it.polimi.dima.polisocial.GCMActivity$4 -> it.polimi.dima.polisocial.n:
+it.polimi.dima.polisocial.GCMActivity$4 -> it.polimi.dima.polisocial.l:
     it.polimi.dima.polisocial.GCMActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.GCMActivity$QueryMessagesTask -> it.polimi.dima.polisocial.o:
+it.polimi.dima.polisocial.GCMActivity$QueryMessagesTask -> it.polimi.dima.polisocial.m:
     java.lang.Exception exceptionThrown -> a
     android.app.Activity activity -> b
     it.polimi.dima.polisocial.messageEndpoint.MessageEndpoint messageEndpoint -> c
@@ -20135,7 +20126,7 @@ it.polimi.dima.polisocial.GCMActivity$QueryMessagesTask -> it.polimi.dima.poliso
     void onPostExecute(it.polimi.dima.polisocial.messageEndpoint.model.CollectionResponseMessageData) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.GCMActivity$State -> it.polimi.dima.polisocial.p:
+it.polimi.dima.polisocial.GCMActivity$State -> it.polimi.dima.polisocial.n:
     it.polimi.dima.polisocial.GCMActivity$State REGISTERED -> a
     it.polimi.dima.polisocial.GCMActivity$State REGISTERING -> b
     it.polimi.dima.polisocial.GCMActivity$State UNREGISTERED -> c
@@ -20158,20 +20149,20 @@ it.polimi.dima.polisocial.GCMIntentService -> it.polimi.dima.polisocial.GCMInten
     void sendNotificationIntent(android.content.Context,java.lang.String,boolean,boolean) -> a
     void onUnregistered(android.content.Context,java.lang.String) -> d
     void generateNotification(android.content.Context,java.lang.String) -> e
-it.polimi.dima.polisocial.GCMIntentService$1 -> it.polimi.dima.polisocial.q:
+it.polimi.dima.polisocial.GCMIntentService$1 -> it.polimi.dima.polisocial.o:
     it.polimi.dima.polisocial.GCMIntentService this$0 -> a
     void initialize(com.google.api.client.http.HttpRequest) -> a
-it.polimi.dima.polisocial.HitOnDialogFragment -> it.polimi.dima.polisocial.r:
+it.polimi.dima.polisocial.HitOnDialogFragment -> it.polimi.dima.polisocial.p:
     it.polimi.dima.polisocial.HitOnDialogFragment$HitOnDialogListener listener -> a
     it.polimi.dima.polisocial.HitOnDialogFragment newInstance(java.lang.String,java.lang.Long,java.lang.Long) -> a
     void onAttach(android.app.Activity) -> onAttach
     android.app.Dialog onCreateDialog(android.os.Bundle) -> onCreateDialog
-it.polimi.dima.polisocial.HitOnDialogFragment$1 -> it.polimi.dima.polisocial.s:
+it.polimi.dima.polisocial.HitOnDialogFragment$1 -> it.polimi.dima.polisocial.q:
     it.polimi.dima.polisocial.HitOnDialogFragment this$0 -> a
     android.widget.EditText val$input -> b
     android.os.Bundle val$bundle -> c
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.HitOnDialogFragment$HitOnDialogListener -> it.polimi.dima.polisocial.t:
+it.polimi.dima.polisocial.HitOnDialogFragment$HitOnDialogListener -> it.polimi.dima.polisocial.r:
     void onHitOnDialogPositiveClick(java.lang.String,android.os.Bundle) -> a
 it.polimi.dima.polisocial.LoginActivity -> it.polimi.dima.polisocial.LoginActivity:
     it.polimi.dima.polisocial.LoginActivity$UserLoginTask mAuthTask -> d
@@ -20212,50 +20203,50 @@ it.polimi.dima.polisocial.LoginActivity -> it.polimi.dima.polisocial.LoginActivi
     void access$5(it.polimi.dima.polisocial.LoginActivity,java.util.List) -> a
     void access$6(it.polimi.dima.polisocial.LoginActivity,it.polimi.dima.polisocial.LoginActivity$UserLoginTask) -> a
     android.widget.EditText access$7(it.polimi.dima.polisocial.LoginActivity) -> d
-it.polimi.dima.polisocial.LoginActivity$1 -> it.polimi.dima.polisocial.u:
+it.polimi.dima.polisocial.LoginActivity$1 -> it.polimi.dima.polisocial.s:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     void call(com.facebook.Session,com.facebook.SessionState,java.lang.Exception) -> call
-it.polimi.dima.polisocial.LoginActivity$2 -> it.polimi.dima.polisocial.v:
+it.polimi.dima.polisocial.LoginActivity$2 -> it.polimi.dima.polisocial.t:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     boolean onEditorAction(android.widget.TextView,int,android.view.KeyEvent) -> onEditorAction
-it.polimi.dima.polisocial.LoginActivity$3 -> it.polimi.dima.polisocial.w:
+it.polimi.dima.polisocial.LoginActivity$3 -> it.polimi.dima.polisocial.u:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.LoginActivity$4 -> it.polimi.dima.polisocial.x:
+it.polimi.dima.polisocial.LoginActivity$4 -> it.polimi.dima.polisocial.v:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     void onCompleted(com.facebook.model.GraphUser,com.facebook.Response) -> onCompleted
-it.polimi.dima.polisocial.LoginActivity$5 -> it.polimi.dima.polisocial.y:
+it.polimi.dima.polisocial.LoginActivity$5 -> it.polimi.dima.polisocial.w:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.LoginActivity$GetUserTask -> it.polimi.dima.polisocial.z:
+it.polimi.dima.polisocial.LoginActivity$GetUserTask -> it.polimi.dima.polisocial.x:
     java.lang.String fbLogin -> b
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     java.lang.Void doInBackground(java.lang.String[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.LoginActivity$InsertPoliUserFBTask -> it.polimi.dima.polisocial.aa:
+it.polimi.dima.polisocial.LoginActivity$InsertPoliUserFBTask -> it.polimi.dima.polisocial.y:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     java.lang.Void doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.LoginActivity$ProfileQuery -> it.polimi.dima.polisocial.ab:
+it.polimi.dima.polisocial.LoginActivity$ProfileQuery -> it.polimi.dima.polisocial.z:
     java.lang.String[] PROJECTION -> a
-it.polimi.dima.polisocial.LoginActivity$RegisterGCMUser -> it.polimi.dima.polisocial.ac:
+it.polimi.dima.polisocial.LoginActivity$RegisterGCMUser -> it.polimi.dima.polisocial.aa:
     java.lang.String fbLogin -> b
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     java.lang.Void doInBackground(java.lang.String[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.LoginActivity$SetupEmailAutoCompleteTask -> it.polimi.dima.polisocial.ad:
+it.polimi.dima.polisocial.LoginActivity$SetupEmailAutoCompleteTask -> it.polimi.dima.polisocial.ab:
     it.polimi.dima.polisocial.LoginActivity this$0 -> a
     java.util.List doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.util.List) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.LoginActivity$UserLoginTask -> it.polimi.dima.polisocial.ae:
+it.polimi.dima.polisocial.LoginActivity$UserLoginTask -> it.polimi.dima.polisocial.ac:
     java.lang.String mEmail -> b
     java.lang.String mPassword -> c
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser poliuser -> d
@@ -20265,7 +20256,7 @@ it.polimi.dima.polisocial.LoginActivity$UserLoginTask -> it.polimi.dima.polisoci
     void onCancelled() -> onCancelled
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.LoginActivity$searchEmailForLoginFBTask -> it.polimi.dima.polisocial.af:
+it.polimi.dima.polisocial.LoginActivity$searchEmailForLoginFBTask -> it.polimi.dima.polisocial.ad:
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser poliUserCheck -> a
     it.polimi.dima.polisocial.LoginActivity this$0 -> b
     java.lang.Boolean doInBackground(java.lang.Void[]) -> a
@@ -20284,7 +20275,7 @@ it.polimi.dima.polisocial.OAuthAccessActivity -> it.polimi.dima.polisocial.OAuth
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void toastMessage(android.content.Context,java.lang.String) -> a
     void toastError(android.content.Context,java.lang.Throwable) -> a
-it.polimi.dima.polisocial.PoliUserListFragment -> it.polimi.dima.polisocial.ag:
+it.polimi.dima.polisocial.PoliUserListFragment -> it.polimi.dima.polisocial.ae:
     android.widget.ListView mList -> i
     it.polimi.dima.polisocial.adapter.UserAdapter mAdapter -> j
     java.lang.String mCursor -> k
@@ -20317,11 +20308,11 @@ it.polimi.dima.polisocial.PoliUserListFragment -> it.polimi.dima.polisocial.ag:
     void access$8(it.polimi.dima.polisocial.PoliUserListFragment,boolean) -> b
     void access$9(it.polimi.dima.polisocial.PoliUserListFragment) -> e
     void access$10(it.polimi.dima.polisocial.PoliUserListFragment) -> f
-it.polimi.dima.polisocial.PoliUserListFragment$1 -> it.polimi.dima.polisocial.ah:
+it.polimi.dima.polisocial.PoliUserListFragment$1 -> it.polimi.dima.polisocial.af:
     it.polimi.dima.polisocial.PoliUserListFragment this$0 -> a
     boolean onQueryTextChange(java.lang.String) -> onQueryTextChange
     boolean onQueryTextSubmit(java.lang.String) -> onQueryTextSubmit
-it.polimi.dima.polisocial.PoliUserListFragment$2 -> it.polimi.dima.polisocial.ai:
+it.polimi.dima.polisocial.PoliUserListFragment$2 -> it.polimi.dima.polisocial.ag:
     it.polimi.dima.polisocial.PoliUserListFragment this$0 -> a
     void onLoadMore() -> a
 it.polimi.dima.polisocial.PreferencesActivity -> it.polimi.dima.polisocial.PreferencesActivity:
@@ -20338,7 +20329,7 @@ it.polimi.dima.polisocial.PreferencesActivity -> it.polimi.dima.polisocial.Prefe
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser access$2(it.polimi.dima.polisocial.PreferencesActivity) -> b
     java.lang.Boolean access$3(it.polimi.dima.polisocial.PreferencesActivity) -> c
     java.lang.Boolean access$4(it.polimi.dima.polisocial.PreferencesActivity) -> d
-it.polimi.dima.polisocial.PreferencesActivity$UpdateNotifyUser -> it.polimi.dima.polisocial.aj:
+it.polimi.dima.polisocial.PreferencesActivity$UpdateNotifyUser -> it.polimi.dima.polisocial.ah:
     it.polimi.dima.polisocial.PreferencesActivity this$0 -> a
     java.lang.Void doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.Void) -> a
@@ -20354,6 +20345,8 @@ it.polimi.dima.polisocial.ProfileActivity -> it.polimi.dima.polisocial.ProfileAc
     android.app.ActionBar actionBar -> L
     it.polimi.dima.polisocial.utilClasses.SessionManager session -> M
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser poliuser -> N
+    boolean editedFlag -> O
+    boolean updateOK -> P
     android.widget.ImageView profilePic1 -> n
     android.widget.TextView generalInfoText -> o
     android.widget.TextView selfSummaryLabel -> p
@@ -20372,13 +20365,14 @@ it.polimi.dima.polisocial.ProfileActivity -> it.polimi.dima.polisocial.ProfileAc
     android.widget.TextView editImReallyGoodAtButton -> C
     android.widget.TextView editFavouriteButton -> D
     android.widget.TextView editSixThingsWithoutButton -> E
-    byte[] pictureInBytes -> O
+    byte[] pictureInBytes -> Q
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void onBackPressed() -> onBackPressed
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    void showPicture() -> h
+    void saveProfile() -> g
+    void showPicture() -> i
     void showProgress(boolean) -> b
     int calculateAge(java.util.Date) -> a
     void access$0(it.polimi.dima.polisocial.ProfileActivity,it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser) -> a
@@ -20386,17 +20380,18 @@ it.polimi.dima.polisocial.ProfileActivity -> it.polimi.dima.polisocial.ProfileAc
     int access$2(it.polimi.dima.polisocial.ProfileActivity,java.util.Date) -> a
     boolean access$3(it.polimi.dima.polisocial.ProfileActivity) -> b
     android.app.ActionBar access$4(it.polimi.dima.polisocial.ProfileActivity) -> c
-    android.view.View access$5(it.polimi.dima.polisocial.ProfileActivity) -> d
-    android.view.View access$6(it.polimi.dima.polisocial.ProfileActivity) -> e
-it.polimi.dima.polisocial.ProfileActivity$1 -> it.polimi.dima.polisocial.ak:
+    void access$5(it.polimi.dima.polisocial.ProfileActivity,boolean) -> a
+    android.view.View access$6(it.polimi.dima.polisocial.ProfileActivity) -> d
+    android.view.View access$7(it.polimi.dima.polisocial.ProfileActivity) -> e
+it.polimi.dima.polisocial.ProfileActivity$1 -> it.polimi.dima.polisocial.ai:
     it.polimi.dima.polisocial.ProfileActivity this$0 -> a
     boolean val$show -> b
     void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-it.polimi.dima.polisocial.ProfileActivity$2 -> it.polimi.dima.polisocial.al:
+it.polimi.dima.polisocial.ProfileActivity$2 -> it.polimi.dima.polisocial.aj:
     it.polimi.dima.polisocial.ProfileActivity this$0 -> a
     boolean val$show -> b
     void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask -> it.polimi.dima.polisocial.am:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask -> it.polimi.dima.polisocial.ak:
     long userId -> b
     it.polimi.dima.polisocial.ProfileActivity this$0 -> a
     java.lang.Boolean doInBackground(java.lang.Void[]) -> a
@@ -20405,29 +20400,29 @@ it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask -> it.polimi.dima.
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.ProfileActivity access$2(it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask) -> a
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$1 -> it.polimi.dima.polisocial.an:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$1 -> it.polimi.dima.polisocial.al:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$2 -> it.polimi.dima.polisocial.ao:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$2 -> it.polimi.dima.polisocial.am:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$3 -> it.polimi.dima.polisocial.ap:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$3 -> it.polimi.dima.polisocial.an:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$4 -> it.polimi.dima.polisocial.aq:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$4 -> it.polimi.dima.polisocial.ao:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$5 -> it.polimi.dima.polisocial.ar:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$5 -> it.polimi.dima.polisocial.ap:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$6 -> it.polimi.dima.polisocial.as:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$6 -> it.polimi.dima.polisocial.aq:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$7 -> it.polimi.dima.polisocial.at:
+it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask$7 -> it.polimi.dima.polisocial.ar:
     it.polimi.dima.polisocial.ProfileActivity$RetrieveProfileTask this$1 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ProfileActivity$UpdateProfilePictureTask -> it.polimi.dima.polisocial.au:
+it.polimi.dima.polisocial.ProfileActivity$UpdateProfileTask -> it.polimi.dima.polisocial.as:
     java.lang.String mPicture -> b
     it.polimi.dima.polisocial.ProfileActivity this$0 -> a
     java.lang.Boolean doInBackground(java.lang.Void[]) -> a
@@ -20463,20 +20458,20 @@ it.polimi.dima.polisocial.RegistrationActivity -> it.polimi.dima.polisocial.Regi
     void access$6(it.polimi.dima.polisocial.RegistrationActivity,it.polimi.dima.polisocial.RegistrationActivity$UserLoginTask) -> a
     it.polimi.dima.polisocial.utilClasses.SessionManager access$7(it.polimi.dima.polisocial.RegistrationActivity) -> f
     android.widget.EditText access$8(it.polimi.dima.polisocial.RegistrationActivity) -> g
-it.polimi.dima.polisocial.RegistrationActivity$1 -> it.polimi.dima.polisocial.av:
+it.polimi.dima.polisocial.RegistrationActivity$1 -> it.polimi.dima.polisocial.at:
     it.polimi.dima.polisocial.RegistrationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.RegistrationActivity$2 -> it.polimi.dima.polisocial.aw:
+it.polimi.dima.polisocial.RegistrationActivity$2 -> it.polimi.dima.polisocial.au:
     it.polimi.dima.polisocial.RegistrationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
     it.polimi.dima.polisocial.RegistrationActivity access$0(it.polimi.dima.polisocial.RegistrationActivity$2) -> a
-it.polimi.dima.polisocial.RegistrationActivity$2$1 -> it.polimi.dima.polisocial.ax:
+it.polimi.dima.polisocial.RegistrationActivity$2$1 -> it.polimi.dima.polisocial.av:
     it.polimi.dima.polisocial.RegistrationActivity$2 this$1 -> a
     void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
-it.polimi.dima.polisocial.RegistrationActivity$3 -> it.polimi.dima.polisocial.ay:
+it.polimi.dima.polisocial.RegistrationActivity$3 -> it.polimi.dima.polisocial.aw:
     it.polimi.dima.polisocial.RegistrationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.RegistrationActivity$UserLoginTask -> it.polimi.dima.polisocial.az:
+it.polimi.dima.polisocial.RegistrationActivity$UserLoginTask -> it.polimi.dima.polisocial.ax:
     java.lang.String mEmail -> c
     java.lang.String mPassword -> d
     java.lang.String nickname -> e
@@ -20487,7 +20482,7 @@ it.polimi.dima.polisocial.RegistrationActivity$UserLoginTask -> it.polimi.dima.p
     void onCancelled() -> onCancelled
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.RegistrationActivity$UserRegisterTask -> it.polimi.dima.polisocial.ba:
+it.polimi.dima.polisocial.RegistrationActivity$UserRegisterTask -> it.polimi.dima.polisocial.ay:
     java.lang.String mEmail -> c
     java.lang.String mPassword -> d
     java.lang.String mUsername -> e
@@ -20506,26 +20501,35 @@ it.polimi.dima.polisocial.SearchActivity -> it.polimi.dima.polisocial.SearchActi
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
 it.polimi.dima.polisocial.ShowRelatedCommentsActivity -> it.polimi.dima.polisocial.ShowRelatedCommentsActivity:
-    me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout -> v
-    it.polimi.dima.polisocial.adapter.CommentAdapter mAdapter -> w
-    long postId -> x
-    java.lang.String whatToShow -> y
-    java.lang.String postType -> z
-    android.widget.ListView mList -> A
-    android.view.View mProgressView -> B
-    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> C
-    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint endpoint -> D
-    android.view.View bottomControlBar -> E
-    android.view.View header -> F
-    java.lang.String mCursor -> G
-    android.widget.TextView headerTitle -> n
-    android.widget.TextView headerTimestamp -> o
-    android.widget.TextView headerText -> p
-    android.widget.ImageView headerProfilePic -> q
-    android.widget.ImageView headerPostImage -> r
-    android.widget.TextView headerLocation -> s
-    android.widget.TextView headerBeginningDate -> t
-    android.widget.LinearLayout rentalGallery -> u
+    me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout -> o
+    it.polimi.dima.polisocial.adapter.CommentAdapter mAdapter -> p
+    long postId -> q
+    java.lang.String whatToShow -> r
+    java.lang.String postType -> s
+    android.widget.ListView mList -> t
+    android.view.View mProgressView -> u
+    it.polimi.dima.polisocial.utilClasses.SessionManager sessionManager -> v
+    it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint endpoint -> w
+    android.view.View bottomControlBar -> x
+    android.view.View header -> y
+    java.lang.String mCursor -> z
+    android.widget.TextView headerTitle -> A
+    android.widget.TextView headerTimestamp -> B
+    android.widget.TextView headerText -> C
+    android.widget.ImageView headerProfilePic -> D
+    android.widget.ImageView headerPostImage -> E
+    android.widget.TextView headerLocation -> F
+    android.widget.TextView headerBeginningDate -> G
+    android.widget.TextView headerPrice -> H
+    android.widget.TextView headerAuthor -> I
+    android.widget.TextView headerPublisher -> J
+    android.widget.TextView headerPubYear -> K
+    android.widget.TextView headerIsbnCode -> L
+    android.widget.TextView headerTypeRentAndSqm -> M
+    android.widget.TextView headerAvailableFrom -> N
+    android.widget.TextView headerContact -> O
+    java.lang.Long postAuthor -> P
+    android.widget.LinearLayout rentalGallery -> n
     void onCreate(android.os.Bundle) -> onCreate
     android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
     void onLoadFinished(android.support.v4.content.Loader,java.util.List) -> a
@@ -20543,11 +20547,12 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity -> it.polimi.dima.polisoci
     android.widget.ListView access$5(it.polimi.dima.polisocial.ShowRelatedCommentsActivity) -> e
     void access$6(it.polimi.dima.polisocial.ShowRelatedCommentsActivity,it.polimi.dima.polisocial.entity.commentendpoint.Commentendpoint) -> a
     long access$7(it.polimi.dima.polisocial.ShowRelatedCommentsActivity) -> f
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$1 -> it.polimi.dima.polisocial.bb:
+    android.widget.ImageView access$8(it.polimi.dima.polisocial.ShowRelatedCommentsActivity) -> g
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$1 -> it.polimi.dima.polisocial.az:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     android.widget.TextView val$commentText -> d
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2 -> it.polimi.dima.polisocial.bc:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2 -> it.polimi.dima.polisocial.ba:
     java.lang.String s -> b
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     java.lang.Boolean doInBackground(java.lang.Object[]) -> a
@@ -20555,11 +20560,11 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2 -> it.polimi.dima.poliso
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity access$2(it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2) -> a
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2$1 -> it.polimi.dima.polisocial.bd:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2$1 -> it.polimi.dima.polisocial.bb:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity$2 this$1 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3 -> it.polimi.dima.polisocial.be:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3 -> it.polimi.dima.polisocial.bc:
     java.lang.String s -> b
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     java.lang.Boolean doInBackground(java.lang.Object[]) -> a
@@ -20567,15 +20572,15 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3 -> it.polimi.dima.poliso
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity access$2(it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3) -> a
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3$1 -> it.polimi.dima.polisocial.bf:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3$1 -> it.polimi.dima.polisocial.bd:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity$3 this$1 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$4 -> it.polimi.dima.polisocial.bg:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$4 -> it.polimi.dima.polisocial.be:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     byte[] val$byteArrayImage -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.polimi.dima.polisocial.bh:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.polimi.dima.polisocial.bf:
     java.lang.Long postId -> a
     it.polimi.dima.polisocial.entity.commentendpoint.model.Comment comment -> b
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> c
@@ -20583,20 +20588,20 @@ it.polimi.dima.polisocial.ShowRelatedCommentsActivity$InsertCommentTask -> it.po
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$RetrieveRentalPhotoTask -> it.polimi.dima.polisocial.bi:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$RetrieveRentalPhotoTask -> it.polimi.dima.polisocial.bg:
     it.polimi.dima.polisocial.entity.postimageendpoint.model.CollectionResponsePostImage arrayPostImage -> a
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> b
     java.lang.Boolean doInBackground(java.lang.Long[]) -> a
     void onPostExecute(java.lang.Boolean) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.ShowRelatedCommentsActivity$SendNotificationTask -> it.polimi.dima.polisocial.bj:
+it.polimi.dima.polisocial.ShowRelatedCommentsActivity$SendNotificationTask -> it.polimi.dima.polisocial.bh:
     it.polimi.dima.polisocial.ShowRelatedCommentsActivity this$0 -> a
     java.lang.Void doInBackground(it.polimi.dima.polisocial.entity.commentendpoint.model.Comment[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.bk:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.bi:
     java.lang.String faculty -> a
     java.util.ArrayList faculty_list -> d
     it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener mListener -> b
@@ -20604,13 +20609,13 @@ it.polimi.dima.polisocial.SingleChoiceDialogFragm -> it.polimi.dima.polisocial.b
     void onAttach(android.app.Activity) -> onAttach
     android.app.Dialog onCreateDialog(android.os.Bundle) -> onCreateDialog
     java.util.ArrayList access$0(it.polimi.dima.polisocial.SingleChoiceDialogFragm) -> a
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$1 -> it.polimi.dima.polisocial.bl:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$1 -> it.polimi.dima.polisocial.bj:
     it.polimi.dima.polisocial.SingleChoiceDialogFragm this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$2 -> it.polimi.dima.polisocial.bm:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$2 -> it.polimi.dima.polisocial.bk:
     it.polimi.dima.polisocial.SingleChoiceDialogFragm this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener -> it.polimi.dima.polisocial.bn:
+it.polimi.dima.polisocial.SingleChoiceDialogFragm$FacultyDialogListener -> it.polimi.dima.polisocial.bl:
     void onFacultyDialogPositiveClick(java.lang.String) -> b_
 it.polimi.dima.polisocial.adapter.CommentAdapter -> it.polimi.dima.polisocial.a.a:
     int VIEW_ONLY_COMMENTS -> a
@@ -20618,7 +20623,9 @@ it.polimi.dima.polisocial.adapter.CommentAdapter -> it.polimi.dima.polisocial.a.
     android.view.LayoutInflater mInflater -> c
     android.content.Context context -> d
     java.lang.String postType -> e
+    java.lang.Long spottedPostAuthorId -> f
     void setData(java.util.List) -> a
+    void setData(java.util.List,java.lang.Long) -> a
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
@@ -20753,7 +20760,10 @@ it.polimi.dima.polisocial.adapter.NotificationAdapter -> it.polimi.dima.polisoci
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 it.polimi.dima.polisocial.adapter.RentalAdapter -> it.polimi.dima.polisocial.a.x:
     android.view.LayoutInflater mInflater -> a
+    int GREEN_BG -> b
+    int GREY_BG -> c
     void setData(java.util.List) -> a
+    int getItemViewType(int) -> getItemViewType
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 it.polimi.dima.polisocial.adapter.RentalAdapter$RentalViewHolder -> it.polimi.dima.polisocial.a.y:
     android.widget.TextView title -> a
@@ -21128,14 +21138,18 @@ it.polimi.dima.polisocial.customListeners.IdButtonTextViewIntegerParameterOnClic
     android.widget.TextView number -> d
     java.lang.Integer numOf -> e
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener -> it.polimi.dima.polisocial.b.e:
+it.polimi.dima.polisocial.customListeners.IdIdParameterOnClickListener -> it.polimi.dima.polisocial.b.e:
+    long id -> b
+    long postAuthor -> c
+    void onClick(android.view.View) -> onClick
+it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener -> it.polimi.dima.polisocial.b.f:
     long id -> b
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.customListeners.IdTextParametersOnClickListener -> it.polimi.dima.polisocial.b.f:
+it.polimi.dima.polisocial.customListeners.IdTextParametersOnClickListener -> it.polimi.dima.polisocial.b.g:
     long id -> b
     android.widget.TextView comment -> c
     void onClick(android.view.View) -> onClick
-it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener -> it.polimi.dima.polisocial.b.g:
+it.polimi.dima.polisocial.customListeners.StringStringParametersOnClickListener -> it.polimi.dima.polisocial.b.h:
     java.lang.String fieldType -> b
     android.widget.TextView comment -> c
     void onClick(android.view.View) -> onClick
@@ -21718,26 +21732,30 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser -> it.polimi.di
     java.lang.String getFaculty() -> f
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFaculty(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text getFavoriteBooksMoviesShowsMusic() -> h
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFavoriteBooksMoviesShowsMusic(it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text) -> a
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFbaccount(java.lang.String) -> c
     java.lang.Boolean getHaveNotify() -> i
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setHaveNotify(java.lang.Boolean) -> a
     java.lang.String getImReallyGoodAt() -> j
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setImReallyGoodAt(java.lang.String) -> d
     java.lang.String getNickname() -> k
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNickname(java.lang.String) -> d
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNickname(java.lang.String) -> e
     java.lang.Boolean getNotifyAnnouncement() -> l
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyAnnouncement(java.lang.Boolean) -> b
     java.lang.Boolean getNotifyEvent() -> m
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifyEvent(java.lang.Boolean) -> c
     java.lang.Boolean getNotifySpotted() -> n
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setNotifySpotted(java.lang.Boolean) -> d
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPassword(java.lang.String) -> e
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPassword(java.lang.String) -> f
     java.lang.String getProfilePicture1() -> o
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture1(java.lang.String) -> f
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture1(java.lang.String) -> g
     java.lang.String getSelfSummary() -> p
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSelfSummary(java.lang.String) -> g
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSelfSummary(java.lang.String) -> h
     java.lang.String getSixThingsWithout() -> q
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSixThingsWithout(java.lang.String) -> i
     java.lang.Long getUserId() -> r
     java.lang.String getWhatImDoingWithMyLife() -> s
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setWhatImDoingWithMyLife(java.lang.String) -> j
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser set(java.lang.String,java.lang.Object) -> a
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser clone() -> t
     com.google.api.client.json.GenericJson clone() -> b
@@ -21752,8 +21770,10 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject -> it.pol
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text -> it.polimi.dima.polisocial.d.g.a.e:
     java.lang.String value -> value
+    java.lang.String getValue() -> a
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text setValue(java.lang.String) -> a
     it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text clone() -> a
+    it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text clone() -> e
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.User -> it.polimi.dima.polisocial.d.g.a.f:
@@ -22003,26 +22023,29 @@ it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental -> it.polimi.dima.p
     java.lang.Long userId -> userId
     java.lang.String getAddress() -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setAddress(java.lang.String) -> a
+    com.google.api.client.util.DateTime getAvailability() -> e
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setAvailability(com.google.api.client.util.DateTime) -> a
+    java.lang.String getContact() -> f
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setContact(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setHavePicture(java.lang.Boolean) -> a
-    java.lang.Long getId() -> e
-    java.lang.Double getLatitude() -> f
-    java.lang.Double getLongitude() -> h
+    java.lang.Long getId() -> h
+    java.lang.Double getLatitude() -> i
+    java.lang.Double getLongitude() -> j
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setNumOfComments(java.lang.Integer) -> a
-    java.lang.Double getPrice() -> i
+    java.lang.Double getPrice() -> k
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setPrice(java.lang.Double) -> a
-    java.lang.Integer getSquaredMeter() -> j
+    java.lang.Integer getSquaredMeter() -> l
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setSquaredMeter(java.lang.Integer) -> b
+    java.lang.String getText() -> m
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setText(java.lang.String) -> c
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setTimestamp(com.google.api.client.util.DateTime) -> b
-    java.lang.String getTitle() -> k
+    java.lang.String getTitle() -> n
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setTitle(java.lang.String) -> d
-    java.lang.String getType() -> l
+    java.lang.String getType() -> o
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setType(java.lang.String) -> e
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setUserId(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental clone() -> m
+    it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental clone() -> p
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint -> it.polimi.dima.polisocial.d.k.a:
@@ -22117,22 +22140,23 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook -> 
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setFaculty(java.lang.String) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setHavePicture(java.lang.Boolean) -> a
     java.lang.Long getId() -> e
+    java.lang.String getIsbn() -> f
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setIsbn(java.lang.String) -> b
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setNumOfComments(java.lang.Integer) -> a
-    java.lang.Double getPrice() -> f
+    java.lang.Double getPrice() -> h
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPrice(java.lang.Double) -> a
-    java.lang.Integer getPublishedDate() -> h
+    java.lang.Integer getPublishedDate() -> i
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPublishedDate(java.lang.Integer) -> b
-    java.lang.String getPublisher() -> i
+    java.lang.String getPublisher() -> j
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setPublisher(java.lang.String) -> c
-    java.lang.String getText() -> j
+    java.lang.String getText() -> k
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setText(java.lang.String) -> d
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setTimestamp(com.google.api.client.util.DateTime) -> a
-    java.lang.String getTitle() -> k
+    java.lang.String getTitle() -> l
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setTitle(java.lang.String) -> e
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setUserId(java.lang.Long) -> a
     it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook set(java.lang.String,java.lang.Object) -> a
-    it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook clone() -> l
+    it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook clone() -> m
     com.google.api.client.json.GenericJson clone() -> b
     com.google.api.client.json.GenericJson set(java.lang.String,java.lang.Object) -> b
 it.polimi.dima.polisocial.foursquare.foursquareendpoint.Foursquareendpoint -> it.polimi.dima.polisocial.e.a.a:
@@ -22998,7 +23022,7 @@ me.imid.swipebacklayout.lib.app.SwipeBackActivity -> me.imid.swipebacklayout.lib
     void onCreate(android.os.Bundle) -> onCreate
     void onPostCreate(android.os.Bundle) -> onPostCreate
     android.view.View findViewById(int) -> findViewById
-    me.imid.swipebacklayout.lib.SwipeBackLayout getSwipeBackLayout() -> g
+    me.imid.swipebacklayout.lib.SwipeBackLayout getSwipeBackLayout() -> h
 me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper -> me.imid.swipebacklayout.lib.a.b:
     android.app.Activity mActivity -> a
     me.imid.swipebacklayout.lib.SwipeBackLayout mSwipeBackLayout -> b

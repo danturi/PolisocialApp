@@ -59,7 +59,7 @@ public class ProfileActivity extends SwipeBackActivity {
 	private SessionManager session;
 	private PoliUser poliuser;
 	private boolean editedFlag = false;
-	private boolean updateOK= false;
+	private boolean updateOK = false;
 
 	ImageView profilePic1;
 	TextView generalInfoText;
@@ -162,6 +162,10 @@ public class ProfileActivity extends SwipeBackActivity {
 			startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
 			return true;
 		}
+
+		if (id == R.id.save_profile) {
+			saveProfile();
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -209,7 +213,7 @@ public class ProfileActivity extends SwipeBackActivity {
 						.setValue(newFieldString));
 			}
 			if (fieldType.equals(ProfileFieldType.IM_REALLY_GOOD_AT.toString())) {
-				imReallyGoodAtText.setText(data.getStringExtra("newFieldText"));
+				imReallyGoodAtText.setText(newFieldString);
 				findViewById(R.id.im_really_good_at_panel).setVisibility(
 						View.VISIBLE);
 				poliuser.setImReallyGoodAt(newFieldString);
@@ -230,31 +234,22 @@ public class ProfileActivity extends SwipeBackActivity {
 		}
 
 	}
-	
-	//salva profilo utente
-	public void saveProfile(){
+
+	// salva profilo utente
+	public void saveProfile() {
 		showProgress(true);
-		// before closing the activity, update all the poliuser's fields only if user changed something
+		// before closing the activity, update all the poliuser's fields only if
+		// user changed something
 		if (editedFlag) {
 			try {
 				new UpdateProfileTask(pictureInBytes).execute();
 			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 				e.printStackTrace();
-				updateOK=false;
-			}
-			//se va a buon fine chiudi...se no resta aperto
-			if(updateOK){
-				showProgress(false);
-				editedFlag=false;
 				
-			}else {
-				showProgress(false);
-				Toast.makeText(getApplicationContext(), "Error updating your profile.Retry!", Toast.LENGTH_SHORT).show();
 			}
-		}else {
-			showProgress(false);
-			
+
 		}
+
 	}
 
 	private void showPicture() {
@@ -376,7 +371,8 @@ public class ProfileActivity extends SwipeBackActivity {
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
-								.getFavoriteBooksMoviesShowsMusic().getValue().toString());
+								.getFavoriteBooksMoviesShowsMusic().getValue()
+								.toString());
 					}
 					if (poliuser.getSixThingsWithout() != null) {
 						sixThingsWithoutText.setText(poliuser
@@ -511,7 +507,8 @@ public class ProfileActivity extends SwipeBackActivity {
 					}
 					if (poliuser.getFavoriteBooksMoviesShowsMusic() != null) {
 						favoriteText.setText(poliuser
-								.getFavoriteBooksMoviesShowsMusic().getValue().toString());
+								.getFavoriteBooksMoviesShowsMusic().getValue()
+								.toString());
 					} else {
 						findViewById(R.id.favorite_panel).setVisibility(
 								View.GONE);
@@ -604,9 +601,16 @@ public class ProfileActivity extends SwipeBackActivity {
 		protected void onPostExecute(Boolean result) {
 			showProgress(false);
 			if (result) {
-				updateOK=true;
+				showProgress(false);
+				Toast.makeText(getApplicationContext(),
+						"You have update your profile!",
+						Toast.LENGTH_SHORT).show();
 			} else {
-				updateOK=false;
+				showProgress(false);
+				Toast.makeText(getApplicationContext(),
+						"Error updating your profile.Retry!",
+						Toast.LENGTH_SHORT).show();
+				editedFlag = false;
 			}
 
 		}

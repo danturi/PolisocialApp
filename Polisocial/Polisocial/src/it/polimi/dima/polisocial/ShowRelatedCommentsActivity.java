@@ -66,13 +66,23 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	private View header;
 	private String mCursor = null;
 
-	TextView headerTitle;
-	TextView headerTimestamp;
-	TextView headerText;
-	ImageView headerProfilePic;
-	ImageView headerPostImage;
-	TextView headerLocation;
-	TextView headerBeginningDate;
+	private TextView headerTitle;
+	private TextView headerTimestamp;
+	private TextView headerText;
+	private ImageView headerProfilePic;
+	private ImageView headerPostImage;
+	private TextView headerLocation;
+	private TextView headerBeginningDate;
+	private TextView headerPrice;
+	private TextView headerAuthor;
+	private TextView headerPublisher;
+	private TextView headerPubYear;
+	private TextView headerIsbnCode;
+	private TextView headerTypeRentAndSqm;
+	private TextView headerAvailableFrom;
+	private TextView headerContact;
+
+	private Long postAuthor;
 
 	LinearLayout rentalGallery;
 
@@ -90,11 +100,12 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 		sessionManager = new SessionManager(getApplicationContext());
 		mSwipeBackLayout = getSwipeBackLayout();
-		mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_ALL);
+		mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_BOTTOM);
 		mList = (ListView) findViewById(R.id.comment_list);
 		mProgressView = findViewById(R.id.progress);
 
 		postId = getIntent().getLongExtra("postId", 0);
+		postAuthor = getIntent().getLongExtra("postAuthor", 0);
 		whatToShow = getIntent().getStringExtra("notificationCategory");
 		postType = getIntent().getStringExtra("type");
 
@@ -166,6 +177,15 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 						R.layout.book_notification_header, null);
 
 				headerTitle = (TextView) header.findViewById(R.id.title);
+				headerPrice = (TextView) header.findViewById(R.id.price);
+				headerAuthor = (TextView) header.findViewById(R.id.authors);
+				headerText = (TextView) header.findViewById(R.id.condition);
+				headerPublisher = (TextView) header
+						.findViewById(R.id.publisher);
+				headerPubYear = (TextView) header
+						.findViewById(R.id.publication_year);
+				headerIsbnCode = (TextView) header.findViewById(R.id.isbn_code);
+
 			} else if (postType.equals(PostType.PRIVATE_LESSON.toString())) {
 
 				// TODO set-up header for lesson
@@ -179,9 +199,15 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 						.findViewById(R.id.rental_gallery);
 
 				headerTitle = (TextView) header.findViewById(R.id.title);
-
-				// TODO set-up header for rental
-
+				headerPrice = (TextView) header.findViewById(R.id.price);
+				headerLocation = (TextView) header.findViewById(R.id.address);
+				headerAvailableFrom = (TextView) header
+						.findViewById(R.id.available_from);
+				headerTypeRentAndSqm = (TextView) header
+						.findViewById(R.id.type_and_sqmeters);
+				headerContact = (TextView) header.findViewById(R.id.contact);
+				headerText = (TextView) header
+						.findViewById(R.id.description);
 			}
 			mList.addHeaderView(header);
 
@@ -237,7 +263,11 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 
 			}
 
-			mAdapter.setData(data);
+			if (postType.equals(PostType.SPOTTED.toString())) {
+				mAdapter.setData(data, postAuthor);
+			} else {
+				mAdapter.setData(data);
+			}
 		} else {
 			TextView t = (TextView) findViewById(R.id.no_comment);
 			t.setVisibility(View.VISIBLE);
@@ -248,13 +278,42 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	private void fillUpBookHeader(SecondHandBook item) {
 		// TODO Auto-generated method stub
 		headerTitle.setText(item.getTitle());
+		headerText.setText(item.getText());
+
+		headerPrice.setText(item.getPrice().toString() + " €");
+		String authors = item.getAuthorsBook().toString();
+		headerAuthor.setText(authors.substring(1, authors.length() - 1));
+		if (item.getText() != null)
+			headerText.setText("\"" + item.getText() + "\"");
+		else
+			headerText.setVisibility(View.GONE);
+		if (item.getPublisher() != null)
+			headerPublisher.setText(item.getPublisher());
+		else
+			headerPublisher.setVisibility(View.GONE);
+		if (item.getPublishedDate() != null)
+			headerPubYear.setText(item.getPublishedDate().toString());
+		else
+			headerPubYear.setVisibility(View.GONE);
+		if (item.getIsbn() != null)
+			headerIsbnCode.setText(item.getIsbn());
+		else
+			headerIsbnCode.setVisibility(View.GONE);
 	}
 
 	private void fillUpRentalHeader(Rental item) {
 		// TODO Auto-generated method stub
-		headerTitle.setText(item.getTitle());
-
 		new RetrieveRentalPhotoTask().execute(item.getId());
+
+		headerTitle.setText(item.getTitle());
+		headerLocation.setText(item.getAddress());
+		headerTypeRentAndSqm.setText(item.getType() + "        "
+				+ item.getSquaredMeter() + " mq");
+		headerAvailableFrom.setText(this.getResources().getString(R.string.available_from) +"  "+ item.getAvailability().toString().substring(0, 10));
+		if (item.getText() != null)
+			headerText.setText("\"" + item.getText() + "\"");
+		headerContact.setText(this.getResources().getString(R.string.contact)+ "  "+ item.getContact());
+		headerPrice.setText(item.getPrice().toString() + " €");
 	}
 
 	@Override
@@ -349,7 +408,6 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	}
 
 	private void fillUpSpottedHeader(PostSpotted item) {
-
 		headerTitle.setText(item.getTitle());
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
@@ -509,7 +567,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(item
 				.getTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
-		headerTimestamp.setText("created " + timeAgo);
+		headerTimestamp.setText(this.getResources().getString(R.string.created)
+				+ " " + timeAgo);
 		headerText.setText(item.getText());
 
 	}
@@ -517,7 +576,8 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 	View insertPhoto(List<PostImage> list) {
 
 		LinearLayout layout = new LinearLayout(getApplicationContext());
-		layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+		layout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
 		layout.setHorizontalScrollBarEnabled(true);
 		layout.setGravity(Gravity.CENTER);
 
@@ -528,23 +588,23 @@ public class ShowRelatedCommentsActivity<D> extends SwipeBackActivity implements
 			imageView.setClickable(true);
 
 			final byte[] byteArrayImage = Base64.decode(img.getImage(),
-					Base64.DEFAULT);;
+					Base64.DEFAULT);
+			;
 
 			imageView.setImageBitmap(BitmapFactory.decodeByteArray(
 					byteArrayImage, 0, byteArrayImage.length));
 			layout.addView(imageView);
-			
+
 			imageView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					Intent showFullScreenPicIntent = new Intent(
-							getBaseContext(),
-							FullScreenPicActivity.class);
-					showFullScreenPicIntent.putExtra(
-							"picInByte", byteArrayImage);
+							getBaseContext(), FullScreenPicActivity.class);
+					showFullScreenPicIntent.putExtra("picInByte",
+							byteArrayImage);
 					startActivity(showFullScreenPicIntent);
-					
+
 				}
 			});
 		}

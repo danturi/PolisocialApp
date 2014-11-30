@@ -61,7 +61,9 @@ public class SecondHandBookAdapter extends EndlessListAdapter<SecondHandBook> {
 		if (getItemViewType(position) != VIEW_LOADING) {
 			SecondHandBook item = getItem(position);
 			holder.title.setText(item.getTitle());
-			holder.authorNames.setText(item.getAuthorsBook().toString());
+			
+			String authors = item.getAuthorsBook().toString();
+			holder.authorNames.setText((authors.substring(1, authors.length()-1)));
 			if (item.getText()==null) {
 				holder.condition.setText("Description not available");
 			} else {

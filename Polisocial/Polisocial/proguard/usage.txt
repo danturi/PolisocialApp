@@ -8847,6 +8847,10 @@ it.polimi.dima.polisocial.CloudEndpointUtils:
     109:121:public static void logAndShow(android.app.Activity,java.lang.String,java.lang.Throwable)
     132:140:public static void showError(android.app.Activity,java.lang.String)
 it.polimi.dima.polisocial.CloudEndpointUtils$2
+it.polimi.dima.polisocial.EditProfileFieldActivity:
+    88:118:public void showProgress(boolean)
+it.polimi.dima.polisocial.EditProfileFieldActivity$1
+it.polimi.dima.polisocial.EditProfileFieldActivity$2
 it.polimi.dima.polisocial.EditProfileFieldActivity$StoreNewProfileFieldContentTask
 it.polimi.dima.polisocial.FullScreenPicActivity:
     private static final boolean AUTO_HIDE
@@ -8874,6 +8878,7 @@ it.polimi.dima.polisocial.PreferencesActivity:
     48:52:public static void WriteBoolean(android.content.Context,java.lang.String,boolean)
 it.polimi.dima.polisocial.ProfileActivity:
     private static final int RESULT_LOAD_PICTURE
+    private static final int EDIT_PROFILE
 it.polimi.dima.polisocial.R
 it.polimi.dima.polisocial.R$anim
 it.polimi.dima.polisocial.R$array
@@ -8892,7 +8897,7 @@ it.polimi.dima.polisocial.R$styleable
 it.polimi.dima.polisocial.RegistrationActivity:
     443:489:private int calculateAge(java.util.Date)
 it.polimi.dima.polisocial.ShowRelatedCommentsActivity:
-    195:196:private void loadData()
+    221:222:private void loadData()
 it.polimi.dima.polisocial.adapter.CommentAdapter$CommentViewHolder:
     public int type
 it.polimi.dima.polisocial.adapter.EndlessListAdapter:
@@ -9809,11 +9814,9 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber:
     44:44:public java.lang.String getNumber()
     51:52:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber setNumber(java.lang.String)
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser:
-    222:223:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setFavoriteBooksMoviesShowsMusic(it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text)
     230:230:public java.lang.String getFbaccount()
     260:260:public java.lang.Integer getHeight()
     267:268:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setHeight(java.lang.Integer)
-    282:283:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setImReallyGoodAt(java.lang.String)
     350:350:public java.lang.String getPassword()
     365:365:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber getPhoneNumber()
     372:373:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setPhoneNumber(it.polimi.dima.polisocial.entity.poliuserendpoint.model.PhoneNumber)
@@ -9823,20 +9826,15 @@ it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser:
     435:435:public byte[] decodeProfilePicture2()
     443:444:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setProfilePicture2(java.lang.String)
     458:459:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser encodeProfilePicture2(byte[])
-    488:489:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setSixThingsWithout(java.lang.String)
     496:496:public java.lang.String getTokenFsq()
     503:504:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setTokenFsq(java.lang.String)
     511:511:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.User getUserGoogleAccount()
     518:519:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserGoogleAccount(it.polimi.dima.polisocial.entity.poliuserendpoint.model.User)
     533:534:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setUserId(java.lang.Long)
-    548:549:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.PoliUser setWhatImDoingWithMyLife(java.lang.String)
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject:
     50:50:public java.lang.String getException()
     57:58:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject setException(java.lang.String)
     72:73:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject setObject(java.lang.Object)
-it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text:
-    44:44:public java.lang.String getValue()
-    51:52:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.Text setValue(java.lang.String)
 it.polimi.dima.polisocial.entity.poliuserendpoint.model.User:
     68:68:public java.lang.String getAuthDomain()
     75:76:public it.polimi.dima.polisocial.entity.poliuserendpoint.model.User setAuthDomain(java.lang.String)
@@ -10185,14 +10183,11 @@ it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental:
     71:71:public java.lang.String getNextPageToken()
     78:79:public it.polimi.dima.polisocial.entity.rentalendpoint.model.CollectionResponseRental setNextPageToken(java.lang.String)
 it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental:
-    143:143:public com.google.api.client.util.DateTime getAvailability()
-    158:158:public java.lang.String getContact()
     173:173:public java.lang.Boolean getHavePicture()
     195:196:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setId(java.lang.Long)
     210:211:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLatitude(java.lang.Double)
     225:226:public it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental setLongitude(java.lang.Double)
     233:233:public java.lang.Integer getNumOfComments()
-    278:278:public java.lang.String getText()
     293:293:public com.google.api.client.util.DateTime getTimestamp()
     338:338:public java.lang.Long getUserId()
 it.polimi.dima.polisocial.entity.secondhandbookendpoint.Secondhandbookendpoint:
@@ -10347,7 +10342,6 @@ it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook:
     132:132:public java.lang.String getFaculty()
     147:147:public java.lang.Boolean getHavePicture()
     169:170:public it.polimi.dima.polisocial.entity.secondhandbookendpoint.model.SecondHandBook setId(java.lang.Long)
-    177:177:public java.lang.String getIsbn()
     192:192:public java.lang.Integer getNumOfComments()
     267:267:public com.google.api.client.util.DateTime getTimestamp()
     297:297:public java.lang.Long getUserId()

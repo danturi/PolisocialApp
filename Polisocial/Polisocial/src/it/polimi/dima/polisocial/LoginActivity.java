@@ -9,6 +9,7 @@ import it.polimi.dima.polisocial.utilClasses.ShowProgress;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,10 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -38,6 +43,8 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -91,7 +98,6 @@ import com.google.api.client.util.DateTime;
 		setContentView(R.layout.activity_login);
 		getActionBar().setIcon(R.drawable.logo_login);
 		sessionManager = new SessionManager(getApplicationContext());
-		
 		
 		
 		//controllo se già loggato

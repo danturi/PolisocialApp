@@ -7,6 +7,7 @@ import it.polimi.dima.polisocial.R;
 import it.polimi.dima.polisocial.ShowRelatedCommentsActivity;
 import it.polimi.dima.polisocial.customListeners.BitmapParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdButtonTextViewIntegerParameterOnClickListener;
+import it.polimi.dima.polisocial.customListeners.IdIdParameterOnClickListener;
 import it.polimi.dima.polisocial.customListeners.IdParameterOnClickListener;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.Dislikeendpoint;
 import it.polimi.dima.polisocial.entity.dislikeendpoint.model.DisLike;
@@ -145,14 +146,15 @@ public class SpottedPostAdapter extends EndlessListAdapter<PostSpotted> {
 			PostSpotted item = getItem(position);
 
 			holder.numbOfComments
-					.setOnClickListener(new IdParameterOnClickListener(item
-							.getId()) {
+					.setOnClickListener(new IdIdParameterOnClickListener(item
+							.getId(), item.getUserId()) {
 
 						@Override
 						public void onClick(View v) {
 							Intent showRelativeCommentsIntent = new Intent(
 									context, ShowRelatedCommentsActivity.class);
 							showRelativeCommentsIntent.putExtra("postId", id);
+							showRelativeCommentsIntent.putExtra("postAuthor", postAuthor);
 							showRelativeCommentsIntent.putExtra("type",
 									PostType.SPOTTED.toString());
 							showRelativeCommentsIntent.putExtra(

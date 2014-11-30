@@ -2,24 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:padding="10dp" >
 
     <RelativeLayout
         android:id="@+id/body"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="@dimen/book_search_left_margin"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp" >
+        android:layout_marginRight="5dp" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/type_and_square_meters"
@@ -33,27 +33,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/type_and_square_meters"
-            android:textStyle="italic"
+            android:maxLines="1"
             android:textColor="@android:color/darker_gray"
-            android:maxLines="1"  />
+            android:textStyle="italic" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottom_control_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/book_search_left_margin" >
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/book_search_left_margin"
+        android:layout_marginTop="18dp"
+        android:gravity="center" >
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="1.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="2.0"
+            android:text="13"
+            android:textColor="#909090"
+            android:textSize="17dp"
+            android:textStyle="bold" />         
+        </RelativeLayout>
 
 </RelativeLayout>

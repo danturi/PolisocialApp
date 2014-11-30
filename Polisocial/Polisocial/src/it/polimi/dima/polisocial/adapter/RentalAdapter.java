@@ -1,11 +1,13 @@
 package it.polimi.dima.polisocial.adapter;
 
 import it.polimi.dima.polisocial.R;
+import it.polimi.dima.polisocial.entity.postspottedendpoint.model.PostSpotted;
 import it.polimi.dima.polisocial.entity.rentalendpoint.model.Rental;
 
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 public class RentalAdapter extends ArrayAdapter<Rental> {
 
 	protected LayoutInflater mInflater;
+	private int GREEN_BG = 0;
+	private int GREY_BG = 1;
 
 	public RentalAdapter(Context context, int resource) {
 		super(context, resource);
@@ -32,9 +36,20 @@ public class RentalAdapter extends ArrayAdapter<Rental> {
 	}
 
 	@Override
+	public int getItemViewType(int position) {
+		if (position % 2 == 0) {
+			return GREEN_BG;
+			}else
+				return GREY_BG;
+	}
+	
+	
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
 		View view = convertView;
 		final RentalViewHolder holder;
+		
 
 		if (view == null) {
 			holder = new RentalViewHolder();
@@ -49,6 +64,13 @@ public class RentalAdapter extends ArrayAdapter<Rental> {
 		} else {
 			holder = (RentalViewHolder) view.getTag();
 		}
+
+		if (getItemViewType(position)==GREEN_BG) {
+		    view.setBackgroundColor(getContext().getResources().getColor(R.color.light_green));  
+		}else{
+			view.setBackgroundResource(0);
+		}
+		
 		
 		Rental item = getItem(position);
 		

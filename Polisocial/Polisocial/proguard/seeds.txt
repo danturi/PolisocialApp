@@ -6866,6 +6866,7 @@ it.polimi.dima.polisocial.R$color: int common_signin_btn_light_text_focused
 it.polimi.dima.polisocial.R$color: int common_signin_btn_light_text_pressed
 it.polimi.dima.polisocial.R$color: int common_signin_btn_text_dark
 it.polimi.dima.polisocial.R$color: int common_signin_btn_text_light
+it.polimi.dima.polisocial.R$color: int light_green
 it.polimi.dima.polisocial.R$color: int link
 it.polimi.dima.polisocial.R$color: int post_bg
 it.polimi.dima.polisocial.R$color: int post_button_background
@@ -7290,6 +7291,7 @@ it.polimi.dima.polisocial.R$id: int always
 it.polimi.dima.polisocial.R$id: int author_names
 it.polimi.dima.polisocial.R$id: int authors
 it.polimi.dima.polisocial.R$id: int autocomplete
+it.polimi.dima.polisocial.R$id: int available_from
 it.polimi.dima.polisocial.R$id: int bar1
 it.polimi.dima.polisocial.R$id: int bar2
 it.polimi.dima.polisocial.R$id: int beginning
@@ -7348,6 +7350,7 @@ it.polimi.dima.polisocial.R$id: int comment
 it.polimi.dima.polisocial.R$id: int comment_list
 it.polimi.dima.polisocial.R$id: int condition
 it.polimi.dima.polisocial.R$id: int confirm_password
+it.polimi.dima.polisocial.R$id: int contact
 it.polimi.dima.polisocial.R$id: int container
 it.polimi.dima.polisocial.R$id: int dateBirth
 it.polimi.dima.polisocial.R$id: int datePanel
@@ -7387,6 +7390,7 @@ it.polimi.dima.polisocial.R$id: int favorite_text
 it.polimi.dima.polisocial.R$id: int frame
 it.polimi.dima.polisocial.R$id: int full_screenImage
 it.polimi.dima.polisocial.R$id: int fullscreen_content_controls
+it.polimi.dima.polisocial.R$id: int gallery
 it.polimi.dima.polisocial.R$id: int general_info_label
 it.polimi.dima.polisocial.R$id: int general_info_panel
 it.polimi.dima.polisocial.R$id: int general_info_text
@@ -7413,6 +7417,7 @@ it.polimi.dima.polisocial.R$id: int imageContactButton
 it.polimi.dima.polisocial.R$id: int imageDisLikeButton
 it.polimi.dima.polisocial.R$id: int imageLikeButton
 it.polimi.dima.polisocial.R$id: int isbn
+it.polimi.dima.polisocial.R$id: int isbn_code
 it.polimi.dima.polisocial.R$id: int isbn_panel
 it.polimi.dima.polisocial.R$id: int large
 it.polimi.dima.polisocial.R$id: int left
@@ -7473,6 +7478,7 @@ it.polimi.dima.polisocial.R$id: int progress_horizontal
 it.polimi.dima.polisocial.R$id: int progress_isbn
 it.polimi.dima.polisocial.R$id: int progress_rental
 it.polimi.dima.polisocial.R$id: int publication_date
+it.polimi.dima.polisocial.R$id: int publication_year
 it.polimi.dima.polisocial.R$id: int publisher
 it.polimi.dima.polisocial.R$id: int radio
 it.polimi.dima.polisocial.R$id: int regButton
@@ -7502,6 +7508,7 @@ it.polimi.dima.polisocial.R$id: int results
 it.polimi.dima.polisocial.R$id: int right
 it.polimi.dima.polisocial.R$id: int sandbox
 it.polimi.dima.polisocial.R$id: int satellite
+it.polimi.dima.polisocial.R$id: int save_profile
 it.polimi.dima.polisocial.R$id: int search
 it.polimi.dima.polisocial.R$id: int search_badge
 it.polimi.dima.polisocial.R$id: int search_bar
@@ -7551,6 +7558,7 @@ it.polimi.dima.polisocial.R$id: int title
 it.polimi.dima.polisocial.R$id: int titleLocationPanel
 it.polimi.dima.polisocial.R$id: int top_action_bar
 it.polimi.dima.polisocial.R$id: int tvMessage
+it.polimi.dima.polisocial.R$id: int type_and_sqmeters
 it.polimi.dima.polisocial.R$id: int type_and_square_meters
 it.polimi.dima.polisocial.R$id: int up
 it.polimi.dima.polisocial.R$id: int useLogo
@@ -7706,6 +7714,7 @@ it.polimi.dima.polisocial.R$string: int app_id
 it.polimi.dima.polisocial.R$string: int app_name
 it.polimi.dima.polisocial.R$string: int app_not_installed_message
 it.polimi.dima.polisocial.R$string: int autocomplete_hint
+it.polimi.dima.polisocial.R$string: int available_from
 it.polimi.dima.polisocial.R$string: int book_authors
 it.polimi.dima.polisocial.R$string: int book_authors_hint
 it.polimi.dima.polisocial.R$string: int book_authors_hint2
@@ -7789,6 +7798,7 @@ it.polimi.dima.polisocial.R$string: int connected_to_foursquare
 it.polimi.dima.polisocial.R$string: int contact
 it.polimi.dima.polisocial.R$string: int create_calendar_message
 it.polimi.dima.polisocial.R$string: int create_calendar_title
+it.polimi.dima.polisocial.R$string: int created
 it.polimi.dima.polisocial.R$string: int decline
 it.polimi.dima.polisocial.R$string: int demo_collection
 it.polimi.dima.polisocial.R$string: int demo_external_activity
@@ -7797,6 +7807,7 @@ it.polimi.dima.polisocial.R$string: int desc_post_image
 it.polimi.dima.polisocial.R$string: int desc_profile_pic
 it.polimi.dima.polisocial.R$string: int dislike
 it.polimi.dima.polisocial.R$string: int dislikes
+it.polimi.dima.polisocial.R$string: int done
 it.polimi.dima.polisocial.R$string: int dummy_button
 it.polimi.dima.polisocial.R$string: int dummy_section_text
 it.polimi.dima.polisocial.R$string: int edit
@@ -7857,6 +7868,7 @@ it.polimi.dima.polisocial.R$string: int notification_text_comment_received_part
 it.polimi.dima.polisocial.R$string: int notification_text_hit_received_part
 it.polimi.dima.polisocial.R$string: int notification_text_introduction_part
 it.polimi.dima.polisocial.R$string: int notification_text_section_part
+it.polimi.dima.polisocial.R$string: int post_author
 it.polimi.dima.polisocial.R$string: int post_category
 it.polimi.dima.polisocial.R$string: int post_content_hint
 it.polimi.dima.polisocial.R$string: int post_post

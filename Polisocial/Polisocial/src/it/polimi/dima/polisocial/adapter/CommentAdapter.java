@@ -8,6 +8,7 @@ import it.polimi.dima.polisocial.entity.commentendpoint.model.Comment;
 import it.polimi.dima.polisocial.entity.hitonendpoint.model.HitOn;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.Poliuserendpoint;
 import it.polimi.dima.polisocial.entity.poliuserendpoint.model.ResponseObject;
+import it.polimi.dima.polisocial.entity.rentalendpoint.Rentalendpoint.GetRental;
 import it.polimi.dima.polisocial.utilClasses.PostType;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	private final LayoutInflater mInflater;
 	private Context context;
 	private String postType;
+	private Long spottedPostAuthorId=(long) 0;
 
 	public CommentAdapter(Context context, String postType) {
 		super(context, 0);
@@ -55,6 +57,17 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 		}
 	}
 
+	public void setData(List<Object> data,Long spottedPostAuthorId) {
+		this.spottedPostAuthorId = spottedPostAuthorId; 
+		clear();
+		if (data != null) {
+			for (Object appEntry : data) {
+				add(appEntry);
+			}
+		}
+	}
+	
+	
 	@Override
 	public int getItemViewType(int position) {
 		if(!postType.equals(PostType.HIT_ON.toString())){ 
@@ -141,37 +154,46 @@ public class CommentAdapter extends ArrayAdapter<Object> {
 	private void setUpCommentRow(int position, CommentViewHolder holder) {
 		Comment commentItem;
 		commentItem = (Comment) getItem(position);
+		
+		if((Long.valueOf(commentItem.getAuthorId()).compareTo(spottedPostAuthorId))==0 && postType.equals(PostType.SPOTTED.toString())){
+			holder.name.setText(getContext().getResources().getString(R.string.post_author));
+			holder.profilePic.setImageResource(R.drawable.no_picture_pic);
+		}else{
+			holder.name.setText(commentItem.getAuthorName());
+			holder.name.setOnClickListener(new IdParameterOnClickListener(
+					commentItem.getAuthorId()) {
+				@Override
+				public void onClick(View v) {
+					Intent showProfileIntent = new Intent(context,
+							ProfileActivity.class);
+					showProfileIntent.putExtra("userToRetrieveId", id);
+					context.startActivity(showProfileIntent);
+				}
+			});
+			
+			holder.profilePic.setOnClickListener(new IdParameterOnClickListener(
+					commentItem.getAuthorId()) {
+				@Override
+				public void onClick(View v) {
+					Intent showProfileIntent = new Intent(context,
+							ProfileActivity.class);
+					showProfileIntent.putExtra("userToRetrieveId", id);
+					context.startActivity(showProfileIntent);
+				}
+			});
+			// retrieve profile pic with asynctask
+			new RetrieveCommentProfilePicTask(holder.profilePic,
+					commentItem.getAuthorId()).execute();
+			
+		}
 
-		holder.name.setText(commentItem.getAuthorName());
-		holder.name.setOnClickListener(new IdParameterOnClickListener(
-				commentItem.getAuthorId()) {
-			@Override
-			public void onClick(View v) {
-				Intent showProfileIntent = new Intent(context,
-						ProfileActivity.class);
-				showProfileIntent.putExtra("userToRetrieveId", id);
-				context.startActivity(showProfileIntent);
-			}
-		});
 		// Converting timestamp into time ago format
 		CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(commentItem
 				.getCommentTimestamp().getValue(), System.currentTimeMillis(),
 				DateUtils.SECOND_IN_MILLIS);
 		holder.timestamp.setText(timeAgo);
 		holder.statusMsg.setText(commentItem.getText());
-		holder.profilePic.setOnClickListener(new IdParameterOnClickListener(
-				commentItem.getAuthorId()) {
-			@Override
-			public void onClick(View v) {
-				Intent showProfileIntent = new Intent(context,
-						ProfileActivity.class);
-				showProfileIntent.putExtra("userToRetrieveId", id);
-				context.startActivity(showProfileIntent);
-			}
-		});
-		// retrieve profile pic with asynctask
-		new RetrieveCommentProfilePicTask(holder.profilePic,
-				commentItem.getAuthorId()).execute();
+		
 	}
 
 
